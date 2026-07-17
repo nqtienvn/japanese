@@ -30,12 +30,15 @@ Trong template này, kiểm chứng “SMART cho tài liệu” gồm sáu thu�
 
 Một requirement/feature lấy mẫu phải đạt cả sáu thuộc tính. Không tính điểm trung bình để che một tiêu chí Fail.
 
+Các cụm `bảo mật mạnh nhất`, `an toàn tuyệt đối`, `làm lâu quá`, `dễ thay thế`, `không ảnh hưởng module khác`, `best practice` và `clean architecture` không được dùng làm requirement/acceptance nếu thiếu subject, phạm vi, metric, verification và exception boundary.
+
 ### Atomicity và singularity
 
 - Mỗi requirement normative chỉ chứa **một obligation** có thể verify độc lập.
 - Không nối hai hành vi độc lập bằng `và`, `hoặc`, dấu chấm phẩy hoặc danh sách ngầm. Tách thành hai ID và liên kết dependency nếu cần.
 - `và` chỉ được dùng bên trong một outcome không thể tách mà không làm mất nghĩa; reviewer phải ghi rationale.
 - Không trộn requirement, rationale, design solution và test procedure trong cùng một câu normative.
+- SRS mô tả hệ thống **phải làm gì** và constraint có nguồn; SAD/ERD/API/EDS mô tả **thiết kế như thế nào**. Không chuyển architecture/database/API design vào SRS chỉ để “hoàn tất phân tích”.
 
 Ví dụ Fail:
 

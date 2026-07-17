@@ -33,6 +33,7 @@
 - Cung cấp dữ liệu mẫu hợp pháp, domain knowledge, access và dependency cần thiết.
 - Review baseline, prototype, UAT và release/handover theo lịch.
 - Không gửi secret/dữ liệu thật qua kênh không an toàn.
+- Thực hiện decision/access/manual/approval/sign-off nhỏ nhất khi có assistance request hợp lệ; không mặc định nhận lại toàn bộ work item từ AI Vendor.
 
 ## 6. Trách nhiệm Vendor
 
@@ -69,6 +70,8 @@ Mọi thay đổi tác động deliverable, deadline, cost, SLA, security hoặc
 ## 11. Bảo mật và tính bí mật
 
 - Kênh trao đổi tài liệu/secret được phép: {{APPROVED_CHANNELS}}
+- Human-assistance trigger/timebox tailoring: {{ASSISTANCE_POLICY}}
+- Security Profile/risk appetite: {{SECURITY_PROFILE_RISK}}
 - Quyền truy cập theo least privilege, có expiry/revocation: {{ACCESS_POLICY}}
 - Incident/breach notification: {{NOTIFICATION_PROCESS_SLA}}
 - Các điều khoản pháp lý chi tiết phải nằm trong hợp đồng/DPA/NDA đã được người có thẩm quyền review.

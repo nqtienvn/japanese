@@ -56,16 +56,16 @@ Dùng sau khi outcome/scope đã đủ rõ hoặc dùng evidence để pre-fill 
 41. `Q-E041` Permission matrix và default-deny áp dụng ở lớp nào?
 42. `Q-E042` Privileged action nào cần step-up auth hoặc dual control?
 43. `Q-E043` Secret/key/certificate được lưu, rotate và audit bằng gì?
-44. `Q-E044` Threat actors, abuse case và crown-jewel assets là gì?
+44. `Q-E044` Security Profile nào phù hợp, threat actors/abuse case/crown-jewel assets và risk appetite là gì?
 45. `Q-E045` Input validation, output encoding, CSRF/CORS/CSP/file scan yêu cầu gì?
-46. `Q-E046` Dependency/container/SAST/DAST scan target và severity gate là gì?
+46. `Q-E046` Theo Security Profile, dependency/container/SAST/DAST/pentest nào áp dụng và severity gate là gì?
 47. `Q-E047` Security logging cần gì nhưng không được lộ dữ liệu nào?
 48. `Q-E048` Vulnerability disclosure, patch SLA và security contact là ai?
 
 ## E. Privacy, compliance và governance dữ liệu (Q-E049–Q-E060)
 
 49. `Q-E049` Dữ liệu nào là personal, sensitive, financial, health hoặc confidential?
-50. `Q-E050` Legal basis/purpose cho từng hoạt động xử lý là gì?
+50. `Q-E050` GDPR/CCPA/law nào thật sự applicable và legal basis/purpose cho từng hoạt động xử lý là gì?
 51. `Q-E051` Data minimization: trường nào thật sự cần và trường nào có thể bỏ?
 52. `Q-E052` Consent/notice/version/withdrawal được ghi nhận thế nào?
 53. `Q-E053` Retention và deletion schedule theo loại dữ liệu là gì?
@@ -99,7 +99,7 @@ Dùng sau khi outcome/scope đã đủ rõ hoặc dùng evidence để pre-fill 
 75. `Q-E075` Local setup cần bao lâu và dependency nào khó mô phỏng?
 76. `Q-E076` Formatting/lint/type/static-analysis gate nào bắt buộc?
 77. `Q-E077` Unit/integration/contract/E2E test pyramid target là gì?
-78. `Q-E078` Coverage metric/ngưỡng nào hữu ích theo rủi ro?
+78. `Q-E078` Line/branch/function và requirement/risk coverage nào hữu ích theo layer, tool, exclusion và rủi ro?
 79. `Q-E079` Flaky test được phát hiện, quarantine và sửa theo SLA nào?
 80. `Q-E080` Test environment và test data isolation được đảm bảo thế nào?
 81. `Q-E081` Contract compatibility giữa client/service được kiểm tra bằng gì?

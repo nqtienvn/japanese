@@ -31,6 +31,8 @@
 - [ ] Người nhận tự deploy/smoke/monitor ở môi trường được phép.
 - [ ] Developer/Ops newcomer và Tester derivation field tests đạt; blocking clarification đã chuyển thành finding và retest.
 - [ ] Standards alignment/tailoring và document quality audit có sign-off, không tuyên bố certification sai.
+- [ ] Security Profile, threat model, security tests/scans/pentest applicability và residual-risk decisions đã transfer; không còn Critical mở.
+- [ ] Human-assistance history ghi rõ decision/manual evidence và phần đã được AI verify/resume; không để thao tác vô chủ.
 - [ ] Backup/restore hoặc rollback path được diễn tập phù hợp.
 - [ ] Top incident/support scenarios được đi qua.
 

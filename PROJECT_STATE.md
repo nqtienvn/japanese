@@ -7,6 +7,8 @@
 | Current gate | Not evaluated |
 | Discovery coverage | 0 / applicable questions |
 | Baseline approval | Pending |
+| Security Profile | AUTO / STANDARD / HIGH / CRITICAL |
+| Security gate | Not evaluated |
 | Last verified | {{DATE}} |
 | Next action | {{NEXT_ACTION}} |
 
@@ -32,11 +34,11 @@ Trạng thái hợp lệ: `Not Started`, `In Progress`, `Blocked`, `Gate Review`
 | :--- | :--- | :--- | :--- | :--- |
 | {{DATE}} | Audit / Build / Test / Review | {{EVIDENCE}} | {{RESULT}} | {{REQUIREMENT_IDS}} |
 
-## Blocker và escalation
+## Blocker, assistance và escalation
 
-| ID | Mô tả | Đã thử | Owner cần phản hồi | Trạng thái |
-| :--- | :--- | :--- | :--- | :--- |
-| BLK-001 | {{BLOCKER}} | {{ATTEMPTS}} | {{OWNER}} | Open |
+| ID | Trigger/mô tả | Evidence và phương án đã thử | Smallest human action/output | Owner/due | AI tiếp tục gì | Trạng thái |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| BLK/HUM-001 | {{TRIGGER_BLOCKER}} | {{EVIDENCE_ATTEMPTS}} | {{MIN_ACTION_OUTPUT}} | {{OWNER_DATE}} | {{CONTINUING_WORK}} | Open |
 
 ## Rủi ro tồn dư
 

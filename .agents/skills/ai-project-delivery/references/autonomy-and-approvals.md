@@ -6,7 +6,8 @@
 2. Được tự làm
 3. Phải xin phê duyệt
 4. Xử lý thiếu thông tin
-5. Dừng và bàn giao
+5. Yêu cầu con người hỗ trợ
+6. Dừng và bàn giao
 
 ## 1. Chế độ tự động
 
@@ -37,7 +38,7 @@ Nếu chưa chọn, mặc định `STANDARD`. Ghi mode vào `PROJECT_PROFILE.md`
 - Thay đổi authentication/authorization, mã hóa, retention hoặc compliance theo hướng giảm bảo vệ.
 - Truy cập/xuất dữ liệu nhạy cảm ngoài phạm vi, dùng credential người dùng hoặc secret chưa được cấp an toàn.
 - Thay đổi mục tiêu, deadline, scope, UX chủ đạo hoặc SLA theo cách ảnh hưởng stakeholder.
-- Chấp nhận rủi ro High/Critical, bỏ qua test bắt buộc hoặc bàn giao với lỗi blocking.
+- Chấp nhận High residual risk, bỏ qua test bắt buộc hoặc bàn giao với lỗi blocking. Critical security risk không được chấp nhận để release.
 
 ## 4. Xử lý thiếu thông tin
 
@@ -47,6 +48,14 @@ Nếu chưa chọn, mặc định `STANDARD`. Ghi mode vào `PROJECT_PROFILE.md`
 4. Nếu stakeholder chọn `Unknown`, gắn owner/hạn và đánh giá phase gate.
 5. Không giả định sự đồng ý cho hành động approval-only.
 
-## 5. Dừng và bàn giao
+## 5. Yêu cầu con người hỗ trợ
+
+- Không chuyển việc cho Client chỉ vì khó, nhiều bước hoặc lâu.
+- Chỉ yêu cầu hỗ trợ theo `00-Governance-Policy/HUMAN_AI_COLLABORATION_PROTOCOL.md`: material decision, access/credential, manual/physical action, approval-only, professional sign-off hoặc cùng blocker sau ít nhất 3 phương án khác nhau không có evidence mới.
+- Trước khi hỏi, ghi assistance ID/trigger, evidence, attempts, exact blocker, impact, thao tác nhỏ nhất, output cần trả lại, owner/due và phần AI vẫn tiếp tục được.
+- Không yêu cầu secret value qua chat; chỉ yêu cầu owner cấu hình qua kênh an toàn và trả lại reference/status.
+- Verify kết quả con người cung cấp, cập nhật state/decision/RTM rồi tự động resume.
+
+## 6. Dừng và bàn giao
 
 Khi bị chặn, nêu chính xác điều thiếu, bằng chứng đã kiểm tra, các phương án và tác động. Khi hoàn tất, nêu deliverables, test/build evidence, residual risks, open items, vận hành/rollback và nơi chứa artifact.

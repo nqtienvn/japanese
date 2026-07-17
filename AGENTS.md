@@ -13,9 +13,11 @@ Các hướng dẫn này áp dụng cho toàn bộ repository.
 7. Sau khi người dùng chốt baseline discovery, tự động thực hiện các công việc local, có thể đảo ngược và nằm trong phạm vi. Chỉ dừng ở các điểm cần phê duyệt được định nghĩa trong skill.
 8. Luôn cập nhật `PROJECT_STATE.md`, `01-Planning/DISCOVERY_LOG.md` và `02-Requirements/TRACEABILITY_MATRIX.md` trong suốt quá trình.
 9. Chỉ bàn giao khi code, kiểm thử, tài liệu vận hành, rollback, rủi ro tồn dư và ownership đều rõ ràng.
-10. Đọc và tuân thủ `00-Governance-Policy/DOCUMENT_QUALITY_STANDARD.md` cùng `STANDARDS_ALIGNMENT_MATRIX.md`; không tuyên bố ISO certified/conformant khi chưa có đánh giá độc lập.
+10. Đọc và tuân thủ `00-Governance-Policy/DOCUMENT_QUALITY_STANDARD.md`, `SECURITY_AND_PRIVACY_STANDARD.md`, `HUMAN_AI_COLLABORATION_PROTOCOL.md` cùng `STANDARDS_ALIGNMENT_MATRIX.md`; không tuyên bố ISO certified/conformant khi chưa có đánh giá độc lập.
 11. Mỗi requirement normative phải atomic, dùng đúng `PHẢI/SHALL`, `NÊN/SHOULD`, `CÓ THỂ/MAY`, có ID và expected result kiểm thử được.
 12. Trước gate 06/08, phải hoàn thành document quality sample, Test RTM và field-validation evidence; câu hỏi blocking của Developer/Tester được coi là finding của tài liệu.
+13. Không chuyển việc cho con người chỉ vì khó hoặc lâu; chỉ yêu cầu assistance theo trigger/evidence trong Human–AI Collaboration Protocol và phải tự tiếp tục sau khi blocker được giải quyết.
+14. Security requirement phải theo Security Profile, threat model và test evidence; cấm dùng “bảo mật mạnh nhất/an toàn tuyệt đối” làm acceptance criterion.
 
 ## Giao tiếp với stakeholder
 

@@ -1,5 +1,13 @@
 # Threat Model — {{PROJECT_NAME}}
 
+| Field | Value |
+| :--- | :--- |
+| Security Profile | STANDARD / HIGH / CRITICAL |
+| System/release scope | {{SCOPE_VERSION}} |
+| Method/references | STRIDE/abuse cases + OWASP Top 10:2025 awareness + project-specific threats |
+| Risk scale/appetite | {{LIKELIHOOD_IMPACT_METHOD}} / {{APPETITE}} |
+| Owner/review date | {{SECURITY_OWNER}} / {{DATE}} |
+
 ## Scope và assets
 
 | Asset | Value/sensitivity | Owner | Worst impact |
@@ -21,10 +29,21 @@
 ## Privacy review
 
 - Purpose/minimization: {{REVIEW}}
-- Consent/legal basis: {{REVIEW}}
+- Regulatory applicability and legal basis (consent is not assumed): {{REVIEW}}
 - Retention/delete/export: {{REVIEW}}
 - Vendor/cross-border: {{REVIEW}}
 - Logging/audit/redaction: {{REVIEW}}
+
+## Security Profile verification plan
+
+| Control/test | Apply / Tailor / N/A | Evidence target | Owner | Due |
+| :--- | :--- | :--- | :--- | :--- |
+| SAST / secret scan / dependency-SCA | {{DECISION}} | {{EVIDENCE}} | {{OWNER}} | {{DATE}} |
+| DAST / API / container / config scan | {{DECISION}} | {{EVIDENCE}} | {{OWNER}} | {{DATE}} |
+| Authorization / abuse / recovery tests | {{DECISION}} | {{EVIDENCE}} | {{OWNER}} | {{DATE}} |
+| Independent review / penetration test | {{DECISION}} | {{SCOPE_ROE_EVIDENCE}} | {{OWNER}} | {{DATE}} |
+
+Critical risk không được để mở khi release. High acceptance phải có mitigation, owner, expiry, retest và đúng Security/Client authority.
 
 ## Sign-off
 

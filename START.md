@@ -18,6 +18,7 @@ Sao chép toàn bộ khối dưới đây:
 
 PROJECT_MODE = GREENFIELD.
 AUTONOMY_MODE = STANDARD.
+SECURITY_PROFILE = AUTO.
 
 Ý tưởng ban đầu của tôi:
 [Tôi muốn xây dựng phần mềm gì?]
@@ -48,6 +49,7 @@ Trước khi gửi prompt, nên commit/backup code và ghi nhận branch, HEAD c
 
 PROJECT_MODE = BROWNFIELD.
 AUTONOMY_MODE = STANDARD.
+SECURITY_PROFILE = AUTO.
 
 Mục tiêu tiếp quản:
 [Phần mềm này cần được hoàn thiện, sửa chữa hoặc phát triển tiếp như thế nào?]

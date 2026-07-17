@@ -22,11 +22,14 @@ Ghi lệnh thực tế và kết quả vào work item/test report. Không chạy
 ## 3. Implementation rules
 
 - Validate input tại trust boundary; enforce authorization server-side.
+- Dùng parameter binding/prepared statement hoặc ORM chứng minh parameterization; dynamic database identifier phải allowlist.
 - Thiết kế error contract ổn định; retry/idempotency theo EDS.
 - Không log secret/token/password/PII không cần thiết.
 - Thêm telemetry cho journey/failure trọng yếu.
 - Giữ compatibility hoặc ghi breaking change/migration/release plan.
 - Test business rule, negative path và regression cùng thay đổi.
+- Áp dụng SOLID/DRY/KISS/YAGNI/Clean Architecture theo context; ưu tiên correctness, convention và evidence thay vì ép pattern.
+- Thực hiện thay đổi trong repository, cập nhật test/docs/RTM và báo path/evidence; không chỉ trả snippet nếu engagement yêu cầu delivery thực tế.
 
 ## 4. Review and merge readiness
 

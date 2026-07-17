@@ -18,6 +18,8 @@ Chuyển requirements thành thiết kế đủ để code và verify: system co
 
 - [ ] Requirement Critical/Must có design link.
 - [ ] Boundary, contract, data/state/failure/security/observability đủ rõ.
+- [ ] Security Profile/control mapping, threat/regulatory applicability và security verification plan đã review.
+- [ ] UI applicable có design system, responsive/accessibility và prototype evidence cho journey High/Critical; tool decision có rationale.
 - [ ] ERD/cardinality/data dictionary và API request/response/error/permission traceable tới requirement/test.
 - [ ] ADR cho quyết định khó đảo ngược hoặc ảnh hưởng cost/NFR/lock-in.
-- [ ] Review finding High/Critical đã đóng hoặc có accepted risk.
+- [ ] Critical security risk đã được xử lý; High có mitigation/owner/expiry hoặc gate Fail/Conditional đúng policy.

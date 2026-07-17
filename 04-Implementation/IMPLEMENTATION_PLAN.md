@@ -33,9 +33,19 @@ flowchart LR
 | Runtime/dependencies | Ready / Blocked | {{OWNER}} | {{DATE}} | {{FALLBACK}} |
 | Test data/access | Ready / Blocked | {{OWNER}} | {{DATE}} | {{FALLBACK}} |
 
+### Human/manual/approval dependencies
+
+| Assistance ID/trigger | Smallest human action | Evidence/output required | AI work continuing | Owner/due |
+| :--- | :--- | :--- | :--- | :--- |
+| HUM-XXX | {{ACTION}} | {{REFERENCE_NOT_SECRET_VALUE}} | {{CONTINUING_WORK}} | {{OWNER_DATE}} |
+
+Không giao toàn bộ work item cho Client nếu chỉ thiếu access, quyết định hoặc bước thủ công nhỏ. Assistance tuân thủ `../00-Governance-Policy/HUMAN_AI_COLLABORATION_PROTOCOL.md`.
+
 ## 5. Quality plan
 
 - Required checks: build / format / lint / type / static / dependency/security.
+- Security Profile/checks: {{PROFILE_AND_REQUIRED_CHECKS}}
+- Coverage targets theo layer/risk/tool/exclusion: {{COVERAGE_TAILORING}}
 - Test layers: {{TEST_PLAN}}
 - NFR verification: {{NFR_PLAN}}
 - Review/approvers: {{REVIEWERS}}

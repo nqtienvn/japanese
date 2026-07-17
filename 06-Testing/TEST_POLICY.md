@@ -35,10 +35,22 @@
 
 Unit, component, integration, contract, system/E2E, regression, UAT; functional, security, performance, reliability/recovery, usability/accessibility, compatibility, migration/data quality và static review tùy risk.
 
+### Coverage policy
+
+- Coverage percentage là diagnostic signal, không thay thế requirement/risk coverage hoặc assertion quality.
+- Line/branch/function threshold phải được tailoring theo layer, criticality, tool, generated-code exclusion và failure impact.
+- Không áp `≥ 90%` cho toàn codebase nếu thiếu rationale; Critical business/security behavior luôn cần test evidence dù tỷ lệ tổng đã đạt.
+
+### Security verification policy
+
+- Chọn test/scan/review theo `SECURITY_AND_PRIVACY_STANDARD.md` và Security Profile.
+- Penetration test cần scope, Rules of Engagement, authorization, environment, data handling và remediation owner.
+- Không release với Critical security risk/vulnerability mở; High acceptance phải time-bound và đúng authority.
+
 ## Defect and evidence policy
 
 - Unique `DEF-XXX`, severity theo impact thực tế, priority theo business decision.
-- Critical/High defect hoặc security/data risk chặn release trừ khi đúng owner chấp nhận bằng văn bản.
+- Critical/High defect hoặc data/operational risk chặn release trừ khi exception đúng quyền; Critical security risk/vulnerability không được chấp nhận để release, High phải time-bound theo Security Standard.
 - Failed/blocked/skipped test giữ lịch sử; `Skipped` cần reason/approver.
 - Evidence không chứa secret/PII không cần thiết và có retention/owner.
 

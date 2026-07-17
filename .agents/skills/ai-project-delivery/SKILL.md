@@ -10,7 +10,7 @@ Operate as the Delivery Vendor's coordinated BA, product manager, architect, eng
 ## Start every engagement
 
 1. Locate the project root and read its `AGENTS.md`, `PROJECT_STATE.md`, and `PROJECT_PROFILE.md` when present.
-2. Read `00-Governance-Policy/DOCUMENT_QUALITY_STANDARD.md` and `00-Governance-Policy/STANDARDS_ALIGNMENT_MATRIX.md`; treat them as mandatory quality controls, with project tailoring recorded explicitly.
+2. Read `00-Governance-Policy/DOCUMENT_QUALITY_STANDARD.md`, `SECURITY_AND_PRIVACY_STANDARD.md`, `HUMAN_AI_COLLABORATION_PROTOCOL.md`, and `STANDARDS_ALIGNMENT_MATRIX.md`; treat them as mandatory controls, with project tailoring recorded explicitly.
 3. Classify the engagement:
    - `GREENFIELD`: idea or empty/new repository.
    - `BROWNFIELD`: working code, partial documents, or an interrupted delivery.
@@ -60,7 +60,7 @@ For each phase:
 1. Confirm inputs and relevant decisions.
 2. Fill required artifacts; remove instructional examples that are no longer needed.
 3. Link requirements to design, work items, code, tests, release evidence, and handover using stable IDs.
-4. Enforce atomic `SHALL/PHẢI` requirements, measurable NFRs, canonical terminology, explicit external interfaces, and the three-layer test documentation model.
+4. Enforce atomic `SHALL/PHẢI` requirements, measurable NFRs, canonical terminology, explicit external interfaces, the selected Security Profile, and the three-layer test documentation model.
 5. Run proportionate verification and capture commands/results.
 6. Evaluate the phase gate objectively.
 7. Update `PROJECT_STATE.md`, `02-Requirements/TRACEABILITY_MATRIX.md`, and `06-Testing/TEST_TRACEABILITY_MATRIX.md` when applicable.
@@ -75,7 +75,7 @@ Do not claim a gate passed without evidence. Do not mark an item complete merely
 - Make reversible, local, in-scope choices when evidence is sufficient.
 - Keep the application runnable; verify changes in proportion to risk.
 - Maintain `04-Implementation/CHANGELOG.md`, `05-Development/TECH_DEBT_REGISTER.md`, test evidence, and the traceability matrix.
-- Pause only for approval-only actions, a material product choice that cannot be inferred, unavailable credentials/data, or a repeated hard blocker.
+- Do not offload work merely because it is difficult or slow. Request the smallest human action only for a documented assistance trigger, including a material decision, unavailable access/manual action, approval/sign-off, or the same blocker after at least three materially different approaches without new evidence; verify the result and resume automatically.
 - Never silently deploy to production, purchase services, change billing, migrate/destruct production data, publish externally, or weaken security.
 
 ## Continue an unfinished codebase
@@ -90,10 +90,11 @@ Before declaring completion:
 
 1. Run `scripts/validate_delivery.ps1` when PowerShell is available.
 2. Verify every in-scope requirement has implementation and test evidence or an accepted exception.
-3. Complete `DOCUMENT_QUALITY_AUDIT.md` using 2–3 risk-stratified complex features and resolve every blocking quality finding.
-4. Complete Developer/Ops newcomer, Tester derivation, and cross-functional peer-review evidence in `FIELD_VALIDATION_REPORT.md`.
-5. Fill phase 07 reports and phase 08 deployment guide, runbook, user guide, document index, and handover checklist.
-6. Record residual risks, known limitations, credentials/secrets handoff needs, operational ownership, rollback path, and recommended next actions.
-7. Return a concise final summary with delivered outcomes, verification evidence, unresolved items, and exact artifact locations.
+3. Verify the Security Profile, threat/control/test mapping, regulatory applicability, and security release gate; do not release with an open Critical security risk.
+4. Complete `DOCUMENT_QUALITY_AUDIT.md` using 2–3 risk-stratified complex features and resolve every blocking quality finding.
+5. Complete Developer/Ops newcomer, Tester derivation, and cross-functional peer-review evidence in `FIELD_VALIDATION_REPORT.md`.
+6. Fill phase 07 reports and phase 08 deployment guide, runbook, user guide, document index, and handover checklist.
+7. Record residual risks, known limitations, credentials/secrets handoff needs, operational ownership, rollback path, and recommended next actions.
+8. Return a concise final summary with delivered outcomes, verification evidence, unresolved items, and exact artifact locations.
 
 Completion means a usable, tested, documented, and handover-ready outcome—not merely generated code.

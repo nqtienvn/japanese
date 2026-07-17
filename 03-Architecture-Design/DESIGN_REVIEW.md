@@ -10,6 +10,10 @@
 - [ ] API request/response/error/permission/status/side effect cụ thể và link requirement/test.
 - [ ] State, concurrency, error/recovery và reversal đã xét.
 - [ ] Auth/authz, threat, privacy, secret, audit và abuse controls đủ.
+- [ ] Security Profile, regulatory applicability, OWASP/project threats, scan/pentest applicability và severity gate đã tailoring.
+- [ ] Không còn Critical security risk mở; High có treatment/owner/expiry hoặc gate Fail.
+- [ ] Module responsibility/contract/dependency/blast radius rõ; “không ảnh hưởng module khác” được thay bằng impact/regression evidence.
+- [ ] UI applicable có design system, component/state, responsive/accessibility và prototype evidence cho journey High/Critical; tool N/A có rationale.
 - [ ] Performance/capacity/reliability/observability/cost có target/tactic.
 - [ ] Testability, rollout, compatibility và rollback khả thi.
 - [ ] ADR ghi quyết định khó đảo ngược; RTM cập nhật.

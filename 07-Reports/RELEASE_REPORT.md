@@ -26,7 +26,11 @@
 - Build/CI: {{EVIDENCE}}
 - Test report/UAT: `../06-Testing/TEST_REPORT.md`, `../06-Testing/UAT_AND_ACCEPTANCE.md`
 - Security/performance/recovery: {{EVIDENCE}}
+- Security Profile / threat-control-test coverage: {{PROFILE_EVIDENCE}}
+- Security scans/pentest scope, exclusions và result: {{SECURITY_VERIFICATION}}
 - Open defects/accepted risk: {{IDS}}
+
+Release decision phải là `No-Go` nếu còn Critical security risk/vulnerability mở. High acceptance cần mitigation, owner, expiry, retest và đúng Security/Client authority.
 
 ## Deployment/migration
 

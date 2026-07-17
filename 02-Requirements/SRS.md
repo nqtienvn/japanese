@@ -66,11 +66,28 @@ Không gộp hai hành vi verify độc lập bằng `và/hoặc`; tách ID và 
 
 ## 7. Non-functional requirements
 
+Không dùng “bảo mật mạnh nhất”, “an toàn tuyệt đối”, “nhanh”, “không ảnh hưởng module khác” hoặc tên pattern làm target. Mỗi NFR phải có subject, threshold, measurement, environment và pass/fail evidence.
+
 | ID | Category | Target | Measurement | Environment | Priority |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | NFR-PERF-001 | Latency p95 | {{TARGET}} | {{METHOD}} | {{ENV}} | Must |
 | NFR-SEC-001 | Authorization | {{TARGET}} | {{METHOD}} | All | Must |
 | NFR-REL-001 | Availability/RTO/RPO | {{TARGET}} | {{METHOD}} | Production | Must |
+
+## 7A. Security, privacy và regulatory requirements
+
+- Security Profile: `STANDARD / HIGH / CRITICAL`
+- Security/risk owner: {{SECURITY_OWNER}}
+- Risk appetite và release boundary: {{RISK_APPETITE}}
+- Regulatory applicability assessment: {{APPLICABILITY_REFERENCE}}
+- Linked threat model (design phase): `../03-Architecture-Design/THREAT_MODEL.md`
+
+| ID | Atomic obligation | Asset/threat/source | Profile/applicability | Exact acceptance/test |
+| :--- | :--- | :--- | :--- | :--- |
+| NFR-SEC-001 | Hệ thống **PHẢI** {{ONE_SECURITY_OBLIGATION}} | {{ASSET_THREAT_SOURCE}} | {{PROFILE_SCOPE}} | {{PASS_FAIL_EVIDENCE}} |
+| NFR-PRV-001 | Hệ thống **PHẢI** {{ONE_PRIVACY_OBLIGATION}} | {{PURPOSE_LAW_SOURCE}} | {{APPLICABILITY}} | {{PASS_FAIL_EVIDENCE}} |
+
+SRS ghi obligation và constraint có nguồn, không chép architecture, database schema, API implementation hoặc test procedure vào requirement. Design response được liên kết sau bằng `ADR/DES/API/DATA/THR` ID.
 
 ## 8. Data requirements
 
@@ -87,6 +104,8 @@ Không gộp hai hành vi verify độc lập bằng `và/hoặc`; tách ID và 
 ## 9A. External interface requirements
 
 ### User Interface
+
+Nếu dự án không có UI, giữ mục này và ghi `N/A` kèm rationale/approver. Figma, Penpot, MCP hoặc design-to-code là implementation/design tool option, không phải requirement mặc định nếu chưa có business/UX constraint.
 
 | ID | Persona/screen/journey | Inputs/actions | Exact behavior/error/accessibility | Design-system/reference | Test |
 | :--- | :--- | :--- | :--- | :--- | :--- |

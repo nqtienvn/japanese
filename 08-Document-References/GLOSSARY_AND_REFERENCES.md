@@ -19,3 +19,9 @@
 | REF-TECH-001 | {{REFERENCE}} | {{VERSION}} | {{AREA}} | {{NOTE}} |
 
 Không đưa credential, secret URL có token hoặc dữ liệu thật vào references.
+
+Thuật ngữ governance bắt buộc:
+
+- `Security Profile`: mức `STANDARD`, `HIGH` hoặc `CRITICAL` quyết định verification/security gate theo risk; không đồng nghĩa chứng nhận.
+- `Human-assistance trigger`: điều kiện evidence-based cho phép AI yêu cầu decision/access/manual/approval/sign-off nhỏ nhất; “làm lâu quá” không phải trigger độc lập.
+- `Critical security risk`: risk/vulnerability chặn release cho đến khi được xử lý theo Security Standard.

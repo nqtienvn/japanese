@@ -27,4 +27,6 @@ Chứng minh sản phẩm đáp ứng requirements và đủ an toàn để Clie
 - [ ] Audit feature sample và Tester Derivation Test đạt, không có blocking clarification.
 - [ ] Blocking defect không còn mở hoặc có acceptance đúng quyền.
 - [ ] Security/performance/migration/rollback test phù hợp đạt.
+- [ ] Security verification đúng Profile; không còn Critical security risk mở, High acceptance có owner/expiry/retest.
+- [ ] Code coverage đã tailoring theo risk/layer/tool/exclusion và không thay thế requirement/risk coverage.
 - [ ] Client UAT/acceptance hoàn tất; giới hạn và residual risk rõ.

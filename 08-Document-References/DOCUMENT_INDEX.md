@@ -14,6 +14,8 @@
 | DOC-010 | `../MASTER_PROMPT.md` | Root | Client/AI Vendor | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | AI orchestration entry point |
 | DOC-011 | `../USAGE_GUIDE.md` | Root | Client/AI Vendor | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Greenfield/Brownfield/Change operating guide |
 | DOC-012 | `../START.md` | Root | Client/Product Owner | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Copy-ready Greenfield/Brownfield start prompts |
+| DOC-013 | `../00-Governance-Policy/SECURITY_AND_PRIVACY_STANDARD.md` | 00 | Security/Engineering/QA/Ops | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Security Profile and release controls |
+| DOC-014 | `../00-Governance-Policy/HUMAN_AI_COLLABORATION_PROTOCOL.md` | 00 | Client/AI Vendor | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Assistance trigger and resume protocol |
 
 ## Source-of-truth rules
 

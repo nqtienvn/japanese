@@ -24,7 +24,8 @@
 | Architecture | C | A | C | R | C | C | C |
 | Development | I | A | C | R | C | C | I |
 | Test/UAT | A | C | C | C | R | C | I |
-| Security risk acceptance | C | C | I | R | C | A | I |
+| Security risk treatment/recommendation | C | A | I | R | C | R | I |
+| High residual security risk acceptance | A | C | I | C | C | A | I |
 | Release production | A | R | I | C | C | C | R |
 | Handover | A | R | C | C | C | C | R |
 
@@ -36,6 +37,7 @@
 | Delivery update | {{CADENCE}} | Client + Vendor | Status/risk/decision |
 | Demo/review | {{CADENCE}} | Stakeholder | Feedback/acceptance |
 | Gate review | Cuối phase | Approvers | Pass/conditional/fail |
+| Human-assistance review | Khi có trigger | Request owner + AI/Vendor | Decision/access/manual evidence và resume action |
 | Incident review | Khi có | Owner liên quan | PIR/actions |
 
 ## 4. Definition of Ready
@@ -55,6 +57,8 @@
 - [ ] Acceptance đạt hoặc exception có approver và hạn xử lý.
 
 ## 6. Escalation
+
+AI không escalation chỉ vì công việc khó/lâu. Assistance request phải có trigger, evidence, các phương án đã thử, thao tác nhỏ nhất cần con người và phần AI vẫn tiếp tục được theo `HUMAN_AI_COLLABORATION_PROTOCOL.md`.
 
 | Severity | Ví dụ | Phản hồi | Escalate tới |
 | :--- | :--- | :--- | :--- |

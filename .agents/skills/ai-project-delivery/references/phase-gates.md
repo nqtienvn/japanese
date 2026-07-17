@@ -17,6 +17,8 @@ Mỗi gate cần `Pass`, `Conditional Pass` có owner/hạn, hoặc `Fail`. File
 - Charter, sponsor, owner, approver và escalation rõ.
 - Autonomy/approval boundary rõ.
 - Security, privacy, engineering policy có owner.
+- Security Profile, risk appetite, regulatory applicability và security release rule rõ.
+- Human-assistance trigger/protocol rõ; AI không offload vì khó hoặc lâu.
 - Definition of Ready/Done và change control được chọn.
 - Standards alignment/tailoring và document quality controls có owner; không dùng claim chứng nhận sai.
 
@@ -35,12 +37,16 @@ Mỗi gate cần `Pass`, `Conditional Pass` có owner/hạn, hoặc `Fail`. File
 - Scope release đầu tiên testable và không mâu thuẫn.
 - BRD/SRS/Feature Catalog/Use Case đủ workflow và structural controls: version history, glossary, UI/Hardware/Software/Communications interfaces.
 - Requirement atomic, imperative keyword đúng, unambiguous, measurable, feasible, consistent, testable và traceable.
+- Security/privacy requirement map tới profile/data/threat/acceptance; UI/tool applicability có N/A/tailoring rationale.
+- SRS không chứa architecture/database/API design thay cho requirement; design constraint có source/rationale.
 
 ### Gate 03 — Design ready
 
 - C4/context/container/component phù hợp quy mô.
 - ADR ghi trade-off, data/API/UX/state/integration rõ.
 - Threat model, privacy, capacity, observability và failure handling được xem xét.
+- Security Profile control mapping, regulatory applicability và Critical/High risk treatment có review evidence.
+- Với UI applicable, design system/responsive/accessibility và prototype evidence cho journey High/Critical rõ; tool không bị khóa cứng nếu thiếu rationale.
 - Thiết kế ánh xạ đủ requirement và có review evidence.
 - SAD, ERD/data dictionary và API/event specification có version, exact contracts/errors/permissions/compatibility và test links.
 
@@ -49,6 +55,8 @@ Mỗi gate cần `Pass`, `Conditional Pass` có owner/hạn, hoặc `Fail`. File
 - Work item theo vertical slice có dependency, acceptance, test plan.
 - Environment, migration, compatibility, feature flag, release và rollback rõ.
 - Critical unknown đã spike/resolve; estimate/sequence khả thi.
+- Module contract/dependency/blast radius, compatibility và regression boundary rõ; không dùng “không ảnh hưởng module khác” như giả định.
+- External/manual/approval dependency có owner và assistance plan nhỏ nhất.
 - Không có work item thiếu requirement/design link.
 
 ### Gate 05 — Build complete
@@ -56,6 +64,7 @@ Mỗi gate cần `Pass`, `Conditional Pass` có owner/hạn, hoặc `Fail`. File
 - In-scope code/config hoàn tất và review.
 - Build/lint/static analysis/unit test đạt target.
 - Secret không nằm trong source; error/log/observability được triển khai.
+- Security scan/control theo profile đạt severity gate; database/input/trust-boundary controls có code evidence.
 - Tech debt và known limitation được ghi; RTM có code evidence.
 
 ### Gate 06 — Quality accepted
@@ -64,6 +73,8 @@ Mỗi gate cần `Pass`, `Conditional Pass` có owner/hạn, hoặc `Fail`. File
 - Defect severity vượt ngưỡng không còn mở hoặc được chấp nhận.
 - UAT/acceptance có evidence; migration/rollback/smoke được verify phù hợp.
 - Test report nêu coverage, môi trường, giới hạn và residual risk.
+- Code coverage được tailoring theo risk/layer/tool/exclusion; không dùng một tỷ lệ tổng để thay thế requirement/risk coverage.
+- Security verification theo profile đạt; không còn Critical security risk/vulnerability mở, High acceptance đúng owner/expiry.
 - Ba tầng test documentation đủ: Policy/Plan; Specification/Test Cases; Status/Completion/Traceability.
 - Test case có unique ID, input data tách riêng và exact expected result; Test RTM nối SRS → TC → result → defect → retest.
 - Audit 2–3 feature phức tạp và Tester Derivation Test đạt; blocking clarification chưa xử lý làm gate Fail.
@@ -74,6 +85,7 @@ Mỗi gate cần `Pass`, `Conditional Pass` có owner/hạn, hoặc `Fail`. File
 - Release artifact/version có thể nhận diện, reproducible trong khả năng.
 - Operational readiness và rollback owner rõ.
 - Final report phản ánh đúng delivered vs planned.
+- Security Profile, scan/pentest scope, exclusions và residual-risk decision được phản ánh đúng.
 
 ### Gate 08 — Handover accepted
 

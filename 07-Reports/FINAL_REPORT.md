@@ -34,6 +34,8 @@
 - Verification summary: {{SUMMARY}}
 - Defects/tech debt: {{SUMMARY_IDS}}
 - Security/privacy/compliance: {{SUMMARY}}
+- Security Profile, verification scope/exclusions và Critical/High disposition: {{SECURITY_GATE_SUMMARY}}
+- Human-assistance requests và phần AI đã resume/verify: {{ASSISTANCE_SUMMARY}}
 - Residual risks accepted by: {{APPROVER}}
 
 ## Operational readiness

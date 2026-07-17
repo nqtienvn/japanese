@@ -3,7 +3,7 @@
 | Trường | Giá trị |
 | :--- | :--- |
 | Requester / date | {{REQUESTER}} / {{DATE}} |
-| Loại | Scope / Schedule / Cost / Quality / Technical / Regulatory / Emergency |
+| Loại | Scope / Schedule / Cost / Quality / Technical / Governance / Autonomy / Security / Privacy / Regulatory / Emergency |
 | Priority | Low / Medium / High / Critical |
 | Status | Proposed / Analysing / Approved / Rejected / Implemented |
 
@@ -23,6 +23,10 @@
 | Architecture/data/security | {{IMPACT}} | {{ESTIMATE}} | {{FILES}} |
 | Schedule/cost/resources | {{IMPACT}} | {{ESTIMATE}} | {{FILES}} |
 | Test/release/operations | {{IMPACT}} | {{ESTIMATE}} | {{FILES}} |
+| Governance/autonomy/human assistance | {{IMPACT}} | {{ESTIMATE}} | {{FILES}} |
+| Security profile/privacy/compliance | {{IMPACT}} | {{ESTIMATE}} | {{FILES}} |
+
+Gate cần mở lại: {{GATES}}. Baseline/evidence cũ phải được giữ; không sửa lịch sử để làm thay đổi mới trông như đã được phê duyệt từ đầu.
 
 ## Phương án
 

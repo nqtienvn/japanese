@@ -35,6 +35,9 @@ Template được thiết kế theo hướng **standards-aligned**, không tự 
 | [ISO/IEC/IEEE 29119-2:2021](https://www.iso.org/standard/79428.html) | Edition 2, test processes | Test governance, planning, monitoring/control, implementation và completion. |
 | [ISO/IEC/IEEE 29119-3:2021](https://www.iso.org/standard/79429.html) | Edition 2, test documentation | Test Policy/Plan, Test Specification/Case, Test Status/Completion Report và test traceability outputs. |
 | [ISO/IEC/IEEE 29119-4:2021](https://www.iso.org/standard/79430.html) | Edition 2, test techniques | Equivalence Partitioning, Boundary Value, Decision Table, State Transition và các kỹ thuật thiết kế test phù hợp. |
+| [ISO/IEC 27001:2022](https://www.iso.org/standard/27001) | Edition 3, ISMS requirements | Risk-management/ISMS interface; không biến project checklist thành chứng nhận tổ chức. |
+| [ISO/IEC 27002:2022](https://www.iso.org/standard/75652.html) | Edition 3, security controls guidance | Control reference được tailoring theo Security Profile và threat model. |
+| [OWASP Top 10:2025](https://owasp.org/Top10/2025/0x00_2025-Introduction/) | Web application risk awareness | Threat/security review theo attack surface; không dùng như checklist đầy đủ duy nhất. |
 
 `IEEE 830-1998` và `IEEE 829-2008` chỉ được coi là legacy references vì đã bị superseded. Mapping chi tiết và giới hạn tuyên bố nằm tại [Standards Alignment Matrix](00-Governance-Policy/STANDARDS_ALIGNMENT_MATRIX.md); rule kiểm soát nội dung nằm tại [Document Quality Standard](00-Governance-Policy/DOCUMENT_QUALITY_STANDARD.md).
 
@@ -47,6 +50,8 @@ Template được thiết kế theo hướng **standards-aligned**, không tự 
 | **Agile/Iterative Delivery** | Công việc trong phase được chia theo vertical slice và work item nhỏ, có thể dùng Scrum, Kanban, Milestone hoặc Hybrid. Build, review, test và phản hồi diễn ra liên tục. |
 | **V-Model-like Traceability** | Duy trì truy vết hai chiều từ mục tiêu/yêu cầu đến thiết kế, work item, code, test, release và handover. Một requirement chưa có evidence phù hợp không được coi là hoàn tất. |
 | **DevSecOps** | Security, privacy, testing, CI, dependency scanning, migration, release, rollback, observability và operations được xem xét xuyên suốt thay vì để đến cuối dự án. |
+| **Risk-based Security Profiles** | Chọn `STANDARD/HIGH/CRITICAL`; threat/control/test/release gate tăng theo data, exposure và impact, không dùng tuyên bố “bảo mật mạnh nhất” mơ hồ. |
+| **Human–AI Collaboration** | AI không offload vì khó/lâu; chỉ nhờ Client cho decision/access/manual/approval/sign-off nhỏ nhất theo evidence, sau đó verify và tự resume. |
 | **Brownfield Continuation** | Với dự án đang code dở, AI audit code/config/test/git trước, tái dựng hiện trạng, tạo gap analysis và tiếp tục từ gate đầu tiên chưa đạt. |
 
 ### Cách 09 phase vận hành
@@ -82,6 +87,8 @@ Tài liệu quy định chi tiết nằm tại:
 - [Test Strategy & Plan](06-Testing/TEST_STRATEGY_AND_PLAN.md)
 - [International Standards Alignment](00-Governance-Policy/STANDARDS_ALIGNMENT_MATRIX.md)
 - [Document Quality Standard](00-Governance-Policy/DOCUMENT_QUALITY_STANDARD.md)
+- [Security & Privacy Engineering Standard](00-Governance-Policy/SECURITY_AND_PRIVACY_STANDARD.md)
+- [Human–AI Collaboration Protocol](00-Governance-Policy/HUMAN_AI_COLLABORATION_PROTOCOL.md)
 
 Mô hình này phù hợp với quan hệ thuê phát triển sản phẩm vì kết hợp được khả năng kiểm soát phạm vi, trách nhiệm, chi phí giả định và nghiệm thu của mô hình truyền thống với khả năng lặp nhanh, phản hồi liên tục và tự động hóa của Agile/DevSecOps.
 

@@ -53,6 +53,7 @@
 - Tech Lead quyết định: kiến trúc/kỹ thuật, nhưng phải lập ADR khi trade-off ảnh hưởng NFR/cost/lock-in.
 - QA Lead có quyền chặn release khi exit criteria không đạt.
 - Security/Privacy Owner có quyền chặn khi có rủi ro không được chấp nhận.
+- Security Profile/risk appetite và Human–AI assistance boundary chỉ thay đổi qua governance decision/change control phù hợp.
 
 ## 8. Phê duyệt charter
 

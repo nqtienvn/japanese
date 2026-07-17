@@ -11,6 +11,8 @@ Template hoạt động tốt nhất khi:
 5. Baseline được duyệt trước khi AI tự động triển khai toàn bộ.
 6. Thay đổi sau baseline đi qua impact analysis/change request.
 7. Không phê duyệt gate chỉ vì “trông có vẻ xong”; yêu cầu đường dẫn, lệnh test và kết quả.
+8. Chọn Security Profile theo dữ liệu/exposure/risk; không dùng “bảo mật mạnh nhất” thay cho control và test cụ thể.
+9. AI không chuyển việc vì khó/lâu; khi cần người hỗ trợ phải đưa assistance request có evidence và thao tác nhỏ nhất.
 
 ## 2. Quy trình tối ưu cho dự án mới — GREENFIELD
 
@@ -51,6 +53,7 @@ Trước khi code, review tối thiểu:
 - Problem/outcome/scope/out-of-scope.
 - BRD/SRS/Feature/Use Case.
 - NFR/security/privacy/acceptance.
+- Security Profile, regulatory applicability và security release gate.
 - Roadmap/dependencies/risks.
 - Autonomy mode và approval-only actions.
 
@@ -62,6 +65,7 @@ Khuyến nghị dùng `AUTONOMY_MODE = STANDARD`:
 
 - AI tự quyết thay đổi local, reversible và theo convention.
 - Client chỉ xử lý scope, business behavior, credential/access, cost, production và risk acceptance.
+- Khi AI yêu cầu hỗ trợ, Client chỉ thực hiện decision/access/manual/sign-off nhỏ nhất; AI verify kết quả và tự tiếp tục.
 
 Yêu cầu AI cập nhật status theo phase/gate/evidence và tự đi tiếp khi gate pass.
 
@@ -182,6 +186,10 @@ AI phải trace từ requirement bị tác động tới design/code/test/releas
 - External messages/publishing.
 - Scope/outcome/SLA/security reductions.
 - High/Critical risk acceptance.
+
+### Khi AI được nhờ con người
+
+AI chỉ được hỏi khi cần quyết định material, access/credential, thao tác thủ công, approval/sign-off hoặc cùng blocker sau ít nhất ba phương án khác nhau không có evidence mới. Yêu cầu phải nêu evidence, attempts, impact, thao tác nhỏ nhất, output/reference cần trả lại và phần AI vẫn tiếp tục được. Không gửi secret value qua chat.
 
 ## 6. Nhịp vận hành khuyến nghị
 

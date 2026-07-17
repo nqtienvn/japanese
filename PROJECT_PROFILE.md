@@ -18,7 +18,10 @@
 | Delivery mode | GREENFIELD / BROWNFIELD / CHANGE |
 | Autonomy mode | GUIDED / STANDARD / FULL-LOCAL |
 | Data classification | Public / Internal / Confidential / PII / Sensitive |
+| Security profile | STANDARD / HIGH / CRITICAL |
 | Regulatory scope | {{REGULATORY_SCOPE}} |
+| UI scope | None / Web / Mobile / Desktop / Embedded / Multi-channel |
+| Human-assistance trigger | Default: approved action, external/manual dependency, or 3 materially different failed approaches |
 
 ## Tuyên bố vấn đề
 

@@ -37,7 +37,10 @@ Không đặt password, token, private key hoặc dữ liệu thật nhạy cả
 | `BUDGET_OR_COST_GUARDRAIL` | `TBD` |
 | `DATA_CLASSIFICATION` | `TBD` |
 | `REGULATORY_SCOPE` | `TBD` |
+| `SECURITY_PROFILE` | `AUTO` / `STANDARD` / `HIGH` / `CRITICAL` |
+| `UI_SCOPE` | `AUTO` / `NONE` / `WEB` / `MOBILE` / `DESKTOP` / `MULTI-CHANNEL` |
 | `AUTONOMY_MODE` | `STANDARD` / `GUIDED` / `FULL-LOCAL` |
+| `HUMAN_ASSISTANCE_TRIGGER` | Mặc định: approval/access/manual/sign-off hoặc 3 phương án khác nhau vẫn cùng blocker |
 | `PRODUCTION_CHANGES_AUTHORIZED` | `NO` mặc định |
 | `EXTERNAL_COMMUNICATION_AUTHORIZED` | `NO` mặc định |
 
@@ -58,6 +61,8 @@ Trước khi hành động:
 3. Đọc `PROJECT_PROFILE.md`, `PROJECT_STATE.md` nếu có.
 4. Đọc và tuân thủ:
    - `00-Governance-Policy/DOCUMENT_QUALITY_STANDARD.md`;
+   - `00-Governance-Policy/SECURITY_AND_PRIVACY_STANDARD.md`;
+   - `00-Governance-Policy/HUMAN_AI_COLLABORATION_PROTOCOL.md`;
    - `00-Governance-Policy/STANDARDS_ALIGNMENT_MATRIX.md`;
    - `.agents/skills/ai-project-delivery/references/phase-gates.md`;
    - `.agents/skills/ai-project-delivery/references/artifact-map.md`;
@@ -128,10 +133,12 @@ Trước khi tự động triển khai đầy đủ, trình Client một bản t
 - in-scope/out-of-scope và release boundary;
 - workflow/features/critical edge cases;
 - NFR/security/privacy/compliance;
+- Security Profile, regulatory applicability và security acceptance gate;
 - timeline/dependencies/risks;
 - acceptance và handover expectations;
 - assumptions/open decisions;
 - autonomy mode và approval-only actions.
+- human-assistance trigger, owner và resume protocol.
 
 Yêu cầu Client duyệt baseline một lần hoặc ủy quyền rõ cho các quyết định local, reversible. Sau khi duyệt, tự động đi qua các phase, không hỏi lại những lựa chọn nhỏ có thể suy ra và đảo ngược.
 
@@ -186,6 +193,15 @@ File tồn tại không đồng nghĩa hoàn tất. Không đánh dấu `Done/Pa
 - BRD/SRS có version history, glossary, workflow, feature catalog, detailed use case và bốn nhóm external interfaces.
 - NFR có target, percentile/window/load/environment/tool/pass-fail threshold.
 
+### Security và privacy engineering
+
+- Không dùng “bảo mật mạnh nhất/an toàn tuyệt đối”; chọn `STANDARD`, `HIGH` hoặc `CRITICAL` dựa trên data, exposure, threat, impact và regulatory scope.
+- Nếu chưa đủ evidence, tạm dùng `HIGH` và hoàn thành risk assessment/threat model trước Gate 03.
+- Security requirement có ID và trace `asset/threat → control/design → test/finding → residual-risk owner`.
+- GDPR, CCPA hoặc luật khác chỉ mandatory sau Regulatory Applicability Assessment và đúng legal/compliance owner xác nhận.
+- Pin chuẩn/phiên bản trong Standards Matrix; OWASP Top 10 là awareness baseline, không thay thế threat model.
+- Không release với Critical security risk/vulnerability mở; High acceptance phải time-bound, có mitigation, owner, expiry và đúng authority.
+
 ### Test documentation — aligned với ISO/IEC/IEEE 29119
 
 Tạo đủ ba tầng:
@@ -218,6 +234,9 @@ Trước bàn giao:
 - Làm theo vertical slice nhỏ, reviewable, có acceptance và test.
 - Giữ application buildable/runnable trong khả năng.
 - Validate ở trust boundary; enforce authorization server-side; không hard-code/log secret.
+- Dùng parameter binding/prepared statement hoặc ORM chứng minh parameterization cho giá trị database không tin cậy; dynamic identifier phải allowlist.
+- Thiết kế module bằng responsibility/contract/dependency/blast radius; không hứa tuyệt đối “không ảnh hưởng module khác”, phải impact analysis và regression evidence.
+- Với UI applicable, hoàn thành design-system reference, responsive/accessibility target và prototype cho journey High/Critical trước production UI; Figma/Penpot/MCP/design-to-code là tool tùy chọn và output sinh tự động phải review.
 - Xem xét data migration, compatibility, feature flags, observability, release và rollback cùng code.
 - Duy trì changelog, tech debt, design/ADR, tests, runbook và traceability.
 - Chạy build/lint/type/static/unit/integration/E2E/security/performance theo risk và ghi evidence.
@@ -234,9 +253,11 @@ Luôn xin phê duyệt riêng trước khi:
 - gửi email/tin nhắn, publish, mở PR công khai hoặc liên hệ bên ngoài;
 - giảm security/privacy/retention/compliance;
 - thay đổi scope/outcome/deadline/SLA/UX chủ đạo;
-- chấp nhận High/Critical risk hoặc bỏ qua blocking tests.
+- chấp nhận High residual risk hoặc bỏ qua blocking tests; Critical security risk không được chấp nhận để release.
 
 Nếu bị chặn, nêu evidence đã kiểm tra, điều thiếu, impact, phương án và recommendation. Không giả định sự đồng ý cho approval-only action.
+
+Không chuyển việc cho con người chỉ vì khó hoặc lâu. Chỉ tạo assistance request khi có trigger trong `HUMAN_AI_COLLABORATION_PROTOCOL.md`: quyết định material, access/credential, thao tác thủ công, approval-only, sign-off chuyên môn hoặc cùng blocker sau ít nhất 3 phương án xử lý khác nhau không có evidence mới. Request phải nêu evidence, attempts, blocker, thao tác nhỏ nhất, output cần trả lại và việc AI vẫn tiếp tục được. Sau khi nhận kết quả, verify rồi tự động resume.
 
 ## 9. Giao tiếp trong khi làm
 

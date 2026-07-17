@@ -5,6 +5,7 @@
 | Document ID | `{{PROJECT_CODE}}-TST-PLAN-001` |
 | Version / status | {{VERSION}} / {{STATUS}} |
 | Owner / approver | {{QA_LEAD}} / {{APPROVER}} |
+| Security Profile | STANDARD / HIGH / CRITICAL |
 
 ## Version history
 
@@ -25,6 +26,14 @@
 | :--- | :--- | :--- | :--- | :--- |
 | FR/NFR/THR-XXX | {{IMPACT}} | Unit / Integration / Contract / E2E / Security / Performance / Recovery | {{ENV_DATA}} | {{TARGET}} |
 
+### Code coverage tailoring
+
+| Layer/component | Risk/critical behavior | Metric/tool | Target | Exclusions/rationale | Requirement/risk evidence |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| {{LAYER}} | {{RISK}} | Line / Branch / Function / Mutation | {{TARGET}} | {{EXCLUSION}} | {{REQ_TC_LINKS}} |
+
+Không dùng coverage tổng để auto-pass Gate 06. Business-critical branch, authorization rule, error/recovery và migration behavior phải có explicit tests.
+
 ## 3. Test levels
 
 | Level | Mục tiêu | Owner/tool | Trigger | Evidence |
@@ -33,6 +42,16 @@
 | Integration/contract | Data and service boundaries | {{OWNER_TOOL}} | CI/release | {{REPORT}} |
 | E2E/UAT | Critical journeys/outcomes | {{OWNER_TOOL}} | Candidate release | {{REPORT}} |
 | Security/performance/recovery | NFR/threat/SLO | {{OWNER_TOOL}} | Risk/release | {{REPORT}} |
+
+### Security verification theo profile
+
+| Verification | Apply / Tailor / N/A | Scope/tool/environment | Severity/exit target | Evidence/owner |
+| :--- | :--- | :--- | :--- | :--- |
+| Threat/control/RTM review | {{DECISION}} | {{SCOPE}} | No orphan Must/Critical | {{EVIDENCE_OWNER}} |
+| SAST/secret/dependency-SCA | {{DECISION}} | {{SCOPE}} | {{SEVERITY_GATE}} | {{EVIDENCE_OWNER}} |
+| DAST/API/container/config | {{DECISION}} | {{SCOPE}} | {{SEVERITY_GATE}} | {{EVIDENCE_OWNER}} |
+| Authorization/abuse/recovery | {{DECISION}} | {{SCOPE}} | {{TARGET}} | {{EVIDENCE_OWNER}} |
+| Independent pentest | {{DECISION}} | {{AUTHORIZED_ROE}} | {{TARGET}} | {{EVIDENCE_OWNER}} |
 
 ## 4. Environment và data
 
@@ -53,6 +72,7 @@ Không ghi credential thật. Dữ liệu test phải synthetic/anonymized hoặ
 - [ ] 100% Must/Critical requirement applicable có passing evidence.
 - [ ] Planned risk coverage đạt {{TARGET}}; regression đạt.
 - [ ] Không còn Critical/High defect chưa chấp nhận.
+- [ ] Không còn Critical security risk/vulnerability mở; High acceptance có mitigation/owner/expiry/retest và đúng authority.
 - [ ] NFR/security/migration/rollback/UAT đạt target hoặc có exception.
 - [ ] Test report và RTM cập nhật.
 
