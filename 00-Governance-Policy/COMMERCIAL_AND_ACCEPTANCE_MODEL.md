@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-00-GOVERNANCE-POLICY-COMMERCIAL-AND-ACCEPTANCE-MODEL-MD
+phase: "00-Governance-Policy"
+artifact_type: governance
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Commercial Assumptions & Acceptance Model
 
 > Mẫu quản trị delivery, không thay thế hợp đồng/tư vấn pháp lý.

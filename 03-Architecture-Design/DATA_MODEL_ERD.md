@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-03-ARCHITECTURE-DESIGN-DATA-MODEL-ERD-MD
+phase: "03-Architecture-Design"
+artifact_type: design
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Data Model & Entity Relationship Diagram — {{PROJECT_NAME}}
 
 | Field | Value |

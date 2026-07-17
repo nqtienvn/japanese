@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-01-PLANNING-PROJECT-PLAN-MD
+phase: "01-Planning"
+artifact_type: planning
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Project Plan — {{PROJECT_NAME}}
 
 ## 1. Delivery approach

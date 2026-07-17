@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-00-GOVERNANCE-POLICY-PROJECT-CHARTER-MD
+phase: "00-Governance-Policy"
+artifact_type: governance
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Project Charter — {{PROJECT_NAME}}
 
 | Trường | Giá trị |

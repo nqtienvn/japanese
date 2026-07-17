@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-07-REPORTS-README-MD
+phase: "07-Reports"
+artifact_type: report
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Phase 07 — Delivery & Release Reports
 
 ## Mục tiêu
@@ -11,6 +22,7 @@ Cho Client một bức tranh trung thực về planned vs delivered, tiến đ�
 - `FINAL_REPORT.md`: kết quả toàn dự án và recommendation.
 - `INCIDENT_AND_PIR.md`: incident timeline, impact, root cause và action.
 - `LESSONS_LEARNED.md`: điều nên giữ/thay đổi cho giai đoạn tiếp.
+- `READINESS_DASHBOARD.md`: readiness và coverage theo gate từ machine-readable evidence.
 
 ## Gate 07
 

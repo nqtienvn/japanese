@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-00-GOVERNANCE-POLICY-STATEMENT-OF-WORK-MD
+phase: "00-Governance-Policy"
+artifact_type: governance
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Statement of Work (SOW) — {{PROJECT_NAME}}
 
 > Mẫu quản trị delivery; cần legal review nếu dùng làm hợp đồng có giá trị pháp lý.

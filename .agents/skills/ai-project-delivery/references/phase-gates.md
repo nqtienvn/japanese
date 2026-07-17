@@ -18,6 +18,7 @@ Mỗi gate cần `Pass`, `Conditional Pass` có owner/hạn, hoặc `Fail`. File
 - Autonomy/approval boundary rõ.
 - Security, privacy, engineering policy có owner.
 - Security Profile, risk appetite, regulatory applicability và security release rule rõ.
+- Bank Security Reference Baseline, proprietary-code claim boundary và portability rule rõ.
 - Human-assistance trigger/protocol rõ; AI không offload vì khó hoặc lâu.
 - Definition of Ready/Done và change control được chọn.
 - Standards alignment/tailoring và document quality controls có owner; không dùng claim chứng nhận sai.
@@ -46,6 +47,7 @@ Mỗi gate cần `Pass`, `Conditional Pass` có owner/hạn, hoặc `Fail`. File
 - ADR ghi trade-off, data/API/UX/state/integration rõ.
 - Threat model, privacy, capacity, observability và failure handling được xem xét.
 - Security Profile control mapping, regulatory applicability và Critical/High risk treatment có review evidence.
+- Security Adoption Record đánh giá đủ snapshot component; stack ngoài Java có cross-language responsibility mapping.
 - Với UI applicable, design system/responsive/accessibility và prototype evidence cho journey High/Critical rõ; tool không bị khóa cứng nếu thiếu rationale.
 - Thiết kế ánh xạ đủ requirement và có review evidence.
 - SAD, ERD/data dictionary và API/event specification có version, exact contracts/errors/permissions/compatibility và test links.
@@ -65,6 +67,7 @@ Mỗi gate cần `Pass`, `Conditional Pass` có owner/hạn, hoặc `Fail`. File
 - Build/lint/static analysis/unit test đạt target.
 - Secret không nằm trong source; error/log/observability được triển khai.
 - Security scan/control theo profile đạt severity gate; database/input/trust-boundary controls có code evidence.
+- Security component được adopt/refactor phải build trong stack đích; known snapshot finding đã được xử lý hoặc reject có rationale.
 - Tech debt và known limitation được ghi; RTM có code evidence.
 
 ### Gate 06 — Quality accepted
@@ -75,6 +78,7 @@ Mỗi gate cần `Pass`, `Conditional Pass` có owner/hạn, hoặc `Fail`. File
 - Test report nêu coverage, môi trường, giới hạn và residual risk.
 - Code coverage được tailoring theo risk/layer/tool/exclusion; không dùng một tỷ lệ tổng để thay thế requirement/risk coverage.
 - Security verification theo profile đạt; không còn Critical security risk/vulnerability mở, High acceptance đúng owner/expiry.
+- Security Verification Matrix có passing evidence cho mọi `SEC-BNK` Must applicable và cross-language equivalence contract.
 - Ba tầng test documentation đủ: Policy/Plan; Specification/Test Cases; Status/Completion/Traceability.
 - Test case có unique ID, input data tách riêng và exact expected result; Test RTM nối SRS → TC → result → defect → retest.
 - Audit 2–3 feature phức tạp và Tester Derivation Test đạt; blocking clarification chưa xử lý làm gate Fail.
@@ -97,5 +101,7 @@ Mỗi gate cần `Pass`, `Conditional Pass` có owner/hạn, hoặc `Fail`. File
 - New Developer/Ops Readiness Test từ clean baseline đạt mà không cần hỏi tác giả ở bước blocking.
 
 ## 3. Reopen gate
+
+Gate 02, 03, 06 và 08 SHALL NOT be marked Passed from a `PROJECT_STATE.md` status edit alone. The reviewer must verify the required artifact set, concrete evidence paths, traceability, sign-off/approver and gate-specific conditions. A stale, placeholder or empty evidence cell is a gate failure.
 
 Reopen gate khi requirement/scope thay đổi, test phát hiện giả định sai, design không khả thi, production incident lộ gap hoặc handover thiếu thông tin. Ghi lý do, impact downstream và artifact cần tái xác minh; không xóa evidence cũ.

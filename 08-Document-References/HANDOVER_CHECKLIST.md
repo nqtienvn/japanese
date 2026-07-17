@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-08-DOCUMENT-REFERENCES-HANDOVER-CHECKLIST-MD
+phase: "08-Document-References"
+artifact_type: handover
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Final Handover & Acceptance — {{PROJECT_NAME}}
 
 ## Deliverables

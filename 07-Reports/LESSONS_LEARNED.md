@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-07-REPORTS-LESSONS-LEARNED-MD
+phase: "07-Reports"
+artifact_type: report
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Lessons Learned — {{PROJECT_NAME}}
 
 | Area | Điều đã xảy ra | Evidence/impact | Keep / Stop / Start | Owner/action |

@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-06-TESTING-DEFECT-REGISTER-MD
+phase: "06-Testing"
+artifact_type: testing
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Defect Register — {{PROJECT_NAME}}
 
 | Defect ID | Requirement/test | Summary | Severity/priority | Environment/build | Reproduce/evidence | Owner | Status | Fix/retest |

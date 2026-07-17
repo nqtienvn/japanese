@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-05-DEVELOPMENT-TECH-DEBT-REGISTER-MD
+phase: "05-Development"
+artifact_type: development
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Technical Debt Register — {{PROJECT_NAME}}
 
 | Debt ID | Area | Mô tả/root cause | Impact/risk | Evidence | Remediation | Trigger/due | Owner | Status |

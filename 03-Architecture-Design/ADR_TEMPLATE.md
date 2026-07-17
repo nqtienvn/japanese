@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-03-ARCHITECTURE-DESIGN-ADR-TEMPLATE-MD
+phase: "03-Architecture-Design"
+artifact_type: design
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # ADR-{{NNN}} — {{DECISION_TITLE}}
 
 | Field | Value |

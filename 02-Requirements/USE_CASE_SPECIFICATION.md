@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-02-REQUIREMENTS-USE-CASE-SPECIFICATION-MD
+phase: "02-Requirements"
+artifact_type: requirements
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Use Case Specification — UC-{{NNN}} / {{USE_CASE_NAME}}
 
 | Field | Value |

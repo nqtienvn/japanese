@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-00-GOVERNANCE-POLICY-SECURITY-AND-PRIVACY-STANDARD-MD
+phase: "00-Governance-Policy"
+artifact_type: governance
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Security & Privacy Engineering Standard
 
 ## 1. Mục đích và giới hạn tuyên bố
@@ -36,6 +47,13 @@ Nếu chưa đủ dữ kiện, tạm dùng `HIGH` và hoàn thành risk assessme
 - `SEC-016`: Backup/restore, rollback và incident response **PHẢI** được kiểm chứng theo impact/RTO/RPO.
 - `SEC-017`: Security requirement **PHẢI** có ID, threat/control mapping, test và residual-risk owner.
 - `SEC-018`: Dự án **KHÔNG ĐƯỢC** tuyên bố an toàn tuyệt đối, compliant hoặc certified khi evidence không hỗ trợ tuyên bố đó.
+- `SEC-019`: Dự án **PHẢI** đánh giá Bank Security Reference Baseline trước Gate 03.
+- `SEC-020`: Java/Spring security work **PHẢI** so sánh component với hai code snapshot nội bộ.
+- `SEC-021`: Stack ngoài Java **PHẢI** refactor security responsibility sang native implementation có equivalent test.
+- `SEC-022`: Dự án **KHÔNG ĐƯỢC** copy secret hoặc known anti-pattern từ snapshot.
+- `SEC-023`: Security adoption **PHẢI** có Adoption Record và Security Verification Matrix.
+- `SEC-024`: OAuth/OIDC implementation **PHẢI** đánh giá RFC 9700 khi áp dụng.
+- `SEC-025`: Web/API project **PHẢI** map verification requirement tới OWASP ASVS 5.0.0 hoặc replacement được pin.
 
 ## 4. Application security coverage
 
@@ -90,5 +108,8 @@ Pentest chỉ được thực hiện với scope, Rules of Engagement, environme
 | [ISO/IEC 27001](https://www.iso.org/standard/27001) | 2022, Edition 3 + amendment applicable | ISMS/risk-management alignment ở cấp tổ chức/project interface |
 | [ISO/IEC 27002](https://www.iso.org/standard/75652.html) | 2022, Edition 3 | Guidance/control reference; chọn theo risk và Statement of Applicability |
 | [OWASP Top 10](https://owasp.org/Top10/2025/0x00_2025-Introduction/) | 2025 | Web application risk awareness, không phải checklist đầy đủ |
+| [OWASP ASVS](https://github.com/OWASP/ASVS) | 5.0.0 | Application security requirement/verification baseline; pin requirement ID theo version |
+| [RFC 9700](https://www.rfc-editor.org/info/rfc9700/) | BCP 240, January 2025 | OAuth 2.0 security best current practice |
+| [OWASP Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) | Kiểm tra ngày project baseline | Argon2id ưu tiên; BCrypt compatibility cho legacy |
 
 Kiểm tra phiên bản và applicability trước mỗi project baseline; ghi tailoring trong `STANDARDS_ALIGNMENT_MATRIX.md`.

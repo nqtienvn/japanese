@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-06-TESTING-DOCUMENT-QUALITY-AUDIT-MD
+phase: "06-Testing"
+artifact_type: testing
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Document Quality Audit — Requirements/Release Baseline
 
 ## Audit identity

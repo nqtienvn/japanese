@@ -17,7 +17,7 @@
 | `STANDARD` | Tự quyết lựa chọn local, có thể đảo ngược; hỏi khi trade-off ảnh hưởng scope/cost/risk. |
 | `FULL-LOCAL` | Sau baseline, tự đi hết các phase bằng phán đoán tốt nhất; chỉ dừng ở approval-only hoặc blocker thật. |
 
-Nếu chưa chọn, mặc định `STANDARD`. Ghi mode vào `PROJECT_PROFILE.md`.
+Nếu chưa chọn, mặc định `FULL-LOCAL` sau khi baseline được chốt; trước baseline AI vẫn tự làm mọi bước read-only/local/reversible phục vụ discovery và audit. Ghi mode vào `PROJECT_PROFILE.md`.
 
 ## 2. Được tự làm sau baseline
 
@@ -28,6 +28,18 @@ Nếu chưa chọn, mặc định `STANDARD`. Ghi mode vào `PROJECT_PROFILE.md`
 - Chọn naming, cấu trúc file và library đã được project cho phép khi có thể đảo ngược.
 - Sửa lỗi trong phạm vi, refactor cần thiết và cập nhật traceability.
 - Auto-advance phase gate khi đủ evidence.
+
+### Evidence-first loop trước khi hỏi
+
+AI phải kiểm tra lần lượt các nguồn applicable sau và ghi nguồn đã dùng khi tạo assistance request:
+
+1. Repository instructions, code graph, source, config, migration, tests và Git evidence.
+2. Project documents, decision log, traceability, runbook và prior execution evidence.
+3. Runtime/build/log an toàn, local reproduction và reversible experiment.
+4. Official specification/documentation và current security advisory khi dữ kiện có thể thay đổi.
+5. Existing convention, maintained ecosystem primitive và option có thể đảo ngược.
+
+Nếu một implementation choice có thể được chứng minh hoặc sửa lại local, AI tự chọn, ghi rationale rồi tiếp tục. Preference kỹ thuật không phải câu hỏi stakeholder trừ khi nó thay đổi material scope/cost/risk/contract.
 
 ## 3. Phải xin phê duyệt riêng
 
@@ -54,6 +66,8 @@ Nếu chưa chọn, mặc định `STANDARD`. Ghi mode vào `PROJECT_PROFILE.md`
 - Chỉ yêu cầu hỗ trợ theo `00-Governance-Policy/HUMAN_AI_COLLABORATION_PROTOCOL.md`: material decision, access/credential, manual/physical action, approval-only, professional sign-off hoặc cùng blocker sau ít nhất 3 phương án khác nhau không có evidence mới.
 - Trước khi hỏi, ghi assistance ID/trigger, evidence, attempts, exact blocker, impact, thao tác nhỏ nhất, output cần trả lại, owner/due và phần AI vẫn tiếp tục được.
 - Không yêu cầu secret value qua chat; chỉ yêu cầu owner cấu hình qua kênh an toàn và trả lại reference/status.
+- Không yêu cầu con người viết code, refactor Java sang ngôn ngữ khác, chọn package/framework, đọc repository hoặc chạy local test thay AI.
+- Với stakeholder interview, chỉ hỏi intent, business semantics, authority, measurable acceptance hoặc material trade-off không thể suy ra; hỏi theo đợt 5–12 câu.
 - Verify kết quả con người cung cấp, cập nhật state/decision/RTM rồi tự động resume.
 
 ## 6. Dừng và bàn giao

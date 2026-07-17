@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-00-GOVERNANCE-POLICY-GOVERNANCE-AND-RACI-MD
+phase: "00-Governance-Policy"
+artifact_type: governance
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Governance, RACI & Quality Gates — {{PROJECT_NAME}}
 
 ## 1. Role directory
@@ -25,9 +36,11 @@
 | Development | I | A | C | R | C | C | I |
 | Test/UAT | A | C | C | C | R | C | I |
 | Security risk treatment/recommendation | C | A | I | R | C | R | I |
-| High residual security risk acceptance | A | C | I | C | C | A | I |
+| High residual security risk acceptance | C | C | I | C | C | A | I |
 | Release production | A | R | I | C | C | C | R |
 | Handover | A | R | C | C | C | C | R |
+
+RACI control: mỗi hoạt động chỉ có một `A`. Với High residual security risk, `Security/Privacy Owner` là accountable cho risk decision; Client PO là consulted và ghi nhận business acceptance trong decision record. Không dùng hai `A` trong cùng một row.
 
 ## 3. Cadence
 

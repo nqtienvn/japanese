@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-06-TESTING-TEST-STATUS-REPORT-MD
+phase: "06-Testing"
+artifact_type: testing
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Test Status Report — {{PROJECT_NAME}} / {{REPORTING_PERIOD}}
 
 | Field | Value |

@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-START-MD
+phase: "ROOT"
+artifact_type: orchestration
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # START — Khởi động dự án với AI
 
 Đây là điểm bắt đầu dành cho Client/Product Owner. Mở AI tại **root repository**, chọn đúng một chế độ, thay nội dung trong dấu `[ ... ]`, rồi gửi nguyên khối prompt tương ứng.
@@ -17,7 +28,7 @@ Sao chép toàn bộ khối dưới đây:
 Đọc và thực thi toàn bộ MASTER_PROMPT.md trong repository này.
 
 PROJECT_MODE = GREENFIELD.
-AUTONOMY_MODE = STANDARD.
+AUTONOMY_MODE = FULL-LOCAL.
 SECURITY_PROFILE = AUTO.
 
 Ý tưởng ban đầu của tôi:
@@ -48,7 +59,7 @@ Trước khi gửi prompt, nên commit/backup code và ghi nhận branch, HEAD c
 Đọc và thực thi toàn bộ MASTER_PROMPT.md trong repository này.
 
 PROJECT_MODE = BROWNFIELD.
-AUTONOMY_MODE = STANDARD.
+AUTONOMY_MODE = FULL-LOCAL.
 SECURITY_PROFILE = AUTO.
 
 Mục tiêu tiếp quản:

@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-MASTER-PROMPT-MD
+phase: "ROOT"
+artifact_type: orchestration
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Master Prompt — AI Project Delivery
 
 ## Cách dùng nhanh
@@ -39,7 +50,7 @@ Không đặt password, token, private key hoặc dữ liệu thật nhạy cả
 | `REGULATORY_SCOPE` | `TBD` |
 | `SECURITY_PROFILE` | `AUTO` / `STANDARD` / `HIGH` / `CRITICAL` |
 | `UI_SCOPE` | `AUTO` / `NONE` / `WEB` / `MOBILE` / `DESKTOP` / `MULTI-CHANNEL` |
-| `AUTONOMY_MODE` | `STANDARD` / `GUIDED` / `FULL-LOCAL` |
+| `AUTONOMY_MODE` | `FULL-LOCAL` mặc định sau baseline / `STANDARD` / `GUIDED` |
 | `HUMAN_ASSISTANCE_TRIGGER` | Mặc định: approval/access/manual/sign-off hoặc 3 phương án khác nhau vẫn cùng blocker |
 | `PRODUCTION_CHANGES_AUTHORIZED` | `NO` mặc định |
 | `EXTERNAL_COMMUNICATION_AUTHORIZED` | `NO` mặc định |
@@ -62,11 +73,16 @@ Trước khi hành động:
 4. Đọc và tuân thủ:
    - `00-Governance-Policy/DOCUMENT_QUALITY_STANDARD.md`;
    - `00-Governance-Policy/SECURITY_AND_PRIVACY_STANDARD.md`;
+   - `00-Governance-Policy/BANK_SECURITY_REFERENCE_BASELINE.md`;
    - `00-Governance-Policy/HUMAN_AI_COLLABORATION_PROTOCOL.md`;
    - `00-Governance-Policy/STANDARDS_ALIGNMENT_MATRIX.md`;
    - `.agents/skills/ai-project-delivery/references/phase-gates.md`;
    - `.agents/skills/ai-project-delivery/references/artifact-map.md`;
    - `.agents/skills/ai-project-delivery/references/autonomy-and-approvals.md`.
+   - `.agents/skills/ai-project-delivery/references/security-adoption-workflow.md`;
+   - `.agents/skills/ai-project-delivery/references/security-portability-matrix.md` khi stack khác Java/Spring.
+   - `.agents/skills/ai-project-delivery/references/question-profiles.md` để chọn profile discovery phù hợp.
+   - `00-Governance-Policy/FRONT_MATTER_STANDARD.md` và `08-Document-References/TERM_STANDARDIZATION.md` để giữ metadata/thuật ngữ ổn định.
 5. Không tuyên bố dự án “ISO certified” hoặc conformant chính thức. Chỉ dùng “standards-aligned” khi evidence và tailoring thực tế hỗ trợ tuyên bố đó.
 
 ## 2. Xác định engagement mode
@@ -121,6 +137,7 @@ Quy tắc phỏng vấn:
 4. Cho phép Client trả lời `chưa biết`, nhưng phải ghi owner, deadline quyết định và impact.
 5. Không hỏi secret hoặc dữ liệu thật nhạy cảm trong chat.
 6. Tiếp tục đến khi các câu applicable được xác nhận, delegated, unknown có owner/date hoặc N/A có rationale.
+7. Trước mỗi câu hỏi, kiểm tra xem câu trả lời có thể lấy từ repository, code graph, config, test, official reference hoặc safe experiment hay không; nếu có, AI tự tìm và không hỏi Client.
 
 Không đóng discovery chỉ vì đã hỏi nhiều câu. Chỉ đóng khi problem, outcome, users, scope, workflow, data, NFR, security, acceptance, dependency, risk và ownership đủ rõ để qua Gate 01–02.
 
@@ -201,6 +218,10 @@ File tồn tại không đồng nghĩa hoàn tất. Không đánh dấu `Done/Pa
 - GDPR, CCPA hoặc luật khác chỉ mandatory sau Regulatory Applicability Assessment và đúng legal/compliance owner xác nhận.
 - Pin chuẩn/phiên bản trong Standards Matrix; OWASP Top 10 là awareness baseline, không thay thế threat model.
 - Không release với Critical security risk/vulnerability mở; High acceptance phải time-bound, có mitigation, owner, expiry và đúng authority.
+- Luôn đánh giá bank security snapshot trong `.agents/skills/ai-project-delivery/assets/security-reference/` theo security adoption workflow.
+- Với Java/Spring, copy-adapt component applicable làm starting point nhưng phải harden mọi finding trước production.
+- Với ngôn ngữ khác, refactor responsibility/security contract sang implementation native và chứng minh behavioral equivalence bằng test; không ép JVM hoặc dịch line-by-line.
+- Không dùng provenance “đã từng chạy ở ngân hàng” thay cho threat model, current advisory, build hoặc test evidence.
 
 ### Test documentation — aligned với ISO/IEC/IEEE 29119
 
@@ -243,7 +264,7 @@ Trước bàn giao:
 
 ## 8. Autonomy và điểm phải dừng
 
-Sau baseline, tự làm công việc local, reversible, in-scope theo `AUTONOMY_MODE`.
+Sau baseline, mặc định tự làm toàn bộ công việc local, reversible, in-scope theo `FULL-LOCAL` nếu Client không chọn mode chặt hơn. AI tự quyết implementation detail dựa trên evidence, ghi assumption có thể đảo ngược và không dừng chỉ để hỏi preference kỹ thuật.
 
 Luôn xin phê duyệt riêng trước khi:
 
@@ -258,6 +279,8 @@ Luôn xin phê duyệt riêng trước khi:
 Nếu bị chặn, nêu evidence đã kiểm tra, điều thiếu, impact, phương án và recommendation. Không giả định sự đồng ý cho approval-only action.
 
 Không chuyển việc cho con người chỉ vì khó hoặc lâu. Chỉ tạo assistance request khi có trigger trong `HUMAN_AI_COLLABORATION_PROTOCOL.md`: quyết định material, access/credential, thao tác thủ công, approval-only, sign-off chuyên môn hoặc cùng blocker sau ít nhất 3 phương án xử lý khác nhau không có evidence mới. Request phải nêu evidence, attempts, blocker, thao tác nhỏ nhất, output cần trả lại và việc AI vẫn tiếp tục được. Sau khi nhận kết quả, verify rồi tự động resume.
+
+Trước assistance request, AI phải ghi evidence-source checklist đã kiểm tra: repository/code graph, docs/decision log, config/runtime, official specification, build/test/safe probe và phương án reversible. Không yêu cầu con người viết code, refactor sang ngôn ngữ khác, chọn package hoặc chạy local test thay AI.
 
 ## 9. Giao tiếp trong khi làm
 
@@ -306,3 +329,12 @@ Bản trả lời cuối phải gồm:
 Bắt đầu ngay bằng việc đọc repository và thực hiện hành vi phù hợp với mode. Không yêu cầu Client lặp lại thông tin đã có trong file hoặc code.
 
 # END MASTER PROMPT
+## Template validation commands
+
+Gate 02/03/06/08 cannot pass from a `PROJECT_STATE.md` status edit alone. Require gate-specific artifact, concrete evidence path, approver/sign-off, and trace links; run the semantic linter and contract validator before gate review.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\.agents\skills\ai-project-delivery\scripts\lint_delivery.ps1
+powershell -ExecutionPolicy Bypass -File .\.agents\skills\ai-project-delivery\scripts\validate_contracts.ps1 -Strict
+powershell -ExecutionPolicy Bypass -File .\.agents\skills\ai-project-delivery\scripts\generate_document_index.ps1
+```

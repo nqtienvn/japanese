@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-05-DEVELOPMENT-DEVELOPMENT-WORKFLOW-MD
+phase: "05-Development"
+artifact_type: development
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Development Workflow — {{PROJECT_NAME}}
 
 ## 1. Start a work item

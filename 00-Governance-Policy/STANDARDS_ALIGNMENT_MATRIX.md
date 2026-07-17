@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-00-GOVERNANCE-POLICY-STANDARDS-ALIGNMENT-MATRIX-MD
+phase: "00-Governance-Policy"
+artifact_type: governance
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # International Standards Alignment Matrix
 
 ## 1. Claim boundary
@@ -16,6 +27,8 @@ Bộ template này được thiết kế **tham chiếu và căn chỉnh (aligne
 | [ISO/IEC 27001](https://www.iso.org/standard/27001) | 2022, Edition 3 + amendment applicable | ISMS requirements/risk-management interface; không phải chứng nhận project tự động | Security Standard, risk/threat/tailoring/approval evidence | Verify organizational scope and current amendment |
 | [ISO/IEC 27002](https://www.iso.org/standard/75652.html) | 2022, Edition 3 | Information-security control guidance được chọn theo risk | Security control mapping, design/test evidence | Guidance; tailor/SoA rationale |
 | [OWASP Top 10](https://owasp.org/Top10/2025/0x00_2025-Introduction/) | 2025 | Web application risk awareness; không thay thế threat model | Threat Model, security requirements/tests | Verify edition before project baseline |
+| [OWASP ASVS](https://github.com/OWASP/ASVS) | 5.0.0, May 2025 | Application security verification requirements | Security Baseline, Adoption Record, Security Verification Matrix | Pin ASVS requirement IDs with version |
+| [RFC 9700](https://www.rfc-editor.org/info/rfc9700/) | BCP 240, January 2025 | OAuth 2.0 security best current practice | OAuth/OIDC design, redirect/PKCE/token tests | Apply when OAuth/OIDC is in scope |
 | [GDPR](https://eur-lex.europa.eu/eli/reg/2016/679/art_6/oj/eng) / [CCPA](https://cppa.ca.gov/faq) | Current applicable law/regulation | Chỉ áp dụng sau Regulatory Applicability Assessment | Data inventory, legal basis, rights, security/privacy evidence | Legal owner sign-off; not legal advice |
 
 Legacy references:
@@ -58,6 +71,8 @@ Mỗi dự án ghi quyết định tailoring; không xóa control không áp d�
 | `STD-SEC-001` | Chọn Security Profile và risk appetite; threat model trước Gate 03 | Project Profile, Security Standard, Threat Model |
 | `STD-SEC-002` | Security requirement atomic, threat/control/test/residual-risk mapping | SRS, EDS, Test RTM |
 | `STD-SEC-003` | Không còn Critical risk/vulnerability mở khi release; High acceptance time-bound đúng quyền | Test/Release Report, Risk Register |
+| `STD-SEC-004` | Bank Java snapshot được adopt/adapt hoặc cross-language refactor có evidence | Security Adoption Record, Security Verification Matrix |
+| `STD-SEC-005` | Known finding trong snapshot không được đi vào production | Security Review, code/config diff, negative tests |
 | `STD-PRV-001` | GDPR/CCPA/law khác chỉ mandatory sau applicability assessment | SRS, Security Standard, legal sign-off |
 
 ## 6. Conformance review

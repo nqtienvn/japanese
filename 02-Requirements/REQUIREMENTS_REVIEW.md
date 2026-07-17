@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-02-REQUIREMENTS-REQUIREMENTS-REVIEW-MD
+phase: "02-Requirements"
+artifact_type: requirements
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Requirements Review & Sign-off
 
 ## Quality checklist

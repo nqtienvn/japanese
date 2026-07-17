@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-05-DEVELOPMENT-CODE-REVIEW-CHECKLIST-MD
+phase: "05-Development"
+artifact_type: development
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Code Review Checklist
 
 ## Context

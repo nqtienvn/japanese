@@ -1,0 +1,109 @@
+{
+  "groups": [
+    {
+      "name": "mb.security",
+      "type": "com.mb.security.config.SecurityProperties",
+      "sourceType": "com.mb.security.config.SecurityProperties",
+      "description": "MB Security Starter configuration properties for Java 21"
+    }
+  ],
+  "properties": [
+    {
+      "name": "mb.security.jwt.secret",
+      "type": "java.lang.String",
+      "description": "JWT secret key (Base64 encoded recommended). Generate with: openssl rand -base64 32",
+      "sourceType": "com.mb.security.config.SecurityProperties$Jwt"
+    },
+    {
+      "name": "mb.security.jwt.access-token-expiration",
+      "type": "java.lang.Integer",
+      "description": "Access token expiration in seconds",
+      "sourceType": "com.mb.security.config.SecurityProperties$Jwt",
+      "defaultValue": 3600
+    },
+    {
+      "name": "mb.security.jwt.refresh-token-expiration",
+      "type": "java.lang.Integer",
+      "description": "Refresh token expiration in seconds",
+      "sourceType": "com.mb.security.config.SecurityProperties$Jwt",
+      "defaultValue": 604800
+    },
+    {
+      "name": "mb.security.jwt.issuer",
+      "type": "java.lang.String",
+      "description": "JWT issuer name",
+      "sourceType": "com.mb.security.config.SecurityProperties$Jwt",
+      "defaultValue": "mb-security"
+    },
+    {
+      "name": "mb.security.password.bcrypt-strength",
+      "type": "java.lang.Integer",
+      "description": "BCrypt password hashing strength (4-31, recommended: 10-14)",
+      "sourceType": "com.mb.security.config.SecurityProperties$Password",
+      "defaultValue": 12
+    },
+    {
+      "name": "mb.security.oauth2.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable OAuth2 social login",
+      "sourceType": "com.mb.security.config.SecurityProperties$OAuth2",
+      "defaultValue": false
+    },
+    {
+      "name": "mb.security.oauth2.success-redirect-url",
+      "type": "java.lang.String",
+      "description": "URL to redirect after successful OAuth2 login",
+      "sourceType": "com.mb.security.config.SecurityProperties$OAuth2",
+      "defaultValue": "/"
+    },
+    {
+      "name": "mb.security.oauth2.providers.google.client-id",
+      "type": "java.lang.String",
+      "description": "Google OAuth2 Client ID",
+      "sourceType": "com.mb.security.config.SecurityProperties$OAuth2$Provider"
+    },
+    {
+      "name": "mb.security.oauth2.providers.google.client-secret",
+      "type": "java.lang.String",
+      "description": "Google OAuth2 Client Secret",
+      "sourceType": "com.mb.security.config.SecurityProperties$OAuth2$Provider"
+    },
+    {
+      "name": "mb.security.oauth2.providers.facebook.client-id",
+      "type": "java.lang.String",
+      "description": "Facebook App ID",
+      "sourceType": "com.mb.security.config.SecurityProperties$OAuth2$Provider"
+    },
+    {
+      "name": "mb.security.oauth2.providers.facebook.client-secret",
+      "type": "java.lang.String",
+      "description": "Facebook App Secret",
+      "sourceType": "com.mb.security.config.SecurityProperties$OAuth2$Provider"
+    },
+    {
+      "name": "mb.security.cors.allowed-origins",
+      "type": "java.lang.String",
+      "description": "CORS allowed origins (comma-separated)",
+      "sourceType": "com.mb.security.config.SecurityProperties$Cors",
+      "defaultValue": "*"
+    },
+    {
+      "name": "mb.security.cookie.secure",
+      "type": "java.lang.Boolean",
+      "description": "Enable secure flag for cookies (HTTPS only)",
+      "sourceType": "com.mb.security.config.SecurityProperties$Cookie",
+      "defaultValue": true
+    }
+  ],
+  "hints": [
+    {
+      "name": "mb.security.jwt.secret",
+      "values": [],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    }
+  ]
+}

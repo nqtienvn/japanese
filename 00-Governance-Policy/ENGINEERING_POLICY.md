@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-00-GOVERNANCE-POLICY-ENGINEERING-POLICY-MD
+phase: "00-Governance-Policy"
+artifact_type: governance
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Engineering, Security & Documentation Policy
 
 Control chi tiết về security/privacy nằm tại `SECURITY_AND_PRIVACY_STANDARD.md`; cách AI yêu cầu con người hỗ trợ nằm tại `HUMAN_AI_COLLABORATION_PROTOCOL.md`. Khi có xung đột, control cụ thể/được phê duyệt trong hai tài liệu đó ưu tiên hơn hướng dẫn chung ở đây.

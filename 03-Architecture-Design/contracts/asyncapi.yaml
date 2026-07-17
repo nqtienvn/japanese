@@ -1,0 +1,43 @@
+asyncapi: 3.0.0
+info:
+  title: "{{PROJECT_NAME}} Async Events"
+  version: "0.1.0"
+  description: "Machine-readable event contract scaffold; replace examples before Gate 04."
+defaultContentType: application/json
+channels:
+  resourceEvents:
+    address: "{{EVENT_TOPIC_PREFIX}}.resource"
+    messages:
+      resourceCreated:
+        $ref: '#/components/messages/ResourceCreated'
+operations:
+  publishResourceCreated:
+    action: send
+    channel:
+      $ref: '#/channels/resourceEvents'
+    messages:
+      - $ref: '#/channels/resourceEvents/messages/resourceCreated'
+components:
+  messages:
+    ResourceCreated:
+      name: ResourceCreated
+      title: Resource created event
+      payload:
+        $ref: '#/components/schemas/ResourceCreatedPayload'
+      traits:
+        - $ref: '#/components/traits/Correlation'
+  schemas:
+    ResourceCreatedPayload:
+      type: object
+      required: [eventId, resourceId, occurredAt]
+      properties:
+        eventId: { type: string, format: uuid }
+        resourceId: { type: string, format: uuid }
+        occurredAt: { type: string, format: date-time }
+        version: { type: integer, minimum: 1 }
+  traits:
+    Correlation:
+      headers:
+        type: object
+        properties:
+          x-correlation-id: { type: string }

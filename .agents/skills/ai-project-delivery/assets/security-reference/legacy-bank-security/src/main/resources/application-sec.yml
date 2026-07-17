@@ -1,0 +1,12 @@
+# Sanitized reference only. The source file contained a committed password and
+# a legacy PBE algorithm; neither value is copied into this repository.
+jasypt:
+  encryptor:
+    password: ${JASYPT_ENCRYPTOR_PASSWORD}
+    algorithm: ${JASYPT_ALGORITHM}
+    pool-size: ${JASYPT_POOL_SIZE:4}
+    key-obtention-iterations: ${JASYPT_KEY_ITERATIONS}
+    provider-name: ${JASYPT_PROVIDER}
+    salt-generator-classname: org.jasypt.salt.RandomSaltGenerator
+    iv-generator-classname: org.jasypt.iv.RandomIvGenerator
+    string-output-type: base64

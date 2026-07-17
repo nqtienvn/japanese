@@ -22,6 +22,12 @@ obj/
 __pycache__/
 .pytest_cache/
 
+# Local validator output (reproducible; do not commit)
+lint-output.json
+lint-strict.json
+validate-output.json
+validate-strict-output.json
+
 # IDE/OS noise
 .idea/
 .vscode/

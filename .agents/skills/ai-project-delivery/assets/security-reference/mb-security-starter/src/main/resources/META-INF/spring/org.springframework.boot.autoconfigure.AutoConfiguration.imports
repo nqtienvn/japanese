@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.AutoConfiguration=\
+com.mb.security.autoconfigure.MbSecurityAutoConfiguration

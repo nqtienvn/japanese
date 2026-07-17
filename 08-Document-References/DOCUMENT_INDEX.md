@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-08-DOCUMENT-REFERENCES-DOCUMENT-INDEX-MD
+phase: "08-Document-References"
+artifact_type: handover
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Document & Evidence Index — {{PROJECT_NAME}}
 
 | Artifact ID | Tài liệu/evidence | Phase | Audience | Owner | Version/status | Last verified | Replacement/notes |
@@ -16,6 +27,24 @@
 | DOC-012 | `../START.md` | Root | Client/Product Owner | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Copy-ready Greenfield/Brownfield start prompts |
 | DOC-013 | `../00-Governance-Policy/SECURITY_AND_PRIVACY_STANDARD.md` | 00 | Security/Engineering/QA/Ops | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Security Profile and release controls |
 | DOC-014 | `../00-Governance-Policy/HUMAN_AI_COLLABORATION_PROTOCOL.md` | 00 | Client/AI Vendor | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Assistance trigger and resume protocol |
+| DOC-015 | `../00-Governance-Policy/BANK_SECURITY_REFERENCE_BASELINE.md` | 00 | Security/Engineering/QA | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Portable security requirements |
+| DOC-016 | `../03-Architecture-Design/SECURITY_ADOPTION_RECORD.md` | 03 | Architect/Security/Engineering | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Component and cross-language decisions |
+| DOC-017 | `../06-Testing/SECURITY_VERIFICATION_MATRIX.md` | 06 | Security/QA | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Negative/equivalence evidence |
+| DOC-018 | `SECURITY_REFERENCE_INDEX.md` | 08 | AI/Engineering/Security | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Snapshot/read-order/provenance |
+| DOC-019 | `../00-Governance-Policy/FRONT_MATTER_STANDARD.md` | 00 | AI/All authors | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Machine-readable artifact metadata |
+| DOC-020 | `../00-Governance-Policy/REUSABLE_QUALITY_PATTERNS.md` | 00 | Architecture/QA/Security | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Reusable NFR/security/test controls |
+| DOC-021 | `../01-Planning/COST_FINOPS_CAPACITY_LIFECYCLE.md` | 01 | Product/Finance/Ops | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Cost, capacity and EOL planning |
+| DOC-022 | `../02-Requirements/BPMN_WORKFLOW.md` | 02 | Product/Engineering | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Workflow and state transitions |
+| DOC-023 | `../02-Requirements/CRUD_FUNCTIONAL_MATRIX.md` | 02 | Product/QA | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | CRUD-to-requirement coverage |
+| DOC-024 | `../03-Architecture-Design/contracts/openapi.yaml` | 03 | Engineering/QA/Partners | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | REST contract scaffold |
+| DOC-025 | `../03-Architecture-Design/contracts/asyncapi.yaml` | 03 | Integration/QA | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Event contract scaffold |
+| DOC-026 | `../03-Architecture-Design/UI_UX_SPECIFICATION.md` | 03 | Product/UX/QA | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Screen, navigation and WCAG evidence |
+| DOC-027 | `../05-Development/DEVOPS_IAC_AND_PIPELINE.md` | 05 | Engineering/Ops | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | IaC, pipeline and container controls |
+| DOC-028 | `../06-Testing/DR_RESTORE_FAILOVER_EXERCISE.md` | 06 | QA/Ops | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Restore/failover evidence |
+| DOC-029 | `READINESS_DASHBOARD.md` | 07 | Delivery/Governance | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Gate coverage and evidence readiness |
+| DOC-030 | `DR_BCP_AND_CRISIS_PLAN.md` | 08 | Ops/Business/Security | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Continuity and crisis communication |
+| DOC-031 | `TERM_STANDARDIZATION.md` | 08 | All authors/AI | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Canonical Vietnamese-English terms |
+| DOC-032 | `../09-Example-Project/README.md` | 09 | AI/All reviewers | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | Complete lifecycle example |
 
 ## Source-of-truth rules
 

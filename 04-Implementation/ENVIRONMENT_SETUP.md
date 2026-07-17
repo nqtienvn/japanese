@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-04-IMPLEMENTATION-ENVIRONMENT-SETUP-MD
+phase: "04-Implementation"
+artifact_type: implementation
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Environment Setup — {{PROJECT_NAME}}
 
 ## Prerequisites

@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-00-GOVERNANCE-POLICY-HUMAN-AI-COLLABORATION-PROTOCOL-MD
+phase: "00-Governance-Policy"
+artifact_type: governance
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Human–AI Collaboration & Assistance Protocol
 
 ## 1. Mục đích
@@ -13,6 +24,11 @@ Quy định khi AI Delivery Vendor phải tự tiếp tục, khi được phép 
 - `COL-005`: AI **PHẢI** yêu cầu con người quyết định khi lựa chọn ảnh hưởng material tới hành vi sản phẩm, scope, cost, deadline, dữ liệu, security/privacy, compliance hoặc acceptance.
 - `COL-006`: AI **PHẢI** xác minh kết quả con người cung cấp trước khi dùng làm evidence hoàn tất.
 - `COL-007`: Sau khi blocker được giải quyết, AI **PHẢI** tự động tiếp tục từ trạng thái đã ghi trong `PROJECT_STATE.md`.
+- `COL-008`: AI **PHẢI** kiểm tra code graph, source, config, test và decision evidence trước khi hỏi implementation detail.
+- `COL-009`: AI **PHẢI** kiểm tra official reference khi dữ kiện kỹ thuật có thể thay đổi theo thời gian.
+- `COL-010`: AI **PHẢI** tự chọn phương án local có thể đảo ngược khi evidence đủ.
+- `COL-011`: AI **KHÔNG ĐƯỢC** yêu cầu con người refactor code sang ngôn ngữ khác thay AI.
+- `COL-012`: Câu hỏi stakeholder **PHẢI** tập trung vào intent, authority, material trade-off hoặc acceptance không thể suy ra.
 
 ## 3. Trigger được phép yêu cầu hỗ trợ
 
@@ -28,6 +44,21 @@ AI chỉ yêu cầu hỗ trợ khi có ít nhất một trigger:
 | `HUM-SIGNOFF` | Cần sign-off thuộc trách nhiệm pháp lý/chuyên môn của con người | Legal basis, residual High risk, Client acceptance |
 
 Mỗi dự án có thể tailoring số lần thử hoặc timebox theo loại work item, nhưng phải ghi trong `PROJECT_PROFILE.md`/plan. Không dùng wall-clock làm lý do duy nhất; nếu còn việc không bị chặn, AI tiếp tục phần đó trong phạm vi.
+
+### Pre-question evidence check
+
+Trước khi hỏi con người, AI phải trả lời được:
+
+| Check | Evidence tối thiểu |
+| :--- | :--- |
+| Repository/code graph đã kiểm tra? | Path, symbol, call/data flow hoặc kết luận không có |
+| Config/test/build đã kiểm tra? | Command/result hoặc lý do không an toàn/không applicable |
+| Project decision/document đã kiểm tra? | File/ID hoặc kết luận chưa có |
+| Official/current reference có cần không? | Link/version/date hoặc N/A rationale |
+| Có lựa chọn local/reversible không? | Option đã chọn và cách rollback |
+| Câu hỏi có thật sự material/human-exclusive không? | Trigger và impact |
+
+Thiếu check không phải lý do dừng nếu AI vẫn có thể tiếp tục phần khác an toàn trong phạm vi.
 
 ## 4. Assistance request bắt buộc
 
@@ -67,4 +98,3 @@ Human action không tự động đồng nghĩa `Done`. Gate chỉ pass sau khi 
 - Không yêu cầu password, token, private key, certificate private material hoặc dữ liệu nhạy cảm thật qua chat/Markdown.
 - Với sự cố bảo mật đang diễn ra, ưu tiên containment và escalation theo incident process; không tiếp tục thử nghiệm có thể làm tăng tác động.
 - Nếu blocker ảnh hưởng Critical path, cập nhật `PROJECT_STATE.md`, risk register và status report; không che giấu bằng assumption.
-

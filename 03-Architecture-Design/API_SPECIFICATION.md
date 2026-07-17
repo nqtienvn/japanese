@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-03-ARCHITECTURE-DESIGN-API-SPECIFICATION-MD
+phase: "03-Architecture-Design"
+artifact_type: design
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # API, Event & External Interface Specification — {{PROJECT_NAME}}
 
 | Field | Value |

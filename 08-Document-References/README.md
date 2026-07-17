@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-08-DOCUMENT-REFERENCES-README-MD
+phase: "08-Document-References"
+artifact_type: handover
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Phase 08 — Documentation, Handover & Continuity
 
 ## Mục tiêu
@@ -13,6 +24,11 @@ Bàn giao sao cho Client hoặc một vendor/team khác có thể hiểu, cài �
 - `HANDOVER_CHECKLIST.md`: ownership, access, knowledge transfer, acceptance.
 - `MEETING_MINUTES.md`: decision/action từ họp.
 - `GLOSSARY_AND_REFERENCES.md`: thuật ngữ và nguồn chuẩn.
+- `SECURITY_REFERENCE_INDEX.md`: thứ tự đọc, code snapshot, portability và adoption evidence.
+- `DR_BCP_AND_CRISIS_PLAN.md`: continuity, recovery, failover, crisis communication và exercise evidence.
+- `TERM_STANDARDIZATION.md`: glossary canonical Việt–Anh và forbidden variants.
+- `DOCUMENT_INDEX.generated.md`: index sinh tự động từ front matter bằng `generate_document_index.ps1`.
+- `../09-Example-Project/`: dự án mẫu hoàn chỉnh từ idea đến sandbox và handover.
 
 ## Gate 08
 

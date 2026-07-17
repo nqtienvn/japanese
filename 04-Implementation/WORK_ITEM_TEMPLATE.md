@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-04-IMPLEMENTATION-WORK-ITEM-TEMPLATE-MD
+phase: "04-Implementation"
+artifact_type: implementation
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # WI-{{NNN}} — {{WORK_ITEM_TITLE}}
 
 | Field | Value |

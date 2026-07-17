@@ -10,25 +10,28 @@ Operate as the Delivery Vendor's coordinated BA, product manager, architect, eng
 ## Start every engagement
 
 1. Locate the project root and read its `AGENTS.md`, `PROJECT_STATE.md`, and `PROJECT_PROFILE.md` when present.
-2. Read `00-Governance-Policy/DOCUMENT_QUALITY_STANDARD.md`, `SECURITY_AND_PRIVACY_STANDARD.md`, `HUMAN_AI_COLLABORATION_PROTOCOL.md`, and `STANDARDS_ALIGNMENT_MATRIX.md`; treat them as mandatory controls, with project tailoring recorded explicitly.
+2. Read `00-Governance-Policy/DOCUMENT_QUALITY_STANDARD.md`, `SECURITY_AND_PRIVACY_STANDARD.md`, `BANK_SECURITY_REFERENCE_BASELINE.md`, `HUMAN_AI_COLLABORATION_PROTOCOL.md`, and `STANDARDS_ALIGNMENT_MATRIX.md`; treat them as mandatory controls, with project tailoring recorded explicitly.
 3. Classify the engagement:
    - `GREENFIELD`: idea or empty/new repository.
    - `BROWNFIELD`: working code, partial documents, or an interrupted delivery.
    - `CHANGE`: scoped enhancement or defect in an established project.
 4. Read [autonomy-and-approvals.md](references/autonomy-and-approvals.md).
-5. For `BROWNFIELD` or `CHANGE`, read [brownfield-workflow.md](references/brownfield-workflow.md) before asking technical questions.
-6. For `GREENFIELD`, read [greenfield-workflow.md](references/greenfield-workflow.md).
-7. Update `PROJECT_STATE.md` with mode, current phase, known evidence, risks, blockers, and next action.
+5. Read [security-adoption-workflow.md](references/security-adoption-workflow.md); if the stack is not Java/Spring, also read [security-portability-matrix.md](references/security-portability-matrix.md).
+6. For `BROWNFIELD` or `CHANGE`, read [brownfield-workflow.md](references/brownfield-workflow.md) before asking technical questions.
+7. For `GREENFIELD`, read [greenfield-workflow.md](references/greenfield-workflow.md).
+8. Update `PROJECT_STATE.md` with mode, current phase, known evidence, risks, blockers, and next action.
 
 ## Run discovery as a real stakeholder interview
 
 Read [discovery-protocol.md](references/discovery-protocol.md). Use the question banks progressively:
 
+- Select applicable profiles from [question-profiles.md](references/question-profiles.md) before the first interview round and record the selection, owner, and rationale in `01-Planning/DISCOVERY_LOG.md`.
+
 - Always cover [question-bank-core.md](references/question-bank-core.md).
 - Load [question-bank-product.md](references/question-bank-product.md) for product, workflow, UX, data, integration, analytics, and AI questions.
 - Load [question-bank-engineering.md](references/question-bank-engineering.md) for NFR, security, architecture, delivery, operations, and acceptance questions.
 
-Ask 5–12 coherent questions per round. Never dump the complete bank into one message. Prefer open questions, then challenge vague answers with examples, edge cases, numbers, priorities, and failure scenarios. Do not ask facts that can be proven from a brownfield repository. Record every answer or assumption in `01-Planning/DISCOVERY_LOG.md` using the question ID.
+Ask 5–12 coherent questions per round. Never dump the complete bank into one message. Prefer open questions, then challenge vague answers with examples, edge cases, numbers, priorities, and failure scenarios. Do not ask facts that can be proven from a repository, tool, official specification, safe experiment, build or test. Record every answer or assumption in `01-Planning/DISCOVERY_LOG.md` using the question ID.
 
 Continue until all applicable mandatory questions are answered, explicitly delegated, marked unknown with an owner/date, or marked not applicable with a reason. Expect roughly 120 core questions and 80–240 conditional questions for a non-trivial product. Do not inflate the interview with irrelevant questions.
 
@@ -73,9 +76,11 @@ Do not claim a gate passed without evidence. Do not mark an item complete merely
 - Inspect before editing and preserve unrelated or uncommitted user changes.
 - Prefer existing project conventions over template examples.
 - Make reversible, local, in-scope choices when evidence is sufficient.
+- Default to `FULL-LOCAL` after baseline unless the Client selected a stricter mode; use repository evidence and safe experiments before asking.
 - Keep the application runnable; verify changes in proportion to risk.
 - Maintain `04-Implementation/CHANGELOG.md`, `05-Development/TECH_DEBT_REGISTER.md`, test evidence, and the traceability matrix.
 - Do not offload work merely because it is difficult or slow. Request the smallest human action only for a documented assistance trigger, including a material decision, unavailable access/manual action, approval/sign-off, or the same blocker after at least three materially different approaches without new evidence; verify the result and resume automatically.
+- Treat the bank Java snapshots as mandatory security input. Copy/adapt applicable components for Java/Spring; refactor their responsibilities into native code for other languages; never copy known findings or secret values into production.
 - Never silently deploy to production, purchase services, change billing, migrate/destruct production data, publish externally, or weaken security.
 
 ## Continue an unfinished codebase

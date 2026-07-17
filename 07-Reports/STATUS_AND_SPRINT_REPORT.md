@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-07-REPORTS-STATUS-AND-SPRINT-REPORT-MD
+phase: "07-Reports"
+artifact_type: report
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Client Delivery Status — {{PROJECT_NAME}}
 
 | Trường | Giá trị |

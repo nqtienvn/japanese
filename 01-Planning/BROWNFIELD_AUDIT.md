@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-01-PLANNING-BROWNFIELD-AUDIT-MD
+phase: "01-Planning"
+artifact_type: planning
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Brownfield Audit & Continuation Plan — {{PROJECT_NAME}}
 
 ## Baseline protection

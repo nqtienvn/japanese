@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-00-GOVERNANCE-POLICY-README-MD
+phase: "00-Governance-Policy"
+artifact_type: governance
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Phase 00 — Governance & Policy
 
 ## Mục tiêu
@@ -17,6 +28,9 @@ Thiết lập quan hệ làm việc giữa `Client` và `Delivery Vendor`, xác 
 - `GOVERNANCE_AND_RACI.md`: RACI, decision rights, cadence, DoR/DoD.
 - `ENGINEERING_POLICY.md`: chuẩn code, security, privacy, testing và evidence.
 - `SECURITY_AND_PRIVACY_STANDARD.md`: Security Profile, control, regulatory applicability, verification và security release gate.
+- `BANK_SECURITY_REFERENCE_BASELINE.md`: adoption/refactor rule cho hai Java snapshot, portability và exact security outcomes.
+- `FRONT_MATTER_STANDARD.md`: machine-readable owner, version, status, IDs và dependencies cho mọi artifact.
+- `REUSABLE_QUALITY_PATTERNS.md`: catalog NFR/security/test patterns để tái sử dụng và tailor.
 - `HUMAN_AI_COLLABORATION_PROTOCOL.md`: trigger, evidence và quy trình AI yêu cầu con người hỗ trợ.
 - `DOCUMENT_QUALITY_STANDARD.md`: độ phủ, atomic/unambiguous/testable/traceable và field-validation rules.
 - `STANDARDS_ALIGNMENT_MATRIX.md`: mapping với requirements/testing/security/privacy references, phiên bản, tailoring và claim boundary.
@@ -31,5 +45,6 @@ Thiết lập quan hệ làm việc giữa `Client` và `Delivery Vendor`, xác 
 - [ ] RACI, escalation, change control, DoR/DoD và policy có owner.
 - [ ] Standards tailoring/alignment và document quality controls đã được chọn, có owner.
 - [ ] Security Profile, risk appetite, regulatory applicability và security owner đã được xác định.
+- [ ] Bank security snapshot applicability, proprietary-code boundary và cross-language refactor rule đã được ghi.
 - [ ] Human-assistance trigger, escalation và approval-only boundary đã được tailoring.
 - [ ] Không còn xung đột Critical/High chưa có người quyết định.

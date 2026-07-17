@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-08-DOCUMENT-REFERENCES-DEPLOYMENT-GUIDE-MD
+phase: "08-Document-References"
+artifact_type: handover
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Deployment & Configuration Guide — {{PROJECT_NAME}}
 
 | Field | Value |

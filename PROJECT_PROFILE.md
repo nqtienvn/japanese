@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-PROJECT-PROFILE-MD
+phase: "ROOT"
+artifact_type: orchestration
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Hồ sơ dự án — {{PROJECT_NAME}}
 
 > Đây là nguồn thông tin gốc, được cập nhật khi discovery xác nhận dữ kiện mới.
@@ -16,7 +27,7 @@
 | Start date | {{START_DATE}} |
 | Target date | {{TARGET_DATE}} |
 | Delivery mode | GREENFIELD / BROWNFIELD / CHANGE |
-| Autonomy mode | GUIDED / STANDARD / FULL-LOCAL |
+| Autonomy mode | FULL-LOCAL mặc định sau baseline / GUIDED / STANDARD |
 | Data classification | Public / Internal / Confidential / PII / Sensitive |
 | Security profile | STANDARD / HIGH / CRITICAL |
 | Regulatory scope | {{REGULATORY_SCOPE}} |

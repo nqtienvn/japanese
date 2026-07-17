@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-08-DOCUMENT-REFERENCES-USER-GUIDE-MD
+phase: "08-Document-References"
+artifact_type: handover
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # User Guide — {{PROJECT_NAME}}
 
 ## Audience and support

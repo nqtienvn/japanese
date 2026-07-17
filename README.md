@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-README-MD
+phase: "ROOT"
+artifact_type: orchestration
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # AI Project Lifecycle Template — 09 Phase
 
 Đây là bộ khung cho mô hình **bạn là Client/Product Owner thuê một công ty làm sản phẩm**, còn AI vận hành như Delivery Vendor gồm BA/PM/Architect/Developer/QA/DevOps: phỏng vấn stakeholder, làm rõ ý tưởng, tự động thực hiện công việc đã được ủy quyền và bàn giao kết quả có bằng chứng. Bộ khung cũng dùng được khi chép vào repository đang code dở.
@@ -51,6 +62,7 @@ Template được thiết kế theo hướng **standards-aligned**, không tự 
 | **V-Model-like Traceability** | Duy trì truy vết hai chiều từ mục tiêu/yêu cầu đến thiết kế, work item, code, test, release và handover. Một requirement chưa có evidence phù hợp không được coi là hoàn tất. |
 | **DevSecOps** | Security, privacy, testing, CI, dependency scanning, migration, release, rollback, observability và operations được xem xét xuyên suốt thay vì để đến cuối dự án. |
 | **Risk-based Security Profiles** | Chọn `STANDARD/HIGH/CRITICAL`; threat/control/test/release gate tăng theo data, exposure và impact, không dùng tuyên bố “bảo mật mạnh nhất” mơ hồ. |
+| **Portable Bank Security Reference** | Hai Java snapshot là starting inventory cho Spring; stack khác refactor responsibility/control sang code native và chứng minh tương đương bằng security tests. |
 | **Human–AI Collaboration** | AI không offload vì khó/lâu; chỉ nhờ Client cho decision/access/manual/approval/sign-off nhỏ nhất theo evidence, sau đó verify và tự resume. |
 | **Brownfield Continuation** | Với dự án đang code dở, AI audit code/config/test/git trước, tái dựng hiện trạng, tạo gap analysis và tiếp tục từ gate đầu tiên chưa đạt. |
 
@@ -88,6 +100,8 @@ Tài liệu quy định chi tiết nằm tại:
 - [International Standards Alignment](00-Governance-Policy/STANDARDS_ALIGNMENT_MATRIX.md)
 - [Document Quality Standard](00-Governance-Policy/DOCUMENT_QUALITY_STANDARD.md)
 - [Security & Privacy Engineering Standard](00-Governance-Policy/SECURITY_AND_PRIVACY_STANDARD.md)
+- [Bank Security Reference Baseline](00-Governance-Policy/BANK_SECURITY_REFERENCE_BASELINE.md)
+- [Security Portability Matrix](.agents/skills/ai-project-delivery/references/security-portability-matrix.md)
 - [Human–AI Collaboration Protocol](00-Governance-Policy/HUMAN_AI_COLLABORATION_PROTOCOL.md)
 
 Mô hình này phù hợp với quan hệ thuê phát triển sản phẩm vì kết hợp được khả năng kiểm soát phạm vi, trách nhiệm, chi phí giả định và nghiệm thu của mô hình truyền thống với khả năng lặp nhanh, phản hồi liên tục và tự động hóa của Agile/DevSecOps.
@@ -145,7 +159,7 @@ Question bank nằm trong `.agents/skills/ai-project-delivery/references/`. AI k
 
 ## Tự động hóa và an toàn
 
-Sau khi baseline được duyệt, AI được phép tự làm các thay đổi local, có thể đảo ngược và trong phạm vi đã thống nhất. Các hành động như deploy production, chi tiền, thay đổi billing, xóa/migrate dữ liệu production, gửi/publish ra ngoài hoặc thay đổi bảo mật vẫn cần xác nhận riêng.
+Sau khi baseline được duyệt, mặc định AI chạy `FULL-LOCAL`: tự làm các thay đổi local, có thể đảo ngược và trong phạm vi đã thống nhất. AI phải tự khai thác code graph/repository/docs/build/test/official references trước khi hỏi. Các hành động như deploy production, chi tiền, thay đổi billing, xóa/migrate dữ liệu production, gửi/publish ra ngoài hoặc giảm bảo mật vẫn cần xác nhận riêng.
 
 ## Biến mẫu
 
@@ -171,5 +185,13 @@ powershell -ExecutionPolicy Bypass -File .\.agents\skills\ai-project-delivery\sc
 ```
 
 Script kiểm tra đủ 09 phase, các artifact bắt buộc và trạng thái truy vết cơ bản.
+
+Semantic và contract checks có thể chạy riêng khi phát triển template:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\.agents\skills\ai-project-delivery\scripts\lint_delivery.ps1
+powershell -ExecutionPolicy Bypass -File .\.agents\skills\ai-project-delivery\scripts\validate_contracts.ps1 -Strict
+powershell -ExecutionPolicy Bypass -File .\.agents\skills\ai-project-delivery\scripts\generate_document_index.ps1
+```
 
 Trong bản template chưa điền, cảnh báo `Unresolved template placeholders` là bình thường. Khi bàn giao thật, chạy thêm `-StrictDelivery`; mọi placeholder còn lại và phase chưa `Passed` sẽ làm validation thất bại.

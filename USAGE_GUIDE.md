@@ -1,3 +1,14 @@
+---
+artifact_id: DOC-USAGE-GUIDE-MD
+phase: "ROOT"
+artifact_type: orchestration
+owner: "{{OWNER}}"
+version: "0.1"
+status: Template
+ids: []
+dependencies: []
+last_verified: "{{DATE}}"
+---
 # Hướng dẫn sử dụng AI Project Lifecycle Template
 
 ## 1. Nguyên tắc để đạt hiệu quả cao nhất
@@ -13,6 +24,8 @@ Template hoạt động tốt nhất khi:
 7. Không phê duyệt gate chỉ vì “trông có vẻ xong”; yêu cầu đường dẫn, lệnh test và kết quả.
 8. Chọn Security Profile theo dữ liệu/exposure/risk; không dùng “bảo mật mạnh nhất” thay cho control và test cụ thể.
 9. AI không chuyển việc vì khó/lâu; khi cần người hỗ trợ phải đưa assistance request có evidence và thao tác nhỏ nhất.
+10. Dùng `FULL-LOCAL` nếu muốn AI tự triển khai tối đa sau baseline; AI chỉ hỏi ở human-exclusive trigger.
+11. Security Java snapshot là implementation reference; stack khác được refactor sang native implementation có equivalent test.
 
 ## 2. Quy trình tối ưu cho dự án mới — GREENFIELD
 
@@ -61,9 +74,10 @@ Chỉ duyệt khi câu chữ atomic, testable và có ID/owner. Nếu chưa ch�
 
 ### Bước 5 — Cho AI tự động delivery
 
-Khuyến nghị dùng `AUTONOMY_MODE = STANDARD`:
+Khuyến nghị dùng `AUTONOMY_MODE = FULL-LOCAL`:
 
 - AI tự quyết thay đổi local, reversible và theo convention.
+- AI tự khai thác code graph, config, test, official reference và safe experiment trước khi hỏi.
 - Client chỉ xử lý scope, business behavior, credential/access, cost, production và risk acceptance.
 - Khi AI yêu cầu hỗ trợ, Client chỉ thực hiện decision/access/manual/sign-off nhỏ nhất; AI verify kết quả và tự tiếp tục.
 
@@ -213,8 +227,18 @@ AI chỉ được hỏi khi cần quyết định material, access/credential, t
 - Tin báo cáo “test pass” không có build/environment/command/result.
 - Tuyên bố ISO certified chỉ vì dùng template.
 - Bàn giao code mà thiếu deployment, rollback, operations và ownership.
+- Ép project .NET/Node/Go/Python nhúng Java chỉ để dùng security snapshot.
+- Dịch từng dòng Java sang ngôn ngữ khác mà không giữ security contract và negative-test evidence.
+- Copy nguyên secret, token logging, permissive CORS, reusable refresh token hoặc known finding từ snapshot.
 
-## 8. Lệnh kiểm tra
+## 8. Security reference đa ngôn ngữ
+
+- Java/Spring: import component phù hợp từ `.agents/skills/ai-project-delivery/assets/security-reference/`, sau đó harden theo Adoption Record.
+- Ngôn ngữ khác: đọc `security-portability-matrix.md`, ánh xạ Java class thành responsibility/trust boundary rồi implement bằng primitive native.
+- Project đã có auth: tạo delta; không overwrite module đang hoạt động chỉ để giống template.
+- Mọi stack: chạy `SECURITY_VERIFICATION_MATRIX.md`; code similarity không thay cho behavioral/security equivalence.
+
+## 9. Lệnh kiểm tra
 
 Trong quá trình làm:
 
@@ -229,3 +253,6 @@ powershell -ExecutionPolicy Bypass -File .\.agents\skills\ai-project-delivery\sc
 ```
 
 Untouched template sẽ có placeholder warning; dự án bàn giao thật không được bỏ qua strict errors nếu chưa có exception đúng quyền.
+## Semantic and contract checks
+
+Besides the presence validator, run `lint_delivery.ps1` for row-only requirement semantics, RTM/Test RTM links, sign-off, RACI and gate evidence. Run `validate_contracts.ps1 -Strict` for OpenAPI/AsyncAPI and regenerate `DOCUMENT_INDEX.generated.md` from front matter before review.
