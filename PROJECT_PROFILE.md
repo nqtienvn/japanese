@@ -9,14 +9,14 @@ ids: []
 dependencies: []
 last_verified: "{{DATE}}"
 ---
-# Hồ sơ dự án — {{PROJECT_NAME}}
+# Project Profile — {{PROJECT_NAME}}
 
-> Đây là nguồn thông tin gốc, được cập nhật khi discovery xác nhận dữ kiện mới.
+> This is the single source of truth, updated when discovery confirms new facts.
 
-| Trường | Giá trị |
+| Field | Value |
 | :--- | :--- |
 | Project code | `{{PROJECT_CODE}}` |
-| Mô tả một câu | {{PROJECT_DESCRIPTION}} |
+| One-sentence description | {{PROJECT_DESCRIPTION}} |
 | Project owner | {{PROJECT_OWNER}} |
 | Product owner | {{PRODUCT_OWNER}} |
 | Project manager | {{PROJECT_MANAGER}} |
@@ -27,29 +27,29 @@ last_verified: "{{DATE}}"
 | Start date | {{START_DATE}} |
 | Target date | {{TARGET_DATE}} |
 | Delivery mode | GREENFIELD / BROWNFIELD / CHANGE |
-| Autonomy mode | FULL-LOCAL mặc định sau baseline / GUIDED / STANDARD |
+| Autonomy mode | FULL-LOCAL by default after baseline / GUIDED / STANDARD |
 | Data classification | Public / Internal / Confidential / PII / Sensitive |
 | Security profile | STANDARD / HIGH / CRITICAL |
 | Regulatory scope | {{REGULATORY_SCOPE}} |
 | UI scope | None / Web / Mobile / Desktop / Embedded / Multi-channel |
 | Human-assistance trigger | Default: approved action, external/manual dependency, or 3 materially different failed approaches |
 
-## Tuyên bố vấn đề
+## Problem Statement
 
-- Người đang gặp vấn đề: {{TARGET_STAKEHOLDER}}
-- Vấn đề hiện tại: {{PROBLEM_STATEMENT}}
-- Tác động có thể đo: {{CURRENT_IMPACT}}
-- Kết quả mong muốn: {{DESIRED_OUTCOME}}
-- Tại sao phải làm bây giờ: {{WHY_NOW}}
+- Target stakeholders/users: {{TARGET_STAKEHOLDER}}
+- Current problem: {{PROBLEM_STATEMENT}}
+- Measurable impact: {{CURRENT_IMPACT}}
+- Desired outcome: {{DESIRED_OUTCOME}}
+- Why now: {{WHY_NOW}}
 
-## Ràng buộc cấp dự án
+## Project-Level Constraints
 
-| ID | Ràng buộc | Nguồn | Độ cứng | Ghi chú |
+| ID | Constraint | Source | Strictness | Note/Remarks |
 | :--- | :--- | :--- | :--- | :--- |
 | CON-001 | {{CONSTRAINT}} | {{SOURCE}} | Hard / Soft | {{NOTE}} |
 
-## Các quyết định còn mở
+## Open Decisions
 
-| ID | Câu hỏi/quyết định | Owner | Hạn | Ảnh hưởng nếu chậm |
+| ID | Question/Decision | Owner | Deadline | Impact of Delay |
 | :--- | :--- | :--- | :--- | :--- |
 | DEC-OPEN-001 | {{OPEN_DECISION}} | {{OWNER}} | {{DATE}} | {{IMPACT}} |

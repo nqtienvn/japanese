@@ -11,40 +11,40 @@ last_verified: "{{DATE}}"
 ---
 # Operations Runbook — {{PROJECT_NAME}}
 
-## Service ownership
+## Service Ownership
 
 | Service/component | Owner/on-call | Repository/artifact | SLO | Dashboard/alerts |
 | :--- | :--- | :--- | :--- | :--- |
 | {{SERVICE}} | {{OWNER}} | {{LOCATION}} | {{SLO}} | {{LINK}} |
 
-## Environments and access
+## Environments and Access
 
 | Environment | Purpose | Access process | Config/secret source | Data classification |
 | :--- | :--- | :--- | :--- | :--- |
 | {{ENV}} | {{PURPOSE}} | {{PROCESS}} | {{SECRET_MANAGER_REF}} | {{CLASS}} |
 
-Không ghi secret value trong file này.
+Do not record raw secret values in this file.
 
-## Deploy and verify
+## Deploy and Verify
 
 1. Confirm approval, artifact, change/release/test report.
 2. Follow `../04-Implementation/MIGRATION_RELEASE_ROLLBACK.md`.
 3. Run health/smoke/metric checks and record evidence.
 4. Observe for {{WINDOW}}; communicate result.
 
-## Monitoring and alerts
+## Monitoring and Alerts
 
 | Signal/alert | Normal/threshold | First checks | Mitigation | Escalate |
 | :--- | :--- | :--- | :--- | :--- |
 | Availability/error/latency/business/data | {{THRESHOLD}} | {{CHECKS}} | {{MITIGATION}} | {{OWNER}} |
 
-## Common incidents
+## Common Incidents
 
 | Symptom | Likely causes | Safe diagnosis | Recovery/rollback | Evidence to preserve |
 | :--- | :--- | :--- | :--- | :--- |
 | {{SYMPTOM}} | {{CAUSES}} | {{DIAGNOSIS}} | {{RECOVERY}} | {{EVIDENCE}} |
 
-## Backup/restore and continuity
+## Backup/Restore and Continuity
 
 - Backup schedule/retention: {{POLICY}}
 - Restore procedure/environment: {{PROCEDURE}}
@@ -57,6 +57,6 @@ Không ghi secret value trong file này.
 | :--- | :--- | :--- | :--- |
 | Dependency/certificate/key/retention/capacity review | {{FREQUENCY}} | {{OWNER}} | {{PROCEDURE}} |
 
-## Incident protocol
+## Incident Protocol
 
 Classify severity, appoint commander, preserve evidence, mitigate, communicate, recover, then fill `../07-Reports/INCIDENT_AND_PIR.md`. Security/privacy breach follows required notification timelines.

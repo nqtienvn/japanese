@@ -9,250 +9,251 @@ ids: []
 dependencies: []
 last_verified: "{{DATE}}"
 ---
-# Hướng dẫn sử dụng AI Project Lifecycle Template
+# AI Project Lifecycle Template Usage Guide
 
-## 1. Nguyên tắc để đạt hiệu quả cao nhất
+## 1. Best Practices for Maximum Efficiency
 
-Template hoạt động tốt nhất khi:
+The template works best when:
 
-1. Toàn bộ folder được đặt trong cùng repository với source code.
-2. AI được mở tại đúng root repository để đọc `AGENTS.md`, skill và 09 phase.
-3. `PROJECT_PROFILE.md`, `PROJECT_STATE.md`, Discovery Log và RTM luôn là nguồn sự thật thay cho lịch sử chat.
-4. Client trả lời theo evidence và ví dụ thật; phần chưa biết được ghi `TBD/Unknown` kèm owner/hạn.
-5. Baseline được duyệt trước khi AI tự động triển khai toàn bộ.
-6. Thay đổi sau baseline đi qua impact analysis/change request.
-7. Không phê duyệt gate chỉ vì “trông có vẻ xong”; yêu cầu đường dẫn, lệnh test và kết quả.
-8. Chọn Security Profile theo dữ liệu/exposure/risk; không dùng “bảo mật mạnh nhất” thay cho control và test cụ thể.
-9. AI không chuyển việc vì khó/lâu; khi cần người hỗ trợ phải đưa assistance request có evidence và thao tác nhỏ nhất.
-10. Dùng `FULL-LOCAL` nếu muốn AI tự triển khai tối đa sau baseline; AI chỉ hỏi ở human-exclusive trigger.
-11. Security Java snapshot là implementation reference; stack khác được refactor sang native implementation có equivalent test.
+1. The entire folder structure is placed in the same repository as the source code.
+2. The AI assistant is opened at the root repository directory to read `AGENTS.md`, skills, and the 09 phases.
+3. `PROJECT_PROFILE.md`, `PROJECT_STATE.md`, the Discovery Log, and the Requirements Traceability Matrix (RTM) always act as the single source of truth instead of chat history.
+4. The Client answers questions using concrete evidence and real examples; unresolved items must be marked as `TBD/Unknown` with a assigned owner and deadline.
+5. The baseline is approved before the AI automatically starts full implementation.
+6. Post-baseline changes go through impact analysis and formal change requests.
+7. Gates are not approved simply because they "look done"; path references, test commands, and exact results must be provided.
+8. The Security Profile is chosen based on data classification, exposure, and risk; do not use vague statements like "maximum security" instead of concrete controls and tests.
+9. The AI does not offload tasks to humans just because they are hard or time-consuming; assistance requests must have evidence and specify the smallest human action.
+10. Use `FULL-LOCAL` mode if you want the AI to implement as much as possible after baseline; the AI only prompts on human-exclusive triggers.
+11. The Security Java snapshot is an implementation reference; other stacks must refactor it into a native implementation with equivalent tests.
 
-## 2. Quy trình tối ưu cho dự án mới — GREENFIELD
+## 2. Optimal Workflow for New Projects — GREENFIELD
 
-### Bước 1 — Tạo repository
+### Step 1 — Create the Repository
 
-- Copy toàn bộ template, gồm thư mục ẩn `.agents`.
-- Không chỉ copy 09 phase rồi bỏ `AGENTS.md` hoặc skill.
-- Điền tối thiểu `PROJECT_NAME`, `PROJECT_CODE`, Client owner và ý tưởng trong `PROJECT_PROFILE.md` hoặc `MASTER_PROMPT.md`.
+- Copy the entire template folder structure, including the hidden `.agents` directory.
+- Do not just copy the 09 phases without the `AGENTS.md` file or skills.
+- Fill in at least `PROJECT_NAME`, `PROJECT_CODE`, Client owner, and initial ideas in `PROJECT_PROFILE.md` or `MASTER_PROMPT.md`.
 
-### Bước 2 — Khởi động AI
+### Step 2 — Start the AI Assistant
 
-Gửi:
+Send the following prompt:
 
 ```text
-Đọc và thực thi toàn bộ MASTER_PROMPT.md trong repository này.
+Read and execute the entire MASTER_PROMPT.md in this repository.
 PROJECT_MODE = GREENFIELD.
-Ý tưởng ban đầu của tôi: [mô tả 1–5 câu].
+My initial idea: [1–5 sentence description].
 ```
 
-AI phải bắt đầu bằng 5–10 câu discovery, không viết code ngay.
+The AI must start with 5–10 discovery questions and not write code immediately.
 
-### Bước 3 — Trả lời discovery hiệu quả
+### Step 3 — Answer Discovery Questions Effectively
 
-- Trả lời theo số thứ tự.
-- Cung cấp ví dụ về lần gần nhất vấn đề xảy ra.
-- Dùng số liệu nếu có: user, volume, latency, chi phí, deadline, tỷ lệ lỗi.
-- Tách `bắt buộc`, `mong muốn`, `có thể làm sau`.
-- Nêu người có quyền quyết định và người sẽ nghiệm thu.
-- Với câu chưa biết, trả lời `TBD — owner — cần trước ngày`.
+- Answer by question number.
+- Provide examples of when the problem last occurred.
+- Use metrics if available: users, volume, latency, costs, deadlines, error rates.
+- Separate `mandatory`, `desired`, and `future/nice-to-have` features.
+- State who has decision authority and who will perform acceptance.
+- For unknown answers, write: `TBD — owner — required by [date]`.
 
-AI sẽ hỏi theo đợt và ghi vào `01-Planning/DISCOVERY_LOG.md`; không cần cố trả lời hàng trăm câu trong một lần.
+The AI will ask questions in rounds and log them in `01-Planning/DISCOVERY_LOG.md`; there is no need to answer hundreds of questions at once.
 
-### Bước 4 — Duyệt baseline
+### Step 4 — Approve the Baseline
 
-Trước khi code, review tối thiểu:
+Before coding begins, review at least:
 
 - Charter/SOW/RACI.
 - Problem/outcome/scope/out-of-scope.
-- BRD/SRS/Feature/Use Case.
-- NFR/security/privacy/acceptance.
-- Security Profile, regulatory applicability và security release gate.
+- BRD/SRS/Features/Use Cases.
+- NFRs/security/privacy/acceptance.
+- Security Profile, regulatory applicability, and security release gates.
 - Roadmap/dependencies/risks.
-- Autonomy mode và approval-only actions.
+- Autonomy mode and approval-only actions.
 
-Chỉ duyệt khi câu chữ atomic, testable và có ID/owner. Nếu chưa chắc, cho `Conditional approval` với điều kiện/hạn rõ.
+Only approve when statements are atomic, testable, and have an ID and owner. If uncertain, grant `Conditional approval` with clear conditions and deadlines.
 
-### Bước 5 — Cho AI tự động delivery
+### Step 5 — Allow AI to Deliver Automatically
 
-Khuyến nghị dùng `AUTONOMY_MODE = FULL-LOCAL`:
+We recommend using `AUTONOMY_MODE = FULL-LOCAL`:
 
-- AI tự quyết thay đổi local, reversible và theo convention.
-- AI tự khai thác code graph, config, test, official reference và safe experiment trước khi hỏi.
-- Client chỉ xử lý scope, business behavior, credential/access, cost, production và risk acceptance.
-- Khi AI yêu cầu hỗ trợ, Client chỉ thực hiện decision/access/manual/sign-off nhỏ nhất; AI verify kết quả và tự tiếp tục.
+- The AI decides local, reversible, convention-following changes.
+- The AI explores code graphs, configs, tests, official references, and runs safe experiments before asking.
+- The Client only handles scope, business behavior, credentials/access, costs, production changes, and risk acceptance.
+- When the AI requests assistance, the Client only performs the smallest decision, access provision, manual action, or sign-off; the AI verifies the result and resumes automatically.
 
-Yêu cầu AI cập nhật status theo phase/gate/evidence và tự đi tiếp khi gate pass.
+Require the AI to update status by phase, gate, and evidence, and proceed when the gate passes.
 
-### Bước 6 — Review theo vertical slice
+### Step 6 — Review by Vertical Slice
 
-Review outcome chạy được thay vì chờ toàn dự án:
+Review runnable outcomes instead of waiting for the end of the project:
 
-- requirement IDs;
-- demo hoặc API/UI behavior;
-- test/evidence;
-- known gaps;
-- impact tới release/operations.
+- Requirement IDs;
+- Demos or API/UI behaviors;
+- Test evidence;
+- Known gaps;
+- Impact on release and operations.
 
-Feedback mới ngoài baseline phải thành change request, không trộn vào work item đang chạy.
+New feedback outside the baseline must be structured as a change request and not mixed with running work items.
 
-### Bước 7 — Nghiệm thu và bàn giao
+### Step 7 — Acceptance and Handover
 
-Yêu cầu UAT, Test Completion Report, Release Report, Deployment/User Guide, Runbook và Handover Checklist. Chạy strict validator; thực hiện Developer newcomer và Tester derivation tests khi có nhân sự độc lập.
+Request UAT, Test Completion Reports, Release Reports, Deployment/User Guides, Runbooks, and Handover Checklists. Run the strict validator; conduct Developer newcomer tests and Tester derivation tests when independent personnel are available.
 
-## 3. Quy trình tối ưu cho dự án đang dở — BROWNFIELD
+## 3. Optimal Workflow for Existing Projects — BROWNFIELD
 
-### Bước 1 — Bảo vệ hiện trạng
+### Step 1 — Protect the Current State
 
-- Commit/backup hoặc ít nhất ghi branch/HEAD và `git status` trước khi tích hợp template.
-- Không xóa build/test/config cũ chỉ để khớp template.
-- Copy template bằng Brownfield mode để không overwrite file hiện có.
-- Nếu đã có `AGENTS.md`, giữ file cũ và merge rule từ `AGENTS.ai-project-delivery.md`.
+- Commit/backup or at least record the branch, HEAD, and `git status` before integrating the template.
+- Do not delete old builds, tests, or configs just to match the template.
+- Copy the template in Brownfield mode to avoid overwriting existing files.
+- If an `AGENTS.md` file already exists, keep it and merge rules from `AGENTS.ai-project-delivery.md`.
 
-### Bước 2 — Khởi động audit
+### Step 2 — Start the Audit
 
-Gửi:
+Send the following prompt:
 
 ```text
-Đọc và thực thi toàn bộ MASTER_PROMPT.md.
+Read and execute the entire MASTER_PROMPT.md.
 PROJECT_MODE = BROWNFIELD.
-Mục tiêu tiếp quản hiện tại: [mục tiêu].
-Hãy audit read-only trước, chưa sửa code hoặc chạy migration.
+Current takeover goal: [goal].
+Please conduct a read-only audit first; do not modify code or run migrations.
 ```
 
-AI phải đọc code/config/test/docs/git trước khi hỏi. Không chấp nhận một kế hoạch chỉ dựa trên README cũ.
+The AI must read code, configs, tests, docs, and git state before asking questions. Do not accept a plan based only on an outdated README.
 
-### Bước 3 — Yêu cầu baseline tiếp quản
+### Step 3 — Request a Takeover Baseline
 
-AI phải cung cấp:
+The AI must provide:
 
-- branch/HEAD/worktree state;
-- stack/manifests/entry points/modules;
-- as-is architecture, API/UI/data/integrations/auth;
-- build/test/CI status thực tế;
-- TODO/mock/disabled test/feature flags;
-- tài liệu mâu thuẫn code;
-- security/secret/migration/operational risks;
-- gap analysis và gate đầu tiên chưa đạt.
+- Branch/HEAD/worktree state;
+- Stack/manifests/entry points/modules;
+- As-is architecture: API, UI, data, integrations, authentication;
+- Actual build, test, and CI status;
+- TODOs, mocks, disabled tests, and feature flags;
+- Documentation mismatches with code;
+- Security, secret, migration, and operational risks;
+- Gap analysis and the first failed phase gate.
 
-Client chỉ cần trả lời target behavior, priority, deadline, acceptance và quyết định lịch sử không thể suy ra.
+The Client only needs to specify target behaviors, priorities, deadlines, acceptance, and historical decisions that cannot be inferred.
 
-### Bước 4 — Chốt `as-is + target delta`
+### Step 4 — Align on "As-Is + Target Delta"
 
-Không rewrite toàn bộ theo “kiến trúc đẹp hơn” nếu chưa có business need. Chốt:
+Do not rewrite everything for a "better architecture" without a clear business need. Define:
 
-- hành vi phải giữ;
-- hành vi cần thay đổi;
-- compatibility/data/client cũ cần bảo vệ;
-- characterization/regression tests cần bổ sung;
-- feature/scope ưu tiên;
-- tech debt nào blocking, debt nào đưa backlog.
+- Behaviors to retain;
+- Behaviors to change;
+- Compatibility, data, and legacy client paths to protect;
+- Characterization/regression tests to add;
+- Priority features/scope;
+- Blocking technical debt versus backlog items.
 
-### Bước 5 — Tiếp tục từ gate đầu tiên chưa đạt
+### Step 5 — Resume from the First Failed Gate
 
-AI cập nhật artifact phase trước nếu chúng thiếu, nhưng không yêu cầu làm lại tài liệu đã có evidence tốt. Mọi refactor/migration phải có regression, compatibility và rollback plan.
+The AI updates phase artifacts first if they are missing, but does not recreate documents that already have good evidence. All refactoring/migrations must have regression, compatibility, and rollback plans.
 
-### Bước 6 — Bàn giao phân biệt rõ
+### Step 6 — Clear Handover Separation
 
-Final report phải tách:
+The final report must separate:
 
-- phần đã tồn tại và đã được verify;
-- phần AI/vendor mới thực hiện;
-- phần chỉ được suy luận hoặc chưa thể verify;
-- known defects/tech debt/residual risks;
-- access/data/operations tasks Client còn phải hoàn thành.
+- Pre-existing and verified parts;
+- Newly implemented parts by the AI/vendor;
+- Inferred or unverified parts;
+- Known defects, technical debt, and residual risks;
+- Access, data, and operational tasks the Client still needs to complete.
 
-## 4. Chế độ CHANGE cho feature hoặc defect
+## 4. CHANGE Mode for Features or Defects
 
-Gửi:
+Send the following prompt:
 
 ```text
-Đọc và thực thi MASTER_PROMPT.md.
+Read and execute MASTER_PROMPT.md.
 PROJECT_MODE = CHANGE.
 Target delta: [feature/defect].
-Không thay đổi ngoài phạm vi nếu không có impact analysis và approval.
+Do not change code outside scope without impact analysis and approval.
 ```
 
-AI phải trace từ requirement bị tác động tới design/code/test/release, chạy regression phù hợp và cập nhật changelog/runbook.
+The AI must trace from the impacted requirement to design, code, tests, and release, running appropriate regression checks and updating changelogs/runbooks.
 
-## 5. Cách phối hợp với AI
+## 5. Human-AI Collaboration Rules
 
-### Client nên làm
+### What the Client Should Do
 
-- Cung cấp domain context, priority, deadline, acceptance và quyền quyết định.
-- Trả lời câu hỏi theo ví dụ/số liệu.
-- Cấp access/test data qua kênh an toàn.
-- Review baseline, demo, UAT, release và handover đúng lịch.
-- Chấp nhận hoặc từ chối residual risk bằng văn bản.
+- Provide domain context, priorities, deadlines, acceptance criteria, and decisions.
+- Answer questions with examples and metrics.
+- Provide access and test data via secure channels.
+- Review baselines, demos, UAT, releases, and handovers on schedule.
+- Accept or reject residual risks in writing.
 
-### Để AI/Vendor tự làm
+### What the AI/Vendor Does Independently
 
-- Repository/code/config analysis.
-- Requirements/design documentation và traceability.
-- Implementation, local build/test/refactor trong scope.
-- Test design/execution, reports, release/rollback/runbook.
-- Cập nhật project state, risk, changelog và technical debt.
+- Repository, code, and configuration analysis.
+- Requirements, design documentation, and traceability.
+- Implementation, local build, test, and refactoring within scope.
+- Test design, execution, reports, and release/rollback/runbook preparation.
+- Keep project state, risks, changelogs, and technical debt updated.
 
-### Luôn cần approval riêng
+### Actions Requiring Explicit Client Approval
 
-- Production/shared-environment changes.
-- Dữ liệu thật hoặc destructive migration.
-- Chi phí/billing/vendor purchase.
-- External messages/publishing.
-- Scope/outcome/SLA/security reductions.
-- High/Critical risk acceptance.
+- Production or shared-environment changes.
+- Real production data usage or destructive migrations.
+- Cost, billing, or vendor purchases.
+- External communications or publishing.
+- Reductions in scope, outcomes, SLAs, or security controls.
+- High or Critical risk acceptance.
 
-### Khi AI được nhờ con người
+### When the AI Can Request Human Assistance
 
-AI chỉ được hỏi khi cần quyết định material, access/credential, thao tác thủ công, approval/sign-off hoặc cùng blocker sau ít nhất ba phương án khác nhau không có evidence mới. Yêu cầu phải nêu evidence, attempts, impact, thao tác nhỏ nhất, output/reference cần trả lại và phần AI vẫn tiếp tục được. Không gửi secret value qua chat.
+The AI may only ask for help when a material decision, credentials/access, manual action, or sign-off is required, or when blocked after trying at least three different solutions without finding new evidence. The request must present the evidence, attempts, impact, smallest human action, required output/references, and parts the AI can continue working on. Do not send raw secrets in chat.
 
-## 6. Nhịp vận hành khuyến nghị
+## 6. Recommended Operational Cadence
 
-| Thời điểm | Client xem gì | AI cập nhật gì |
+| Cadence / Step | Client Reviews | AI Updates |
 | :--- | :--- | :--- |
-| Mỗi discovery round | Answer/decision/contradiction | Discovery Log |
-| Baseline review | Problem/scope/requirements/acceptance | Charter, BRD/SRS, RTM, Plan/Risk |
-| Mỗi vertical slice | Demo + test evidence + gaps | WI, code, tests, changelog, RTM |
+| Each discovery round | Answers, decisions, and contradictions | Discovery Log |
+| Baseline review | Problem, scope, requirements, and acceptance | Charter, BRD/SRS, RTM, Plan/Risk |
+| Each vertical slice | Demo, test evidence, and gaps | Work items, code, tests, changelog, RTM |
 | Gate review | Pass/Conditional/Fail evidence | Project State, findings, next gate |
-| Release candidate | UAT/security/NFR/rollback | Test/Release Reports |
-| Handover | Operability/ownership/residual risks | Index, Deployment, User Guide, Runbook, Checklist |
+| Release candidate | UAT, security, NFRs, and rollback plans | Test/Release Reports |
+| Handover | Operability, ownership, and residual risks | Document Index, Deployment & User Guides, Runbook, Checklist |
 
-## 7. Những lỗi sử dụng cần tránh
+## 7. Common Mistakes to Avoid
 
-- Chỉ copy các thư mục phase mà bỏ `.agents` và `AGENTS.md`.
-- Yêu cầu AI “làm luôn” rồi bỏ qua discovery/baseline.
-- Trả lời bằng “nhanh, đẹp, bảo mật tốt” nhưng không có metric.
-- Để chat trở thành nguồn sự thật duy nhất mà không cập nhật repository.
-- Thay đổi scope bằng trao đổi miệng, không impact analysis.
-- Đưa secret/data thật vào Markdown hoặc prompt.
-- Tin báo cáo “test pass” không có build/environment/command/result.
-- Tuyên bố ISO certified chỉ vì dùng template.
-- Bàn giao code mà thiếu deployment, rollback, operations và ownership.
-- Ép project .NET/Node/Go/Python nhúng Java chỉ để dùng security snapshot.
-- Dịch từng dòng Java sang ngôn ngữ khác mà không giữ security contract và negative-test evidence.
-- Copy nguyên secret, token logging, permissive CORS, reusable refresh token hoặc known finding từ snapshot.
+- Copying phase folders while discarding `.agents` and `AGENTS.md`.
+- Demanding the AI start coding immediately while skipping discovery and baseline.
+- Answering with subjective adjectives ("fast", "beautiful", "secure") without metrics.
+- Allowing chat transcripts to become the sole source of truth without updating the repository.
+- Changing scope through casual chat without impact analysis.
+- Pasting secrets or real production data into Markdown files or prompt chat.
+- Trusting "test pass" reports that lack build logs, environment details, commands, or results.
+- Claiming ISO compliance simply because this template is used.
+- Handing over code without deployment scripts, rollback plans, runbooks, and clear ownership.
+- Forcing a .NET/Node/Go/Python project to run JVM code just to use the Java security snapshots.
+- Translating Java security lines literally to other languages without preserving security contracts and negative-test evidence.
+- Copying raw secrets, token logging configs, permissive CORS, reusable refresh tokens, or known security findings directly from the snapshots.
 
-## 8. Security reference đa ngôn ngữ
+## 8. Cross-Language Security Reference
 
-- Java/Spring: import component phù hợp từ `.agents/skills/ai-project-delivery/assets/security-reference/`, sau đó harden theo Adoption Record.
-- Ngôn ngữ khác: đọc `security-portability-matrix.md`, ánh xạ Java class thành responsibility/trust boundary rồi implement bằng primitive native.
-- Project đã có auth: tạo delta; không overwrite module đang hoạt động chỉ để giống template.
-- Mọi stack: chạy `SECURITY_VERIFICATION_MATRIX.md`; code similarity không thay cho behavioral/security equivalence.
+- **Java/Spring:** Import appropriate components from `.agents/skills/ai-project-delivery/assets/security-reference/`, then harden them according to the Adoption Record.
+- **Other Languages:** Read `security-portability-matrix.md`, map Java classes to responsibilities/trust boundaries, and implement them using native primitives.
+- **Projects with existing auth:** Design deltas; do not overwrite functioning auth modules just to align with the templates.
+- **All stacks:** Run `SECURITY_VERIFICATION_MATRIX.md`; code similarity does not substitute for behavioral/security equivalence.
 
-## 9. Lệnh kiểm tra
+## 9. Verification Commands
 
-Trong quá trình làm:
+During development:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\.agents\skills\ai-project-delivery\scripts\validate_delivery.ps1
 ```
 
-Trước bàn giao:
+Before final handover:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\.agents\skills\ai-project-delivery\scripts\validate_delivery.ps1 -StrictDelivery
 ```
 
-Untouched template sẽ có placeholder warning; dự án bàn giao thật không được bỏ qua strict errors nếu chưa có exception đúng quyền.
-## Semantic and contract checks
+Untouched templates will trigger placeholder warnings; final project handovers must not have strict errors unless approved deviations are recorded.
 
-Besides the presence validator, run `lint_delivery.ps1` for row-only requirement semantics, RTM/Test RTM links, sign-off, RACI and gate evidence. Run `validate_contracts.ps1 -Strict` for OpenAPI/AsyncAPI and regenerate `DOCUMENT_INDEX.generated.md` from front matter before review.
+## Semantic and Contract Checks
+
+Besides the presence validator, run `lint_delivery.ps1` for row-only requirement semantics, RTM/Test RTM links, sign-off, RACI, and gate evidence. Run `validate_contracts.ps1 -Strict` for OpenAPI/AsyncAPI specifications and regenerate `DOCUMENT_INDEX.generated.md` from front matter before review.

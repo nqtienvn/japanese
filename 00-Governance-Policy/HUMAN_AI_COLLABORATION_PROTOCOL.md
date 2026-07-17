@@ -11,90 +11,90 @@ last_verified: "{{DATE}}"
 ---
 # Human–AI Collaboration & Assistance Protocol
 
-## 1. Mục đích
+## 1. Purpose
 
-Quy định khi AI Delivery Vendor phải tự tiếp tục, khi được phép yêu cầu con người hỗ trợ và evidence cần có để tránh hai cực đoan: AI dừng ở mọi unknown hoặc âm thầm vượt quyền. Cụm “làm lâu quá” không phải trigger hợp lệ nếu thiếu timebox, blocker và tiêu chí tiến triển.
+This protocol defines when the AI Delivery Vendor must proceed independently, when it is permitted to request human assistance, and what evidence is required to prevent two extremes: the AI stopping at every unknown, or silently exceeding its authority. Vague complaints like "this takes too long" are not valid triggers without a documented timebox, specific blockers, and progress criteria.
 
-## 2. Quy tắc bắt buộc
+## 2. Mandatory Rules
 
-- `COL-001`: AI **PHẢI** tự thực hiện công việc local, có thể đảo ngược và thuộc phạm vi đã được phê duyệt.
-- `COL-002`: AI **KHÔNG ĐƯỢC** chuyển công việc cho con người chỉ vì công việc khó, nhiều bước hoặc mất thời gian.
-- `COL-003`: Trước khi hỏi, AI **PHẢI** tìm evidence trong repository, tài liệu, cấu hình và kết quả công cụ được phép dùng.
-- `COL-004`: AI **CÓ THỂ** tiếp tục với assumption local, có thể đảo ngược nếu ghi rõ assumption, evidence, risk và cách thay đổi.
-- `COL-005`: AI **PHẢI** yêu cầu con người quyết định khi lựa chọn ảnh hưởng material tới hành vi sản phẩm, scope, cost, deadline, dữ liệu, security/privacy, compliance hoặc acceptance.
-- `COL-006`: AI **PHẢI** xác minh kết quả con người cung cấp trước khi dùng làm evidence hoàn tất.
-- `COL-007`: Sau khi blocker được giải quyết, AI **PHẢI** tự động tiếp tục từ trạng thái đã ghi trong `PROJECT_STATE.md`.
-- `COL-008`: AI **PHẢI** kiểm tra code graph, source, config, test và decision evidence trước khi hỏi implementation detail.
-- `COL-009`: AI **PHẢI** kiểm tra official reference khi dữ kiện kỹ thuật có thể thay đổi theo thời gian.
-- `COL-010`: AI **PHẢI** tự chọn phương án local có thể đảo ngược khi evidence đủ.
-- `COL-011`: AI **KHÔNG ĐƯỢC** yêu cầu con người refactor code sang ngôn ngữ khác thay AI.
-- `COL-012`: Câu hỏi stakeholder **PHẢI** tập trung vào intent, authority, material trade-off hoặc acceptance không thể suy ra.
+- `COL-001`: The AI **SHALL** execute local, reversible changes within the approved scope autonomously.
+- `COL-002`: The AI **SHALL NOT** offload tasks to humans simply because they are difficult, multi-step, or time-consuming.
+- `COL-003`: Before asking a question, the AI **SHALL** search for evidence in the repository, documents, configurations, and results of permitted tools.
+- `COL-004`: The AI **MAY** proceed with local, reversible assumptions, provided it clearly documents the assumptions, evidence, risks, and rollback plans.
+- `COL-005`: The AI **SHALL** request human decisions when choices materially impact product behavior, scope, cost, deadlines, database state, security/privacy controls, compliance, or acceptance criteria.
+- `COL-006`: The AI **SHALL** verify results provided by humans before using them as completion evidence.
+- `COL-007`: Once a blocker is resolved, the AI **SHALL** resume work automatically from the state recorded in `PROJECT_STATE.md`.
+- `COL-008`: The AI **SHALL** inspect the code graph, sources, configurations, tests, and decision evidence before asking for implementation details.
+- `COL-009`: The AI **SHALL** check official, current reference documentation for technical facts that may change over time.
+- `COL-010`: The AI **SHALL** select local, reversible options when evidence is sufficient.
+- `COL-011`: The AI **SHALL NOT** request humans to refactor code to another language on its behalf.
+- `COL-012`: Stakeholder questions **SHALL** focus on intent, authority, material trade-offs, or acceptance criteria that cannot be inferred.
 
-## 3. Trigger được phép yêu cầu hỗ trợ
+## 3. Permitted Assistance Request Triggers
 
-AI chỉ yêu cầu hỗ trợ khi có ít nhất một trigger:
+The AI may only request human assistance when at least one trigger condition is met:
 
-| Trigger | Điều kiện | Ví dụ |
+| Trigger | Condition | Example |
 | :--- | :--- | :--- |
-| `HUM-BUSINESS` | Quyết định nghiệp vụ/ưu tiên không thể suy ra và có impact material | Chọn rule hoàn tiền hoặc persona được quyền duyệt |
-| `HUM-ACCESS` | Thiếu credential, data hoặc quyền truy cập phải do owner cấp | Tạo sandbox account, cấp secret reference |
-| `HUM-MANUAL` | Cần thao tác vật lý hoặc xác minh thủ công ngoài công cụ hiện có | Quét thiết bị, kiểm tra máy in, UAT bằng hardware thật |
-| `HUM-APPROVAL` | Hành động thuộc approval-only boundary | Production deploy, billing, external publish, destructive data migration |
-| `HUM-BLOCKER` | Cùng blocker còn tồn tại sau ít nhất 3 phương án xử lý khác nhau mà không có evidence mới | Ba cách build độc lập đều bị chặn bởi binary private không truy cập được |
-| `HUM-SIGNOFF` | Cần sign-off thuộc trách nhiệm pháp lý/chuyên môn của con người | Legal basis, residual High risk, Client acceptance |
+| `HUM-BUSINESS` | Business decisions or priorities cannot be inferred and have a material impact. | Selecting refund policies or defining approver personas. |
+| `HUM-ACCESS` | Missing credentials, data, or permissions that must be provided by the owner. | Creating a sandbox account, provisioning secret references. |
+| `HUM-MANUAL` | Physical operations or manual verifications are required outside available tools. | Scanning devices, checking physical printers, UAT on physical hardware. |
+| `HUM-APPROVAL` | Actions fall within the approval-only boundaries. | Production deployments, billing, external publishing, destructive migrations. |
+| `HUM-BLOCKER` | A blocker persists after trying at least 3 distinct solutions without new evidence. | Three independent build attempts are blocked by an inaccessible private binary. |
+| `HUM-SIGNOFF` | Sign-offs falling under human legal or professional liability are required. | Legal basis approvals, residual High risk acceptances, Client UAT acceptance. |
 
-Mỗi dự án có thể tailoring số lần thử hoặc timebox theo loại work item, nhưng phải ghi trong `PROJECT_PROFILE.md`/plan. Không dùng wall-clock làm lý do duy nhất; nếu còn việc không bị chặn, AI tiếp tục phần đó trong phạm vi.
+Each project may tailor the retry limit or timebox based on work item types, but this must be recorded in `PROJECT_PROFILE.md` or the Project Plan. Time duration alone is not a valid reason to stop; if there is work that is not blocked, the AI shall continue executing it within scope.
 
-### Pre-question evidence check
+### Pre-Question Evidence Checks
 
-Trước khi hỏi con người, AI phải trả lời được:
+Before prompting a human, the AI must verify:
 
-| Check | Evidence tối thiểu |
+| Check | Minimum Evidence Required |
 | :--- | :--- |
-| Repository/code graph đã kiểm tra? | Path, symbol, call/data flow hoặc kết luận không có |
-| Config/test/build đã kiểm tra? | Command/result hoặc lý do không an toàn/không applicable |
-| Project decision/document đã kiểm tra? | File/ID hoặc kết luận chưa có |
-| Official/current reference có cần không? | Link/version/date hoặc N/A rationale |
-| Có lựa chọn local/reversible không? | Option đã chọn và cách rollback |
-| Câu hỏi có thật sự material/human-exclusive không? | Trigger và impact |
+| **Repository/code graph checked?** | Path, symbol, call/data flows, or verification that it does not exist. |
+| **Config/test/build checked?** | Commands run and results, or rationale showing they are unsafe/inapplicable. |
+| **Project decisions/documents checked?** | File paths and IDs, or verification that they do not exist. |
+| **Official/current references needed?** | URL links, versions, dates, or N/A rationale. |
+| **Is there a local/reversible option?** | Selected option and its rollback procedure. |
+| **Is the question material/human-exclusive?** | Trigger condition and estimated impact. |
 
-Thiếu check không phải lý do dừng nếu AI vẫn có thể tiếp tục phần khác an toàn trong phạm vi.
+Failure to complete a check is not a reason to stop if the AI can safely continue other work within scope.
 
-## 4. Assistance request bắt buộc
+## 4. Mandatory Assistance Request Format
 
-Mọi yêu cầu hỗ trợ phải chứa:
+Every assistance request must contain:
 
 ```text
 Assistance ID / Trigger:
 Work item / requirement:
-Outcome đang cần:
-Evidence đã kiểm tra:
-Các phương án đã thử và kết quả:
-Blocker chính xác:
-Impact nếu chưa xử lý:
-Thao tác nhỏ nhất con người cần làm:
-Không được gửi secret/data thật qua chat:
-Kết quả/reference cần trả lại:
+Desired outcome:
+Checked evidence:
+Attempted solutions and results:
+Exact blocker:
+Impact if unresolved:
+Smallest human action required:
+Security Warning: Do not send raw secrets/production data in chat.
+Expected result / references to return:
 Owner / due date:
-Việc AI vẫn tiếp tục được trong lúc chờ:
+Work the AI can continue doing in the meantime:
 ```
 
-Không yêu cầu Client thực hiện toàn bộ work item nếu chỉ thiếu một quyết định, quyền hoặc bước thủ công nhỏ.
+Do not request the Client to complete an entire work item if only a single decision, permission, or small manual step is missing.
 
-## 5. Xử lý kết quả và evidence
+## 5. Handling Results and Evidence
 
-| Kết quả từ con người | AI phải làm |
+| Result from Human | AI Action Required |
 | :--- | :--- |
-| Quyết định nghiệp vụ | Ghi `DEC`, cập nhật baseline/RTM và impact downstream |
-| Access/secret | Chỉ lưu reference/owner; không đọc lại hoặc ghi value vào artifact/log |
-| Thao tác thủ công | Yêu cầu evidence tối thiểu; verify bằng test/log/state phù hợp |
-| Sign-off | Ghi approver, scope, phiên bản, ngày và điều kiện |
-| Không thể hỗ trợ | Đề xuất option, workaround, defer hoặc exception với impact/risk |
+| **Business decision** | Record as a decision (`DEC-XXX`), update baselines/RTM, and analyze downstream impacts. |
+| **Access/secret** | Store references or owners only; do not read back or write raw values into logs or artifacts. |
+| **Manual action** | Request minimal evidence; verify using appropriate tests, logs, or state changes. |
+| **Sign-off** | Record the approver, scope, version, date, and any conditions. |
+| **Assistance unavailable** | Propose options, workarounds, deferral, or exceptions with detailed impacts and risks. |
 
-Human action không tự động đồng nghĩa `Done`. Gate chỉ pass sau khi evidence tương ứng được kiểm chứng hoặc exception đúng thẩm quyền được ghi.
+Human action does not automatically mean `Done`. A gate only passes when the corresponding evidence is verified or an approved exception is documented.
 
-## 6. Escalation và bảo mật
+## 6. Escalation and Security
 
-- Không yêu cầu password, token, private key, certificate private material hoặc dữ liệu nhạy cảm thật qua chat/Markdown.
-- Với sự cố bảo mật đang diễn ra, ưu tiên containment và escalation theo incident process; không tiếp tục thử nghiệm có thể làm tăng tác động.
-- Nếu blocker ảnh hưởng Critical path, cập nhật `PROJECT_STATE.md`, risk register và status report; không che giấu bằng assumption.
+- Do not request passwords, tokens, private keys, raw certificates, or sensitive production data via chat or Markdown files.
+- In the event of an active security incident, prioritize containment and escalation per the incident management process; do not run tests that could increase the blast radius.
+- If a blocker impacts the critical path, update `PROJECT_STATE.md`, the risk register, and the status report immediately; do not hide issues behind assumptions.

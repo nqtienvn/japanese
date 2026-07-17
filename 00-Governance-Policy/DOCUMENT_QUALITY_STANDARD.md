@@ -11,188 +11,183 @@ last_verified: "{{DATE}}"
 ---
 # Document Quality Standard & Acceptance Rules
 
-## 1. Mục đích và phạm vi
+## 1. Purpose and Scope
 
-Chuẩn này áp dụng cho mọi baseline, release và handover của dự án. Tài liệu chỉ được coi là hoàn tất khi **đủ độ phủ, không mơ hồ, đo/kiểm thử được, nhất quán, truy vết được và đã vượt qua thử nghiệm thực địa**. File tồn tại nhưng chỉ chứa tiêu đề, placeholder, ví dụ hoặc tuyên bố không có evidence được coi là `Incomplete`.
+This standard applies to all baselines, releases, and handovers of the project. A document is considered complete only when it **reaches full coverage, is unambiguous, measurable/testable, consistent, traceable, and has passed field verification**. Files that exist but only contain headers, placeholders, examples, or unsupported assertions will be flagged as `Incomplete`.
 
-## 2. Bốn nhóm tài liệu cốt lõi
+## 2. Four Core Document Categories
 
-| Nhóm | Artifact bắt buộc | Nội dung tối thiểu | Điều kiện Pass |
+| Category | Mandatory Artifacts | Minimum Content | Pass Criteria |
 | :--- | :--- | :--- | :--- |
-| Nghiệp vụ | `02-Requirements/BRD.md`, `SRS.md`, `FEATURE_CATALOG.md`, `USE_CASE_SPECIFICATION.md` | As-is/to-be workflow; actor; feature list; business rules; BR/FR/NFR; use case happy/alternate/error paths; acceptance | Mỗi feature trong release có ID, owner, use case/requirement và acceptance testable; workflow không có bước/nhánh quan trọng chưa định nghĩa |
-| Kiến trúc | `03-Architecture-Design/SOFTWARE_ARCHITECTURE.md`, `DATA_MODEL_ERD.md`, `API_SPECIFICATION.md`, EDS/ADR | System context/container/component; ERD và data dictionary; API/event contracts; state/sequence; security/NFR/operations | Mỗi requirement Must/Critical có design link; API/data/state/failure/permission/compatibility rõ; review không còn finding High/Critical vô chủ |
-| Kiểm thử | `06-Testing/TEST_STRATEGY_AND_PLAN.md`, `TEST_CASE_TEMPLATE.md`, test inventory/evidence và `TEST_REPORT.md` | Test case theo requirement/feature; happy, invalid, empty, permission, dependency failure, retry/concurrency; UAT và NFR | Mỗi requirement in-scope có test ID/evidence hoặc exception được duyệt; blocking defect không vượt ngưỡng; environment/build/result rõ |
-| Vận hành | `04-Implementation/ENVIRONMENT_SETUP.md`, `08-Document-References/DEPLOYMENT_GUIDE.md`, `USER_GUIDE.md`, `OPERATIONS_RUNBOOK.md` | Cài runtime; cấu hình; secret references; deploy/migrate/smoke/rollback; hướng dẫn persona; monitor/backup/restore/troubleshoot | Developer/Ops mới thực hiện dry run không cần hỏi tác giả để vượt qua bước blocking; Client có thể hoàn thành journey trong user guide |
+| **Business** | `02-Requirements/BRD.md`, `SRS.md`, `FEATURE_CATALOG.md`, `USE_CASE_SPECIFICATION.md` | As-is/to-be workflows; actors; feature list; business rules; BR/FR/NFRs; use case happy/alternate/error paths; acceptance | Every feature in the release has a unique ID, owner, associated use case/requirement, and testable acceptance; workflows have no undefined steps/branches. |
+| **Architecture** | `03-Architecture-Design/SOFTWARE_ARCHITECTURE.md`, `DATA_MODEL_ERD.md`, `API_SPECIFICATION.md`, EDS/ADR | System context/containers/components; ERD and data dictionary; API/event contracts; state/sequence; security/NFR/operations | Every Must/Critical requirement has an architectural design link; API/data/state/failure/permission/compatibility are defined; reviews have zero open High/Critical findings. |
+| **Testing** | `06-Testing/TEST_STRATEGY_AND_PLAN.md`, `TEST_CASE_TEMPLATE.md`, test inventory/evidence, and `TEST_REPORT.md` | Test cases mapped to requirements/features; happy, invalid, empty, permission, dependency failure, retry/concurrency; UAT and NFRs | Every in-scope requirement has a test ID/evidence or approved exception; blocking defects do not exceed thresholds; environment/build/results are clear. |
+| **Operations** | `04-Implementation/ENVIRONMENT_SETUP.md`, `08-Document-References/DEPLOYMENT_GUIDE.md`, `USER_GUIDE.md`, `OPERATIONS_RUNBOOK.md` | Runtime setups; configuration; secret references; deploy/migrate/smoke/rollback; user persona guides; monitoring/backup/restore/troubleshooting | A new developer/ops engineer can execute a dry run without asking the authors; the Client can complete user journeys using the User Guide. |
 
-Thiếu bất kỳ nhóm cốt lõi nào là `Fail`. Nếu một artifact không áp dụng, phải có `N/A rationale`, approver và artifact thay thế cung cấp cùng evidence.
+Lack of any core category results in a `Fail` status. If an artifact is not applicable, a `N/A rationale` approved by the owner must be provided along with equivalent evidence.
 
-## 3. Quy tắc chất lượng nội dung
+## 3. Content Quality Rules
 
-Trong template này, kiểm chứng “SMART cho tài liệu” gồm sáu thuộc tính bắt buộc:
+In this template, verifying "SMART for Documentation" consists of six mandatory attributes:
 
-| Mã | Thuộc tính | Rule | Ví dụ Fail | Ví dụ Pass |
+| Code | Attribute | Rule | Fail Example | Pass Example |
 | :--- | :--- | :--- | :--- | :--- |
-| `S` | Specific / Unambiguous | Một người đọc độc lập chỉ có một cách hiểu hợp lý; actor, trigger, input, state và outcome rõ | “Hệ thống xử lý đơn nhanh” | “Sau khi nhận request hợp lệ, API tạo đơn và trả `201` trong p95 ≤ 2 giây ở 100 request/giây” |
-| `M` | Measurable | Mục tiêu có đơn vị, ngưỡng, percentile/window, môi trường và cách đo | “Hệ thống ổn định” | “Availability tháng ≥ 99,9%, loại trừ maintenance window đã duyệt; đo bằng uptime monitor” |
-| `A` | Achievable / Feasible | Có owner, dependency, constraint và bằng chứng khả thi; quyết định khó có spike/ADR | “Đáp ứng vô hạn người dùng” | “Hỗ trợ 5.000 concurrent sessions trong môi trường production-like theo test plan PERF-01” |
-| `R` | Relevant / Consistent | Liên kết objective/business value; dùng thuật ngữ, role, state và rule thống nhất với glossary và artifact khác | “Customer”, “Buyer”, “User” cùng chỉ một vai trò nhưng không định nghĩa | Dùng duy nhất `Customer`; alias bị cấm hoặc được định nghĩa trong glossary |
-| `T` | Testable | Có thể biến thành test với precondition, action/input và observable expected result | “Giao diện đẹp, dễ dùng” | “≥ 90% người thử hoàn thành checkout trong ≤ 3 phút, không cần trợ giúp, trên viewport đã định nghĩa” |
-| `TR` | Traceable | Có ID duy nhất và liên kết xuyên suốt requirement → design/UI/API/data → work item/code → test → release/handover | `REQ-01` chỉ xuất hiện trong SRS | `FR-PAY-001` xuất hiện trong SRS, EDS/API, WI, code evidence, `TC-PAY-001` và RTM |
+| `S` | Specific / Unambiguous | An independent reader has only one reasonable interpretation; actors, triggers, inputs, states, and outcomes are clear. | "The system processes orders quickly" | "Upon receiving a valid request, the API creates the order and returns `201 Created` in p95 ≤ 2 seconds at 100 requests/sec." |
+| `M` | Measurable | Objectives have units, thresholds, percentiles/windows, environment contexts, and measurement methods. | "The system is stable" | "Monthly availability ≥ 99.9%, excluding approved maintenance windows; measured via the uptime monitor." |
+| `A` | Achievable / Feasible | Possesses an owner, dependencies, constraints, and feasibility evidence; difficult design decisions have spikes/ADRs. | "Supports infinite users" | "Supports 5,000 concurrent sessions in a production-like environment according to test plan PERF-01." |
+| `R` | Relevant / Consistent | Linked to objectives/business value; terminology, roles, states, and rules are consistent with the glossary and other artifacts. | "Customer", "Buyer", and "User" refer to the same role without definitions. | Only use `Customer`; forbidden aliases are recorded or defined in the glossary. |
+| `T` | Testable | Can be turned into tests with preconditions, actions/inputs, and observable expected results. | "Beautiful and easy-to-use user interface" | "≥ 90% of test users complete checkout in ≤ 3 minutes without assistance on the defined viewports." |
+| `TR` | Traceable | Possesses a unique ID and is traced from requirement ➔ design/UI/API/data ➔ work item/code ➔ test ➔ release/handover. | `REQ-01` only appears in the SRS. | `FR-PAY-001` appears in SRS, EDS/API, work items, code evidence, `TC-PAY-001`, and the RTM. |
 
-Một requirement/feature lấy mẫu phải đạt cả sáu thuộc tính. Không tính điểm trung bình để che một tiêu chí Fail.
+A sampled requirement/feature must satisfy all six attributes. Do not average scores to hide a "Fail" criterion.
 
-Các cụm `bảo mật mạnh nhất`, `an toàn tuyệt đối`, `làm lâu quá`, `dễ thay thế`, `không ảnh hưởng module khác`, `best practice` và `clean architecture` không được dùng làm requirement/acceptance nếu thiếu subject, phạm vi, metric, verification và exception boundary.
+Vague terms like "maximum security", "absolute safety", "takes too long", "easy to replace", "no side effects", "best practice", and "clean architecture" SHALL NOT be used in requirements/acceptance criteria without a specific subject, scope, metric, verification method, and exception boundary.
 
-### Atomicity và singularity
+### Atomicity and Singularity
 
-- Mỗi requirement normative chỉ chứa **một obligation** có thể verify độc lập.
-- Không nối hai hành vi độc lập bằng `và`, `hoặc`, dấu chấm phẩy hoặc danh sách ngầm. Tách thành hai ID và liên kết dependency nếu cần.
-- `và` chỉ được dùng bên trong một outcome không thể tách mà không làm mất nghĩa; reviewer phải ghi rationale.
-- Không trộn requirement, rationale, design solution và test procedure trong cùng một câu normative.
-- SRS mô tả hệ thống **phải làm gì** và constraint có nguồn; SAD/ERD/API/EDS mô tả **thiết kế như thế nào**. Không chuyển architecture/database/API design vào SRS chỉ để “hoàn tất phân tích”.
+- Each normative requirement must contain **exactly one obligation** that can be verified independently.
+- Do not combine two independent behaviors using "and", "or", semicolons, or implicit lists. Split them into separate IDs and link dependencies if necessary.
+- "And" is only permitted within an outcome that cannot be separated without losing its meaning; reviewers must document the rationale.
+- Do not mix requirements, rationales, design solutions, and test procedures in the same normative sentence.
+- The SRS describes **what** the system must do and its constraints; the SAD/ERD/API/EDS describes **how** it is designed. Do not move architectural/database/API design details into the SRS.
 
-Ví dụ Fail:
+Fail Example:
+> `FR-001`: The system SHALL create the account and send an email and automatically log in the user.
 
-> `FR-001`: Hệ thống PHẢI tạo tài khoản và gửi email và tự động đăng nhập người dùng.
-
-Ví dụ Pass:
-
-> `FR-001`: Khi dữ liệu đăng ký hợp lệ, hệ thống PHẢI tạo đúng một tài khoản ở trạng thái `PendingVerification`.
+Pass Example:
+> `FR-001`: Upon receiving valid registration data, the system SHALL create exactly one account in the `PendingVerification` state.
 >
-> `FR-002`: Sau khi `FR-001` thành công, hệ thống PHẢI gửi một email xác minh trong vòng 60 giây.
+> `FR-002`: After `FR-001` completes successfully, the system SHALL send a verification email within 60 seconds.
 >
-> `FR-003`: Hệ thống KHÔNG ĐƯỢC tạo phiên đăng nhập trước khi email được xác minh.
+> `FR-003`: The system SHALL NOT create a login session before the email is verified.
 
-### Imperative keywords
+### Imperative Keywords
 
-| Keyword | Ý nghĩa | Rule sử dụng |
+| Keyword | Meaning | Usage Rule |
 | :--- | :--- | :--- |
-| `SHALL / PHẢI` | Mandatory | Dùng cho obligation bắt buộc và có pass/fail acceptance |
-| `SHALL NOT / KHÔNG ĐƯỢC` | Mandatory prohibition | Dùng cho hành vi bị cấm, security/privacy/business invariant |
-| `SHOULD / NÊN` | Recommendation | Phải ghi lý do và hậu quả khi không thực hiện; không dùng làm release-blocking requirement |
-| `SHOULD NOT / KHÔNG NÊN` | Discouraged | Phải ghi trường hợp ngoại lệ được chấp nhận |
-| `MAY / CÓ THỂ` | Permission/optional | Không tạo obligation; phải nêu ai được quyền chọn và điều kiện áp dụng |
+| `SHALL` | Mandatory | Used for mandatory obligations with pass/fail acceptance criteria. |
+| `SHALL NOT` | Mandatory prohibition | Used for forbidden behaviors, security/privacy/business invariants. |
+| `SHOULD` | Recommendation | Must document the rationale and consequences of non-implementation; not release-blocking. |
+| `SHOULD NOT` | Discouraged | Must document the accepted exceptions. |
+| `MAY` | Permission/optional | Does not create an obligation; must state who has the option and the conditions. |
 
-Không dùng `will`, `sẽ`, `có khả năng`, `dự kiến` như từ khóa normative. Một câu `SHALL/PHẢI` phải có đúng một subject chịu trách nhiệm và một obligation.
+Do not use "will", "would", "expected", or "planned" as normative keywords. A `SHALL` sentence must have exactly one responsible subject and one obligation.
 
-## 4. Quy tắc viết requirement và specification
+## 4. Requirements & Specification Writing Rules
 
-1. Dùng động từ chuẩn:
-   - `shall`/`phải` cho yêu cầu bắt buộc;
-   - `should`/`nên` cho mục tiêu không blocking;
-   - tránh `có thể`, `thường`, `hợp lý`, `nhanh`, `thân thiện`, `tối ưu`, `đầy đủ`, `an toàn` nếu không có định nghĩa đo được.
-2. Mỗi BR/FR/NFR/UC/feature/API/test có ID duy nhất; không tái sử dụng ID đã deprecated.
-3. Mỗi functional requirement phải ghi actor, trigger, precondition, input validation, outcome/side effect, permission, error/recovery và acceptance.
-4. Mỗi NFR phải ghi target, load/window/percentile, environment, measurement tool và pass/fail threshold.
-5. Mỗi API phải ghi method/path, auth/permission, request/response schema, status/error codes, idempotency, rate limit, timeout/retry, compatibility và linked requirement/test.
-6. Mỗi entity/field quan trọng phải ghi key/constraint, relationship/cardinality, owner, classification, retention và migration impact.
-7. Dùng `GLOSSARY_AND_REFERENCES.md` làm nguồn thuật ngữ chuẩn. Tên role, entity, trạng thái và error code phải giống nhau trong BRD/SRS/SAD/API/UI/test/runbook.
-8. Diagram phải có mô tả chữ hoặc bảng hỗ trợ; không để logic quan trọng chỉ nằm trong hình ảnh khó tìm kiếm/version-control.
-9. Ví dụ, placeholder và nội dung hướng dẫn phải được thay hoặc xóa trước baseline/release sign-off.
+1. Use standard verbs:
+   - `shall` for mandatory requirements;
+   - `should` for non-blocking targets;
+   - avoid "can", "often", "reasonable", "fast", "friendly", "optimized", "complete", "secure" unless a measurable definition is provided.
+2. Every BR/FR/NFR/UC/feature/API/test has a unique ID; do not reuse deprecated IDs.
+3. Each functional requirement must record the actor, trigger, precondition, input validation, outcome/side effect, permission, error/recovery, and acceptance.
+4. Each NFR must record the target, load/window/percentile, environment, measurement tool, and pass/fail threshold.
+5. Each API must record the method/path, auth/permission, request/response schema, status/error codes, idempotency, rate limit, timeout/retry, compatibility, and linked requirement/test.
+6. Each entity/field must record the key/constraint, relationship/cardinality, owner, classification, retention, and migration impact.
+7. Use [GLOSSARY_AND_REFERENCES.md](../08-Document-References/GLOSSARY_AND_REFERENCES.md) as the terminology source. Role names, entities, states, and error codes must match across BRD/SRS/SAD/API/UI/test/runbook.
+8. Diagrams must have accompanying text or supporting tables; do not leave critical logic only inside images.
+9. Examples, placeholders, and instruction guides must be replaced or deleted before baseline/release sign-off.
 
-## 4A. Structural controls cho BRD/SRS
+## 4A. Structural Controls for BRD/SRS
 
-Mọi BRD/SRS baseline phải có:
+Every BRD/SRS baseline must contain:
 
-1. Document ID, owner, approver, version/status và version history gồm ngày, người thay đổi, lý do, sections/requirements affected.
-2. Scope, objective, stakeholder, assumption/dependency/constraint và reference.
-3. Glossary/acronym với canonical term, definition, aliases bị cấm và owner/source.
-4. As-is/to-be workflow, feature catalog và detailed use cases.
-5. Functional, non-functional, data, security/privacy và operational requirements.
-6. External Interfaces tách riêng:
-   - User Interface: persona/screen/navigation/input/error/accessibility/design-system reference;
-   - Hardware Interface: device/protocol/driver/capacity/failure behavior;
-   - Software Interface: provider/consumer/API/version/schema/auth/quota/SLA/fallback;
-   - Communications Interface: protocol/port/TLS/certificate/network zone/timeout/retry.
-7. Acceptance, traceability, open issues và sign-off.
+1. Document ID, owner, approver, version/status, and version history detailing dates, authors, reasons, and sections affected.
+2. Scope, objectives, stakeholders, assumptions, dependencies, constraints, and references.
+3. Glossary/acronyms containing canonical terms, definitions, forbidden aliases, and owners.
+4. As-is/to-be workflows, feature catalog, and detailed use cases.
+5. Functional, non-functional, data, security/privacy, and operational requirements.
+6. Separated External Interfaces:
+   - User Interface: personas, screens, navigation, input validation, errors, accessibility, design system references.
+   - Hardware Interface: device, protocol, driver, capacity, failure behavior.
+   - Software Interface: provider, consumer, API version, schema, auth, quota, SLA, fallback.
+   - Communications Interface: protocol, port, TLS, certificate, network zone, timeout, retry.
+7. Acceptance, traceability, open issues, and sign-off.
 
-Nếu một loại interface không áp dụng, ghi `N/A` và rationale; không xóa mục.
+If an interface category is not applicable, write `N/A` and specify the rationale; do not delete the section header.
 
-## 5. Kiểm chứng 2–3 tính năng phức tạp
+## 5. Verification of 2–3 Complex Features
 
-Mỗi requirements baseline và release candidate phải audit 2–3 tính năng phức tạp bằng `06-Testing/DOCUMENT_QUALITY_AUDIT.md`.
+Each requirements baseline and release candidate must be audited using [DOCUMENT_QUALITY_AUDIT.md](../06-Testing/DOCUMENT_QUALITY_AUDIT.md).
 
-### Cách chọn mẫu chống cherry-pick
+### Sample Selection to Avoid Cherry-Picking
 
-1. Lập population từ các feature có `Complexity = High/Critical` hoặc chạm ít nhất hai miền: integration, payment, PII/security, state machine, concurrency, migration, scheduled/background processing.
-2. Nếu population ≤ 3, kiểm tra tất cả.
-3. Nếu population > 3, lấy ngẫu nhiên 3 feature và ghi timestamp/seed/cách chọn. Mẫu phải có ít nhất một feature cross-system hoặc data/security; nếu mẫu ngẫu nhiên không có, thay feature cuối bằng một feature thuộc nhóm đó và ghi lý do.
-4. Không cho tác giả duy nhất của feature tự đánh giá và tự sign-off.
+1. Establish the population of features with `Complexity = High/Critical` or those that touch at least two domains: integration, payment, PII/security, state machines, concurrency, migration, scheduled/background processing.
+2. If the population is ≤ 3, audit all of them.
+3. If the population is > 3, randomly select 3 features and record the timestamp, seed, and selection method. The sample must contain at least one cross-system or data/security feature; if the random sample does not, replace the last feature with one from that domain and record the reason.
+4. The primary author of a feature is not allowed to self-assess or self-sign-off.
 
-### Pass/fail từng feature
+### Pass/Fail Criteria Per Feature
 
-- `Unambiguous`: hai reviewer độc lập mô tả cùng actor/trigger/result/rule; không có interpretation conflict blocking.
-- `Measurable`: mọi NFR/acceptance định lượng có target và measurement method.
-- `Feasible`: dependency/constraint/owner và design response đã biết; không còn unknown Critical.
-- `Consistent`: terminology, field, state, permission, error code khớp giữa BRD/SRS/SAD/API/UI/test.
-- `Testable`: Tester viết được happy, alternate, invalid, empty, permission và system-failure cases mà không cần BA làm rõ blocking.
-- `Traceable`: RTM đi đủ hai chiều; không có link “đã làm” nhưng thiếu path/symbol/test/result cụ thể.
+- `Unambiguous`: Two independent reviewers describe the same actor/trigger/result/rules without conflict.
+- `Measurable`: Every quantitative NFR/acceptance has a defined target and measurement method.
+- `Feasible`: Dependencies, constraints, owners, and design responses are resolved; no open Critical unknowns.
+- `Consistent`: Terminology, fields, states, permissions, and error codes match across BRD/SRS/SAD/API/UI/test.
+- `Testable`: Testers can write happy, alternate, invalid, empty, permission, and failure cases without blocking clarifications.
+- `Traceable`: The RTM goes both directions; no "done" links without concrete paths, symbols, tests, or results.
 
-Chỉ cần một tiêu chí Fail là feature audit Fail và gate liên quan phải `Fail` hoặc `Conditional Pass` có owner/hạn/approver.
+A single "Fail" on any criterion fails the feature audit, and the corresponding gate must be marked `Fail` or `Conditional Pass` with an owner, deadline, and approver.
 
-## 6. Thử nghiệm thực địa bắt buộc
+## 6. Mandatory Field Verification
 
 ### 6.1 New Developer Readiness Test
 
-Đưa SAD, ERD, API Specs, environment setup và deployment guide cho một Developer/Ops chưa tham gia phần việc.
+Provide the SAD, ERD, API Specs, environment setup, and deployment guides to a developer/ops engineer who has not participated in this part of the project.
 
-Nhiệm vụ tối thiểu:
+Minimum Tasks:
+1. Identify the system boundaries, modules, and critical flows.
+2. Set up the local environment from a clean machine/repository.
+3. Build the code and run designated tests/smoke checks.
+4. Call an API or complete a vertical slice demo using test data.
+5. Describe deployment, rollback, and where to find logs/metrics.
 
-1. Xác định system boundary, module và luồng critical.
-2. Setup environment từ máy/repository sạch.
-3. Build và chạy test/smoke được chỉ định.
-4. Gọi một API hoặc hoàn thành một vertical slice demo bằng dữ liệu test.
-5. Mô tả deployment, rollback và nơi tìm log/metric.
-
-Pass mặc định: hoàn thành trong timebox đã thống nhất, không cần hỏi tác giả để giải quyết bước blocking, không dùng secret không được tài liệu hóa an toàn. Mọi câu hỏi phát sinh phải ghi vào field-test report và chuyển thành document finding.
+Pass: Tasks are completed within the agreed timebox without asking the authors for blocking issues, and without using undocumented secrets. All questions raised must be recorded in the field-test report as document quality findings.
 
 ### 6.2 Tester Derivation Test
 
-Đưa BRD/SRS/feature/use case cho Tester chưa viết tài liệu đó. Tester phải tự tạo test inventory gồm:
-
+Provide the BRD/SRS/feature/use case definitions to a tester who did not write them. The tester must create a test inventory covering:
 - happy path;
 - alternate path;
-- invalid format/boundary;
-- empty/null/missing input;
-- permission/role;
-- duplicate/double-submit/idempotency;
-- network/dependency timeout và retry;
-- concurrency/partial failure/recovery;
-- audit/data side effects;
-- linked NFR/security cases khi áp dụng.
+- invalid formats and boundary values;
+- empty, null, or missing inputs;
+- permissions and roles;
+- duplicates, double-submits, and idempotency;
+- network/dependency timeouts and retries;
+- concurrency, partial failures, and recovery;
+- audit logs and data side effects;
+- linked NFR/security cases.
 
-Pass: không có blocking clarification với BA; mỗi case có requirement ID và expected result quan sát được. Câu hỏi cần làm rõ là finding của requirement, không được âm thầm giải thích ngoài tài liệu.
+Pass: No blocking clarifications with the BA; each test case has a linked requirement ID and an observable expected result. Clarifications must be logged as requirement findings, not resolved silently outside the documentation.
 
 ### 6.3 Technical Peer Review
 
-Tối thiểu có BA/Product, Lead Developer/Architect và Lead QA; thêm Security/Ops khi feature chạm risk tương ứng. Review bắt buộc hỏi:
+Composed at minimum of the BA/Product Owner, Lead Developer/Architect, and Lead QA; Security/Ops participate when the feature impacts their domain. Reviewers must ask:
+- What happens if the network drops or a dependency goes down mid-flow?
+- What happens if there is a double-click/double-submit, retry, or duplicate event?
+- What happens if the input is malformed, too long, empty, or malicious?
+- What happens if the session/token expires or roles change mid-flow?
+- What happens if two users update concurrently or a transaction partially fails?
+- What happens if timezone, clock drift, timeouts, batching, scheduler, or callbacks arrive late?
+- How do migrations, rollbacks, and compatibility with legacy clients/data work?
+- Which logs, metrics, or audits prove the outcome and support troubleshooting?
 
-- Mất mạng hoặc dependency downtime giữa luồng thì sao?
-- Bấm/gửi hai lần, retry hoặc event trùng thì sao?
-- Input sai định dạng, quá dài, rỗng hoặc độc hại thì sao?
-- Session/token hết hạn hoặc role đổi giữa luồng thì sao?
-- Hai người sửa cùng lúc hoặc transaction chỉ thành công một phần thì sao?
-- Timezone, clock, timeout, batch, scheduler hoặc callback đến muộn thì sao?
-- Migration/rollback/compatibility với client/data cũ thì sao?
-- Log/metric/audit nào chứng minh outcome và hỗ trợ chẩn đoán?
+Any open High/Critical findings without a mitigation plan or owner sign-off will block the gate.
 
-Finding High/Critical chưa đóng hoặc chưa được đúng owner chấp nhận sẽ chặn gate.
+## 7. Evidence and Sign-Off
 
-## 7. Evidence và sign-off
-
-| Evidence | Bắt buộc ghi |
+| Evidence | Required Records |
 | :--- | :--- |
-| Document coverage | Artifact/path, owner, version/status, phần còn thiếu/N/A rationale |
-| Feature quality audit | Feature IDs, selection method/seed, sáu tiêu chí, finding/action/reviewer |
-| Developer field test | Participant role, clean baseline, timebox, steps/result, blocking questions, evidence |
-| Tester derivation | Feature/use case IDs, derived test IDs/categories, clarification count/findings |
-| Peer review | Participants/roles, edge cases, findings/severity, decisions/actions |
+| **Document Coverage** | Artifact path, owner, version/status, pending sections/N/A rationales |
+| **Feature Quality Audit** | Feature IDs, selection method/seed, six criteria scores, findings/actions/reviewers |
+| **Developer Field Test** | Participant role, clean baseline configuration, timebox, steps/results, blocking questions, evidence |
+| **Tester Derivation** | Feature/use case IDs, derived test IDs/categories, clarification count/findings |
+| **Peer Review** | Participants, roles, edge cases reviewed, findings, severity, decisions/actions |
 
-Sign-off tối thiểu: BA/Product xác nhận nghiệp vụ, Tech Lead xác nhận kiến trúc/khả thi, QA Lead xác nhận testability/coverage, Client Product Owner xác nhận baseline/acceptance. Security/Ops sign-off khi phạm vi liên quan.
+Minimum sign-off: BA/Product verifies business intent, Tech Lead verifies architectural feasibility, QA Lead verifies testability/coverage, and the Client Product Owner signs off on baseline/acceptance. Security/Ops sign off when within their scope.
 
-## 8. Enforcement theo gate
+## 8. Phase Gate Enforcement
 
-- Gate 02: BRD/SRS/Feature/Use Case đủ và vượt qua review SMART ở mức requirement.
-- Gate 03: SAD/ERD/API Specs hoàn chỉnh, consistent và traceable; peer review thiết kế đạt.
-- Gate 06: test coverage theo requirement; feature audit và Tester Derivation Test đạt.
-- Gate 08: Deployment/User/Runbook đủ; New Developer Readiness Test và handover dry run đạt.
+- **Gate 02:** BRD/SRS/Feature/Use Cases are complete and pass the SMART review at the requirement level.
+- **Gate 03:** SAD/ERD/API Specs are complete, consistent, and traceable; design peer review passes.
+- **Gate 06:** Test coverage matches requirements; feature audit and Tester Derivation Test pass.
+- **Gate 08:** Deployment, user guides, and runbooks are complete; New Developer Readiness Test and dry-run handover pass.

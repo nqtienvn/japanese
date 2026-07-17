@@ -9,34 +9,34 @@ ids: []
 dependencies: []
 last_verified: "{{DATE}}"
 ---
-# Requirements Review & Sign-off
+# Requirements Review & Sign-Off
 
-## Quality checklist
+## Quality Checklist
 
-- [ ] Mỗi requirement cần thiết, đơn nghĩa, khả thi, testable và truy vết được.
-- [ ] Mỗi requirement atomic: một subject, một obligation; conjunction đã tách hoặc có rationale.
-- [ ] `PHẢI/SHALL`, `NÊN/SHOULD`, `CÓ THỂ/MAY` dùng đúng semantics; không dùng “sẽ/will” làm obligation.
-- [ ] Không có từ định tính như nhanh/đẹp/mượt/thân thiện/tối ưu nếu thiếu metric và measurement context.
-- [ ] Không dùng “bảo mật mạnh nhất/an toàn tuyệt đối/làm lâu quá/dễ thay thế/không ảnh hưởng module khác” nếu thiếu measurable boundary.
-- [ ] Document version history, glossary và bốn nhóm external interfaces đầy đủ hoặc có N/A rationale.
-- [ ] Không trộn solution tùy ý vào nhu cầu; constraint kỹ thuật có nguồn/lý do.
-- [ ] Actor, trigger, input/output, business rule và state transition rõ.
-- [ ] Happy/alternate/error/retry/cancel/reversal path đã xét.
-- [ ] Permission, privacy, audit, retention và abuse case đã xét.
-- [ ] Security Profile, data classification, regulatory applicability và threat/source đã rõ; không claim compliance/certification thiếu evidence.
-- [ ] SRS chỉ chứa obligation/constraint; architecture/database/API/UI implementation nằm trong artifact Phase 03 và được trace bằng ID.
-- [ ] NFR có target, percentile/thời gian/môi trường và cách đo.
-- [ ] Priority/release boundary/out-of-scope và dependency rõ.
-- [ ] Mâu thuẫn với discovery/code hiện tại đã được quyết định.
-- [ ] Audit cross-artifact kiểm tra terminology và requirement ID trong UI/SAD/API/data/test.
+- [ ] Each requirement is necessary, unambiguous, feasible, testable, and traceable.
+- [ ] Each requirement is atomic: one subject, one obligation; conjunctions are split or have documented rationales.
+- [ ] `SHALL`, `SHOULD`, and `MAY` use correct semantics; 'will' is not used to denote obligations.
+- [ ] No qualitative terms such as fast, beautiful, smooth, friendly, or optimized are used without metrics and measurement contexts.
+- [ ] Vague terms like "maximum security", "absolute safety", "takes too long", "easy to replace", or "no side effects" are not used without measurable boundaries.
+- [ ] Document version history, glossary, and the four categories of external interfaces are complete or have documented N/A rationales.
+- [ ] Solution details are not arbitrarily mixed with requirements; technical constraints have recorded sources/rationales.
+- [ ] Actors, triggers, inputs/outputs, business rules, and state transitions are clear.
+- [ ] Happy, alternate, error, retry, cancellation, and reversal paths are addressed.
+- [ ] Permissions, privacy, audits, data retention, and abuse cases are addressed.
+- [ ] Security Profile, data classification, regulatory applicability, and threats/sources are clear; no compliance/certification claims are made without evidence.
+- [ ] The SRS only contains obligations/constraints; architecture/database/API/UI implementations reside in Phase 03 artifacts and are traced by IDs.
+- [ ] NFRs have targets, percentiles/timeframes/environments, and measurement methods.
+- [ ] Priority, release boundaries, out-of-scope definitions, and dependencies are clear.
+- [ ] Mismatches with discovery or current code have been resolved and documented.
+- [ ] Cross-artifact audits verify terminology and requirement IDs in UI, SAD, API, data schemas, and test cases.
 
-## Review findings
+## Review Findings
 
 | Finding ID | Severity | Requirement | Finding | Action | Owner | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | RF-001 | High | FR-XXX | {{FINDING}} | {{ACTION}} | {{OWNER}} | Open |
 
-## Sign-off
+## Sign-Off
 
 | Role | Decision | Date | Conditions |
 | :--- | :--- | :--- | :--- |

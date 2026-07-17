@@ -11,7 +11,7 @@ last_verified: "{{DATE}}"
 ---
 # Requirement Item Template
 
-## Document control
+## Document Control
 
 | Field | Value |
 | :--- | :--- |
@@ -23,20 +23,20 @@ last_verified: "{{DATE}}"
 
 ## Statement
 
-`The system shall {{BEHAVIOR}} for {{ACTOR}} when {{TRIGGER}} so that {{VALUE}}.`
+`The system SHALL {{BEHAVIOR}} for {{ACTOR}} when {{TRIGGER}} so that {{VALUE}}.`
 
-Requirement phải **atomic**: đúng một subject và một obligation. Nếu có hai hành vi verify độc lập, tách thành hai ID. Dùng từ khóa đúng semantics:
+The requirement must be **atomic**: exactly one subject and one obligation. If there are two independent verification behaviors, split them into two separate IDs. Use keywords with correct semantics:
 
-- `SHALL / PHẢI`: mandatory.
-- `SHALL NOT / KHÔNG ĐƯỢC`: mandatory prohibition.
-- `SHOULD / NÊN`: recommendation, không tự động blocking.
-- `MAY / CÓ THỂ`: permission/optional, không phải obligation.
+- `SHALL`: mandatory.
+- `SHALL NOT`: mandatory prohibition.
+- `SHOULD`: recommendation, not automatically release-blocking.
+- `MAY`: permission/optional, does not constitute an obligation.
 
-## Context và rationale
+## Context and Rationale
 
 {{RATIONALE}}
 
-## Preconditions, inputs và outputs
+## Preconditions, Inputs, and Outputs
 
 - Preconditions: {{PRECONDITIONS}}
 - Input/data rules: {{INPUT}}
@@ -49,7 +49,7 @@ Requirement phải **atomic**: đúng một subject và một obligation. Nếu 
 3. Alternate path: {{ALTERNATE_PATH}}
 4. Error/recovery: {{ERROR_PATH}}
 
-## Acceptance criteria
+## Acceptance Criteria
 
 ```gherkin
 Scenario: {{SCENARIO}}
@@ -59,20 +59,20 @@ Scenario: {{SCENARIO}}
   And {{BUSINESS_OR_DATA_ASSERTION}}
 ```
 
-## Quality attributes review
+## Quality Attributes Review
 
 | Atomic | Unambiguous | Measurable | Feasible | Consistent | Testable | Traceable | Reviewer/evidence |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
 | Pass / Fail | Pass / Fail | Pass / Fail | Pass / Fail | Pass / Fail | Pass / Fail | Pass / Fail | {{EVIDENCE}} |
 
-## Rules và NFR
+## Rules and NFRs
 
-| Linked ID | Áp dụng thế nào |
+| Linked ID | How it Applies |
 | :--- | :--- |
 | BR-XXX | {{RULE}} |
 | NFR-XXX | {{TARGET_AND_MEASURE}} |
 
-## Trace links
+## Trace Links
 
 | Design/ADR | Work item | Code/config | Test | Release |
 | :--- | :--- | :--- | :--- | :--- |

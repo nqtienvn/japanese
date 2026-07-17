@@ -9,88 +9,87 @@ ids: []
 dependencies: []
 last_verified: "{{DATE}}"
 ---
-# AI Project Lifecycle Template — 09 Phase
+# AI Project Lifecycle Template — 9 Phases
 
-Đây là bộ khung cho mô hình **bạn là Client/Product Owner thuê một công ty làm sản phẩm**, còn AI vận hành như Delivery Vendor gồm BA/PM/Architect/Developer/QA/DevOps: phỏng vấn stakeholder, làm rõ ý tưởng, tự động thực hiện công việc đã được ủy quyền và bàn giao kết quả có bằng chứng. Bộ khung cũng dùng được khi chép vào repository đang code dở.
+This is a framework for the **Client/Product Owner contracting a software delivery vendor** model, where the AI assistant operates as the Delivery Vendor (comprising BA, PM, Architect, Developer, QA, and DevOps roles): interviewing stakeholders, clarifying requirements, executing authorized local work autonomously, and handing over evidence-backed results. The framework is also designed to be integrated into an existing, ongoing codebase (Brownfield).
 
-## Bắt đầu nhanh
+## Quick Start
 
-Ba tài liệu nên đọc đầu tiên:
+Three documents to read first:
 
-- [START.md](START.md): chọn và sao chép prompt khởi động cho dự án mới hoặc dự án đang làm dở.
-- [MASTER_PROMPT.md](MASTER_PROMPT.md): prompt điều phối duy nhất để AI khám phá yêu cầu, lập baseline, thực thi 09 phase và bàn giao.
-- [USAGE_GUIDE.md](USAGE_GUIDE.md): cách vận hành hiệu quả cho dự án mới, dự án đang dở và yêu cầu thay đổi.
+- [START.md](START.md): Choose and copy the initiation prompt for a greenfield or brownfield project.
+- [MASTER_PROMPT.md](MASTER_PROMPT.md): The unified orchestration prompt for the AI to discover requirements, establish a baseline, execute the 9 phases, and complete the handover.
+- [USAGE_GUIDE.md](USAGE_GUIDE.md): Operational guide for new projects, existing codebases, and change requests.
 
-Sau khi đặt toàn bộ template vào root repository, mở AI tại đúng root và gửi:
+After placing the entire template folder structure at the root of the repository, open the AI assistant at the root and send:
 
 ```text
-Đọc và thực thi toàn bộ MASTER_PROMPT.md trong repository này.
+Read and execute the entire MASTER_PROMPT.md in this repository.
 PROJECT_MODE = AUTO.
-Ý tưởng hoặc mục tiêu hiện tại của tôi: [mô tả ngắn].
+My current idea or objective: [short description].
 ```
 
-`AUTO` cho phép AI tự xác định `GREENFIELD`, `BROWNFIELD` hoặc `CHANGE` từ bằng chứng trong repository. Nếu đã biết chắc chế độ, thay `AUTO` bằng mode tương ứng. Không cần dán lại toàn bộ master prompt vào chat khi AI có quyền đọc repository.
+`AUTO` allows the AI to determine whether the codebase is `GREENFIELD`, `BROWNFIELD`, or `CHANGE` from repository evidence. If you are certain of the mode, replace `AUTO` with the specific mode. There is no need to copy the entire master prompt into chat if the AI has read access to the repository.
 
-## Mô hình phát triển được áp dụng
+## Applied Development Model
 
-Bộ tài liệu sử dụng mô hình **AI-Assisted Client–Vendor Hybrid Stage-Gate Agile/DevSecOps Software Delivery**, gọi ngắn gọn là **Hybrid 9-Phase Software Delivery Model**.
+This template uses the **AI-Assisted Client–Vendor Hybrid Stage-Gate Agile/DevSecOps Software Delivery Model**, or simply the **Hybrid 9-Phase Software Delivery Model**.
 
-### Chuẩn quốc tế được tham chiếu
+### Referenced International Standards
 
-Template được thiết kế theo hướng **standards-aligned**, không tự tuyên bố chứng nhận hoặc conformity chính thức. Mỗi dự án vẫn phải hoàn thành tailoring, evidence và review; nếu cần chứng nhận, phải có đánh giá độc lập.
+This template is designed to be **standards-aligned**; it does not claim formal certification or compliance. Each project must perform its own tailoring, evidence compilation, and reviews; if certification is required, an independent assessment must be obtained.
 
-| Chuẩn | Phiên bản ghim | Phạm vi áp dụng trong template |
-| :--- | :--- | :--- |
-| [ISO/IEC/IEEE 29148:2018](https://www.iso.org/standard/72089.html) | Edition 2, requirements engineering | BRD/SRS, requirement atomicity/quality, version control, glossary, external interfaces, lifecycle và traceability. ISO xác nhận phiên bản này trong 2024; tại thời điểm cập nhật template đang có revision project nên phải kiểm tra lại trước dự án mới. |
-| [ISO/IEC/IEEE 29119-1:2022](https://www.iso.org/standard/81291.html) | Edition 2, general concepts | Test terminology, concepts và policy vocabulary. |
-| [ISO/IEC/IEEE 29119-2:2021](https://www.iso.org/standard/79428.html) | Edition 2, test processes | Test governance, planning, monitoring/control, implementation và completion. |
-| [ISO/IEC/IEEE 29119-3:2021](https://www.iso.org/standard/79429.html) | Edition 2, test documentation | Test Policy/Plan, Test Specification/Case, Test Status/Completion Report và test traceability outputs. |
-| [ISO/IEC/IEEE 29119-4:2021](https://www.iso.org/standard/79430.html) | Edition 2, test techniques | Equivalence Partitioning, Boundary Value, Decision Table, State Transition và các kỹ thuật thiết kế test phù hợp. |
-| [ISO/IEC 27001:2022](https://www.iso.org/standard/27001) | Edition 3, ISMS requirements | Risk-management/ISMS interface; không biến project checklist thành chứng nhận tổ chức. |
-| [ISO/IEC 27002:2022](https://www.iso.org/standard/75652.html) | Edition 3, security controls guidance | Control reference được tailoring theo Security Profile và threat model. |
-| [OWASP Top 10:2025](https://owasp.org/Top10/2025/0x00_2025-Introduction/) | Web application risk awareness | Threat/security review theo attack surface; không dùng như checklist đầy đủ duy nhất. |
+| Standard | Pinned Version | Scope within Template | Key Artifacts / Evidences | Control Status |
+| :--- | :--- | :--- | :--- | :--- |
+| [ISO/IEC/IEEE 29148:2018](https://www.iso.org/standard/72089.html) | Edition 2, requirements engineering | BRD/SRS, requirement atomicity/quality, version control, glossary, external interfaces, lifecycle, and traceability. ISO confirmed this version in 2024; verify revisions before new projects. | BRD, SRS, Feature Catalog, Use Case Spec, Traceability Matrix, requirement review | Active |
+| [ISO/IEC/IEEE 29119-1:2022](https://www.iso.org/standard/81291.html) | Edition 2, general concepts | Testing vocabulary, terms, and concepts. | Test Policy, Glossary, Test Strategy | Active |
+| [ISO/IEC/IEEE 29119-2:2021](https://www.iso.org/standard/79428.html) | Edition 2, test processes | Test governance, planning, entry/exit criteria, monitoring, control, and completion. | Test Policy/Plan, status/completion reports | Active |
+| [ISO/IEC/IEEE 29119-3:2021](https://www.iso.org/standard/79429.html) | Edition 2, test documentation | Templates for test documentation (plans, specifications, test cases, status/completion reports, and traceability). | Test Specification, Test Case, Traceability Matrix | Active |
+| [ISO/IEC/IEEE 29119-4:2021](https://www.iso.org/standard/79430.html) | Edition 2, test techniques | Design techniques (Equivalence Partitioning, Boundary Value Analysis, Decision Tables, State Transitions). | Test Specification (coverage analysis) | Active |
+| [ISO/IEC 27001:2022](https://www.iso.org/standard/27001) | Edition 3, ISMS requirements | Risk-management/ISMS interface; does not substitute organizational security certification. | Security Standard, risk matrices, approvals | Active |
+| [ISO/IEC 27002:2022](https://www.iso.org/standard/75652.html) | Edition 3, security controls guidance | Reference security controls tailored by Security Profile and threat model. | Security control mapping, design/test evidence | Guidance |
+| [OWASP Top 10:2025](https://owasp.org/Top10/2025/0x00_2025-Introduction/) | Web application risk awareness | Threat/security review by attack surface; not a complete checklist. | Threat Model, security requirements/tests | Active |
 
-`IEEE 830-1998` và `IEEE 829-2008` chỉ được coi là legacy references vì đã bị superseded. Mapping chi tiết và giới hạn tuyên bố nằm tại [Standards Alignment Matrix](00-Governance-Policy/STANDARDS_ALIGNMENT_MATRIX.md); rule kiểm soát nội dung nằm tại [Document Quality Standard](00-Governance-Policy/DOCUMENT_QUALITY_STANDARD.md).
+`IEEE 830-1998` and `IEEE 829-2008` are treated as legacy references because they have been superseded. Detailed mapping and liability boundaries reside in the [Standards Alignment Matrix](00-Governance-Policy/STANDARDS_ALIGNMENT_MATRIX.md); quality rules are controlled by the [Document Quality Standard](00-Governance-Policy/DOCUMENT_QUALITY_STANDARD.md).
 
-Đây không phải Waterfall, Scrum hay V-Model thuần túy. Mô hình lấy **Stage-Gate SDLC** làm khung quản trị chính, sau đó kết hợp Agile/Iterative Delivery, traceability kiểu V-Model và DevSecOps trong từng phase.
+This is not pure Waterfall, Scrum, or V-Model. The model uses a **Stage-Gate SDLC** as its governance framework, combining Agile/Iterative Delivery, V-Model-style traceability, and DevSecOps within each phase.
 
-| Thành phần | Cách áp dụng trong bộ tài liệu |
+| Component | Application in Template |
 | :--- | :--- |
-| **Client–Vendor Governance** | Client quyết định mục tiêu, phạm vi, ưu tiên và nghiệm thu; Delivery Vendor chịu trách nhiệm discovery, thiết kế, phát triển, kiểm thử, báo cáo và bàn giao. Quan hệ hai bên được quản lý bằng Charter, SOW, RACI, change request và acceptance. |
-| **Stage-Gate SDLC** | Dự án đi qua 09 phase. Mỗi phase có đầu vào, artifact bắt buộc, evidence và gate đầu ra với kết quả `Pass`, `Conditional Pass` hoặc `Fail`. |
-| **Agile/Iterative Delivery** | Công việc trong phase được chia theo vertical slice và work item nhỏ, có thể dùng Scrum, Kanban, Milestone hoặc Hybrid. Build, review, test và phản hồi diễn ra liên tục. |
-| **V-Model-like Traceability** | Duy trì truy vết hai chiều từ mục tiêu/yêu cầu đến thiết kế, work item, code, test, release và handover. Một requirement chưa có evidence phù hợp không được coi là hoàn tất. |
-| **DevSecOps** | Security, privacy, testing, CI, dependency scanning, migration, release, rollback, observability và operations được xem xét xuyên suốt thay vì để đến cuối dự án. |
-| **Risk-based Security Profiles** | Chọn `STANDARD/HIGH/CRITICAL`; threat/control/test/release gate tăng theo data, exposure và impact, không dùng tuyên bố “bảo mật mạnh nhất” mơ hồ. |
-| **Portable Bank Security Reference** | Hai Java snapshot là starting inventory cho Spring; stack khác refactor responsibility/control sang code native và chứng minh tương đương bằng security tests. |
-| **Human–AI Collaboration** | AI không offload vì khó/lâu; chỉ nhờ Client cho decision/access/manual/approval/sign-off nhỏ nhất theo evidence, sau đó verify và tự resume. |
-| **Brownfield Continuation** | Với dự án đang code dở, AI audit code/config/test/git trước, tái dựng hiện trạng, tạo gap analysis và tiếp tục từ gate đầu tiên chưa đạt. |
+| **Client–Vendor Governance** | The Client decides goals, scope, priorities, and signs off acceptance; the Delivery Vendor handles discovery, design, development, testing, reporting, and handover. The relationship is managed via Charters, SOWs, RACI, Change Requests, and formal acceptance gates. |
+| **Stage-Gate SDLC** | The project progresses through 9 phases. Each phase has inputs, mandatory artifacts, evidence, and exit gates yielding `Pass`, `Conditional Pass`, or `Fail`. |
+| **Agile/Iterative Delivery** | Work within a phase is split into vertical slices and small work items. Build, review, test, and feedback happen continuously. |
+| **V-Model-like Traceability** | Enforces bidirectional traceability from business objectives/requirements to designs, work items, code, tests, releases, and handovers. A requirement without passing test evidence cannot be considered done. |
+| **DevSecOps** | Security, privacy, automated testing, dependency scanning, database migrations, rollbacks, and operational observability are built in from day one. |
+| **Risk-based Security Profiles** | Choose from `STANDARD/HIGH/CRITICAL` profiles. Threat modeling, control selection, and release gates scale with data classification, exposure, and risk. |
+| **Portable Bank Security Reference** | Two Java snapshots are provided as starting reference components. Stacks other than Spring Boot must refactor these controls into native implementations and prove equivalence with security tests. |
+| **Human–AI Collaboration** | The AI does not offload work due to difficulty; it only requests human assistance for decisions, access provisioning, manual dependencies, or sign-offs using structured, minimal action requests. |
+| **Brownfield Continuation** | For existing codebases, the AI audits code, configs, tests, and git state first, constructs an as-is model, executes a gap analysis, and resumes from the first failed phase gate. |
 
-### Cách 09 phase vận hành
+### How the 9 Phases Work
 
-Các phase có thứ tự để bảo đảm kiểm soát phạm vi và chất lượng, nhưng cho phép **controlled iteration**. Khi yêu cầu thay đổi, test phát hiện giả định sai, thiết kế không khả thi hoặc production incident làm lộ khoảng trống, gate liên quan được mở lại và các artifact downstream phải được xác minh lại. Vì vậy mô hình không phải Waterfall một chiều.
+The phases are ordered to ensure scope and quality control, but they allow for **controlled iteration**. When requirements change, tests fail, designs prove unfeasible, or production incidents occur, the corresponding gates are reopened and downstream artifacts are re-verified.
 
-Trong từng phase, team triển khai theo các vòng nhỏ:
+Within each phase, the team executes in tight loops:
 
 ```text
-Làm rõ → Thiết kế → Hiện thực một vertical slice
-→ Build/Test/Review → Nhận phản hồi → Điều chỉnh → Qua gate
+Clarify ➔ Design ➔ Implement a vertical slice ➔ Build/Test/Review ➔ Feedback ➔ Adjust ➔ Exit Gate
 ```
 
-Chuỗi truy vết bắt buộc của mô hình:
+Mandatory traceability sequence:
 
 ```text
 Objective/Stakeholder
-→ Business/Functional/Non-functional Requirement
-→ ADR/Engineering Design
-→ Work Item
-→ Code/Configuration
-→ Test/Evidence
-→ Release
-→ Handover
+➔ Business/Functional/Non-functional Requirement
+➔ ADR/Engineering Design
+➔ Work Item
+➔ Code/Configuration
+➔ Test/Evidence
+➔ Release
+➔ Handover
 ```
 
-Tài liệu quy định chi tiết nằm tại:
+Detailed reference documents:
 
 - [Nine Phase Gates](.agents/skills/ai-project-delivery/references/phase-gates.md)
 - [Artifact Map & Traceability](.agents/skills/ai-project-delivery/references/artifact-map.md)
@@ -104,89 +103,87 @@ Tài liệu quy định chi tiết nằm tại:
 - [Security Portability Matrix](.agents/skills/ai-project-delivery/references/security-portability-matrix.md)
 - [Human–AI Collaboration Protocol](00-Governance-Policy/HUMAN_AI_COLLABORATION_PROTOCOL.md)
 
-Mô hình này phù hợp với quan hệ thuê phát triển sản phẩm vì kết hợp được khả năng kiểm soát phạm vi, trách nhiệm, chi phí giả định và nghiệm thu của mô hình truyền thống với khả năng lặp nhanh, phản hồi liên tục và tự động hóa của Agile/DevSecOps.
+## Two Ways of Usage
 
-## Hai cách sử dụng
+### 1. New Project (GREENFIELD)
 
-### 1. Dự án mới (GREENFIELD)
+1. Copy the entire folder structure into a new repository.
+2. Open `PROJECT_PROFILE.md` and fill in any initial known details.
+3. Message the AI: `Read and execute the entire MASTER_PROMPT.md. PROJECT_MODE = GREENFIELD. My idea: ...`
+4. The AI will interview you in rounds (typically 120 core questions, and 80–240 conditional questions for complex systems).
+5. Once the baseline is approved, the AI will execute work locally, pausing only at defined human-exclusive gates.
 
-1. Copy toàn bộ thư mục này thành repository mới hoặc chạy script bootstrap.
-2. Mở `PROJECT_PROFILE.md`, điền thông tin ban đầu nếu đã biết.
-3. Nói với AI: `Đọc và thực thi toàn bộ MASTER_PROMPT.md. PROJECT_MODE = GREENFIELD. Ý tưởng của tôi: ...`
-4. AI sẽ hỏi theo nhiều vòng, thường khoảng 120 câu cốt lõi và 80–240 câu có điều kiện đối với sản phẩm không đơn giản.
-5. Khi baseline được chốt, AI tự đi qua 09 phase và chỉ dừng ở quyết định/hoạt động cần phê duyệt.
+### 2. Existing Project (BROWNFIELD)
 
-### 2. Dự án đang làm dở (BROWNFIELD)
+1. Copy the template contents into the root of your existing project without overwriting existing files (commit/backup your code first).
+2. Message the AI: `Read and execute the entire MASTER_PROMPT.md. PROJECT_MODE = BROWNFIELD. Audit the repository and resume the project.`
+3. The AI reads code, configs, tests, and git state to reconstruct the current system behavior before asking questions.
+4. The AI generates a gap analysis and regression tests to protect existing behavior, then continues from the first failed phase gate.
 
-1. Copy nội dung template vào root dự án mà không ghi đè file đang có; nên commit/backup trước khi tích hợp.
-2. Nói với AI: `Đọc và thực thi toàn bộ MASTER_PROMPT.md. PROJECT_MODE = BROWNFIELD. Audit repository hiện tại rồi tiếp tục dự án.`
-3. AI đọc code, config, test, tài liệu, git state và tái dựng hiện trạng trước khi hỏi.
-4. AI tạo gap analysis, bảo vệ hành vi hiện có bằng test phù hợp, rồi tiếp tục từ gate đầu tiên chưa đạt.
+If the repository already has an `AGENTS.md` file, the bootstrap script preserves it and creates `AGENTS.ai-project-delivery.md`. Instruct the AI to merge these rule sets instead of overwriting.
 
-Nếu repository đã có `AGENTS.md`, script brownfield giữ nguyên file đó và tạo `AGENTS.ai-project-delivery.md`; hãy yêu cầu AI hợp nhất hai bộ quy tắc thay vì ghi đè hướng dẫn cũ.
-
-Ví dụ bootstrap:
+Bootstrap command example:
 
 ```powershell
-# Dự án mới: thư mục đích phải rỗng
+# Greenfield: Destination directory must be empty
 powershell -ExecutionPolicy Bypass -File .\.agents\skills\ai-project-delivery\scripts\bootstrap_project.ps1 `
-  -ProjectName "Tên sản phẩm" -ProjectCode "APP" -ProjectOwner "Tên Client" `
+  -ProjectName "Product Name" -ProjectCode "APP" -ProjectOwner "Client Name" `
   -Destination "D:\Projects\my-product" -Mode Greenfield
 
-# Dự án dở dang: chỉ copy file còn thiếu, giữ nguyên file hiện có
+# Brownfield: Copies missing template files without overwriting existing files
 powershell -ExecutionPolicy Bypass -File .\.agents\skills\ai-project-delivery\scripts\bootstrap_project.ps1 `
-  -ProjectName "Tên sản phẩm" -ProjectCode "APP" -ProjectOwner "Tên Client" `
+  -ProjectName "Product Name" -ProjectCode "APP" -ProjectOwner "Client Name" `
   -Destination "D:\Projects\existing-product" -Mode Brownfield
 ```
 
-## 09 phase
+## The 9 Phases
 
-| Phase | Mục tiêu chính | Gate đầu ra |
+| Phase | Main Objective | Output Gate |
 | :--- | :--- | :--- |
-| `00-Governance-Policy` | Charter, vai trò, quyền quyết định, policy | Governance rõ và có owner |
-| `01-Planning` | Discovery, phạm vi, roadmap, rủi ro | Problem/scope baseline được chốt |
-| `02-Requirements` | BR/FR/NFR/UC/US và traceability | Yêu cầu rõ, testable, ưu tiên |
-| `03-Architecture-Design` | C4, ADR, data/API/UX, threat model | Thiết kế khả thi và review xong |
-| `04-Implementation` | Work breakdown, migration, release, rollback | Sẵn sàng hiện thực hóa |
-| `05-Development` | Code, review, CI, tech debt | Build/lint/unit test đạt |
-| `06-Testing` | Integration/E2E/security/performance/UAT | Chất lượng đạt exit criteria |
-| `07-Reports` | Status, release, incident, final report | Kết quả và sai lệch minh bạch |
-| `08-Document-References` | Runbook, user guide, handover, archive | Người nhận có thể vận hành tiếp |
+| `00-Governance-Policy` | Charter, roles, decision rights, and engineering policies | Governance aligned with clear owners |
+| `01-Planning` | Discovery, scoping, roadmaps, and risk register | Problem and scope baseline approved |
+| `02-Requirements` | BR/FR/NFR/UC/US specifications and traceability | Requirements clear, testable, and prioritized |
+| `03-Architecture-Design` | C4 modeling, ADRs, database/API/UX designs, threat modeling | Architecture feasible and design reviewed |
+| `04-Implementation` | Work breakdown, database migration, release, and rollback planning | Ready for implementation |
+| `05-Development` | Coding, reviews, CI pipeline setup, technical debt tracking | Build compiles, lints, and unit tests pass |
+| `06-Testing` | Integration, E2E, security, performance, and UAT checks | Quality meets exit criteria |
+| `07-Reports` | Status, sprint, release, incident, and final reports | Outcomes and deviations transparent |
+| `08-Document-References` | Runbooks, user guides, handover documentation, and archiving | Receiving team can operate the system |
 
-## Cơ chế phỏng vấn
+## Interview Mechanics
 
-Question bank nằm trong `.agents/skills/ai-project-delivery/references/`. AI không hỏi máy móc toàn bộ danh sách mà dùng câu hỏi có điều kiện, kiểm tra chéo câu trả lời, khai thác edge case và ghi lại từng quyết định trong `01-Planning/DISCOVERY_LOG.md`.
+The question bank resides in `.agents/skills/ai-project-delivery/references/`. The AI does not ask questions mechanically; it uses conditional questioning, cross-checks answers, explores edge cases, and logs all decisions in `01-Planning/DISCOVERY_LOG.md`.
 
-## Tự động hóa và an toàn
+## Automation and Safety
 
-Sau khi baseline được duyệt, mặc định AI chạy `FULL-LOCAL`: tự làm các thay đổi local, có thể đảo ngược và trong phạm vi đã thống nhất. AI phải tự khai thác code graph/repository/docs/build/test/official references trước khi hỏi. Các hành động như deploy production, chi tiền, thay đổi billing, xóa/migrate dữ liệu production, gửi/publish ra ngoài hoặc giảm bảo mật vẫn cần xác nhận riêng.
+Once the baseline is approved, the AI operates in `FULL-LOCAL` mode by default: making local, reversible changes within the agreed scope. The AI must search the code graph, configurations, tests, official references, and run safe experiments before asking questions. Operations such as deploying to production, spending money, modifying billing, deleting production data, sending external notifications, or reducing security controls still require explicit, manual human confirmation.
 
-## Biến mẫu
+## Template Variables
 
-Tìm và thay các biến dạng `{{VARIABLE}}`. Tối thiểu cần có:
+Search and replace variables matching `{{VARIABLE}}`. At a minimum, provide:
 
-| Biến | Ý nghĩa |
+| Variable | Meaning |
 | :--- | :--- |
-| `{{PROJECT_NAME}}` | Tên đầy đủ |
-| `{{PROJECT_CODE}}` | Mã ngắn, viết hoa, không dấu |
-| `{{PROJECT_OWNER}}` | Người chịu trách nhiệm cuối |
-| `{{PRODUCT_OWNER}}` | Người quyết định sản phẩm |
-| `{{TECH_LEAD}}` | Người quyết định kỹ thuật |
-| `{{DATE}}` | Ngày theo `YYYY-MM-DD` |
-| `{{VERSION}}` | Phiên bản tài liệu/sản phẩm |
+| `{{PROJECT_NAME}}` | Full name of the product |
+| `{{PROJECT_CODE}}` | Short code, uppercase, alphanumeric |
+| `{{PROJECT_OWNER}}` | Person ultimately responsible |
+| `{{PRODUCT_OWNER}}` | Product decision maker |
+| `{{TECH_LEAD}}` | Technical decision maker |
+| `{{DATE}}` | Date in `YYYY-MM-DD` format |
+| `{{VERSION}}` | Version of the document/product |
 | `{{STATUS}}` | Draft / In Review / Approved / Deprecated |
 
-## Kiểm tra
+## Verification
 
-Từ root dự án, chạy:
+From the root of the project, run:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\.agents\skills\ai-project-delivery\scripts\validate_delivery.ps1
 ```
 
-Script kiểm tra đủ 09 phase, các artifact bắt buộc và trạng thái truy vết cơ bản.
+This script verifies the presence of the 9 phases, mandatory artifacts, and basic traceability.
 
-Semantic và contract checks có thể chạy riêng khi phát triển template:
+Semantic and contract checks can be run during template maintenance:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\.agents\skills\ai-project-delivery\scripts\lint_delivery.ps1
@@ -194,4 +191,4 @@ powershell -ExecutionPolicy Bypass -File .\.agents\skills\ai-project-delivery\sc
 powershell -ExecutionPolicy Bypass -File .\.agents\skills\ai-project-delivery\scripts\generate_document_index.ps1
 ```
 
-Trong bản template chưa điền, cảnh báo `Unresolved template placeholders` là bình thường. Khi bàn giao thật, chạy thêm `-StrictDelivery`; mọi placeholder còn lại và phase chưa `Passed` sẽ làm validation thất bại.
+In an unpopulated template, warning messages about "Unresolved template placeholders" are normal. For a real handover, run the validator with the `-StrictDelivery` flag; any remaining placeholders or unpassed phase gates will cause validation to fail.

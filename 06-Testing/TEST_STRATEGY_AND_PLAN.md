@@ -18,43 +18,43 @@ last_verified: "{{DATE}}"
 | Owner / approver | {{QA_LEAD}} / {{APPROVER}} |
 | Security Profile | STANDARD / HIGH / CRITICAL |
 
-## Version history
+## Version History
 
 | Version | Date | Author | Reason/change | Scope/cycles affected |
 | :--- | :--- | :--- | :--- | :--- |
 | 0.1 | {{DATE}} | {{AUTHOR}} | Initial plan | All |
 
-## 1. Objectives và scope
+## 1. Objectives and Scope
 
 - Release/build under test: {{VERSION_ARTIFACT}}
 - Requirements/design: {{IDS}}
 - In scope: {{IN_SCOPE}}
 - Out of scope/accepted gaps: {{OUT_OF_SCOPE}}
 
-## 2. Risk-based coverage
+## 2. Risk-Based Coverage
 
 | Risk/requirement | Failure impact | Test levels/types | Environment/data | Exit target |
 | :--- | :--- | :--- | :--- | :--- |
 | FR/NFR/THR-XXX | {{IMPACT}} | Unit / Integration / Contract / E2E / Security / Performance / Recovery | {{ENV_DATA}} | {{TARGET}} |
 
-### Code coverage tailoring
+### Code Coverage Tailoring
 
 | Layer/component | Risk/critical behavior | Metric/tool | Target | Exclusions/rationale | Requirement/risk evidence |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | {{LAYER}} | {{RISK}} | Line / Branch / Function / Mutation | {{TARGET}} | {{EXCLUSION}} | {{REQ_TC_LINKS}} |
 
-Không dùng coverage tổng để auto-pass Gate 06. Business-critical branch, authorization rule, error/recovery và migration behavior phải có explicit tests.
+Do not use overall code coverage to auto-pass Gate 06. Business-critical branches, authorization rules, error/recovery paths, and migration behaviors must have explicit tests.
 
-## 3. Test levels
+## 3. Test Levels
 
-| Level | Mục tiêu | Owner/tool | Trigger | Evidence |
+| Level | Objective | Owner/tool | Trigger | Evidence |
 | :--- | :--- | :--- | :--- | :--- |
 | Unit | Business rules/edge cases | {{OWNER_TOOL}} | Every change | {{REPORT}} |
 | Integration/contract | Data and service boundaries | {{OWNER_TOOL}} | CI/release | {{REPORT}} |
 | E2E/UAT | Critical journeys/outcomes | {{OWNER_TOOL}} | Candidate release | {{REPORT}} |
 | Security/performance/recovery | NFR/threat/SLO | {{OWNER_TOOL}} | Risk/release | {{REPORT}} |
 
-### Security verification theo profile
+### Security Verification by Security Profile
 
 | Verification | Apply / Tailor / N/A | Scope/tool/environment | Severity/exit target | Evidence/owner |
 | :--- | :--- | :--- | :--- | :--- |
@@ -64,47 +64,47 @@ Không dùng coverage tổng để auto-pass Gate 06. Business-critical branch, 
 | Authorization/abuse/recovery | {{DECISION}} | {{SCOPE}} | {{TARGET}} | {{EVIDENCE_OWNER}} |
 | Independent pentest | {{DECISION}} | {{AUTHORIZED_ROE}} | {{TARGET}} | {{EVIDENCE_OWNER}} |
 
-## 4. Environment và data
+## 4. Environment and Test Data
 
 | Environment | Version/config | Data strategy | Isolation/reset | Limitation |
 | :--- | :--- | :--- | :--- | :--- |
 | {{ENV}} | {{VERSION}} | Synthetic / anonymized | {{RESET}} | {{LIMITATION}} |
 
-Không ghi credential thật. Dữ liệu test phải synthetic/anonymized hoặc có phê duyệt và kiểm soát phù hợp.
+Do not record real credentials. Test data must be synthetic/anonymized or approved and controlled appropriately.
 
-## 5. Entry criteria
+## 5. Entry Criteria
 
-- [ ] Gate 05 hoặc build candidate phù hợp đã đạt.
-- [ ] Requirement/RTM/test basis ổn định; environment/data/tool sẵn sàng.
-- [ ] Known issues và change scope được công bố.
+- [ ] Gate 05 or appropriate build candidate has passed.
+- [ ] Requirements/RTM/test basis are stable; environment, data, and tools are ready.
+- [ ] Known issues and change scope are published.
 
-## 6. Exit criteria
+## 6. Exit Criteria
 
-- [ ] 100% Must/Critical requirement applicable có passing evidence.
-- [ ] Planned risk coverage đạt {{TARGET}}; regression đạt.
-- [ ] Không còn Critical/High defect chưa chấp nhận.
-- [ ] Không còn Critical security risk/vulnerability mở; High acceptance có mitigation/owner/expiry/retest và đúng authority.
-- [ ] NFR/security/migration/rollback/UAT đạt target hoặc có exception.
-- [ ] Test report và RTM cập nhật.
+- [ ] 100% of applicable Must/Critical requirements have passing evidence.
+- [ ] Planned risk coverage reaches {{TARGET}}; regression testing is complete.
+- [ ] Zero unresolved Critical/High defects unless explicitly accepted.
+- [ ] Zero open Critical security risks/vulnerabilities; High risk acceptance is time-bound with mitigation plans, assigned owner, retest date, and appropriate authority.
+- [ ] NFR/security/migration/rollback/UAT meet targets or have approved exceptions.
+- [ ] Test reports and the RTM are updated.
 
-Nếu dự án chưa tailoring ngưỡng riêng, default release gate là: 100% test Critical/Must đã chạy; pass rate ≥ 95% theo denominator được định nghĩa; không còn Blocker/Critical defect mở; High defect cần accepted risk đúng quyền.
+If the project has not tailored custom thresholds, the default release gate is: 100% of Critical/Must tests executed; pass rate ≥ 95% based on the defined denominator; zero open Blocker/Critical defects; any High defects require approved risk acceptance with appropriate authority.
 
-## 7. Schedule và responsibilities
+## 7. Schedule and Responsibilities
 
 | Activity | Owner | Start/end | Dependency | Status |
 | :--- | :--- | :--- | :--- | :--- |
 | {{ACTIVITY}} | {{OWNER}} | {{DATES}} | {{DEPENDENCY}} | Planned |
 
-## 8. Product and project risk matrix
+## 8. Product and Project Risk Matrix
 
 | Risk ID | Product / Project | Risk/event | Likelihood | Impact | Exposure | Test/mitigation response | Owner | Residual risk |
 | :--- | :--- | :--- | :---: | :---: | :---: | :--- | :--- | :--- |
 | T-RISK-001 | Product / Project | {{RISK}} | 1–5 | 1–5 | P×I | {{TEST_MITIGATION}} | {{OWNER}} | {{RESIDUAL}} |
 
-Project risks gồm tối thiểu: nhân sự, schedule, environment, data, tool/dependency và testability. Product risks gồm correctness, security/privacy, performance, reliability, compatibility, migration và user/business impact.
+Project risks comprise at least: staffing, schedule, environment, data, tools/dependencies, and testability. Product risks comprise correctness, security/privacy, performance, reliability, compatibility, migration, and user/business impact.
 
-## 9. Suspension and resumption criteria
+## 9. Suspension and Resumption Criteria
 
-| Trigger | Suspend when | Resume when | Decision owner |
+| Trigger | Suspend When | Resume When | Decision Owner |
 | :--- | :--- | :--- | :--- |
 | Build/environment/data/critical defect | {{EXACT_THRESHOLD}} | {{EXACT_RECOVERY_EVIDENCE}} | {{OWNER}} |

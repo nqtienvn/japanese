@@ -11,12 +11,11 @@ last_verified: "{{DATE}}"
 ---
 # Bank Security Reference Baseline
 
-## 1. Claim boundary
+## 1. Claim Boundary
 
-Baseline này buộc mọi project đánh giá và sử dụng có kiểm soát hai security code snapshot do Client cung cấp. Từ “Bank” mô tả provenance nghiệp vụ do Client nêu, không phải chứng nhận độc lập. Security Profile, threat model, current advisory và test evidence mới quyết định khả năng release.
+This baseline requires all projects to evaluate and implement controlled adoption of the two security code snapshots provided by the Client. The term "Bank" describes the business provenance provided by the Client and does not imply independent certification. The actual Security Profile, threat model, current advisories, and test evidence determine release readiness.
 
 Source of truth:
-
 - `.agents/skills/ai-project-delivery/assets/security-reference/`
 - `.agents/skills/ai-project-delivery/references/security-adoption-workflow.md`
 - `03-Architecture-Design/SECURITY_ADOPTION_RECORD.md`
@@ -24,56 +23,56 @@ Source of truth:
 
 ## 2. Applicability
 
-| Trường hợp | Baseline áp dụng |
+| Scenario | Applied Baseline |
 | :--- | :--- |
-| Java/Spring tự quản lý authentication/authorization | Đánh giá toàn bộ snapshot; import component phù hợp rồi harden |
-| Java/Spring đã có security module | Diff toàn bộ control; không overwrite behavior đã có evidence tốt hơn |
-| Stack khác | Map requirement/control; code snapshot được ghi N/A vì stack mismatch |
-| Managed identity | Map boundary và contract; không nhân bản identity service nếu không có requirement |
-| Không có auth/data nhạy cảm/exposure | Tailor từng control với rationale; Security Owner review trước Gate 03 |
+| Java/Spring self-managed authentication/authorization | Evaluate the entire snapshot; import and harden relevant components. |
+| Java/Spring with existing security module | Diff all controls; do not overwrite behaviors that already have better evidence. |
+| Other stacks | Map requirements and controls; code snapshot is marked N/A due to stack mismatch. |
+| Managed identity | Map boundaries and contracts; do not replicate identity services unless explicitly required. |
+| No authentication, sensitive data, or exposure | Tailor each control with a clear rationale; Security Owner reviews before Gate 03. |
 
-## 3. Normative requirements
+## 3. Normative Requirements
 
-| ID | Requirement atomic | Expected result kiểm thử được |
+| ID | Atomic Requirement | Verifiable Expected Result |
 | :--- | :--- | :--- |
-| `SEC-BNK-001` | AI **PHẢI** đọc security snapshot review trước khi thiết kế security. | Adoption Record ghi source path và review date. |
-| `SEC-BNK-002` | Project Java/Spring **PHẢI** đánh giá mọi component trong hai snapshot. | Mỗi component có `Adopt/Adapt/Reject/N/A` kèm rationale. |
-| `SEC-BNK-003` | AI **KHÔNG ĐƯỢC** overwrite security module hiện hữu trước impact analysis. | Git diff không có thay đổi ngoài scope; blast radius được ghi. |
-| `SEC-BNK-004` | Secret **KHÔNG ĐƯỢC** có literal value trong source hoặc artifact. | Secret scan không có finding thật; example chỉ chứa reference. |
-| `SEC-BNK-005` | Runtime **PHẢI** fail fast khi thiếu secret bắt buộc. | Negative startup test dừng với lỗi đã redaction. |
-| `SEC-BNK-006` | Authorization boundary **PHẢI** dùng default deny. | Route/operation không khai báo nhận `401/403` phù hợp. |
-| `SEC-BNK-007` | Public endpoint **PHẢI** nằm trong allowlist có owner. | Route inventory khớp allowlist; không có broad wildcard ngoài rationale. |
-| `SEC-BNK-008` | Permission decision **PHẢI** match resource/action theo rule chính xác. | Prefix/substring confusion cases bị từ chối. |
-| `SEC-BNK-009` | Credential cookie **PHẢI** có `Secure`. | `Set-Cookie` test xác nhận attribute. |
-| `SEC-BNK-010` | Credential cookie **PHẢI** có `HttpOnly`. | `Set-Cookie` test xác nhận attribute. |
-| `SEC-BNK-011` | Credential cookie **PHẢI** có `SameSite` theo threat model. | Cross-site positive/negative test đạt expected policy. |
-| `SEC-BNK-012` | CORS origin **PHẢI** dùng allowlist theo environment. | Origin ngoài allowlist không nhận allow-origin response. |
-| `SEC-BNK-013` | CORS credentials **KHÔNG ĐƯỢC** kết hợp wildcard origin. | Config validation hoặc integration test từ chối cấu hình. |
-| `SEC-BNK-014` | Unsafe cookie-authenticated request **PHẢI** có CSRF control. | Missing/invalid CSRF token bị từ chối. |
-| `SEC-BNK-015` | JWT verifier **PHẢI** pin thuật toán được phê duyệt. | Token dùng `none` hoặc algorithm khác bị từ chối. |
-| `SEC-BNK-016` | JWT verifier **PHẢI** enforce issuer. | Wrong/missing issuer bị từ chối. |
-| `SEC-BNK-017` | JWT verifier **PHẢI** enforce audience khi token có resource audience. | Wrong/missing audience bị từ chối. |
-| `SEC-BNK-018` | JWT verifier **PHẢI** enforce thời hạn token. | Expired/not-yet-valid token bị từ chối. |
-| `SEC-BNK-019` | Refresh token **PHẢI** có bounded lifetime. | Token hết hạn không refresh được. |
-| `SEC-BNK-020` | Refresh token **PHẢI** có reuse detection hoặc sender constraint đã duyệt. | Replay token cũ bị từ chối; token family bị xử lý theo policy. |
-| `SEC-BNK-021` | Security event **PHẢI** kích hoạt token invalidation theo policy. | Logout/password change/disable-user test làm token liên quan mất hiệu lực. |
-| `SEC-BNK-022` | Application **KHÔNG ĐƯỢC** log token hoặc credential. | Log scan sau positive/negative auth flow không tìm thấy value. |
-| `SEC-BNK-023` | OAuth redirect **PHẢI** match URI đã đăng ký chính xác. | URI biến thể hoặc open redirect bị từ chối. |
-| `SEC-BNK-024` | OAuth authorization-code flow **PHẢI** dùng PKCE khi RFC 9700 yêu cầu. | Missing/wrong verifier bị từ chối. |
-| `SEC-BNK-025` | Password mới **NÊN** dùng Argon2id theo benchmark project. | Hash format/parameter test và performance evidence đạt target. |
-| `SEC-BNK-026` | BCrypt legacy **PHẢI** có compatibility rationale. | ADR ghi work factor, 72-byte handling và migration path. |
-| `SEC-BNK-027` | Security dependency **PHẢI** có version provenance. | Lock/build/SBOM chứa resolved version. |
-| `SEC-BNK-028` | Security build **PHẢI** compile thành công trước Gate 05. | Build command trả exit code 0 trên clean environment. |
-| `SEC-BNK-029` | Security requirement **PHẢI** có passing negative test trước release. | Test RTM có case/result/evidence cho từng Must requirement. |
-| `SEC-BNK-030` | Release **KHÔNG ĐƯỢC** còn Critical security finding mở. | Security report có zero open Critical finding. |
-| `SEC-BNK-031` | Project ngoài Java **PHẢI** refactor security responsibility sang primitive native. | Adoption Record ghi `Adapt — cross-language`; code đích không phụ thuộc JVM ngoài architecture đã duyệt. |
-| `SEC-BNK-032` | Cross-language refactor **PHẢI** chứng minh behavioral equivalence cho contract cần giữ. | Contract test chạy trên implementation đích có passing evidence. |
-| `SEC-BNK-033` | Project **KHÔNG ĐƯỢC** dùng khác biệt ngôn ngữ làm lý do bỏ security outcome. | Mọi control applicable vẫn có implementation hoặc replacement control. |
+| `SEC-BNK-001` | The AI **SHALL** read the security snapshot review before designing security. | The Adoption Record documents the source path and review date. |
+| `SEC-BNK-002` | Java/Spring projects **SHALL** evaluate all components within the two snapshots. | Each component must have `Adopt / Adapt / Reject / N/A` with documented rationale. |
+| `SEC-BNK-003` | The AI **SHALL NOT** overwrite existing security modules before conducting an impact analysis. | Git diff shows no changes outside scope; the blast radius is documented. |
+| `SEC-BNK-004` | Secrets **SHALL NOT** have literal values in source code or artifacts. | Secret scans show zero real findings; examples contain references only. |
+| `SEC-BNK-005` | Runtimes **SHALL** fail fast when mandatory secrets are missing. | Negative startup tests terminate with redacted error details. |
+| `SEC-BNK-006` | Authorization boundaries **SHALL** use default deny. | Undeclared routes/operations receive appropriate `401/403` errors. |
+| `SEC-BNK-007` | Public endpoints **SHALL** be explicitly allowlisted with an owner. | Route inventory matches the allowlist; no broad wildcards without documented rationales. |
+| `SEC-BNK-008` | Permission decisions **SHALL** match the resource/action using exact rules. | Prefix/substring confusion cases are rejected. |
+| `SEC-BNK-009` | Credential cookies **SHALL** have the `Secure` attribute. | `Set-Cookie` tests verify the presence of the attribute. |
+| `SEC-BNK-010` | Credential cookies **SHALL** have the `HttpOnly` attribute. | `Set-Cookie` tests verify the presence of the attribute. |
+| `SEC-BNK-011` | Credential cookies **SHALL** have the `SameSite` attribute configured according to the threat model. | Cross-site positive/negative tests verify the expected policy. |
+| `SEC-BNK-012` | CORS origins **SHALL** be restricted via environment-specific allowlists. | Origins outside the allowlist do not receive access-control-allow-origin headers. |
+| `SEC-BNK-013` | CORS credentials **SHALL NOT** be combined with wildcard (*) origins. | Configuration validation or integration tests reject this setup. |
+| `SEC-BNK-014` | Unsafe cookie-authenticated requests **SHALL** implement CSRF controls. | Requests with missing or invalid CSRF tokens are rejected. |
+| `SEC-BNK-015` | JWT verifiers **SHALL** enforce approved algorithms. | Tokens using `none` or unapproved algorithms are rejected. |
+| `SEC-BNK-016` | JWT verifiers **SHALL** enforce issuer validation. | Tokens with wrong or missing issuers are rejected. |
+| `SEC-BNK-017` | JWT verifiers **SHALL** enforce audience validation when the token contains resource audiences. | Tokens with wrong or missing audiences are rejected. |
+| `SEC-BNK-018` | JWT verifiers **SHALL** enforce token expiration. | Expired or not-yet-valid tokens are rejected. |
+| `SEC-BNK-019` | Refresh tokens **SHALL** have a bounded lifetime. | Expired tokens fail to refresh. |
+| `SEC-BNK-020` | Refresh tokens **SHALL** implement reuse detection or approved sender constraints. | Token replays are rejected; token families are handled per policy. |
+| `SEC-BNK-021` | Security events **SHALL** trigger token invalidation according to policy. | Logout, password change, or user disablement tests invalidate associated tokens. |
+| `SEC-BNK-022` | Applications **SHALL NOT** log raw tokens or credentials. | Log scans after positive/negative authentication flows yield zero leaked values. |
+| `SEC-BNK-023` | OAuth redirect URIs **SHALL** match the registered URIs exactly. | Variant URIs or open redirects are rejected. |
+| `SEC-BNK-024` | OAuth authorization-code flows **SHALL** use PKCE when RFC 9700 requires it. | Requests with missing or wrong code verifiers are rejected. |
+| `SEC-BNK-025` | New passwords **SHOULD** be hashed using Argon2id according to project benchmarks. | Hash format/parameter tests and performance evidence meet target metrics. |
+| `SEC-BNK-026` | Legacy BCrypt usage **SHALL** have a documented compatibility rationale. | An ADR documents the work factor, 72-byte handling, and migration path. |
+| `SEC-BNK-027` | Security dependencies **SHALL** have verified version provenance. | Lockfiles, build configs, or SBOMs contain resolved dependency versions. |
+| `SEC-BNK-028` | Security builds **SHALL** compile successfully before Gate 05. | Build commands return exit code 0 in a clean sandbox environment. |
+| `SEC-BNK-029` | Security requirements **SHALL** have passing negative test cases before release. | The Test RTM records cases, results, and evidence for each mandatory requirement. |
+| `SEC-BNK-030` | Releases **SHALL NOT** have any open Critical security findings. | Security reports show zero open Critical findings. |
+| `SEC-BNK-031` | Non-Java projects **SHALL** refactor security responsibilities to native language primitives. | The Adoption Record documents `Adapt — cross-language`; target code has no JVM dependencies outside approved architecture. |
+| `SEC-BNK-032` | Cross-language refactoring **SHALL** prove behavioral equivalence for retained contracts. | Contract tests run against the target implementation yield passing evidence. |
+| `SEC-BNK-033` | Projects **SHALL NOT** use language differences as a justification to omit security outcomes. | All applicable controls have implementations or approved replacement controls. |
 
-## 4. Human decision boundary
+## 4. Human Decision Boundary
 
-AI tự chọn cách implement, test, package, refactor và version patch/minor khi compatibility evidence đủ. Con người chỉ quyết định product identity model, risk appetite, legal/regulatory applicability, quyền dùng proprietary code, production credential/reference, production change hoặc formal acceptance.
+The AI independently decides how to implement, test, package, refactor, and version patch/minor releases when compatibility evidence is sufficient. Humans exclusively decide on product identity models, risk appetite, legal/regulatory applicability, proprietary code permissions, production credentials/references, production changes, and formal acceptance sign-offs.
 
 ## 5. Tailoring
 
-Mọi `N/A` phải ghi component/control, evidence, rationale, replacement control, risk owner và review date. Không xóa row để che coverage gap.
+Document tailoring decisions; do not delete inapplicable controls; instead, record the reason and replacement controls.

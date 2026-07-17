@@ -13,7 +13,7 @@ last_verified: "{{DATE}}"
 
 ## 1. Context
 
-| Trường | Giá trị |
+| Field | Value |
 | :--- | :--- |
 | Security Profile | `STANDARD / HIGH / CRITICAL` |
 | Application stack/version | {{STACK_VERSION}} |
@@ -23,9 +23,9 @@ last_verified: "{{DATE}}"
 | Security owner | {{SECURITY_OWNER}} |
 | Review date/build | {{DATE_BUILD}} |
 
-## 2. Reference decision
+## 2. Reference Decision
 
-| Reference component | Source path/symbol | Existing equivalent | Decision | Delta/hardening | Requirement | Design/ADR | Work item | Test IDs | Status |
+| Reference Component | Source Path/Symbol | Existing Equivalent | Decision | Delta/Hardening | Requirement | Design/ADR | Work Item | Test IDs | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | Security filter chain | `assets/security-reference/mb-security-starter/.../MbSecurityAutoConfiguration.java` | {{PATH_SYMBOL}} | Adopt / Adapt / Reject / N/A | {{DELTA}} | SEC-BNK-006 | ADR-SEC-001 | WI-SEC-001 | TC-SEC-AUTH-001 | Draft |
 | JWT provider | `assets/security-reference/mb-security-starter/.../JwtTokenProvider.java` | {{PATH_SYMBOL}} | {{DECISION}} | {{DELTA}} | SEC-BNK-015..020 | {{ADR}} | {{WI}} | {{TC_IDS}} | Draft |
@@ -37,21 +37,21 @@ last_verified: "{{DATE}}"
 | RSA/crypto helper | `assets/security-reference/legacy-bank-security/.../RsaProvider.java` | {{PATH_SYMBOL}} | {{DECISION}} | {{DELTA}} | {{SEC_ID}} | {{ADR}} | {{WI}} | {{TC_IDS}} | Draft |
 | Secret/config | `assets/security-reference/*/application*.yml` | {{PATH_SYMBOL}} | {{DECISION}} | {{DELTA}} | SEC-BNK-004..005 | {{ADR}} | {{WI}} | {{TC_IDS}} | Draft |
 
-Trạng thái hợp lệ: `Draft`, `Designed`, `Implemented`, `Verified`, `Rejected`, `N/A`.
+Valid Statuses: `Draft`, `Designed`, `Implemented`, `Verified`, `Rejected`, `N/A`.
 
-## 3. Threat/control delta
+## 3. Threat/Control Delta
 
 | Threat/Risk ID | Asset/trust boundary | Reference gap | Project control | Verification | Residual risk/owner |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | RISK-SEC-REF-003 | Token/log sink | Legacy logs token | Structured redaction policy | TC-SEC-LOG-001 | {{RISK_OWNER}} |
 
-## 4. Configuration contract
+## 4. Configuration Contract
 
 | Config/secret reference | Required | Source/owner | Rotation/reload | Missing-value behavior | Log/redaction evidence |
 | :--- | :---: | :--- | :--- | :--- | :--- |
 | `JWT_SECRET` / key reference | Yes | {{SECRET_MANAGER_OWNER}} | {{ROTATION}} | Startup fail | {{TC_EVIDENCE}} |
 
-## 5. Compatibility and blast radius
+## 5. Compatibility and Blast Radius
 
 - API/cookie/header compatibility: {{COMPATIBILITY}}
 - User/session migration: {{MIGRATION}}
@@ -59,9 +59,9 @@ Trạng thái hợp lệ: `Draft`, `Designed`, `Implemented`, `Verified`, `Rejec
 - Feature flag/canary: {{ROLLOUT}}
 - Rollback and token invalidation: {{ROLLBACK}}
 
-## 6. Review decision
+## 6. Review Decision
 
-| Review | Owner | Evidence | Decision/date |
+| Review | Owner | Evidence | Decision/Date |
 | :--- | :--- | :--- | :--- |
 | Architecture/security | {{OWNER}} | {{EVIDENCE}} | Pass / Conditional / Fail |
 | QA negative-test derivation | {{OWNER}} | `06-Testing/SECURITY_VERIFICATION_MATRIX.md` | Pass / Conditional / Fail |

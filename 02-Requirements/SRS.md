@@ -11,40 +11,40 @@ last_verified: "{{DATE}}"
 ---
 # Software Requirements Specification — {{PROJECT_NAME}}
 
-| Trường | Giá trị |
+| Field | Value |
 | :--- | :--- |
 | Document ID | `{{PROJECT_CODE}}-SRS-001` |
 | Version / status | {{VERSION}} / {{STATUS}} |
 | Owner / approver | {{OWNER}} / {{PRODUCT_OWNER}} |
 
-## Document version control
+## Document Version Control
 
 | Version | Date | Author | Reason/change summary | Requirement/sections affected | Reviewer/approver |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | 0.1 | {{DATE}} | {{AUTHOR}} | Initial draft | All | Pending |
 
-Không sửa/xóa history cũ. Baseline change phải liên kết CR/decision và cập nhật RTM.
+Do not modify or delete historical versions. Baseline changes must link to a CR/decision and update the RTM.
 
-## Glossary and terminology
+## Glossary and Terminology
 
 | Term/acronym | Canonical definition | Allowed aliases | Forbidden/ambiguous usage | Owner/source |
 | :--- | :--- | :--- | :--- | :--- |
 | {{TERM}} | {{DEFINITION}} | {{ALIASES_OR_NONE}} | {{FORBIDDEN_TERMS}} | {{OWNER_SOURCE}} |
 
-## 1. Purpose và scope
+## 1. Purpose and Scope
 
 - Problem/outcomes: {{SUMMARY}}
 - In scope: {{IN_SCOPE}}
 - Out of scope: {{OUT_OF_SCOPE}}
 - Release boundary: {{RELEASE_BOUNDARY}}
 
-## 2. Actors và system context
+## 2. Actors and System Context
 
 | Actor ID | Actor | Goal | Permission boundary | Frequency/context |
 | :--- | :--- | :--- | :--- | :--- |
 | ACT-001 | {{ACTOR}} | {{GOAL}} | {{BOUNDARY}} | {{CONTEXT}} |
 
-## 3. Business process
+## 3. Business Process
 
 ```mermaid
 flowchart LR
@@ -53,31 +53,31 @@ flowchart LR
     B --> D["Exception / recovery"]
 ```
 
-## 4. Business requirements và rules
+## 4. Business Requirements and Rules
 
-Mỗi row normative chứa đúng một obligation và dùng `PHẢI/SHALL` hoặc `KHÔNG ĐƯỢC/SHALL NOT`. Recommendation/permission phải dùng `NÊN/SHOULD` hoặc `CÓ THỂ/MAY` và không được trộn với mandatory acceptance.
+Each normative row must contain exactly one obligation using **SHALL** or **SHALL NOT**. Recommendation/permission must use **SHOULD** or **MAY** and must not be mixed with mandatory acceptance.
 
-| ID | Requirement/rule | Source | Priority | Rationale | Acceptance summary |
+| ID | Requirement/Rule | Source | Priority | Rationale | Acceptance Summary |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| BR-001 | Business/System **PHẢI** {{ONE_ATOMIC_OBLIGATION}} | Q-Cxxx / STK-xxx | Must | {{WHY}} | {{EXACT_ACCEPTANCE}} |
+| BR-001 | Client/business **SHALL** {{ONE_ATOMIC_OBLIGATION}} | Q-Cxxx / STK-xxx | Must | {{WHY}} | {{EXACT_ACCEPTANCE}} |
 
-## 5. Functional requirements
+## 5. Functional Requirements
 
-Không gộp hai hành vi verify độc lập bằng `và/hoặc`; tách ID và liên kết dependency.
+Do not combine two independent verification behaviors with "and/or"; split the IDs and link dependencies.
 
-| ID | Capability/behavior | Actor/trigger | Input/output | Priority | Acceptance |
+| ID | Capability/Behavior | Actor/Trigger | Input/Output | Priority | Acceptance |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| FR-001 | System **PHẢI** {{ONE_ATOMIC_BEHAVIOR}} | {{ACTOR_TRIGGER}} | {{IO}} | Must | Given/When/Then với expected result cụ thể |
+| FR-001 | System **SHALL** {{ONE_ATOMIC_BEHAVIOR}} | {{ACTOR_TRIGGER}} | {{IO}} | Must | Given/When/Then with exact expected result |
 
-## 6. Use cases / user stories
+## 6. Use Cases / User Stories
 
 | ID | Title | Primary actor | Main outcome | Alternate/error | Linked FR |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | UC-001 | {{TITLE}} | {{ACTOR}} | {{OUTCOME}} | {{ALTERNATE}} | FR-001 |
 
-## 7. Non-functional requirements
+## 7. Non-Functional Requirements
 
-Không dùng “bảo mật mạnh nhất”, “an toàn tuyệt đối”, “nhanh”, “không ảnh hưởng module khác” hoặc tên pattern làm target. Mỗi NFR phải có subject, threshold, measurement, environment và pass/fail evidence.
+Do not use terms like "maximum security", "absolute safety", "fast", "no side effects", or specific design patterns as targets. Each NFR must have a subject, threshold, measurement method, environment, and pass/fail evidence.
 
 | ID | Category | Target | Measurement | Environment | Priority |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -85,38 +85,38 @@ Không dùng “bảo mật mạnh nhất”, “an toàn tuyệt đối”, “
 | NFR-SEC-001 | Authorization | {{TARGET}} | {{METHOD}} | All | Must |
 | NFR-REL-001 | Availability/RTO/RPO | {{TARGET}} | {{METHOD}} | Production | Must |
 
-## 7A. Security, privacy và regulatory requirements
+## 7A. Security, Privacy and Regulatory Requirements
 
 - Security Profile: `STANDARD / HIGH / CRITICAL`
 - Security/risk owner: {{SECURITY_OWNER}}
-- Risk appetite và release boundary: {{RISK_APPETITE}}
+- Risk appetite and release boundary: {{RISK_APPETITE}}
 - Regulatory applicability assessment: {{APPLICABILITY_REFERENCE}}
 - Linked threat model (design phase): `../03-Architecture-Design/THREAT_MODEL.md`
 
-| ID | Atomic obligation | Asset/threat/source | Profile/applicability | Exact acceptance/test |
+| ID | Atomic Obligation | Asset/Threat/Source | Profile/Applicability | Exact Acceptance/Test |
 | :--- | :--- | :--- | :--- | :--- |
-| NFR-SEC-001 | Hệ thống **PHẢI** {{ONE_SECURITY_OBLIGATION}} | {{ASSET_THREAT_SOURCE}} | {{PROFILE_SCOPE}} | {{PASS_FAIL_EVIDENCE}} |
-| NFR-PRV-001 | Hệ thống **PHẢI** {{ONE_PRIVACY_OBLIGATION}} | {{PURPOSE_LAW_SOURCE}} | {{APPLICABILITY}} | {{PASS_FAIL_EVIDENCE}} |
+| NFR-SEC-001 | System **SHALL** {{ONE_SECURITY_OBLIGATION}} | {{ASSET_THREAT_SOURCE}} | {{PROFILE_SCOPE}} | {{PASS_FAIL_EVIDENCE}} |
+| NFR-PRV-001 | System **SHALL** {{ONE_PRIVACY_OBLIGATION}} | {{PURPOSE_LAW_SOURCE}} | {{APPLICABILITY}} | {{PASS_FAIL_EVIDENCE}} |
 
-SRS ghi obligation và constraint có nguồn, không chép architecture, database schema, API implementation hoặc test procedure vào requirement. Design response được liên kết sau bằng `ADR/DES/API/DATA/THR` ID.
+The SRS records obligations and constraints with their sources. Do not duplicate architecture designs, database schemas, API implementations, or test procedures in requirements. Design responses will be linked later using `ADR / DES / API / DATA / THR` IDs.
 
-## 8. Data requirements
+## 8. Data Requirements
 
 | Data ID | Entity/field | Owner/source | Classification | Validation | Retention/delete/export |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | DATA-001 | {{DATA}} | {{OWNER}} | {{CLASS}} | {{RULE}} | {{LIFECYCLE}} |
 
-## 9. Integration requirements
+## 9. Integration Requirements
 
 | INT ID | System | Direction/protocol | Auth | SLA/failure behavior | Owner |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | INT-001 | {{SYSTEM}} | {{PROTOCOL}} | {{AUTH}} | {{SLA_FALLBACK}} | {{OWNER}} |
 
-## 9A. External interface requirements
+## 9A. External Interface Requirements
 
 ### User Interface
 
-Nếu dự án không có UI, giữ mục này và ghi `N/A` kèm rationale/approver. Figma, Penpot, MCP hoặc design-to-code là implementation/design tool option, không phải requirement mặc định nếu chưa có business/UX constraint.
+If the project does not have a UI, retain this section and specify `N/A` with a rationale and the approver. Figma, Penpot, MCP, or design-to-code are implementation/design tool options, not default requirements unless business/UX constraints exist.
 
 | ID | Persona/screen/journey | Inputs/actions | Exact behavior/error/accessibility | Design-system/reference | Test |
 | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -140,21 +140,21 @@ Nếu dự án không có UI, giữ mục này và ghi `N/A` kèm rationale/appr
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | COM-REQ-001 | {{FLOW_ZONES}} | {{PROTOCOL_PORT}} | {{SECURITY}} | {{TARGETS}} | TC-COM-XXX |
 
-## 10. Constraints, assumptions, dependencies
+## 10. Constraints, Assumptions, and Dependencies
 
-| ID | Type | Nội dung | Validation/owner | Impact |
+| ID | Type | Content | Validation/owner | Impact |
 | :--- | :--- | :--- | :--- | :--- |
 | CON-001 | Constraint | {{ITEM}} | {{OWNER}} | {{IMPACT}} |
 
-## 11. Acceptance và release criteria
+## 11. Acceptance and Release Criteria
 
 - UAT personas/scenarios: {{UAT_SCOPE}}
 - Blocking defect threshold: {{THRESHOLD}}
 - Required evidence: {{EVIDENCE}}
 - Approval authority: {{PRODUCT_OWNER}}
 
-## 12. Open items
+## 12. Open Items
 
-| ID | Câu hỏi | Owner | Due | Requirement blocked |
+| ID | Question | Owner | Due | Requirement Blocked |
 | :--- | :--- | :--- | :--- | :--- |
 | OQ-001 | {{QUESTION}} | {{OWNER}} | {{DATE}} | {{IDS}} |

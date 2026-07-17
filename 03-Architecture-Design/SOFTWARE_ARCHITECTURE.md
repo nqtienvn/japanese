@@ -11,20 +11,20 @@ last_verified: "{{DATE}}"
 ---
 # Software Architecture — {{PROJECT_NAME}}
 
-| Trường | Giá trị |
+| Field | Value |
 | :--- | :--- |
 | Document ID | `{{PROJECT_CODE}}-SAD-001` |
 | Version / status | {{VERSION}} / {{STATUS}} |
 | Owner / reviewers | {{TECH_LEAD}} / {{REVIEWERS}} |
 
-## 1. Architecture drivers
+## 1. Architecture Drivers
 
-| Driver | Linked requirement | Target/constraint | Design response |
+| Driver | Linked Requirement | Target/Constraint | Design Response |
 | :--- | :--- | :--- | :--- |
 | Business capability | FR-XXX | {{TARGET}} | {{RESPONSE}} |
 | Performance/reliability/security | NFR-XXX | {{TARGET}} | {{RESPONSE}} |
 
-## 2. System context (C4 L1)
+## 2. System Context (C4 L1)
 
 ```mermaid
 flowchart LR
@@ -33,7 +33,7 @@ flowchart LR
     S -->|"API / event"| X["External System"]
 ```
 
-| Actor/system | Responsibility | Protocol/data | Trust/owner |
+| Actor/System | Responsibility | Protocol/Data | Trust/Owner |
 | :--- | :--- | :--- | :--- |
 | {{ACTOR_SYSTEM}} | {{RESPONSIBILITY}} | {{PROTOCOL_DATA}} | {{TRUST_OWNER}} |
 
@@ -49,11 +49,11 @@ flowchart TB
     API -. telemetry .-> OBS
 ```
 
-| Container | Responsibility | Technology/constraint | Data | Scale/deploy |
+| Container | Responsibility | Technology/Constraint | Data | Scale/Deploy |
 | :--- | :--- | :--- | :--- | :--- |
 | {{CONTAINER}} | {{RESPONSIBILITY}} | {{TECH}} | {{DATA}} | {{SCALE}} |
 
-## 4. Components và dependency rules (C4 L3)
+## 4. Components and Dependency Rules (C4 L3)
 
 ```mermaid
 flowchart LR
@@ -67,9 +67,9 @@ flowchart LR
 - Module ownership/bounded contexts: {{CONTEXTS}}
 - Shared-kernel rule: {{RULE}}
 
-## 5. Runtime views
+## 5. Runtime Views
 
-### Critical sequence
+### Critical Sequence
 
 ```mermaid
 sequenceDiagram
@@ -84,7 +84,7 @@ sequenceDiagram
     API-->>UI: Outcome/error contract
 ```
 
-### State model
+### State Model
 
 ```mermaid
 stateDiagram-v2
@@ -94,9 +94,9 @@ stateDiagram-v2
     Active --> Cancelled: cancel/reversal
 ```
 
-## 6. Data architecture
+## 6. Data Architecture
 
-| Entity/store | Owner/source of truth | Classification | Consistency | Retention/backup |
+| Entity/Store | Owner/Source of Truth | Classification | Consistency | Retention/Backup |
 | :--- | :--- | :--- | :--- | :--- |
 | {{ENTITY}} | {{OWNER}} | {{CLASS}} | {{CONSISTENCY}} | {{LIFECYCLE}} |
 
@@ -107,27 +107,27 @@ stateDiagram-v2
 
 ## 7. Interfaces
 
-| Interface ID | Consumer/provider | Contract/version | Auth | Timeout/retry/idempotency | Failure/fallback |
+| Interface ID | Consumer/Provider | Contract/Version | Auth | Timeout/retry/idempotency | Failure/Fallback |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | DES-API-001 | {{PARTIES}} | {{CONTRACT}} | {{AUTH}} | {{RESILIENCE}} | {{FALLBACK}} |
 
-## 8. Security, privacy và threat controls
+## 8. Security, Privacy, and Threat Controls
 
 - Identity/session: {{DESIGN}}
 - Authorization/policy enforcement: {{DESIGN}}
 - Secret/key management: {{DESIGN}}
 - Encryption and data minimization: {{DESIGN}}
 - Audit/abuse prevention: {{DESIGN}}
-- Linked threat model: `THREAT_MODEL.md`
+- Linked threat model: [THREAT_MODEL.md](THREAT_MODEL.md)
 
-## 9. Quality attributes
+## 9. Quality Attributes
 
-| NFR | Scenario | Target | Architecture tactic | Verification |
+| NFR | Scenario | Target | Architecture Tactic | Verification |
 | :--- | :--- | :--- | :--- | :--- |
 | NFR-PERF-001 | {{SCENARIO}} | {{TARGET}} | {{TACTIC}} | {{TEST}} |
 | NFR-REL-001 | {{SCENARIO}} | {{TARGET}} | {{TACTIC}} | {{TEST}} |
 
-## 10. Deployment và operations
+## 10. Deployment and Operations
 
 ```mermaid
 flowchart LR
@@ -142,14 +142,14 @@ flowchart LR
 - Capacity/cost guardrails: {{TARGET}}
 - Backup/restore/failover: {{STRATEGY}}
 
-## 11. ADR và risks
+## 11. ADR and Risks
 
-| ADR | Decision | Status | Requirement | Risk/trade-off |
+| ADR | Decision | Status | Requirement | Risk/Trade-Off |
 | :--- | :--- | :--- | :--- | :--- |
 | ADR-001 | {{DECISION}} | Proposed | NFR-XXX | {{TRADEOFF}} |
 
-## 12. Open questions
+## 12. Open Questions
 
-| ID | Question | Owner | Due | Blocked design/work item |
+| ID | Question | Owner | Due | Blocked Design/Work Item |
 | :--- | :--- | :--- | :--- | :--- |
 | OQ-DES-001 | {{QUESTION}} | {{OWNER}} | {{DATE}} | {{IDS}} |

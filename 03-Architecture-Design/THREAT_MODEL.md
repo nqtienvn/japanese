@@ -19,25 +19,25 @@ last_verified: "{{DATE}}"
 | Risk scale/appetite | {{LIKELIHOOD_IMPACT_METHOD}} / {{APPETITE}} |
 | Owner/review date | {{SECURITY_OWNER}} / {{DATE}} |
 
-## Scope và assets
+## Scope and Assets
 
 | Asset | Value/sensitivity | Owner | Worst impact |
 | :--- | :--- | :--- | :--- |
 | {{ASSET}} | {{CLASSIFICATION}} | {{OWNER}} | {{IMPACT}} |
 
-## Trust boundaries và data flow
+## Trust Boundaries and Data Flow
 
-| Flow | Source → destination | Data | Auth/encryption | Boundary |
+| Flow | Source ➔ destination | Data | Auth/encryption | Boundary |
 | :--- | :--- | :--- | :--- | :--- |
 | DF-001 | {{SOURCE_DEST}} | {{DATA}} | {{CONTROL}} | {{BOUNDARY}} |
 
-## Threat register
+## Threat Register
 
 | Threat ID | STRIDE/abuse case | Asset/flow | Likelihood | Impact | Control | Verification | Residual risk/owner |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | THR-001 | Spoofing / Tampering / Repudiation / Info disclosure / DoS / Elevation | {{TARGET}} | L/M/H | L/M/H | {{CONTROL}} | TC-SEC-XXX | {{RISK_OWNER}} |
 
-## Privacy review
+## Privacy Review
 
 - Purpose/minimization: {{REVIEW}}
 - Regulatory applicability and legal basis (consent is not assumed): {{REVIEW}}
@@ -45,7 +45,7 @@ last_verified: "{{DATE}}"
 - Vendor/cross-border: {{REVIEW}}
 - Logging/audit/redaction: {{REVIEW}}
 
-## Security Profile verification plan
+## Security Profile Verification Plan
 
 | Control/test | Apply / Tailor / N/A | Evidence target | Owner | Due |
 | :--- | :--- | :--- | :--- | :--- |
@@ -54,9 +54,9 @@ last_verified: "{{DATE}}"
 | Authorization / abuse / recovery tests | {{DECISION}} | {{EVIDENCE}} | {{OWNER}} | {{DATE}} |
 | Independent review / penetration test | {{DECISION}} | {{SCOPE_ROE_EVIDENCE}} | {{OWNER}} | {{DATE}} |
 
-Critical risk không được để mở khi release. High acceptance phải có mitigation, owner, expiry, retest và đúng Security/Client authority.
+Critical risks must not remain open at release. High risk acceptance must have documented mitigation, owner, expiry, retest, and appropriate Security/Client approval.
 
-## Sign-off
+## Sign-Off
 
 | Reviewer | Decision | Date | Conditions |
 | :--- | :--- | :--- | :--- |

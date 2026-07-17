@@ -11,13 +11,13 @@ last_verified: "{{DATE}}"
 ---
 # Feature Catalog — {{PROJECT_NAME}}
 
-## Feature inventory
+## Feature Inventory
 
 | Feature ID | Name | Outcome/persona | BR/FR/UC | Priority | Complexity | Risk domains | Release | Owner | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | FEAT-XXX-001 | {{FEATURE_NAME}} | {{OUTCOME_PERSONA}} | {{REQUIREMENT_IDS}} | Must | Low / Medium / High / Critical | Integration / Payment / PII / State / Concurrency / Migration / Background | REL-XXX | {{OWNER}} | Draft |
 
-## Feature detail
+## Feature Detail
 
 ### FEAT-XXX-001 — {{FEATURE_NAME}}
 
@@ -34,10 +34,10 @@ last_verified: "{{DATE}}"
 - Design/API/UI/Test links: {{TRACE_LINKS}}
 - Release/rollback/operations impact: {{DELIVERY_IMPACT}}
 
-## Readiness checklist
+## Readiness Checklist
 
-- [ ] ID, owner, outcome, priority, release và linked requirements rõ.
-- [ ] Complexity/risk domains được đánh giá để chọn mẫu quality audit.
-- [ ] Happy/alternate/error/recovery và edge cases có use case.
-- [ ] NFR dùng target đo được, không dùng từ mơ hồ.
-- [ ] Design/API/data/UI/test trace links có owner hoặc kế hoạch bổ sung.
+- [ ] ID, owner, outcome, priority, release, and linked requirements are clear.
+- [ ] Complexity/risk domains are assessed to select quality audit samples.
+- [ ] Happy/alternate/error/recovery and edge cases have associated use cases.
+- [ ] NFRs use measurable targets, avoiding vague terms.
+- [ ] Design/API/data/UI/test trace links have an owner or additions plan.

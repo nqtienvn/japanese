@@ -21,39 +21,39 @@ last_verified: "{{DATE}}"
 | Test/UAT/release reports | `../06-Testing`, `../07-Reports` | {{OWNER}} | Sign-off | Pending |
 | User guide/runbook | This phase | {{OWNER}} | Dry run | Pending |
 
-## Ownership and access transfer
+## Ownership and Access Transfer
 
-- [ ] Repository/admin/CI/CD/cloud/domain/vendor accounts có named owner.
-- [ ] Secret/key/certificate được transfer qua kênh an toàn và rotation plan rõ.
-- [ ] Data ownership, backup, retention, privacy requests và audit responsibility rõ.
-- [ ] Billing/license/subscription ownership và renewal dates rõ.
-- [ ] IP/source ownership, third-party license/SBOM và data return/delete obligations đã đối soát với SOW.
-- [ ] Không ghi credential value trong handover document.
+- [ ] Repository, admin, CI/CD, cloud, domain, and vendor accounts have designated named owners.
+- [ ] Secrets, keys, and certificates are transferred via secure channels, and a rotation plan is established.
+- [ ] Data ownership, backup, retention, privacy requests, and audit responsibilities are defined.
+- [ ] Billing, licensing, subscription ownership, and renewal dates are defined.
+- [ ] IP/source ownership, third-party licenses/SBOM, and data return/deletion obligations have been verified against the SOW.
+- [ ] Raw credential values are not recorded in the handover document.
 
-## Knowledge transfer
+## Knowledge Transfer
 
 | Session/topic | Audience | Date | Evidence/recording | Open questions |
 | :--- | :--- | :--- | :--- | :--- |
 | Architecture/setup/deploy/incident/support | {{AUDIENCE}} | {{DATE}} | {{EVIDENCE}} | {{QUESTIONS}} |
 
-## Operational dry run
+## Operational Dry Run
 
-- [ ] Người nhận tự setup/build/test theo tài liệu.
-- [ ] Người nhận tự deploy/smoke/monitor ở môi trường được phép.
-- [ ] Developer/Ops newcomer và Tester derivation field tests đạt; blocking clarification đã chuyển thành finding và retest.
-- [ ] Standards alignment/tailoring và document quality audit có sign-off, không tuyên bố certification sai.
-- [ ] Security Profile, threat model, security tests/scans/pentest applicability và residual-risk decisions đã transfer; không còn Critical mở.
-- [ ] Human-assistance history ghi rõ decision/manual evidence và phần đã được AI verify/resume; không để thao tác vô chủ.
-- [ ] Backup/restore hoặc rollback path được diễn tập phù hợp.
-- [ ] Top incident/support scenarios được đi qua.
+- [ ] The receiver independently sets up, builds, and tests using the documentation.
+- [ ] The receiver independently deploys, runs smoke checks, and monitors the system in the permitted environment.
+- [ ] Developer/Ops newcomer and Tester derivation field tests pass; blocking clarifications have been converted into findings and retested.
+- [ ] Standards alignment/tailoring and document quality audits have received sign-off; no inaccurate certification claims are made.
+- [ ] Security Profile, threat model, security tests/scans/penetration testing applicability, and residual risk decisions are transferred; zero Critical findings remain open.
+- [ ] Human assistance history clearly records decisions and manual evidence, along with the sections verified and resumed by the AI; no actions remain unassigned.
+- [ ] Backup/restore or rollback paths have been rehearsed appropriately.
+- [ ] Top incident and support scenarios have been walked through.
 
-## Open items and residual risks
+## Open Items and Residual Risks
 
 | ID | Item/risk | Impact | Owner | Due/SLA | Accepted by |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | RISK/TD/DEF-XXX | {{ITEM}} | {{IMPACT}} | {{OWNER}} | {{DATE}} | {{APPROVER}} |
 
-## Warranty/support transition
+## Warranty/Support Transition
 
 | Item | Agreement |
 | :--- | :--- |
@@ -62,7 +62,7 @@ last_verified: "{{DATE}}"
 | Severity/response SLA | {{SLA}} |
 | Exclusions/change request | {{BOUNDARY}} |
 
-## Final acceptance
+## Final Acceptance
 
 | Party | Decision | Name | Date | Conditions |
 | :--- | :--- | :--- | :--- | :--- |

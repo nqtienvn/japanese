@@ -18,53 +18,53 @@ last_verified: "{{DATE}}"
 | Priority / release | {{PRIORITY}} / {{RELEASE}} |
 | Version / status | {{VERSION}} / Draft / Approved / Implemented / Verified |
 
-## 1. Goal and business outcome
+## 1. Goal and Business Outcome
 
 - Actor goal: {{ACTOR_GOAL}}
 - Business value/KPI: {{VALUE_KPI}}
 - Trigger: {{TRIGGER}}
 - Frequency/volume/context: {{CONTEXT}}
 
-## 2. Preconditions and guarantees
+## 2. Preconditions and Guarantees
 
 - Preconditions: {{PRECONDITIONS}}
 - Success guarantee/postcondition: {{SUCCESS_POSTCONDITION}}
 - Minimal/failure guarantee: {{FAILURE_GUARANTEE}}
 
-## 3. Main success flow
+## 3. Main Success Flow
 
 | Step | Actor/System | Action/input | Rule/validation | Observable result/state | Trace ID |
 | :---: | :--- | :--- | :--- | :--- | :--- |
 | 1 | {{ACTOR_SYSTEM}} | {{ACTION_INPUT}} | {{RULE}} | {{RESULT_STATE}} | FR/BR-XXX |
 
-## 4. Alternate flows
+## 4. Alternate Flows
 
-| Flow ID | Branch condition | Steps/behavior | Final state/outcome | Notification/audit |
+| Flow ID | Branch Condition | Steps/behavior | Final state/outcome | Notification/audit |
 | :--- | :--- | :--- | :--- | :--- |
 | UC-{{NNN}}-A1 | {{CONDITION}} | {{BEHAVIOR}} | {{OUTCOME}} | {{AUDIT}} |
 
-## 5. Exception and recovery flows
+## 5. Exception and Recovery Flows
 
-| Flow ID | Failure/edge case | Required response/error | Retry/idempotency/recovery | Final state | Owner alerted |
+| Flow ID | Failure/Edge Case | Required response/error | Retry/idempotency/recovery | Final state | Owner Alerted |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | UC-{{NNN}}-E1 | Invalid/empty input | {{RESPONSE}} | {{RECOVERY}} | {{STATE}} | {{OWNER}} |
 | UC-{{NNN}}-E2 | Network/dependency timeout | {{RESPONSE}} | {{RETRY_FALLBACK}} | {{STATE}} | {{OWNER}} |
 | UC-{{NNN}}-E3 | Double-submit/duplicate | {{RESPONSE}} | {{IDEMPOTENCY}} | {{STATE}} | {{OWNER}} |
 | UC-{{NNN}}-E4 | Concurrent update/partial failure | {{RESPONSE}} | {{CONFLICT_COMPENSATION}} | {{STATE}} | {{OWNER}} |
 
-## 6. Data and permission rules
+## 6. Data and Permission Rules
 
-| Data/operation | Source/validation | Read/write permission | Classification | Audit/retention |
+| Data/Operation | Source/validation | Read/write permission | Classification | Audit/retention |
 | :--- | :--- | :--- | :--- | :--- |
 | {{DATA_OPERATION}} | {{SOURCE_RULE}} | {{ROLE_PERMISSION}} | {{CLASS}} | {{AUDIT_RETENTION}} |
 
-## 7. NFR and service behavior
+## 7. NFR and Service Behavior
 
 | NFR ID | Target | Load/window/environment | Measurement/pass-fail |
 | :--- | :--- | :--- | :--- |
 | NFR-XXX | {{TARGET}} | {{CONTEXT}} | {{METHOD_THRESHOLD}} |
 
-## 8. Acceptance criteria
+## 8. Acceptance Criteria
 
 ```gherkin
 Scenario: {{SCENARIO_NAME}}
