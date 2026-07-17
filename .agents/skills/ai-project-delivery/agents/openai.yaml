@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Project Delivery"
+  short_description: "Discovery to delivery for software projects"
+  default_prompt: "Use $ai-project-delivery to turn my idea or existing codebase into a fully traced, tested, and handed-over project."

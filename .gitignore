@@ -1,0 +1,29 @@
+# Local secrets and environment overrides
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local AI/tool state and generated evidence that may contain machine paths
+.ai-local/
+*.local.json
+
+# Common generated output (adapt to the selected stack)
+node_modules/
+dist/
+build/
+target/
+coverage/
+bin/
+obj/
+__pycache__/
+.pytest_cache/
+
+# IDE/OS noise
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
