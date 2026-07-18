@@ -19,7 +19,7 @@ last_verified: "{{DATE}}"
 | Rule/risk under test | {{RULE_RISK}} |
 | Owner | {{OWNER}} |
 
-## Examples và boundaries
+## Examples and boundaries
 
 | Example | Input/context | Expected | Boundary/partition |
 | :--- | :--- | :--- | :--- |
@@ -33,7 +33,7 @@ last_verified: "{{DATE}}"
 
 ## Completion
 
-- [ ] Test thất bại vì đúng hành vi thiếu/sai, không vì setup.
-- [ ] Implementation tối thiểu làm test pass và không phá test liên quan.
-- [ ] Refactor giữ nguyên behavior và cải thiện design.
-- [ ] Negative/boundary/error path và mutation/property test được cân nhắc.
+- [ ] Test failed due to actual missing/incorrect behavior, not setup errors.
+- [ ] Minimum implementation makes the test pass and does not break related tests.
+- [ ] Refactoring preserves existing behavior and improves code design.
+- [ ] Negative, boundary, and error paths, as well as mutation/property testing, are considered.

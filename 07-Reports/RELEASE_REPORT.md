@@ -38,10 +38,10 @@ last_verified: "{{DATE}}"
 - Test report/UAT: `../06-Testing/TEST_REPORT.md`, `../06-Testing/UAT_AND_ACCEPTANCE.md`
 - Security/performance/recovery: {{EVIDENCE}}
 - Security Profile / threat-control-test coverage: {{PROFILE_EVIDENCE}}
-- Security scans/pentest scope, exclusions và result: {{SECURITY_VERIFICATION}}
+- Security scans/pentest scope, exclusions, and results: {{SECURITY_VERIFICATION}}
 - Open defects/accepted risk: {{IDS}}
 
-Release decision phải là `No-Go` nếu còn Critical security risk/vulnerability mở. High acceptance cần mitigation, owner, expiry, retest và đúng Security/Client authority.
+Release decision must be No-Go if any Critical security risk/vulnerability remains open. High acceptance requires mitigation, owner, expiry, retest, and appropriate Security/Client authority.
 
 ## Deployment/migration
 
@@ -49,13 +49,13 @@ Release decision phải là `No-Go` nếu còn Critical security risk/vulnerabil
 | :--- | :--- | :--- | :--- |
 | {{STEP}} | {{RESULT}} | {{EVIDENCE}} | {{ISSUE}} |
 
-## Rollback và monitoring
+## Rollback and Monitoring
 
 - Rollback plan/trigger: `../04-Implementation/MIGRATION_RELEASE_ROLLBACK.md`
 - SLI/dashboard/alert review: {{EVIDENCE}}
 - Observation period/result: {{RESULT}}
 
-## Known issues và support
+## Known Issues and Support
 
 | Issue/risk | Workaround | Owner/SLA | Client impact |
 | :--- | :--- | :--- | :--- |
@@ -63,4 +63,6 @@ Release decision phải là `No-Go` nếu còn Critical security risk/vulnerabil
 
 ## Decision
 
-Go / Conditional Go / No-Go — {{DECIDER_DATE_REASON}}
+| Decision |
+| :--- |
+| Go / Conditional Go / No-Go — {{DECIDER_DATE_REASON}} |

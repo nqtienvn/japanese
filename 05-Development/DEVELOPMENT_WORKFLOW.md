@@ -13,10 +13,10 @@ last_verified: "{{DATE}}"
 
 ## 1. Start a work item
 
-1. Chọn `WI-XXX` đã Ready và đọc linked requirement/design/ADR.
-2. Kiểm tra worktree và giữ thay đổi không liên quan.
-3. Xác nhận acceptance, test approach, migration/compatibility và approval boundary.
-4. Tạo thay đổi nhỏ theo vertical slice; tránh refactor ngoài scope nếu không cần.
+1. Select a `WI-XXX` that is in Ready status and read the linked requirement/design/ADR.
+2. Check the worktree and preserve unrelated changes.
+3. Confirm acceptance criteria, test approach, migration/compatibility, and approval boundaries.
+4. Create small changes along a vertical slice; avoid out-of-scope refactoring unless necessary.
 
 ## 2. Local loop
 
@@ -28,27 +28,27 @@ last_verified: "{{DATE}}"
 {{BUILD_COMMAND}}
 ```
 
-Ghi lệnh thực tế và kết quả vào work item/test report. Không chạy migration/destructive script chưa được hiểu và phê duyệt.
+Record actual commands and results in the work item/test report. Do not run migrations or destructive scripts that are not understood and approved.
 
 ## 3. Implementation rules
 
-- Validate input tại trust boundary; enforce authorization server-side.
-- Dùng parameter binding/prepared statement hoặc ORM chứng minh parameterization; dynamic database identifier phải allowlist.
-- Thiết kế error contract ổn định; retry/idempotency theo EDS.
-- Không log secret/token/password/PII không cần thiết.
-- Thêm telemetry cho journey/failure trọng yếu.
-- Giữ compatibility hoặc ghi breaking change/migration/release plan.
-- Test business rule, negative path và regression cùng thay đổi.
-- Áp dụng SOLID/DRY/KISS/YAGNI/Clean Architecture theo context; ưu tiên correctness, convention và evidence thay vì ép pattern.
-- Thực hiện thay đổi trong repository, cập nhật test/docs/RTM và báo path/evidence; không chỉ trả snippet nếu engagement yêu cầu delivery thực tế.
+- Validate input at trust boundaries; enforce authorization server-side.
+- Use parameter binding/prepared statements or ORM parameterization; dynamic database identifiers must be selected from an allowlist.
+- Design stable error contracts; implement retry/idempotency according to the EDS.
+- Do not log secrets, tokens, passwords, or PII unnecessarily.
+- Add telemetry for critical journeys and failure points.
+- Maintain compatibility or document breaking changes, migrations, and release plans.
+- Test business rules, negative paths, and regressions alongside code changes.
+- Apply SOLID, DRY, KISS, YAGNI, or Clean Architecture based on context; prioritize correctness, convention, and evidence over forcing design patterns.
+- Execute changes within the repository, update tests/docs/RTM, and report paths/evidence; do not just output snippets if the engagement requires actual delivery.
 
 ## 4. Review and merge readiness
 
-- [ ] Acceptance của WI đạt và RTM có code/test evidence.
-- [ ] Formatter/lint/type/static/build/test phù hợp đều pass.
-- [ ] Migration/feature flag/config docs cập nhật.
-- [ ] Security/privacy/performance/operations impact đã review.
-- [ ] Changelog/tech debt/runbook cập nhật khi cần.
+- [ ] Acceptance criteria of the WI are met and the RTM contains code/test evidence.
+- [ ] Relevant formatter, linter, type-check, static analysis, build, and tests pass.
+- [ ] Migrations, feature flags, and configuration documentation are updated.
+- [ ] Security, privacy, performance, and operations impacts are reviewed.
+- [ ] Changelog, technical debt, and runbooks are updated as needed.
 
 ## 5. CI evidence
 

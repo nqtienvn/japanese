@@ -11,22 +11,22 @@ last_verified: "{{DATE}}"
 ---
 # Phase 01 — Discovery & Planning
 
-## Mục tiêu
+## Objective
 
-Phỏng vấn Client đến khi vấn đề, stakeholder, outcome, scope, ưu tiên, constraint, dependency, risk và cách nghiệm thu đủ rõ. Với brownfield, audit evidence trước rồi chỉ hỏi phần không thể suy ra.
+Interview the Client until the problem, stakeholders, outcomes, scope, priorities, constraints, dependencies, risks, and acceptance criteria are sufficiently clear. For brownfield projects, audit the existing codebase evidence first and only ask for information that cannot be inferred.
 
-## Artifact
+## Artifacts
 
-- `DISCOVERY_LOG.md`: từng câu hỏi/answer/assumption/decision.
-- `PROJECT_PLAN.md`: approach, milestone, roadmap, dependency, communication.
-- `RISK_REGISTER.md`: risk, trigger, response, owner.
-- `BROWNFIELD_AUDIT.md`: as-is inventory và gap nếu dự án dở dang.
-- `COST_FINOPS_CAPACITY_LIFECYCLE.md`: cost model, FinOps, capacity forecast và EOL/lifecycle.
-- Chọn profile câu hỏi trong [question-profiles.md](../.agents/skills/ai-project-delivery/references/question-profiles.md) và ghi rationale vào Discovery Log.
+- `DISCOVERY_LOG.md`: details of each question, answer, assumption, and decision.
+- `PROJECT_PLAN.md`: approach, milestones, roadmap, dependencies, and communication.
+- `RISK_REGISTER.md`: risks, triggers, responses, and owners.
+- `BROWNFIELD_AUDIT.md`: as-is inventory and gap analysis if inheriting an unfinished codebase.
+- `COST_FINOPS_CAPACITY_LIFECYCLE.md`: cost model, FinOps, capacity forecast, and EOL/lifecycle.
+- Select the question profile from [question-profiles.md](../.agents/skills/ai-project-delivery/references/question-profiles.md) and record the rationale in the Discovery Log.
 
 ## Gate 01
 
-- [ ] Core discovery applicable đạt 100%; miền rủi ro cao không có unknown vô chủ.
-- [ ] Problem/outcome/metric/scope/out-of-scope được Client xác nhận.
-- [ ] Plan, dependency, timeline và risk có owner.
-- [ ] Client duyệt baseline hoặc ủy quyền rõ cho lựa chọn local/reversible.
+- [ ] Core discovery is 100% complete for applicable areas; high-risk areas have no unassigned unknowns.
+- [ ] Problem description, outcomes, metrics, scope, and out-of-scope items are confirmed by the Client.
+- [ ] Plan, dependencies, timeline, and risks have designated owners.
+- [ ] Client has approved the baseline or provided clear delegation for local/reversible choices.

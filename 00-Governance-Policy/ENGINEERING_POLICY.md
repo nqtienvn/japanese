@@ -11,65 +11,65 @@ last_verified: "{{DATE}}"
 ---
 # Engineering, Security & Documentation Policy
 
-Control chi tiết về security/privacy nằm tại `SECURITY_AND_PRIVACY_STANDARD.md`; cách AI yêu cầu con người hỗ trợ nằm tại `HUMAN_AI_COLLABORATION_PROTOCOL.md`. Khi có xung đột, control cụ thể/được phê duyệt trong hai tài liệu đó ưu tiên hơn hướng dẫn chung ở đây.
+Detailed controls regarding security/privacy are located in `SECURITY_AND_PRIVACY_STANDARD.md`; the protocol for how the AI requests human assistance is located in `HUMAN_AI_COLLABORATION_PROTOCOL.md`. In case of conflict, the specific/approved controls in those two documents take precedence over the general guidelines here.
 
-## 1. Nguyên tắc
+## 1. Principles
 
 - Evidence before claim; traceability before completion.
 - Least privilege, secure by default, privacy by design.
-- Không hard-code secret; không dùng dữ liệu thật cho test nếu chưa được phép và bảo vệ.
-- Giữ thay đổi nhỏ, reviewable, có rollback; không phá compatibility âm thầm.
-- Ưu tiên convention hiện có của brownfield repository.
+- Do not hard-code secrets; do not use real data for testing without authorization and protection.
+- Keep changes small, reviewable, and rollbackable; do not break compatibility silently.
+- Prioritize existing conventions of the brownfield repository.
 
 ## 2. Code quality
 
-- Pin runtime/dependency quan trọng và giữ lockfile.
-- Dùng formatter/linter/type/static analysis phù hợp stack.
-- Tách business logic khỏi transport/persistence khi có lợi cho testability.
-- Áp dụng SOLID, DRY, KISS, YAGNI hoặc Clean Architecture theo context và evidence; không biến tên pattern thành requirement release-blocking nếu thiếu tiêu chí đo/acceptance.
-- Thiết kế module có responsibility, contract, dependency và blast radius rõ; không yêu cầu tuyệt đối “không ảnh hưởng module khác”.
-- Validate tại trust boundary; xử lý lỗi có cấu trúc và không lộ thông tin nhạy cảm.
-- Log có correlation ID; không log password/token/secret/PII không cần thiết.
+- Pin critical runtimes/dependencies and maintain the lockfile.
+- Use formatters/linters/types/static analysis suitable for the stack.
+- Separate business logic from transport/persistence when beneficial for testability.
+- Apply SOLID, DRY, KISS, YAGNI, or Clean Architecture based on context and evidence; do not turn pattern names into release-blocking requirements if measurement or acceptance criteria are missing.
+- Design modules with clear responsibilities, contracts, dependencies, and blast radius; do not absolutely require "no impact on other modules".
+- Validate at trust boundaries; handle errors in a structured manner and do not expose sensitive information.
+- Log with correlation IDs; do not log passwords/tokens/secrets/PII unnecessarily.
 
-## 3. Version control và review
+## 3. Version control and review
 
-- Không ghi đè thay đổi chưa rõ của Client.
-- Branch/commit/PR phải liên kết `WI` và requirement ID.
-- Review kiểm tra correctness, security, test, migration, observability, docs và rollback.
-- Thay đổi Critical/High cần domain/security reviewer phù hợp.
+- Do not overwrite unexplained changes from the Client.
+- Branches/commits/PRs must link to work items (`WI`) and requirement IDs.
+- Reviews must verify correctness, security, testing, migrations, observability, documentation, and rollbacks.
+- Critical/High changes require appropriate domain/security reviewers.
 
 ## 4. Testing
 
-- Unit test business rule; integration test boundary; contract test integration; E2E cho journey trọng yếu.
-- Có negative/security test theo threat model.
-- Test phải deterministic; flaky test không được coi là pass ổn định.
-- Coverage là tín hiệu, không thay thế assertion chất lượng và risk coverage.
-- Ngưỡng line/branch/function coverage phải được tailoring theo risk, layer, tool và exclusion; không áp một ngưỡng 90% chung nếu thiếu rationale.
+- Unit test business rules; integration test boundaries; contract test integrations; E2E test critical user journeys.
+- Implement negative/security tests based on the threat model.
+- Tests must be deterministic; flaky tests are not considered stable passes.
+- Coverage is a signal, not a substitute for quality assertions and risk coverage.
+- Line/branch/function coverage thresholds must be tailored by risk, layer, tool, and exclusion; do not apply a generic 90% threshold without rationale.
 
 ## 5. Security/privacy baseline
 
-- Default deny; least privilege; MFA/step-up cho hành động nhạy cảm khi cần.
-- Encryption in transit; at rest theo classification/risk.
-- Retention/delete/export/audit phải được thiết kế cho dữ liệu cá nhân.
-- Dependency/security scan và threat modeling trước release phù hợp mức rủi ro.
-- Chọn `STANDARD`, `HIGH` hoặc `CRITICAL`; security verification và release gate tuân theo profile đã duyệt.
+- Default deny; least privilege; MFA/step-up for sensitive actions when needed.
+- Encryption in transit and at rest based on classification/risk.
+- Retention, deletion, export, and auditing must be designed for personal data (PII).
+- Dependency/security scans and threat modeling prior to release based on risk level.
+- Select `STANDARD`, `HIGH`, or `CRITICAL` profile; security verification and release gates follow the approved profile.
 
-## 5A. UI/UX và prototype
+## 5A. UI/UX and prototype
 
-- Với sản phẩm có UI, xác định design-system reference, component, typography, color, responsive/accessibility target và exact interaction/error states.
-- Prototype được yêu cầu trước production UI cho journey High/Critical hoặc khi acceptance phụ thuộc interaction; prototype/spike có thể được code sớm nếu được đánh dấu non-production và có learning objective.
-- Figma, Penpot, MCP hoặc design-to-code chỉ là tool option; không bắt buộc nếu không khả dụng, không phù hợp hoặc dự án không có UI. Quyết định `N/A/Tailor` phải có rationale.
-- Generated/design-to-code output phải qua code review, accessibility, security, performance và maintainability checks; không coi export là production-ready evidence.
+- For products with a UI, define the design system reference, components, typography, colors, responsive/accessibility targets, and exact interaction/error states.
+- A prototype is required before production UI for High/Critical journeys or when acceptance depends on interaction; prototypes/spikes can be coded early if marked as non-production and having learning objectives.
+- Figma, Penpot, MCP, or design-to-code are tool options; not required if unavailable, unsuitable, or if the project has no UI. The decision to mark as N/A or tailor must have a rationale.
+- Generated/design-to-code output must pass code reviews, accessibility, security, performance, and maintainability checks; do not treat exports as production-ready evidence.
 
-## 6. Tài liệu và bằng chứng
+## 6. Documentation and evidence
 
-- Tài liệu có owner, version/status và changelog khi là baseline.
-- Diagram/source specification nên text-based và version-controlled khi khả thi.
-- Lệnh test/build phải ghi môi trường, phiên bản, ngày và kết quả.
-- Không xóa lịch sử quyết định; supersede bằng ADR/change record mới.
+- Documents must have an owner, version/status, and a changelog once they are baselined.
+- Diagrams and source specifications should be text-based and version-controlled where feasible.
+- Test/build execution logs must record environment, version, date, and results.
+- Do not delete decision history; supersede with a new ADR/change record.
 
-## 7. Ngoại lệ
+## 7. Exceptions
 
-| Exception ID | Policy | Lý do | Risk | Mitigation | Approver | Expiry |
+| Exception ID | Policy | Reason | Risk | Mitigation | Approver | Expiry |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | EXC-001 | {{POLICY}} | {{REASON}} | {{RISK}} | {{MITIGATION}} | {{APPROVER}} | {{DATE}} |

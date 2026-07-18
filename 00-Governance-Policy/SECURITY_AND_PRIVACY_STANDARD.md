@@ -11,105 +11,105 @@ last_verified: "{{DATE}}"
 ---
 # Security & Privacy Engineering Standard
 
-## 1. Mục đích và giới hạn tuyên bố
+## 1. Purpose and declaration boundaries
 
-Thiết lập security/privacy baseline theo rủi ro cho requirements, architecture, implementation, testing, release và operations. “Bảo mật mạnh nhất”, “an toàn tuyệt đối” hoặc “không thể bị tấn công” là câu không testable và bị cấm trong baseline; phải thay bằng Security Profile, threat, control và pass/fail evidence cụ thể.
+Establish the risk-based security/privacy baseline for requirements, architecture, implementation, testing, release, and operations. Terms like "maximum security," "absolute safety," or "impenetrable" are untestable and prohibited in the baseline; they must be replaced by specific Security Profiles, threats, controls, and pass/fail evidence.
 
-Tài liệu này được thiết kế theo hướng tham chiếu, không tự tạo chứng nhận hoặc ý kiến pháp lý. ISO/IEC 27001 là chuẩn ISMS ở cấp tổ chức; project chỉ được tuyên bố `aligned` khi đã tailoring và có evidence, không được tuyên bố `certified` nếu thiếu đánh giá/chứng nhận độc lập.
+This document is designed for reference purposes and does not substitute for certification or legal advice. ISO/IEC 27001 is an ISMS standard at the organizational level; the project may only claim to be "aligned" once tailoring is completed and evidence is provided, and must not claim to be "certified" without an independent audit/certification.
 
 ## 2. Security Profile
 
-| Profile | Điều kiện điển hình | Mức kiểm soát |
+| Profile | Typical Conditions | Control Level |
 | :--- | :--- | :--- |
-| `STANDARD` | Không có dữ liệu nhạy cảm/giao dịch trọng yếu; exposure thấp | Baseline secure-by-default và verification theo risk |
-| `HIGH` | Account, PII, integration bên thứ ba, internet-facing hoặc tác động kinh doanh đáng kể | Baseline + kiểm tra security chuyên sâu và recovery |
-| `CRITICAL` | Payment, financial, health, Sensitive/Restricted data, privileged admin hoặc hạ tầng trọng yếu | High + independent review/pentest phù hợp, kiểm soát thay đổi và release nghiêm ngặt |
+| `STANDARD` | No sensitive data/critical transactions; low exposure | Baseline secure-by-default and risk-based verification |
+| `HIGH` | Accounts, PII, third-party integrations, internet-facing, or significant business impact | Baseline + in-depth security testing and recovery |
+| `CRITICAL` | Payment, financial, health, Sensitive/Restricted data, privileged admin, or critical infrastructure | High + independent review/appropriate pentest, change control, and strict release gates |
 
-Nếu chưa đủ dữ kiện, tạm dùng `HIGH` và hoàn thành risk assessment trước Gate 03. Profile được chọn không thay thế threat modeling; control `N/A` phải có rationale, replacement, risk và approver.
+If data is insufficient, temporarily apply the `HIGH` profile and complete the risk assessment before Gate 03. The selected profile does not substitute for threat modeling; controls marked N/A must document a rationale, alternative mitigating controls, risks, and the approver.
 
 ## 3. Mandatory engineering controls
 
-- `SEC-001`: Dự án **PHẢI** xác định Security Profile, Security Owner và risk appetite trước khi phê duyệt requirements baseline.
-- `SEC-002`: Dự án **PHẢI** hoàn thành threat model cho system boundary, asset, trust boundary, data flow và abuse case trước Gate 03.
-- `SEC-003`: Mỗi loại dữ liệu **PHẢI** có classification, owner, purpose, retention và access rule.
-- `SEC-004`: Hệ thống **PHẢI** áp dụng default deny và least privilege tại mọi authorization boundary.
-- `SEC-005`: Authentication và authorization **PHẢI** được enforce phía server hoặc trusted enforcement point.
-- `SEC-006`: Privileged/high-impact action **PHẢI** có step-up authentication, dual control hoặc compensating control khi threat model yêu cầu.
-- `SEC-007`: Input không tin cậy **PHẢI** được validate tại trust boundary và output **PHẢI** được encode theo context.
-- `SEC-008`: Giá trị dữ liệu không tin cậy trong database query **PHẢI** dùng parameter binding/prepared statement hoặc cơ chế ORM chứng minh parameterization.
-- `SEC-009`: Dynamic identifier không thể parameterize **PHẢI** được chọn từ allowlist; nối chuỗi SQL từ input không tin cậy bị cấm.
-- `SEC-010`: Dữ liệu truyền qua mạng **PHẢI** dùng protocol/cipher được Security Baseline phê duyệt; TLS 1.3 được ưu tiên khi tương thích, ngoại lệ phải có risk/owner/expiry.
-- `SEC-011`: Dữ liệu lưu trữ **PHẢI** được mã hóa khi classification, threat model, hợp đồng hoặc regulatory requirement yêu cầu.
-- `SEC-012`: Secret **KHÔNG ĐƯỢC** hard-code, commit, log, đưa vào prompt hoặc lưu trong tài liệu dự án.
-- `SEC-013`: AI **CÓ THỂ** tạo secret reference, environment schema, Vault/secret-manager integration và safe example nhưng **KHÔNG ĐƯỢC** yêu cầu hoặc công bố secret value thật.
-- `SEC-014`: Security/audit log **PHẢI** có owner, event scope, retention, access control và redaction rule.
-- `SEC-015`: Dependency, build artifact và container **PHẢI** có provenance/version và được scan theo Security Profile.
-- `SEC-016`: Backup/restore, rollback và incident response **PHẢI** được kiểm chứng theo impact/RTO/RPO.
-- `SEC-017`: Security requirement **PHẢI** có ID, threat/control mapping, test và residual-risk owner.
-- `SEC-018`: Dự án **KHÔNG ĐƯỢC** tuyên bố an toàn tuyệt đối, compliant hoặc certified khi evidence không hỗ trợ tuyên bố đó.
-- `SEC-019`: Dự án **PHẢI** đánh giá Bank Security Reference Baseline trước Gate 03.
-- `SEC-020`: Java/Spring security work **PHẢI** so sánh component với hai code snapshot nội bộ.
-- `SEC-021`: Stack ngoài Java **PHẢI** refactor security responsibility sang native implementation có equivalent test.
-- `SEC-022`: Dự án **KHÔNG ĐƯỢC** copy secret hoặc known anti-pattern từ snapshot.
-- `SEC-023`: Security adoption **PHẢI** có Adoption Record và Security Verification Matrix.
-- `SEC-024`: OAuth/OIDC implementation **PHẢI** đánh giá RFC 9700 khi áp dụng.
-- `SEC-025`: Web/API project **PHẢI** map verification requirement tới OWASP ASVS 5.0.0 hoặc replacement được pin.
+- `SEC-001`: The project **SHALL** define the Security Profile, Security Owner, and risk appetite before approving the requirements baseline.
+- `SEC-002`: The project **SHALL** complete a threat model for system boundaries, assets, trust boundaries, data flows, and abuse cases before Gate 03.
+- `SEC-003`: Every data type **SHALL** have a classification, owner, purpose, retention, and access rule.
+- `SEC-004`: The system **SHALL** apply default deny and least privilege at all authorization boundaries.
+- `SEC-005`: Authentication and authorization **SHALL** be enforced on the server side or a trusted enforcement point.
+- `SEC-006`: Privileged/high-impact actions **SHALL** require step-up authentication, dual controls, or compensating controls when required by the threat model.
+- `SEC-007`: Untrusted input **SHALL** be validated at trust boundaries and output **SHALL** be encoded based on context.
+- `SEC-008`: Untrusted data values in database queries **SHALL** use parameter binding/prepared statements or an ORM mechanism that proves parameterization.
+- `SEC-009`: Dynamic identifiers that cannot be parameterized **SHALL** be selected from an allowlist; SQL string concatenation with untrusted input is prohibited.
+- `SEC-010`: Data in transit **SHALL** use protocol/cipher suites approved by the Security Baseline; TLS 1.3 is preferred when compatible, and exceptions must have documented risk, owner, and expiry.
+- `SEC-011`: Data at rest **SHALL** be encrypted when required by classification, threat models, contracts, or regulatory requirements.
+- `SEC-012`: Secrets **SHALL NOT** be hard-coded, committed, logged, included in prompts, or saved in project documents.
+- `SEC-013`: The AI **MAY** generate secret references, environment schemas, Vault/secret-manager integrations, and safe examples, but **SHALL NOT** request or expose actual production/secret values.
+- `SEC-014`: Security/audit logs **SHALL** have an owner, event scope, retention, access controls, and redaction rules.
+- `SEC-015`: Dependencies, build artifacts, and containers **SHALL** have documented provenance/versions and be scanned according to the Security Profile.
+- `SEC-016`: Backup/restore, rollback, and incident response **SHALL** be verified against impact/RTO/RPO metrics.
+- `SEC-017`: Security requirements **SHALL** have an ID, threat/control mapping, tests, and a residual-risk owner.
+- `SEC-018`: The project **SHALL NOT** claim absolute security, compliance, or certification when evidence does not support the claim.
+- `SEC-019`: The project **SHALL** evaluate the Bank Security Reference Baseline before Gate 03.
+- `SEC-020`: Java/Spring security work **SHALL** compare components against the two internal code snapshots.
+- `SEC-021`: Non-Java stacks **SHALL** refactor security responsibilities to native implementations with equivalent tests.
+- `SEC-022`: The project **SHALL NOT** copy secrets or known anti-patterns from snapshots.
+- `SEC-023`: Security adoptions **SHALL** have an Adoption Record and a Security Verification Matrix.
+- `SEC-024`: OAuth/OIDC implementations **SHALL** evaluate RFC 9700 when applicable.
+- `SEC-025`: Web/API projects **SHALL** map verification requirements to OWASP ASVS 5.0.0 or an approved pinned replacement.
 
 ## 4. Application security coverage
 
-Pin [OWASP Top 10:2025](https://owasp.org/Top10/2025/0x00_2025-Introduction/) làm awareness baseline cho web application tại thời điểm tạo template; kiểm tra phiên bản trước mỗi dự án. Top 10 không thay thế threat model hoặc security requirements riêng.
+Pin [OWASP Top 10:2025](https://owasp.org/Top10/2025/0x00_2025-Introduction/) as the awareness baseline for web applications at the time of template creation; verify the active version before each project. The Top 10 does not substitute for threat modeling or specific security requirements.
 
-| Miền | Nội dung tối thiểu khi áp dụng |
+| Domain | Minimum Content When Applicable |
 | :--- | :--- |
 | Access/authentication | Broken access control, authentication failures, session/token lifecycle, privilege change |
 | Configuration/supply chain | Security misconfiguration, software supply-chain failure, dependency/provenance/secret exposure |
 | Cryptography/data | Cryptographic failures, classification, key ownership, retention/redaction |
-| Input/design/integrity | Injection, insecure design, software/data integrity, SSRF/XSS/CSRF/file/command abuse theo attack surface |
+| Input/design/integrity | Injection, insecure design, software/data integrity, SSRF/XSS/CSRF/file/command abuse by attack surface |
 | Detection/recovery | Security logging/alerting failures, exceptional-condition handling, incident/recovery evidence |
 
-## 5. Privacy và regulatory applicability
+## 5. Privacy and regulatory applicability
 
-Trước khi ghi GDPR, CCPA hoặc luật khác là mandatory, phải hoàn thành Regulatory Applicability Assessment:
+Before designating GDPR, CCPA, or other laws as mandatory, a Regulatory Applicability Assessment must be completed:
 
 | Regulation | Apply / Tailor / N/A | Data subject/territory/business trigger | Obligations | Legal owner | Evidence/review date |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | GDPR | {{DECISION}} | {{TRIGGER}} | {{OBLIGATIONS}} | {{OWNER}} | {{EVIDENCE_DATE}} |
 | CCPA as amended | {{DECISION}} | {{TRIGGER}} | {{OBLIGATIONS}} | {{OWNER}} | {{EVIDENCE_DATE}} |
 
-- GDPR consent chỉ là một legal basis; mỗi processing purpose phải có lawful-basis decision phù hợp. Tham chiếu [GDPR Article 6/32](https://eur-lex.europa.eu/eli/reg/2016/679/art_6/oj/eng).
-- CCPA applicability và consumer rights phải dựa trên phạm vi business/data subject thực tế. Tham chiếu [California Privacy Protection Agency](https://cppa.ca.gov/faq).
-- Legal/compliance owner chịu trách nhiệm xác nhận áp dụng; AI hỗ trợ phân tích và evidence nhưng không thay thế legal advice/sign-off.
+- GDPR consent is only one legal basis; each processing purpose must have a corresponding lawful-basis decision. Refer to [GDPR Article 6/32](https://eur-lex.europa.eu/eli/reg/2016/679/art_6/oj/eng).
+- CCPA applicability and consumer rights must be based on the actual business and data subject scope. Refer to the [California Privacy Protection Agency](https://cppa.ca.gov/faq).
+- The Legal/Compliance Owner is responsible for confirming applicability; the AI assists with analysis and evidence compiling but does not replace legal advice/sign-off.
 
-## 6. Verification theo profile
+## 6. Verification by profile
 
 | Verification | STANDARD | HIGH | CRITICAL |
 | :--- | :---: | :---: | :---: |
-| Threat model + security requirements/RTM | Bắt buộc | Bắt buộc | Bắt buộc + independent review |
-| SAST, secret scan, dependency/SCA | Theo stack/risk | Bắt buộc | Bắt buộc + severity gate |
-| Authorization/input/negative tests | Bắt buộc theo attack surface | Bắt buộc | Bắt buộc + abuse/adversarial review |
-| DAST/API/container/config scan | Theo exposure | Bắt buộc khi áp dụng | Bắt buộc khi áp dụng |
-| Recovery/backup/incident exercise | Theo impact | Bắt buộc theo RTO/RPO | Bắt buộc + documented exercise |
-| Independent penetration test | Theo risk/contract | Theo risk/contract | Bắt buộc trước initial production hoặc major exposure change, trừ exception đúng quyền |
+| Threat model + security requirements/RTM | Mandatory | Mandatory | Mandatory + independent review |
+| SAST, secret scan, dependency/SCA | Based on stack/risk | Mandatory | Mandatory + severity gate |
+| Authorization/input/negative tests | Mandatory by attack surface | Mandatory | Mandatory + abuse/adversarial review |
+| DAST/API/container/config scan | Based on exposure | Mandatory when applicable | Mandatory when applicable |
+| Recovery/backup/incident exercise | Based on impact | Mandatory by RTO/RPO | Mandatory + documented exercise |
+| Independent penetration test | Based on risk/contract | Based on risk/contract | Mandatory before initial production or major exposure change, unless authorized exception applies |
 
-Pentest chỉ được thực hiện với scope, Rules of Engagement, environment, authorization, data handling và remediation owner rõ.
+Pentesting must only be executed with a clear scope, Rules of Engagement, environment, authorization, data handling, and designated remediation owner.
 
-## 7. Security release gate
+## 7. Security release gates
 
-- Không release khi còn vulnerability/risk `Critical` mở.
-- `High` chỉ được time-bound accept bởi Security Owner và Client authority, có mitigation, owner, expiry và retest plan.
-- Mọi Must/Critical security requirement phải có passing evidence trong Test RTM.
-- Security Profile, threat model, scan/test scope, exclusions, findings, residual risk và incident/rollback readiness phải xuất hiện trong release recommendation.
-- Control không áp dụng phải giữ `N/A rationale`; không xóa khỏi checklist để che coverage gap.
+- Do not release while any Critical vulnerability/risk remains open.
+- High risks must only be accepted on a time-bound basis by the Security Owner and Client authority, with documented mitigations, owner, expiry, and re-testing plans.
+- All Must/Critical security requirements must have passing evidence in the Test RTM.
+- The Security Profile, threat model, scan/test scope, exclusions, findings, residual risk, and incident/rollback readiness must be documented in the release recommendation.
+- Controls that are not applicable must retain their N/A rationale; do not remove them from the checklist to hide coverage gaps.
 
 ## 8. Standards register
 
-| Reference | Phiên bản ghim | Cách dùng |
+| Reference | Pinned Version | Usage |
 | :--- | :--- | :--- |
-| [ISO/IEC 27001](https://www.iso.org/standard/27001) | 2022, Edition 3 + amendment applicable | ISMS/risk-management alignment ở cấp tổ chức/project interface |
-| [ISO/IEC 27002](https://www.iso.org/standard/75652.html) | 2022, Edition 3 | Guidance/control reference; chọn theo risk và Statement of Applicability |
-| [OWASP Top 10](https://owasp.org/Top10/2025/0x00_2025-Introduction/) | 2025 | Web application risk awareness, không phải checklist đầy đủ |
-| [OWASP ASVS](https://github.com/OWASP/ASVS) | 5.0.0 | Application security requirement/verification baseline; pin requirement ID theo version |
+| [ISO/IEC 27001](https://www.iso.org/standard/27001) | 2022, Edition 3 + amendment applicable | ISMS/risk-management alignment at the organization level/project interface |
+| [ISO/IEC 27002](https://www.iso.org/standard/75652.html) | 2022, Edition 3 | Guidance/control reference; select based on risk and Statement of Applicability |
+| [OWASP Top 10](https://owasp.org/Top10/2025/0x00_2025-Introduction/) | 2025 | Web application risk awareness, not a complete checklist |
+| [OWASP ASVS](https://github.com/OWASP/ASVS) | 5.0.0 | Application security requirement/verification baseline; pin requirement ID by version |
 | [RFC 9700](https://www.rfc-editor.org/info/rfc9700/) | BCP 240, January 2025 | OAuth 2.0 security best current practice |
-| [OWASP Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) | Kiểm tra ngày project baseline | Argon2id ưu tiên; BCrypt compatibility cho legacy |
+| [OWASP Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) | Verify on project baseline date | Argon2id preferred; BCrypt compatibility for legacy systems |
 
-Kiểm tra phiên bản và applicability trước mỗi project baseline; ghi tailoring trong `STANDARDS_ALIGNMENT_MATRIX.md`.
+Verify version and applicability before each project baseline; record tailoring in `STANDARDS_ALIGNMENT_MATRIX.md`.

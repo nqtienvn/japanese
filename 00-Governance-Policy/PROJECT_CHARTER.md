@@ -11,7 +11,7 @@ last_verified: "{{DATE}}"
 ---
 # Project Charter — {{PROJECT_NAME}}
 
-| Trường | Giá trị |
+| Field | Value |
 | :--- | :--- |
 | Document ID | `{{PROJECT_CODE}}-CHR-001` |
 | Version / status | {{VERSION}} / {{STATUS}} |
@@ -22,10 +22,10 @@ last_verified: "{{DATE}}"
 
 ## 1. Business case
 
-- Bối cảnh: {{BUSINESS_CONTEXT}}
-- Vấn đề/cơ hội: {{PROBLEM_STATEMENT}}
-- Vì sao làm bây giờ: {{WHY_NOW}}
-- Chi phí của việc không làm: {{COST_OF_INACTION}}
+- Context: {{BUSINESS_CONTEXT}}
+- Problem/Opportunity: {{PROBLEM_STATEMENT}}
+- Why now: {{WHY_NOW}}
+- Cost of inaction: {{COST_OF_INACTION}}
 
 ## 2. Outcomes
 
@@ -33,42 +33,42 @@ last_verified: "{{DATE}}"
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | OBJ-001 | {{OUTCOME}} | {{BASELINE}} | {{TARGET}} | {{DATE}} | {{OWNER}} |
 
-## 3. Phạm vi cấp cao
+## 3. High-level scope
 
-| In scope | Out of scope | Có thể cân nhắc sau |
+| In scope | Out of scope | Future consideration |
 | :--- | :--- | :--- |
 | {{IN_SCOPE}} | {{OUT_OF_SCOPE}} | {{FUTURE_SCOPE}} |
 
-## 4. Stakeholder
+## 4. Stakeholders
 
-| ID | Người/nhóm | Vai trò | Quan tâm | Quyền quyết định | Cách tham gia |
+| ID | Person/Group | Role | Interest | Decision Right | Engagement Method |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | STK-001 | {{STAKEHOLDER}} | {{ROLE}} | {{INTEREST}} | {{DECISION_RIGHT}} | {{CADENCE}} |
 
-## 5. Ràng buộc và giả định
+## 5. Constraints and assumptions
 
-| ID | Loại | Nội dung | Cách xác minh | Owner | Hạn |
+| ID | Type | Content | Verification Method | Owner | Due Date |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | CON-001 | Constraint / Assumption | {{ITEM}} | {{VALIDATION}} | {{OWNER}} | {{DATE}} |
 
-## 6. Rủi ro ban đầu
+## 6. Initial risks
 
-| Risk ID | Rủi ro | Xác suất | Tác động | Ứng phó | Owner |
+| Risk ID | Risk | Probability | Impact | Response | Owner |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | RISK-001 | {{RISK}} | L/M/H | L/M/H | {{RESPONSE}} | {{OWNER}} |
 
-## 7. Quyền hạn
+## 7. Authorities
 
-- Client Product Owner quyết định: mục tiêu, ưu tiên, scope, acceptance và thay đổi có ảnh hưởng thương mại.
-- Vendor Delivery Lead quyết định: cách tổ chức delivery và lựa chọn local/reversible trong constraint đã duyệt.
-- Tech Lead quyết định: kiến trúc/kỹ thuật, nhưng phải lập ADR khi trade-off ảnh hưởng NFR/cost/lock-in.
-- QA Lead có quyền chặn release khi exit criteria không đạt.
-- Security/Privacy Owner có quyền chặn khi có rủi ro không được chấp nhận.
-- Security Profile/risk appetite và Human–AI assistance boundary chỉ thay đổi qua governance decision/change control phù hợp.
+- Client Product Owner decides: objectives, priorities, scope, acceptance, and changes with commercial impact.
+- Vendor Delivery Lead decides: delivery organization and local/reversible choices within approved constraints.
+- Tech Lead decides: architecture/technical decisions, but must create an ADR when trade-offs impact NFR/cost/lock-in.
+- QA Lead has the authority to block release when exit criteria are not met.
+- Security/Privacy Owner has the authority to block release when there is an unacceptable risk.
+- Security Profile/risk appetite and Human–AI assistance boundary can only be changed through appropriate governance decision/change control.
 
-## 8. Phê duyệt charter
+## 8. Charter approval
 
-| Bên | Người duyệt | Quyết định | Ngày | Ghi chú |
+| Party | Approver | Decision | Date | Notes |
 | :--- | :--- | :--- | :--- | :--- |
 | Client | {{PRODUCT_OWNER}} | Pending / Approved / Rejected | {{DATE}} | {{NOTE}} |
 | Vendor | {{PROJECT_MANAGER}} | Pending / Approved / Rejected | {{DATE}} | {{NOTE}} |

@@ -19,7 +19,7 @@ last_verified: "{{DATE}}"
 | Priority / estimate | {{PRIORITY}} / {{ESTIMATE_CONFIDENCE}} |
 | Status | Ready / In Progress / Review / Verified / Done / Blocked |
 
-## Outcome và scope
+## Outcome and scope
 
 - User/business outcome: {{OUTCOME}}
 - In scope: {{IN_SCOPE}}
@@ -31,16 +31,16 @@ last_verified: "{{DATE}}"
 - Contract/data/migration: {{IMPACT}}
 - Security/privacy/observability: {{IMPACT}}
 - Compatibility/feature flag: {{PLAN}}
-- Module/dependency blast radius và regression boundary: {{IMPACT_EVIDENCE}}
-- Human/manual/approval dependency (nếu có): {{ASSISTANCE_ID_TRIGGER_MIN_ACTION}}
+- Module/dependency blast radius and regression boundary: {{IMPACT_EVIDENCE}}
+- Human/manual/approval dependency (if any): {{ASSISTANCE_ID_TRIGGER_MIN_ACTION}}
 
 ## Acceptance / verification
 
 - [ ] {{FUNCTIONAL_ACCEPTANCE}}
 - [ ] {{NEGATIVE_EDGE_ACCEPTANCE}}
-- [ ] Build/lint/static/unit checks phù hợp đạt.
-- [ ] `TC-XXX` đạt và evidence được ghi.
-- [ ] RTM/changelog/docs/runbook cập nhật nếu ảnh hưởng.
+- [ ] Relevant build/lint/static/unit checks passed.
+- [ ] `TC-XXX` passed and evidence recorded.
+- [ ] RTM/changelog/docs/runbook updated if affected.
 
 ## Execution log
 
@@ -48,4 +48,4 @@ last_verified: "{{DATE}}"
 | :--- | :--- | :--- | :--- |
 | {{DATE}} | {{ACTION}} | {{RESULT}} | {{FOLLOW_UP}} |
 
-Nếu status `Blocked`, ghi ít nhất ba phương án materially different đã thử trước khi dùng `HUM-BLOCKER`, trừ khi blocker thuộc access/manual/approval/sign-off rõ ràng.
+If status is `Blocked`, document at least three materially different alternatives attempted before triggering a `HUM-BLOCKER` assistance request, unless the blocker is clearly related to access, credentials, manual configuration, or approvals.

@@ -11,7 +11,7 @@ last_verified: "{{DATE}}"
 ---
 # Lessons Learned — {{PROJECT_NAME}}
 
-| Area | Điều đã xảy ra | Evidence/impact | Keep / Stop / Start | Owner/action |
+| Area | What happened | Evidence/impact | Keep / Stop / Start | Owner/action |
 | :--- | :--- | :--- | :--- | :--- |
 | Discovery/requirements | {{LESSON}} | {{EVIDENCE}} | {{DECISION}} | {{ACTION}} |
 | Design/engineering | {{LESSON}} | {{EVIDENCE}} | {{DECISION}} | {{ACTION}} |

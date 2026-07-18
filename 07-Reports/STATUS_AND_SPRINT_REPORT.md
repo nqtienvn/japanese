@@ -11,7 +11,7 @@ last_verified: "{{DATE}}"
 ---
 # Client Delivery Status — {{PROJECT_NAME}}
 
-| Trường | Giá trị |
+| Field | Value |
 | :--- | :--- |
 | Period/milestone | {{PERIOD}} |
 | Overall health | Green / Amber / Red |
@@ -44,7 +44,7 @@ last_verified: "{{DATE}}"
 | Schedule | {{BASELINE}} | {{CURRENT}} | {{VARIANCE}} | {{ACTION}} |
 | Cost/capacity | {{BASELINE}} | {{CURRENT}} | {{VARIANCE}} | {{ACTION}} |
 
-## Quality và risk
+## Quality and Risk
 
 | Indicator | Current | Target | Trend/action |
 | :--- | :--- | :--- | :--- |

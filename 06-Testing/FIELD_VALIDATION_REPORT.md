@@ -47,7 +47,7 @@ Result: `Pass / Fail`. Any blocking clarification means Fail until docs are corr
 | Concurrency/partial failure/recovery | {{TC_IDS}} | Yes / No | {{FINDING}} |
 | Data/audit/NFR/security | {{TC_IDS}} | Yes / No | {{FINDING}} |
 
-Result: `Pass / Fail`. Blocking clarification means requirement/use case chưa testable.
+Result: `Pass / Fail`. Blocking clarification means requirement/use case is not yet testable.
 
 ## 3. Technical Peer Review
 

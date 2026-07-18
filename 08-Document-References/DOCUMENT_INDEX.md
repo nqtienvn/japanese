@@ -11,7 +11,7 @@ last_verified: "{{DATE}}"
 ---
 # Document & Evidence Index — {{PROJECT_NAME}}
 
-| Artifact ID | Tài liệu/evidence | Phase | Audience | Owner | Version/status | Last verified | Replacement/notes |
+| Artifact ID | Document/Evidence | Phase | Audience | Owner | Version/status | Last verified | Replacement/notes |
 | :--- | :--- | :---: | :--- | :--- | :--- | :--- | :--- |
 | DOC-001 | `../PROJECT_PROFILE.md` | Root | All | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | — |
 | DOC-002 | `../02-Requirements/SRS.md` | 02 | Client/Vendor | {{OWNER}} | {{VERSION_STATUS}} | {{DATE}} | — |

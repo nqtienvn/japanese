@@ -2,48 +2,48 @@
 
 ## Review context
 
-| Trường | Giá trị |
+| Field | Value |
 | :--- | :--- |
 | Review date | 2026-07-17 |
-| Engagement | `CHANGE` — tích hợp security reference vào AI Project Delivery template |
-| Risk context | Financial/banking reference; đánh giá theo `CRITICAL` cho mục đích adoption |
-| Source mutation | Không; hai thư mục nguồn giữ nguyên |
-| Snapshot status | `QUARANTINED_REFERENCE` cho đến khi project-specific adoption gate đạt |
+| Engagement | `CHANGE` — integration of security reference into the AI Project Delivery template |
+| Risk context | Financial/banking reference; evaluated under CRITICAL profile for adoption purposes |
+| Source mutation | None; both source directories kept intact |
+| Snapshot status | `QUARANTINED_REFERENCE` until project-specific adoption gates are met |
 
 ## Evidence inventory
 
 | Reference | Code inventory | Test inventory | Build evidence |
 | :--- | :--- | :--- | :--- |
-| Legacy | 23 Java + POM + 1 YAML | Không thấy `src/test` | `mvn -q test` thất bại ở dependency resolution do internal artifacts/parent `${app.version}` không khả dụng |
-| Starter | 14 Java chính + 4 Java template + POM/template/resources | Không thấy `src/test` | `mvn -q test` thất bại: Lombok-generated `log` không được resolve và `SecurityUtils` sai generic type |
+| Legacy | 23 Java + POM + 1 YAML | No src/test found | `mvn -q test` failed at dependency resolution because internal artifacts/parent `${app.version}` are unavailable |
+| Starter | 14 Java main + 4 Java templates + POM/templates/resources | No src/test found | `mvn -q test` failed: Lombok-generated `log` not resolved and `SecurityUtils` generic type mismatch |
 
-## Findings bắt buộc xử lý trước production
+## Findings Required to Resolve Before Production
 
-| Finding ID | Mức | Evidence tóm tắt | Quyết định baseline |
+| Finding ID | Severity | Evidence Summary | Baseline Decision |
 | :--- | :---: | :--- | :--- |
-| `RISK-SEC-REF-001` | Critical | Legacy YAML chứa committed Jasypt encryptor password | Raw value không được đưa vào snapshot; rotate/revoke theo owner nếu còn hiệu lực |
-| `RISK-SEC-REF-002` | High | Legacy dùng `PBEWithMD5AndTripleDES` và iteration thấp | Cấm dùng làm default; chọn cơ chế quản lý secret/key hiện hành theo threat model |
-| `RISK-SEC-REF-003` | Critical | Legacy cookie filters log access token và CSRF token | Cấm log token/credential; thêm test log-redaction |
-| `RISK-SEC-REF-004` | Critical | Legacy có đường tạo refresh token không gắn expiration | Không adopt; refresh token phải có lifetime, rotation, replay detection và revocation |
-| `RISK-SEC-REF-005` | High | Starter tắt Spring CSRF trong khi access/refresh token được đặt trong cookie | Phải bật CSRF hoặc chứng minh cơ chế tương đương cho mọi unsafe method |
-| `RISK-SEC-REF-006` | High | Starter default CORS cho phép origin/header `*` cùng credentials | Default phải deny; allowlist origin/method/header theo environment |
-| `RISK-SEC-REF-007` | High | JWT validation chủ yếu kiểm signature/type/subject; chưa enforce đầy đủ issuer/audience/jti/policy/rotation | Bổ sung claims policy, key lifecycle, replay/revocation và negative tests |
-| `RISK-SEC-REF-008` | High | Refresh token starter là reusable bearer token, không có rotation/reuse detection | Bắt buộc one-time rotation hoặc sender-constrained/compensating control đã duyệt |
-| `RISK-SEC-REF-009` | High | OAuth provider/redirect/cookie behavior hard-code và chưa chứng minh PKCE/exact redirect validation | Áp dụng RFC 9700; redirect allowlist chính xác và PKCE theo client type |
-| `RISK-SEC-REF-010` | High | Permission evaluator legacy dùng `startsWith` + `contains` | Không dùng cho authorization decision; ánh xạ authority/permission exact và test confusion cases |
-| `RISK-SEC-REF-011` | High | Cả hai reference không có automated test; starter không compile độc lập | Adoption gate fail cho đến khi build và security verification đạt |
-| `RISK-SEC-REF-012` | Medium | Starter dùng BCrypt mặc định; OWASP hiện ưu tiên Argon2id cho system mới | Project mới ưu tiên Argon2id; BCrypt chỉ dùng khi compatibility/risk rationale rõ |
-| `RISK-SEC-REF-013` | High | Spring Boot 3.2.2 và dependency set đã cũ so với baseline hiện hành | Chạy compatibility/advisory/SCA; không nâng version mù và không giữ claim “latest” |
-| `RISK-SEC-REF-014` | High | Template nguồn có DB password/JWT fallback, schema auto-update, SQL/error/debug logging unsafe | Snapshot chỉ giữ cấu hình đã sanitize; production config phải được scan |
+| `RISK-SEC-REF-001` | Critical | Legacy YAML contains committed Jasypt encryptor password | Raw value omitted from snapshot; rotate/revoke by owner if still active |
+| `RISK-SEC-REF-002` | High | Legacy uses `PBEWithMD5AndTripleDES` and low iteration count | Prohibit default use; choose active secret/key management mechanism based on threat model |
+| `RISK-SEC-REF-003` | Critical | Legacy cookie filters log access tokens and CSRF tokens | Prohibit logging tokens/credentials; add log-redaction tests |
+| `RISK-SEC-REF-004` | Critical | Legacy has a refresh token generation path without expiration | Do not adopt; refresh tokens must have lifetimes, rotation, replay detection, and revocation |
+| `RISK-SEC-REF-005` | High | Starter disables Spring CSRF while access/refresh tokens reside in cookies | Enable CSRF or prove equivalent mechanisms for all unsafe methods |
+| `RISK-SEC-REF-006` | High | Starter default CORS allows origin/headers '*' with credentials | Default must deny; allowlist origin/method/headers based on environment |
+| `RISK-SEC-REF-007` | High | JWT validation primarily checks signature/type/subject; does not fully enforce issuer/audience/jti/policy/rotation | Implement claims policy, key lifecycles, replay/revocation, and negative tests |
+| `RISK-SEC-REF-008` | High | Refresh token starter is a reusable bearer token lacking rotation/reuse detection | Enforce one-time rotation or approved sender-constrained/compensating controls |
+| `RISK-SEC-REF-009` | High | OAuth provider/redirect/cookie behaviors are hard-coded and lack PKCE/exact redirect validation | Apply RFC 9700; enforce exact redirect allowlists and PKCE based on client type |
+| `RISK-SEC-REF-010` | High | Legacy permission evaluator uses startsWith + contains | Do not use for authorization decisions; enforce exact authority/permission mapping and test confusion cases |
+| `RISK-SEC-REF-011` | High | Both references lack automated tests; starter does not compile independently | Adoption gate fails until build and security verification pass |
+| `RISK-SEC-REF-012` | Medium | Starter uses BCrypt by default; OWASP currently prefers Argon2id for new systems | New projects prefer Argon2id; BCrypt only allowed with clear compatibility/risk rationales |
+| `RISK-SEC-REF-013` | High | Spring Boot 3.2.2 and dependency sets are outdated relative to the active baseline | Run compatibility/advisory/SCA; do not upgrade blindly and do not retain "latest" claims |
+| `RISK-SEC-REF-014` | High | Source templates contain DB passwords/JWT fallbacks, auto-schema updates, and unsafe SQL/error/debug logging | Snapshot retains only sanitized configs; production configs must be scanned |
 
-## Thành phần có thể tái sử dụng sau review
+## Reusable Components Post-Review
 
-- Cấu trúc Spring Boot auto-configuration và property binding.
-- JWT access/CSRF token model như input cho design, không phải acceptance evidence.
-- Spring method security integration sau khi thay permission matching bằng exact policy.
-- `SecurityUtils`, auditor-aware, password encoder và OAuth user mapping sau compile/test review.
-- Legacy token cache/invalidation concept sau khi bổ sung concurrency, expiry, logout/password-change và replay tests.
+- Spring Boot auto-configuration structure and property binding.
+- JWT access/CSRF token models as design inputs, not acceptance evidence.
+- Spring method security integration after replacing permission matching with exact policies.
+- `SecurityUtils`, auditor-aware, password encoder, and OAuth user mapping after compile/test reviews.
+- Legacy token cache/invalidation concepts after adding concurrency, expiry, logout/password-change, and replay tests.
 
 ## Release rule
 
-Không component nào trong snapshot được xem là production-ready chỉ vì đã được copy. Project chỉ được nhận component khi row tương ứng trong `SECURITY_ADOPTION_RECORD.md` có trạng thái `Verified`, `SECURITY_VERIFICATION_MATRIX.md` có passing evidence và không còn Critical finding mở.
+No component in the snapshot is considered production-ready simply because it was copied. A project can only adopt a component when the corresponding row in `SECURITY_ADOPTION_RECORD.md` is `Verified`, `SECURITY_VERIFICATION_MATRIX.md` contains passing evidence, and no Critical findings remain open.

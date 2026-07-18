@@ -11,24 +11,24 @@ last_verified: "{{DATE}}"
 ---
 # Change Request — CR-{{NNN}}
 
-| Trường | Giá trị |
+| Field | Value |
 | :--- | :--- |
 | Requester / date | {{REQUESTER}} / {{DATE}} |
-| Loại | Scope / Schedule / Cost / Quality / Technical / Governance / Autonomy / Security / Privacy / Regulatory / Emergency |
+| Type | Scope / Schedule / Cost / Quality / Technical / Governance / Autonomy / Security / Privacy / Regulatory / Emergency |
 | Priority | Low / Medium / High / Critical |
 | Status | Proposed / Analysing / Approved / Rejected / Implemented |
 
-## Thay đổi được đề nghị
+## Proposed change
 
 {{CHANGE_DESCRIPTION}}
 
-## Lý do và giá trị
+## Rationale and value
 
 {{RATIONALE}}
 
 ## Impact analysis
 
-| Miền | Ảnh hưởng | Estimate/risk | Artifact cần cập nhật |
+| Domain | Impact | Estimate/risk | Affected artifacts |
 | :--- | :--- | :--- | :--- |
 | Scope/requirements | {{IMPACT}} | {{ESTIMATE}} | {{FILES}} |
 | Architecture/data/security | {{IMPACT}} | {{ESTIMATE}} | {{FILES}} |
@@ -37,15 +37,15 @@ last_verified: "{{DATE}}"
 | Governance/autonomy/human assistance | {{IMPACT}} | {{ESTIMATE}} | {{FILES}} |
 | Security profile/privacy/compliance | {{IMPACT}} | {{ESTIMATE}} | {{FILES}} |
 
-Gate cần mở lại: {{GATES}}. Baseline/evidence cũ phải được giữ; không sửa lịch sử để làm thay đổi mới trông như đã được phê duyệt từ đầu.
+Gates to reopen: {{GATES}}. The previous baseline/evidence must be preserved; do not modify history to make new changes look as if they were approved from the beginning.
 
-## Phương án
+## Options
 
-| Option | Mô tả | Ưu | Nhược | Khuyến nghị |
+| Option | Description | Pros | Cons | Recommendation |
 | :--- | :--- | :--- | :--- | :--- |
 | A | {{OPTION}} | {{PROS}} | {{CONS}} | Yes / No |
 
-## Quyết định
+## Approval decision
 
 | Approver | Decision | Date | Conditions |
 | :--- | :--- | :--- | :--- |

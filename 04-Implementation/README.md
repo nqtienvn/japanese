@@ -11,23 +11,23 @@ last_verified: "{{DATE}}"
 ---
 # Phase 04 — Implementation Planning
 
-## Mục tiêu
+## Objective
 
-Biến design thành work item có thể triển khai theo vertical slice, có dependency, estimate, test approach, migration, release và rollback. Phase này trả lời “làm theo thứ tự nào, bằng evidence gì và phục hồi ra sao”.
+Translate designs into actionable work items deployable as vertical slices, detailing dependencies, estimates, test approaches, migrations, release steps, and rollbacks. This phase answers: "in what order, with what evidence, and how to recover".
 
-## Artifact
+## Artifacts
 
-- `IMPLEMENTATION_PLAN.md`: sequence, milestone, environment và readiness.
-- `WORK_ITEM_TEMPLATE.md`: task/story kỹ thuật có trace links.
-- `MIGRATION_RELEASE_ROLLBACK.md`: thay đổi data/config/deploy an toàn.
-- `CHANGELOG.md`: lịch sử thay đổi sản phẩm/tài liệu.
-- `ENVIRONMENT_SETUP.md`: local/dev/test setup không chứa secret.
-- `MIGRATION_REGISTRY.md`: registry migration/version/checksum/owner/rollback.
+- `IMPLEMENTATION_PLAN.md`: sequence, milestone, environment and readiness.
+- `WORK_ITEM_TEMPLATE.md`: technical tasks/stories with trace links.
+- `MIGRATION_RELEASE_ROLLBACK.md`: safe data/config/deployment changes.
+- `CHANGELOG.md`: product/document change history.
+- `ENVIRONMENT_SETUP.md`: local/dev/test setups containing no secrets.
+- `MIGRATION_REGISTRY.md`: migration/version/checksum/owner/rollback registry.
 
 ## Gate 04
 
-- [ ] Work item phủ đủ release scope và có design/requirement/test link.
-- [ ] Dependency/access/environment/spike blocking đã xử lý.
-- [ ] Migration, compatibility, rollout, smoke và rollback rõ.
-- [ ] Migration Registry khớp schema/API/data design và đã có compatibility evidence.
-- [ ] Client đã duyệt thay đổi scope/time/cost nếu plan khác baseline.
+- [ ] Work items cover the entire release scope and have design/requirement/test links.
+- [ ] Dependencies, access, environments, and blocking spikes are resolved.
+- [ ] Migrations, compatibility, rollout, smoke tests, and rollbacks are clear.
+- [ ] Migration Registry matches the schema/API/data design and has compatibility evidence.
+- [ ] Client has approved scope/schedule/cost changes if the plan deviates from the baseline.

@@ -163,7 +163,7 @@ if ($StrictDelivery) {
         if (-not (Test-Path -LiteralPath $requirementFile)) { continue }
         foreach ($line in [System.IO.File]::ReadAllLines($requirementFile)) {
             # Only requirement table rows are normative inputs. Instructional prose may mention IDs
-            # and SHALL/PHẢI, but it is not a requirement definition and must not affect validation.
+            # and SHALL/SHALL, but it is not a requirement definition and must not affect validation.
             if ($line -notmatch '^\s*\|.*\|\s*$' -or $line -match '^\s*\|\s*:?-{2,}') { continue }
             $asciiLine = ConvertTo-AsciiText -Text $line
             if (($asciiLine -match '(?i)\b(BR|FR|NFR|SEC|REQ)-[A-Z0-9-]+\b') -and ($asciiLine -match '(?i)\b(SHALL|SHALL NOT|PHAI|KHONG DUOC)\b')) {

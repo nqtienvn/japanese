@@ -11,7 +11,7 @@ last_verified: "{{DATE}}"
 ---
 # Machine-readable Front Matter Standard
 
-Mọi tài liệu project phải có YAML front matter ở đầu file. Script `scripts/normalize_front_matter.ps1` có thể thêm block cho repository kế thừa; validator kiểm tra block trước Gate 00.
+Every project document must have a YAML front matter block at the beginning of the file. The script `scripts/normalize_front_matter.ps1` can add this block for inherited repositories; the validator checks the block before Gate 00.
 
 ```yaml
 ---
@@ -27,11 +27,11 @@ last_verified: "{{DATE}}"
 ---
 ```
 
-Quy tắc:
+Rules:
 
-- `artifact_id` phải unique toàn repository.
-- `phase`, `artifact_type`, `owner`, `version`, `status` và `last_verified` không được bỏ trống.
-- `ids` liệt kê requirement/design/work-item/test IDs được tài liệu sở hữu.
-- `dependencies` liệt kê artifact ID hoặc path cần có trước khi đọc tài liệu.
-- Secret, credential, PII thật và token không được đưa vào front matter.
-- Placeholder được chấp nhận trong template; project handover phải resolve hoặc ghi exception có owner/expiry.
+- `artifact_id` must be unique across the entire repository.
+- `phase`, `artifact_type`, `owner`, `version`, `status`, and `last_verified` must not be empty.
+- `ids` lists the requirement/design/work-item/test IDs owned/defined by the document.
+- `dependencies` lists the artifact IDs or paths required before reading this document.
+- Secrets, credentials, real PII, and tokens must not be included in the front matter.
+- Placeholders are acceptable in the template; the project handover must resolve them or record exceptions with an owner and expiry.

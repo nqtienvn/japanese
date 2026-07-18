@@ -41,10 +41,10 @@ last_verified: "{{DATE}}"
 
 ## Continuation baseline
 
-- Hành vi cần giữ: {{BEHAVIOR}}
-- Hành vi cần đổi: {{DELTA}}
-- Compatibility cần giữ: {{COMPATIBILITY}}
-- Characterization tests cần thêm: {{TESTS}}
-- Gate đầu tiên chưa đạt: {{GATE}}
+- Behaviors to preserve: {{BEHAVIOR}}
+- Behaviors to change: {{DELTA}}
+- Compatibility to maintain: {{COMPATIBILITY}}
+- Characterization tests to add: {{TESTS}}
+- First gate not yet met: {{GATE}}
 - Critical path: {{PATH}}
-- Client decisions còn cần: {{DECISIONS}}
+- Outstanding Client decisions required: {{DECISIONS}}

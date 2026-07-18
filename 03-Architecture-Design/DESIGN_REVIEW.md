@@ -13,21 +13,21 @@ last_verified: "{{DATE}}"
 
 ## Checklist
 
-- [ ] Scope, driver và linked requirement đúng baseline.
-- [ ] Context/container/component/dependency boundary rõ, không over-engineer.
-- [ ] Data ownership, schema, transaction, migration và retention rõ.
-- [ ] ERD có cardinality/optionality/key/constraint; data dictionary khớp SRS/API/test.
-- [ ] API/event contract, versioning, idempotency, timeout/retry/fallback rõ.
-- [ ] API request/response/error/permission/status/side effect cụ thể và link requirement/test.
-- [ ] State, concurrency, error/recovery và reversal đã xét.
-- [ ] Auth/authz, threat, privacy, secret, audit và abuse controls đủ.
-- [ ] Security Profile, regulatory applicability, OWASP/project threats, scan/pentest applicability và severity gate đã tailoring.
-- [ ] Không còn Critical security risk mở; High có treatment/owner/expiry hoặc gate Fail.
-- [ ] Module responsibility/contract/dependency/blast radius rõ; “không ảnh hưởng module khác” được thay bằng impact/regression evidence.
-- [ ] UI applicable có design system, component/state, responsive/accessibility và prototype evidence cho journey High/Critical; tool N/A có rationale.
-- [ ] Performance/capacity/reliability/observability/cost có target/tactic.
-- [ ] Testability, rollout, compatibility và rollback khả thi.
-- [ ] ADR ghi quyết định khó đảo ngược; RTM cập nhật.
+- [ ] Scope, drivers, and linked requirements align with the baseline.
+- [ ] Context/container/component/dependency boundaries are clear and not over-engineered.
+- [ ] Data ownership, schema, transaction, migration, and retention are clear.
+- [ ] ERDs define cardinality/optionality/keys/constraints; the data dictionary matches SRS/API/tests.
+- [ ] API/event contracts, versioning, idempotency, and timeout/retry/fallback are clear.
+- [ ] API requests/responses/errors/permissions/status/side effects are specific and linked to requirements/tests.
+- [ ] State, concurrency, error/recovery, and reversal scenarios are addressed.
+- [ ] Auth/authz, threats, privacy, secrets, audit, and abuse controls are sufficient.
+- [ ] Security Profile, regulatory applicability, OWASP/project threats, scan/pentest applicability, and severity gates are tailored.
+- [ ] No open Critical security risks; High risks have a treatment/owner/expiry or the gate is marked Fail.
+- [ ] Module responsibility/contract/dependency/blast radius are clear; "no impact on other modules" claims are replaced by impact/regression evidence.
+- [ ] When UI is applicable, design system, component/states, responsive/accessibility, and prototype evidence for High/Critical user journeys are defined; tool N/A has a rationale.
+- [ ] Performance/capacity/reliability/observability/cost targets/tactics are defined.
+- [ ] Testability, rollout, compatibility, and rollback are feasible.
+- [ ] ADRs record decisions that are hard to reverse; the RTM is updated.
 
 ## Findings
 

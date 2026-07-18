@@ -20,21 +20,21 @@ last_verified: "{{DATE}}"
 | Status | Draft / In Review / Approved / Implemented / Verified |
 | Security Profile / UI applicability | STANDARD / HIGH / CRITICAL / {{UI_SCOPE_OR_NA}} |
 
-## 1. Goal và non-goals
+## 1. Goals and non-goals
 
 - Goal/outcome: {{GOAL}}
 - In scope: {{IN_SCOPE}}
 - Non-goals: {{NON_GOALS}}
 
-## 2. Domain và static model
+## 2. Domain and static model
 
 | Element | Responsibility/invariant | Contract/interface | Dependency | Blast radius/replaceability evidence |
 | :--- | :--- | :--- | :--- | :--- |
 | {{CLASS_MODULE_ENTITY}} | {{RESPONSIBILITY}} | {{CONTRACT}} | {{DEPENDENCY}} | {{IMPACT_TEST_MIGRATION}} |
 
-Không tuyên bố module “độc lập/không ảnh hưởng module khác” nếu thiếu contract, dependency graph, compatibility, regression và rollback evidence.
+Do not declare a module "independent/isolated from other modules" without a defined contract, dependency graph, compatibility, regression, and rollback evidence.
 
-## 3. Workflow/state/sequence
+## 3. Workflows, states, and sequences
 
 - Trigger/precondition: {{TRIGGER}}
 - Happy path: {{HAPPY_PATH}}
@@ -47,7 +47,7 @@ Không tuyên bố module “độc lập/không ảnh hưởng module khác” 
 | :--- | :--- | :--- | :--- | :--- |
 | {{DATA}} | {{TYPE}} | {{RULE}} | {{CLASS}} | {{MIGRATION}} |
 
-## 5. API/event/UI contract
+## 5. API, event, and UI contracts
 
 | Contract | Input | Output/errors | Auth | Compatibility/version |
 | :--- | :--- | :--- | :--- | :--- |
@@ -67,7 +67,7 @@ Không tuyên bố module “độc lập/không ảnh hưởng module khác” 
 - Responsive breakpoints/devices: {{TARGETS}}
 - Accessibility standard/target: {{TARGET}}
 
-Journey UI High/Critical cần prototype được review trước production UI; spike/prototype code phải được đánh dấu non-production. Design-to-code output không được coi production-ready trước code/security/accessibility/performance review.
+UI High/Critical user journeys require prototypes to be reviewed before production UI implementation; spike/prototype code must be explicitly marked as non-production. Design-to-code outputs must not be treated as production-ready before code, security, accessibility, and performance reviews.
 
 | State | User sees/does | Accessibility/content | Recovery |
 | :--- | :--- | :--- | :--- |
@@ -84,13 +84,13 @@ Journey UI High/Critical cần prototype được review trước production UI;
 | :--- | :--- | :--- | :--- |
 | NFR-SEC/THR-XXX | {{CONTROL}} | TC-SEC-XXX / {{SCAN}} | {{RISK_OWNER}} |
 
-## 8. NFR, observability và operations
+## 8. NFR, observability, and operations
 
 | Requirement | Tactic | Signal/log/metric/trace | Alert/runbook |
 | :--- | :--- | :--- | :--- |
 | NFR-XXX | {{TACTIC}} | {{SIGNAL}} | {{ACTION}} |
 
-## 9. Rollout và compatibility
+## 9. Rollout and compatibility
 
 - Feature flag/sequence: {{PLAN}}
 - Migration/backfill: {{PLAN}}

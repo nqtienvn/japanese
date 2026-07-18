@@ -26,7 +26,7 @@ last_verified: "{{DATE}}"
 | Failed tests linked to defect | {{COUNT}} | {{IDS}} | {{ACTION}} |
 | Closed defects with passing retest | {{COUNT}} | {{IDS}} | {{ACTION}} |
 
-Không đánh dấu requirement `Verified/Accepted` nếu row thiếu Test Case ID hoặc result/evidence. Failed test phải có defect ID hoặc documented triage decision.
+Do not mark a requirement as Verified/Accepted if the row is missing a Test Case ID or result/evidence. Failed tests must be linked to a defect ID or a documented triage decision.
 
 ---
 

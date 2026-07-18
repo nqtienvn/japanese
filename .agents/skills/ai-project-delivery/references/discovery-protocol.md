@@ -1,88 +1,88 @@
 # Discovery protocol
 
-## Mục lục
+## Table of Contents
 
-1. Mục tiêu
-2. Chuẩn bị
-3. Cách hỏi
-4. Ghi nhận và kiểm tra chéo
+1. Objective
+2. Preparation
+3. Inquiry Method
+4. Recording and Cross-Checking
 5. Coverage
-6. Điều kiện kết thúc
+6. Completion Criteria
 
-## 1. Mục tiêu
+## 1. Objective
 
-Biến một ý tưởng hoặc codebase chưa rõ thành problem/scope baseline đủ để thiết kế, triển khai và kiểm thử. Discovery phải tìm ra nhu cầu thật, quyền quyết định, ràng buộc, tiêu chí đo lường và các tình huống thất bại; không chỉ thu thập danh sách tính năng.
+Transform a vague idea or codebase into a problem/scope baseline sufficient for design, implementation, and testing. Discovery must uncover actual needs, decision rights, constraints, measurement criteria, and failure scenarios; it is not merely a feature list collection.
 
-## 2. Chuẩn bị
+## 2. Preparation
 
-1. Xác định `GREENFIELD`, `BROWNFIELD` hoặc `CHANGE`.
-2. Với brownfield, audit repository trước và đánh dấu câu nào đã có bằng chứng.
-3. Tạo/cập nhật `01-Planning/DISCOVERY_LOG.md`.
-4. Lập stakeholder map và xác định người có quyền approve từng miền.
-5. Chọn nhóm câu hỏi tiếp theo dựa trên rủi ro và câu trả lời trước.
+1. Determine `GREENFIELD`, `BROWNFIELD`, or `CHANGE`.
+2. For brownfield projects, audit the repository first and identify questions that already have evidence.
+3. Create/update `01-Planning/DISCOVERY_LOG.md`.
+4. Establish a stakeholder map and identify individuals authorized to approve each domain.
+5. Select the next group of questions based on risks and previous answers.
 
-## 3. Cách hỏi
+## 3. Inquiry Method
 
-- Hỏi 5–12 câu có cùng ngữ cảnh mỗi vòng.
-- Bắt đầu mở: “Hãy kể lại lần gần nhất…”, rồi thu hẹp bằng số liệu và ví dụ.
-- Với từ mơ hồ như “nhanh”, “dễ”, “an toàn”, “nhiều”, yêu cầu target, đơn vị đo và ngưỡng không chấp nhận.
-- Với tính năng, hỏi tiếp: ai dùng, trigger, dữ liệu vào, kết quả, quyền, lỗi, retry, audit, notification, trạng thái và tiêu chí chấp nhận.
-- Với quyết định kỹ thuật do stakeholder nêu, hỏi mục tiêu/ràng buộc phía sau; không khóa giải pháp quá sớm.
-- Đưa ra tối đa 2–3 phương án khi stakeholder không có chuyên môn, nêu trade-off và khuyến nghị.
-- Cho phép `Unknown`, `Delegated`, `Not Applicable`, nhưng luôn ghi lý do và owner.
+- Ask 5–12 contextually related questions per round.
+- Start broad: "Describe the last time...", then narrow down with metrics and examples.
+- For vague terms like "fast", "easy", "secure", or "many", request targets, units of measure, and unacceptable thresholds.
+- For features, ask: who uses it, trigger, inputs, outputs, permissions, errors, retries, audits, notifications, states, and acceptance criteria.
+- For technical decisions proposed by stakeholders, ask for underlying goals/constraints; do not lock in solutions too early.
+- Provide at most 2–3 options when stakeholders lack domain expertise, detailing trade-offs and recommendations.
+- Allow `Unknown`, `Delegated`, and `Not Applicable` responses, but always document a reason and owner.
 
-Không hỏi lại thông tin đã có bằng chứng trừ khi cần xác nhận mâu thuẫn. Không hỏi mật khẩu, token, khóa bí mật hoặc dữ liệu cá nhân thật trong chat/tài liệu.
+Do not re-ask questions that already have evidence unless resolving a contradiction. Do not request passwords, tokens, private keys, or real personal data in chats/documentation.
 
-## 4. Ghi nhận và kiểm tra chéo
+## 4. Recording and Cross-Checking
 
-Mỗi câu trả lời có:
+Each response has:
 
-| Thuộc tính | Giá trị |
+| Property | Value |
 | :--- | :--- |
-| Question ID | ID từ question bank |
-| Answer | Nội dung đã hiểu |
+| Question ID | ID from the question bank |
+| Answer | Understandings/Response |
 | Status | Confirmed / Assumed / Unknown / Delegated / N/A |
 | Source | Stakeholder / Code / Config / Test / Document / Observation |
 | Confidence | High / Medium / Low |
-| Owner | Người xác nhận/quyết định |
-| Follow-up | Câu hỏi hoặc bằng chứng cần thêm |
+| Owner | Approving/confirming role |
+| Follow-up | Follow-up questions or needed evidence |
 
-Sau mỗi vòng, kiểm tra:
+After each round, verify:
 
-- Câu trả lời có mâu thuẫn với code, tài liệu hoặc câu trước không?
-- Mục tiêu có metric và baseline không?
-- Scope có out-of-scope không?
-- Mỗi workflow có happy path, alternate path và error path không?
-- Mỗi dữ liệu có owner, classification, retention, delete/export và audit không?
-- Mỗi integration có auth, quota, timeout, retry, idempotency và fallback không?
-- Mỗi NFR có target và cách đo không?
+- Do responses conflict with code, documentation, or previous answers?
+- Do objectives have defined metrics and baselines?
+- Is there a corresponding out-of-scope definition?
+- Does each workflow define happy paths, alternate paths, and error paths?
+- Does each data item define an owner, classification, retention, delete/export policy, and audit trail?
+- Does each integration define auth, quota, timeout, retry, idempotency, and fallback policies?
+- Does each NFR have a target and measurement method?
 
 ## 5. Coverage
 
-Đánh dấu `Applicable` trước khi tính coverage.
+Mark items as `Applicable` before calculating coverage.
 
 ```text
-Coverage = (Confirmed + Delegated + N/A-có-lý-do) / Applicable
+Coverage = (Confirmed + Delegated + N/A-with-rationale) / Applicable
 ```
 
-Mức kỳ vọng cho sản phẩm không đơn giản:
+Target expectations for non-trivial products:
 
-- Core: 100% câu applicable, thường gần 120 câu.
-- Product: 80–100% câu applicable.
-- Engineering: 80–100% câu applicable.
-- Critical risk domains (security, payments, PII, safety, legal): 100% applicable hoặc có owner/date rõ.
+- Core: 100% applicable questions, typically around 120 questions.
+- Product: 80–100% applicable questions.
+- Engineering: 80–100% applicable questions.
+- Critical risk domains (security, payments, PII, safety, legal): 100% applicable or have clear owner/date assignments.
 
-## 6. Điều kiện kết thúc
+## 6. Completion Criteria
 
-Chỉ đóng discovery khi:
+Close discovery only when:
 
-- Problem, target user, outcome và success metric rõ.
-- In-scope/out-of-scope, release boundary và ưu tiên rõ.
-- Stakeholder, approver và escalation rõ.
-- Workflow trọng yếu cùng edge cases đã được mô tả.
-- Dữ liệu, integration, NFR, security/compliance và vận hành có target.
-- Assumption, dependency, risk và open decision có owner/hạn.
-- Acceptance và handover expectation rõ.
-- Stakeholder duyệt bản tóm tắt baseline hoặc ủy quyền rõ cho AI tự chọn các quyết định có thể đảo ngược.
+- Problem, target users, outcomes, and success metrics are clear.
+- In-scope/out-of-scope definitions, release boundaries, and priorities are clear.
+- Stakeholders, approvers, and escalation paths are clear.
+- Core workflows and their edge cases are fully described.
+- Targets are defined for data, integrations, NFRs, security/compliance, and operations.
+- Assumptions, dependencies, risks, and open decisions have owners/deadlines.
+- Acceptance and handover expectations are clear.
+- Stakeholders approve the baseline summary or explicitly delegate authority to the AI for reversible decisions.
 
-Sau khi chốt, chuyển câu trả lời thành BR/FR/NFR/UC/US và RTM; không để discovery log là nguồn yêu cầu duy nhất.
+Once finalized, translate responses into BR/FR/NFR/UC/US items and the RTM; do not leave the discovery log as the sole source of requirements.

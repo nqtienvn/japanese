@@ -11,7 +11,7 @@ last_verified: "2026-07-18"
 ---
 # Readiness dashboard
 
-Điền dashboard từ evidence, không suy ra coverage từ cột Status trong `PROJECT_STATE.md`.
+Populate the dashboard from concrete evidence; do not infer coverage solely from the Status column in `PROJECT_STATE.md`.
 
 | Gate | Required evidence | Coverage formula | Current |
 | :--- | :--- | :--- | :--- |

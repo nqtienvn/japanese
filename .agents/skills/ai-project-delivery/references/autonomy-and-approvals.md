@@ -1,75 +1,78 @@
 # Autonomy and approvals
 
-## Mục lục
+## Table of Contents
 
-1. Chế độ tự động
-2. Được tự làm
-3. Phải xin phê duyệt
-4. Xử lý thiếu thông tin
-5. Yêu cầu con người hỗ trợ
-6. Dừng và bàn giao
+1. Autonomy Modes
+2. Permitted Autonomous Actions
+3. Approval-Only Actions
+4. Handling Missing Information
+5. Requesting Human Assistance
+6. Waiting, Halting, and Handover
 
-## 1. Chế độ tự động
+## 1. Autonomy Modes
 
-| Mode | Cách vận hành |
+| Mode | Operations |
 | :--- | :--- |
-| `GUIDED` | Hỏi trước các quyết định sản phẩm/kỹ thuật quan trọng; vẫn tự làm bước local hiển nhiên. |
-| `STANDARD` | Tự quyết lựa chọn local, có thể đảo ngược; hỏi khi trade-off ảnh hưởng scope/cost/risk. |
-| `FULL-LOCAL` | Sau baseline, tự đi hết các phase bằng phán đoán tốt nhất; chỉ dừng ở approval-only hoặc blocker thật. |
+| `GUIDED` | Ask before critical product/technical decisions; continue executing obvious local steps autonomously. |
+| `STANDARD` | Autonomously decide reversible local choices; ask when trade-offs impact scope/cost/risk. |
+| `FULL-LOCAL` | After the baseline, progress through all phases autonomously using best judgment; pause only dependent actions for pending decisions, approval-only actions, or actual blockers. |
 
-Nếu chưa chọn, mặc định `FULL-LOCAL` sau khi baseline được chốt; trước baseline AI vẫn tự làm mọi bước read-only/local/reversible phục vụ discovery và audit. Ghi mode vào `PROJECT_PROFILE.md`.
+If unselected, the default mode is `FULL-LOCAL` after the baseline is established; prior to the baseline, the AI still executes read-only/local/reversible steps to support discovery and audits. Document the active mode in `PROJECT_PROFILE.md`.
 
-## 2. Được tự làm sau baseline
+## 2. Permitted Autonomous Actions after Baseline
 
-- Đọc repository, tài liệu, log và cấu hình trong phạm vi.
-- Tạo/cập nhật tài liệu phase, source code, test, cấu hình development và script local.
-- Chạy build, lint, unit/integration test an toàn và công cụ phân tích tĩnh.
-- Tạo dữ liệu test giả, migration chưa chạy production, release notes và rollback plan.
-- Chọn naming, cấu trúc file và library đã được project cho phép khi có thể đảo ngược.
-- Sửa lỗi trong phạm vi, refactor cần thiết và cập nhật traceability.
-- Auto-advance phase gate khi đủ evidence.
+- Read the repository, documentation, logs, and configurations within scope.
+- Create/update phase documents, source code, tests, development configurations, and local scripts.
+- Run builds, lint, safe unit/integration tests, and static analysis tools.
+- Create synthetic test data, non-production migrations, release notes, and rollback plans.
+- Choose naming, file structures, and libraries approved by the project when they are reversible.
+- Fix bugs within scope, perform necessary refactoring, and update traceability.
+- Auto-advance phase gates once sufficient evidence is compiled.
 
-### Evidence-first loop trước khi hỏi
+### Evidence-first loop before asking
 
-AI phải kiểm tra lần lượt các nguồn applicable sau và ghi nguồn đã dùng khi tạo assistance request:
+The AI must check the following applicable sources in order and record the sources used when creating an assistance request:
 
-1. Repository instructions, code graph, source, config, migration, tests và Git evidence.
-2. Project documents, decision log, traceability, runbook và prior execution evidence.
-3. Runtime/build/log an toàn, local reproduction và reversible experiment.
-4. Official specification/documentation và current security advisory khi dữ kiện có thể thay đổi.
-5. Existing convention, maintained ecosystem primitive và option có thể đảo ngược.
+1. Repository instructions, code graphs, source code, configurations, migrations, tests, and Git evidence.
+2. Project documents, decision logs, traceability mappings, runbooks, and prior execution evidence.
+3. Safe runtime/build logs, local reproduction, and reversible experiments.
+4. Official specifications/documentation and current security advisories when data may change.
+5. Existing conventions, maintained ecosystem primitives, and reversible options.
 
-Nếu một implementation choice có thể được chứng minh hoặc sửa lại local, AI tự chọn, ghi rationale rồi tiếp tục. Preference kỹ thuật không phải câu hỏi stakeholder trừ khi nó thay đổi material scope/cost/risk/contract.
+If an implementation choice can be proven or resolved locally, the AI decides autonomously, records the rationale, and proceeds. Technical preferences are not questions for stakeholders unless they alter material scope, cost, risk, or contracts.
 
-## 3. Phải xin phê duyệt riêng
+## 3. Approval-Only Actions
 
-- Deploy hoặc thay đổi production/staging dùng chung khi chưa được ủy quyền cụ thể.
-- Xóa, migrate hoặc biến đổi dữ liệu thật có khả năng mất mát/khó phục hồi.
-- Mua dịch vụ, bật billing, tạo tài nguyên trả phí hoặc thay đổi budget.
-- Gửi email/tin nhắn, mở PR công khai, publish package/site/app hoặc liên hệ bên thứ ba.
-- Thay đổi authentication/authorization, mã hóa, retention hoặc compliance theo hướng giảm bảo vệ.
-- Truy cập/xuất dữ liệu nhạy cảm ngoài phạm vi, dùng credential người dùng hoặc secret chưa được cấp an toàn.
-- Thay đổi mục tiêu, deadline, scope, UX chủ đạo hoặc SLA theo cách ảnh hưởng stakeholder.
-- Chấp nhận High residual risk, bỏ qua test bắt buộc hoặc bàn giao với lỗi blocking. Critical security risk không được chấp nhận để release.
+- Deploying or modifying shared production/staging environments without specific authorization.
+- Deleting, migrating, or transforming real data with potential loss or high recovery difficulty.
+- Purchasing services, enabling billing, creating paid resources, or changing budgets.
+- Sending emails/messages, opening public PRs, publishing packages/sites/apps, or contacting third parties.
+- Modifying authentication/authorization, encryption, retention, or compliance controls to reduce protection.
+- Accessing/exporting sensitive data out of scope, using user credentials, or using secrets not provisioned securely.
+- Modifying objectives, deadlines, scope, core UX, or SLAs in a way that impacts stakeholders.
+- Accepting High residual risks, skipping mandatory tests, or handing over with blocking defects. Critical security risks are never accepted for release.
 
-## 4. Xử lý thiếu thông tin
+## 4. Handling Missing Information
 
-1. Tự tìm bằng chứng trong repository/tài liệu trước.
-2. Nếu là lựa chọn local có thể đảo ngược, ghi `ASSUMED`, lý do và cách đổi; tiếp tục.
-3. Nếu ảnh hưởng hành vi sản phẩm hoặc rủi ro đáng kể, hỏi stakeholder bằng câu ngắn có khuyến nghị.
-4. Nếu stakeholder chọn `Unknown`, gắn owner/hạn và đánh giá phase gate.
-5. Không giả định sự đồng ý cho hành động approval-only.
+1. Proactively search for evidence in the repository/documentation first.
+2. The AI SHALL NOT silently guess under ambiguity, lack of concrete evidence, or lack of clear steps.
+3. For an ordinary, non-blocking, reversible choice, state a recommended option, enter a five-minute confirmation wait, and pause only the dependent action. If no response arrives after at least five minutes, proceed only with the stated recommendation and record it as a reversible decision.
+4. If stakeholders select 'Unknown', assign an owner/deadline and evaluate the phase gate.
+5. Do not assume consent for approval-only actions.
 
-## 5. Yêu cầu con người hỗ trợ
+## 5. Requesting Human Assistance
 
-- Không chuyển việc cho Client chỉ vì khó, nhiều bước hoặc lâu.
-- Chỉ yêu cầu hỗ trợ theo `00-Governance-Policy/HUMAN_AI_COLLABORATION_PROTOCOL.md`: material decision, access/credential, manual/physical action, approval-only, professional sign-off hoặc cùng blocker sau ít nhất 3 phương án khác nhau không có evidence mới.
-- Trước khi hỏi, ghi assistance ID/trigger, evidence, attempts, exact blocker, impact, thao tác nhỏ nhất, output cần trả lại, owner/due và phần AI vẫn tiếp tục được.
-- Không yêu cầu secret value qua chat; chỉ yêu cầu owner cấu hình qua kênh an toàn và trả lại reference/status.
-- Không yêu cầu con người viết code, refactor Java sang ngôn ngữ khác, chọn package/framework, đọc repository hoặc chạy local test thay AI.
-- Với stakeholder interview, chỉ hỏi intent, business semantics, authority, measurable acceptance hoặc material trade-off không thể suy ra; hỏi theo đợt 5–12 câu.
-- Verify kết quả con người cung cấp, cập nhật state/decision/RTM rồi tự động resume.
+- Do not offload work to the Client simply because it is difficult, multi-step, or time-consuming.
+- Only request assistance in accordance with `00-Governance-Policy/HUMAN_AI_COLLABORATION_PROTOCOL.md` (or when encountering ambiguous details that cannot be resolved via local evidence).
+- Before asking or requesting assistance, classify the request as `ORDINARY-TIMEBOXED` or `EXPLICIT-APPROVAL-REQUIRED`. Pause only the dependent action; keep safe local services and independent work running, and prevent parallel work from executing or prejudging the pending decision.
+- For `ORDINARY-TIMEBOXED`, state the recommendation, rationale, five-minute deadline, paused action, safe work continuing, and fallback. After the deadline, use only that stated recommendation and record the outcome.
+- For `EXPLICIT-APPROVAL-REQUIRED`, wait for an explicit response regardless of elapsed time. This includes external state changes, account permissions/access, sensitive-data transmission, destructive or hard-to-reverse actions, deployment/publishing, billing/cost, security/compliance changes, and risk acceptance.
+- Record request details including: assistance ID/trigger, decision class, evidence, attempts, exact blocker, impact, minimal manual action, recommendation, confirmation deadline, timeout fallback, safe work continuing, expected output, and owner/due.
+- Do not request secret values via chat; only request the owner to configure them via secure channels and return the reference/status.
+- Do not request humans to write code, refactor Java to other languages, select packages/frameworks, inspect the repository, or run local tests for the AI.
+- For stakeholder interviews, only ask about intent, business semantics, authority, measurable acceptance, or material trade-offs that cannot be inferred; batch questions in groups of 5–12.
+- Verify outcomes provided by humans, update the state/decision/RTM, and then resume execution.
 
-## 6. Dừng và bàn giao
+## 6. Waiting, Halting, and Handover
 
-Khi bị chặn, nêu chính xác điều thiếu, bằng chứng đã kiểm tra, các phương án và tác động. Khi hoàn tất, nêu deliverables, test/build evidence, residual risks, open items, vận hành/rollback và nơi chứa artifact.
+When waiting, preserve the dependent action without shutting down healthy local services unless safety, cost, or correctness requires it. When blocked, state precisely what is missing, evidence inspected, alternatives, and impact. Upon completion, summarize deliverables, test/build evidence, residual risks, open items, operation/rollback, and artifact locations.

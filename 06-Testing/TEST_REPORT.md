@@ -40,7 +40,7 @@ last_verified: "{{DATE}}"
 | Security/Performance/Recovery | 0 | 0 | 0 | 0 | 0 | 0 | 0 | {{REPORT}} |
 | **Total** | **0** | **0** | **0** | **0** | **0** | **0** | **0** | {{REPORT}} |
 
-Ghi rõ `Total Cases`, `Executed`, `Passed`, `Failed`, `Blocked`, `Skipped`, `Not Run` và công thức pass rate; tổng các trạng thái phải reconcile với test inventory hoặc có giải thích.
+Clearly document 'Total Cases', 'Executed', 'Passed', 'Failed', 'Blocked', 'Skipped', 'Not Run', and the pass rate formula used; the sum of all states must reconcile with the test inventory or include a clear explanation.
 
 ## Requirement/risk coverage
 
@@ -55,7 +55,7 @@ Ghi rõ `Total Cases`, `Executed`, `Passed`, `Failed`, `Blocked`, `Skipped`, `No
 | Critical | 0 | 0 | 0 | — |
 | High | 0 | 0 | 0 | — |
 
-## Environment và limitations
+## Environment and limitations
 
 - Environment/config/data: {{DETAIL}}
 - Not tested/limitations: {{LIMITATIONS}}

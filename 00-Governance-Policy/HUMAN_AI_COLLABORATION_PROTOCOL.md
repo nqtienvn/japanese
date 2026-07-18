@@ -20,15 +20,25 @@ This protocol defines when the AI Delivery Vendor must proceed independently, wh
 - `COL-001`: The AI **SHALL** execute local, reversible changes within the approved scope autonomously.
 - `COL-002`: The AI **SHALL NOT** offload tasks to humans simply because they are difficult, multi-step, or time-consuming.
 - `COL-003`: Before asking a question, the AI **SHALL** search for evidence in the repository, documents, configurations, and results of permitted tools.
-- `COL-004`: The AI **MAY** proceed with local, reversible assumptions, provided it clearly documents the assumptions, evidence, risks, and rollback plans.
+- `COL-004`: The AI **SHALL NOT** silently guess when evidence is insufficient. For an ordinary, local, reversible choice, it **SHALL** state a recommended option and use the confirmation-wait process below. Material ambiguity and approval-only actions require an explicit human decision.
 - `COL-005`: The AI **SHALL** request human decisions when choices materially impact product behavior, scope, cost, deadlines, database state, security/privacy controls, compliance, or acceptance criteria.
 - `COL-006`: The AI **SHALL** verify results provided by humans before using them as completion evidence.
-- `COL-007`: Once a blocker is resolved, the AI **SHALL** resume work automatically from the state recorded in `PROJECT_STATE.md`.
+- `COL-007`: When requesting assistance or asking a clarifying question, the AI **SHALL** pause only the action that depends on the answer. It **SHALL** keep safe local services and independent in-scope work running, while preventing background or parallel agents from executing or prejudging the pending decision.
 - `COL-008`: The AI **SHALL** inspect the code graph, sources, configurations, tests, and decision evidence before asking for implementation details.
 - `COL-009`: The AI **SHALL** check official, current reference documentation for technical facts that may change over time.
-- `COL-010`: The AI **SHALL** select local, reversible options when evidence is sufficient.
+- `COL-010`: The AI **SHALL** select local, reversible options only when concrete, unambiguous evidence is sufficient, and **SHALL NOT** guess or speculate.
 - `COL-011`: The AI **SHALL NOT** request humans to refactor code to another language on its behalf.
 - `COL-012`: Stakeholder questions **SHALL** focus on intent, authority, material trade-offs, or acceptance criteria that cannot be inferred.
+- `COL-013`: For an ordinary, non-blocking, reversible decision, the AI **MAY** proceed after a five-minute confirmation window only with the recommendation explicitly stated before the wait began. It **SHALL** record the deadline, fallback, and resulting decision.
+- `COL-014`: A timeout **SHALL NEVER** imply approval for external state changes, account permissions/access, sensitive-data transmission, destructive or hard-to-reverse actions, deployment/publishing, billing/cost, security/compliance changes, legal/professional sign-off, or risk acceptance. These actions **REQUIRE** explicit approval.
+
+### Confirmation-Wait State
+
+1. Classify the request as either `ORDINARY-TIMEBOXED` or `EXPLICIT-APPROVAL-REQUIRED`.
+2. For `ORDINARY-TIMEBOXED`, state the recommendation, concise rationale, exact five-minute deadline, dependent action being paused, safe work that will continue, and timeout fallback.
+3. Do not shut down healthy local services merely because a decision is pending. Continue only work that cannot constrain, bypass, or invalidate the Client's answer.
+4. If no response arrives after at least five minutes, execute only the previously stated recommendation, then record it as a timeboxed `DEC-XXX` or reversible assumption with rollback instructions.
+5. For `EXPLICIT-APPROVAL-REQUIRED`, pause the dependent action until the Client responds explicitly. Continue safe independent work when available, but do not use elapsed time, silence, or a recommendation as consent.
 
 ## 3. Permitted Assistance Request Triggers
 
@@ -66,6 +76,7 @@ Every assistance request must contain:
 
 ```text
 Assistance ID / Trigger:
+Decision class: ORDINARY-TIMEBOXED / EXPLICIT-APPROVAL-REQUIRED
 Work item / requirement:
 Desired outcome:
 Checked evidence:
@@ -73,10 +84,14 @@ Attempted solutions and results:
 Exact blocker:
 Impact if unresolved:
 Smallest human action required:
+Recommended option and rationale:
+Confirmation deadline: exact timestamp, at least five minutes for ORDINARY-TIMEBOXED / none for EXPLICIT-APPROVAL-REQUIRED
+Dependent action paused:
+Safe services/work continuing:
+Timeout fallback: stated recommendation / NONE — explicit approval required
 Security Warning: Do not send raw secrets/production data in chat.
 Expected result / references to return:
 Owner / due date:
-Work the AI can continue doing in the meantime:
 ```
 
 Do not request the Client to complete an entire work item if only a single decision, permission, or small manual step is missing.
@@ -89,6 +104,8 @@ Do not request the Client to complete an entire work item if only a single decis
 | **Access/secret** | Store references or owners only; do not read back or write raw values into logs or artifacts. |
 | **Manual action** | Request minimal evidence; verify using appropriate tests, logs, or state changes. |
 | **Sign-off** | Record the approver, scope, version, date, and any conditions. |
+| **No response — ordinary timeboxed decision** | After at least five minutes, apply only the pre-stated recommendation; record the timestamp, rationale, rollback, and `DEC-XXX` or assumption. |
+| **No response — explicit approval required** | Keep the dependent action pending. Continue only safe independent work; do not treat silence as consent. |
 | **Assistance unavailable** | Propose options, workarounds, deferral, or exceptions with detailed impacts and risks. |
 
 Human action does not automatically mean `Done`. A gate only passes when the corresponding evidence is verified or an approved exception is documented.

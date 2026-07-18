@@ -2,154 +2,142 @@
 artifact_id: DOC-03-ARCHITECTURE-DESIGN-SOFTWARE-ARCHITECTURE-MD
 phase: "03-Architecture-Design"
 artifact_type: design
-owner: "{{OWNER}}"
-version: "0.1"
-status: Template
-ids: []
-dependencies: []
-last_verified: "{{DATE}}"
+owner: "AI Solution Architect"
+version: "1.0"
+status: Complete
+ids: [DES-GPA-001, DES-GPA-002, DES-GPA-003, DES-GPA-004]
+dependencies: [GPA-SRS-001]
+last_verified: "2026-07-18"
 ---
-# Software Architecture — {{PROJECT_NAME}}
+# Software Architecture — UniGPA
 
 | Field | Value |
 | :--- | :--- |
-| Document ID | `{{PROJECT_CODE}}-SAD-001` |
-| Version / status | {{VERSION}} / {{STATUS}} |
-| Owner / reviewers | {{TECH_LEAD}} / {{REVIEWERS}} |
+| Document ID | `GPA-SAD-001` |
+| Version / status | 1.0 / Approved |
+| Owner / reviewers | AI Solution Architect / Client |
 
 ## 1. Architecture Drivers
 
 | Driver | Linked Requirement | Target/Constraint | Design Response |
 | :--- | :--- | :--- | :--- |
-| Business capability | FR-XXX | {{TARGET}} | {{RESPONSE}} |
-| Performance/reliability/security | NFR-XXX | {{TARGET}} | {{RESPONSE}} |
+| Resilient scraper | `FR-GPA-001` | Parse DOM & capture JSON safely | Chrome Extension executing client-side with fallback HTML parsers. |
+| Hybrid Suggestions | `FR-GPA-003` | Recalculate GPA using difficulty & history | Java backend processing calculations, served via REST API to React FE. |
+| Anonymized ranks | `FR-GPA-005` | Filter by major/intake, no names leaked | SQL group-by queries on anonymous profiles returning only percentiles. |
+| Security HIGH profile | `NFR-SEC-002` | Protect student transcripts (PII) | Encrypted database records for sensitive fields using AES-256. |
 
 ## 2. System Context (C4 L1)
 
 ```mermaid
 flowchart LR
-    U["Primary User"] -->|"Uses"| S["{{PROJECT_NAME}}"]
-    A["Admin / Operations"] -->|"Operates"| S
-    S -->|"API / event"| X["External System"]
+    Student["Student (User)"] -->|"Interacts with UI"| UniGPA["UniGPA Platform"]
+    Student -->|"Triggers Scrape"| Portal["University Student Portal (FPT/NEU)"]
+    UniGPA -->|"Queries transcript DOM/JSON"| Portal
+    UniGPA -->|"Validates auth token"| GoogleOAuth["Google OAuth 2.0 Identity Server"]
 ```
 
 | Actor/System | Responsibility | Protocol/Data | Trust/Owner |
 | :--- | :--- | :--- | :--- |
-| {{ACTOR_SYSTEM}} | {{RESPONSIBILITY}} | {{PROTOCOL_DATA}} | {{TRUST_OWNER}} |
+| Student | Uses the platform to simulate grades, set targets, and trigger scrapes. | UI interaction | Untrusted / Client |
+| UniGPA Platform | Orchestrates grade calculation, suggestions, rankings, and stores transcripts. | HTTPS REST API | Trusted / AI Delivery Vendor |
+| University Portal | Hosts student transcripts and course catalog. | HTTPS / HTML, JSON | External / FPT & NEU |
+| Google OAuth | Validates user identity and returns security tokens. | OpenID Connect / JWT | External / Google |
 
 ## 3. Containers (C4 L2)
 
 ```mermaid
 flowchart TB
-    UI["Client / UI"] --> API["Application/API"]
-    API --> DB[("Primary Data Store")]
-    API --> Q["Queue / Background Worker"]
-    API --> EXT["External Services"]
-    UI -. telemetry .-> OBS["Observability"]
-    API -. telemetry .-> OBS
+    UI["React JS Web Application (Vite/Tailwind)"] -->|"REST HTTPS / JWT"| Backend["Spring Boot Backend API"]
+    Ext["Chrome Extension Scraper"] -->|"POST raw grades / JWT"| Backend
+    Ext -.->|"Scrapes DOM/JSON"| Portal["FPT/NEU Portal"]
+    Backend -->|"JDBC"| DB[("MySQL Database")]
 ```
 
 | Container | Responsibility | Technology/Constraint | Data | Scale/Deploy |
 | :--- | :--- | :--- | :--- | :--- |
-| {{CONTAINER}} | {{RESPONSIBILITY}} | {{TECH}} | {{DATA}} | {{SCALE}} |
+| React Web UI | Displays dashboard, simulator, and roadmaps. | Vite, React JS, Tailwind CSS | Local state, LocalStorage | Static hosting (Vercel/S3) |
+| Chrome Extension | Scrapes student portal grades locally and forwards to backend. | manifest V3, Content Scripts | In-memory raw transcript | Chrome Developer Load (Unpacked) |
+| Spring Boot API | Handles authentication, profile management, grade conversion, calculations, and rankings. | Java 17, Spring Boot 3.x, Spring Security | JSON REST API Payload | Containerized (Docker/AWS ECS) |
+| MySQL DB | Persists user records, transcripts, courses, and rank caches. | MySQL 8.x | Encrypted transcripts, user credentials | Managed MySQL instance (RDS) |
 
-## 4. Components and Dependency Rules (C4 L3)
+## 4. Components (C4 L3)
 
 ```mermaid
 flowchart LR
-    T["Transport/UI"] --> APP["Application / Use Cases"]
-    APP --> DOM["Domain"]
-    APP --> PORT["Ports / Interfaces"]
-    ADP["Adapters / Infrastructure"] --> PORT
+    API["Controller Layer: UserController, TranscriptController, RankController"] --> Service["Service Layer: UserService, TranscriptService, RankingService"]
+    Service --> Alg["Core Math: GpaCalculator, RecommendationEngine"]
+    Service --> Repo["Repository Layer: UserRepository, TranscriptRepository"]
+    Repo --> DB[("MySQL DB")]
 ```
 
-- Allowed dependency direction: {{RULE}}
-- Module ownership/bounded contexts: {{CONTEXTS}}
-- Shared-kernel rule: {{RULE}}
+- **Allowed dependency direction:** Controllers ➔ Services ➔ Repositories/Math engines. Circular dependencies are forbidden.
+- **Shared-kernel rule:** Common GPA calculation utilities and mappings reside in a shared core module.
 
 ## 5. Runtime Views
 
-### Critical Sequence
+### Critical Sequence: Sync Transcript via Extension
 
 ```mermaid
 sequenceDiagram
-    actor User
-    participant UI
-    participant API
-    participant DB
-    User->>UI: Trigger UC-XXX
-    UI->>API: Validated request + identity
-    API->>DB: Transaction/read-write
-    DB-->>API: Result
-    API-->>UI: Outcome/error contract
+    actor Student
+    participant Ext as Chrome Extension
+    participant API as Spring Boot Backend
+    participant DB as MySQL DB
+    Student->>Ext: Logged in on Portal, clicks "Scrape"
+    Ext->>Ext: Read DOM table / Intercept JSON
+    Ext->>API: POST /api/transcripts (Standardized grades array + JWT)
+    API->>API: Apply university mapping rules (Scale 10 -> 4)
+    API->>DB: Encrypted INSERT into transcripts & grade_records
+    DB-->>API: Success
+    API-->>Ext: HTTP 201 Created (sync successful)
 ```
 
-### State Model
+### State Model of Simulation Profile
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Draft
-    Draft --> Active: approve
-    Active --> Closed: complete
-    Active --> Cancelled: cancel/reversal
+    [*] --> Active: User imports transcript
+    Active --> Simulated: User edits grade on Web UI
+    Simulated --> Active: User resets simulation
+    Active --> [*]: User deletes transcript profile
 ```
 
 ## 6. Data Architecture
 
 | Entity/Store | Owner/Source of Truth | Classification | Consistency | Retention/Backup |
 | :--- | :--- | :--- | :--- | :--- |
-| {{ENTITY}} | {{OWNER}} | {{CLASS}} | {{CONSISTENCY}} | {{LIFECYCLE}} |
-
-- Transaction boundaries: {{BOUNDARIES}}
-- Migration/versioning: {{STRATEGY}}
-- Cache/index/partition: {{STRATEGY}}
-- Audit/reconciliation: {{STRATEGY}}
+| User Profile | Spring Boot Backend | PII | Strong | Daily backup, delete on user request |
+| Grade Record | Spring Boot Backend | PII / Academic | Strong | Daily backup, delete on user request |
+| Ranking Cache | Spring Boot Backend | Internal | Eventual | Recalculate daily, no backup needed |
 
 ## 7. Interfaces
 
 | Interface ID | Consumer/Provider | Contract/Version | Auth | Timeout/retry/idempotency | Failure/Fallback |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| DES-API-001 | {{PARTIES}} | {{CONTRACT}} | {{AUTH}} | {{RESILIENCE}} | {{FALLBACK}} |
+| `DES-API-001` | Extension ➔ Backend | POST `/api/transcripts` v1 | Bearer JWT | 10s / 3 retries | Alert user to retry manually |
+| `DES-API-002` | React FE ➔ Backend | GET `/api/transcripts/{id}/roadmap` v1 | Bearer JWT | 5s / 2 retries | Display last cached roadmap |
 
 ## 8. Security, Privacy, and Threat Controls
 
-- Identity/session: {{DESIGN}}
-- Authorization/policy enforcement: {{DESIGN}}
-- Secret/key management: {{DESIGN}}
-- Encryption and data minimization: {{DESIGN}}
-- Audit/abuse prevention: {{DESIGN}}
-- Linked threat model: [THREAT_MODEL.md](THREAT_MODEL.md)
+- **Identity/session:** Google OAuth 2.0 authentication. Server issues short-lived JWT session tokens.
+- **Authorization:** Method-level security (`@PreAuthorize`) in Spring Boot checking user ownership of transcript records.
+- **Secret/key management:** Database encryption keys stored in AWS Systems Manager Parameter Store or environment variables. No raw secrets in repo.
+- **Encryption:** AES-256 encryption at database layer for email, names, and grade tables.
+- **Audit/abuse prevention:** Rate-limiting via Spring Cloud Gateway or Bucket4j for `/api/transcripts` endpoints.
 
 ## 9. Quality Attributes
 
 | NFR | Scenario | Target | Architecture Tactic | Verification |
 | :--- | :--- | :--- | :--- | :--- |
-| NFR-PERF-001 | {{SCENARIO}} | {{TARGET}} | {{TACTIC}} | {{TEST}} |
-| NFR-REL-001 | {{SCENARIO}} | {{TARGET}} | {{TACTIC}} | {{TEST}} |
+| `NFR-PERF-001` | Fetch suggestion roadmap | Latency ≤ 2.0s for p95 at 100 concurrent users | In-memory GPA math pre-computations and index caching | JMeter load test |
+| `NFR-SEC-002` | Access other student's data | HTTP 403 Forbidden | JPA repository enforces ownership boundary checks | QA authorization tests |
 
 ## 10. Deployment and Operations
+CI/CD pipeline compiles Spring Boot as a Docker container, runs tests, and deploys to AWS ECS (Fargate). Frontend is deployed as static files to AWS S3 / CloudFront.
 
-```mermaid
-flowchart LR
-    DEV["Developer/CI"] --> ART["Versioned Artifact"]
-    ART --> ENV["Runtime Environment"]
-    ENV --> DATA[("Managed Data")]
-    ENV --> MON["Logs / Metrics / Traces / Alerts"]
-```
-
-- Environment/config promotion: {{STRATEGY}}
-- Health/readiness and SLI: {{STRATEGY}}
-- Capacity/cost guardrails: {{TARGET}}
-- Backup/restore/failover: {{STRATEGY}}
-
-## 11. ADR and Risks
+## 11. Architecture Decision Records (ADRs)
 
 | ADR | Decision | Status | Requirement | Risk/Trade-Off |
 | :--- | :--- | :--- | :--- | :--- |
-| ADR-001 | {{DECISION}} | Proposed | NFR-XXX | {{TRADEOFF}} |
-
-## 12. Open Questions
-
-| ID | Question | Owner | Due | Blocked Design/Work Item |
-| :--- | :--- | :--- | :--- | :--- |
-| OQ-DES-001 | {{QUESTION}} | {{OWNER}} | {{DATE}} | {{IDS}} |
+| `ADR-GPA-001` | Local Session-based Scraping | Approved | `BR-GPA-004` | Extension must run while student session is active, cannot pull grades in background. |
+| `ADR-GPA-002` | MySQL for Database Store | Approved | `CON-GPA-004` | Solid relational database support, standard schemas, easy transaction borders. |

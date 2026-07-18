@@ -1,59 +1,59 @@
 # Brownfield workflow
 
-## Mục lục
+## Table of Contents
 
-1. Bảo vệ hiện trạng
+1. Preserve Current State
 2. Audit
-3. Tái dựng hành vi
+3. Reconstruct Existing Behavior
 4. Gap analysis
-5. Tiếp tục delivery
+5. Continue Delivery
 
-## 1. Bảo vệ hiện trạng
+## 1. Preserve Current State
 
-- Đọc `AGENTS.md` và hướng dẫn repository trước.
-- Kiểm tra git/worktree và coi mọi thay đổi chưa rõ là của người dùng.
-- Không reset, xóa, overwrite hoặc format hàng loạt.
-- Ghi commit/ref hiện tại nếu có; không tự commit/push khi chưa được yêu cầu.
-- Không chạy script/migration không rõ tác dụng trước khi đọc.
+- Read `AGENTS.md` and repository guidelines first.
+- Check git/worktree and treat any unrecognized changes as user-originated.
+- Do not perform bulk resets, deletions, overwrites, or formatting.
+- Document the current commit/ref if available; do not commit/push without explicit request.
+- Do not execute scripts/migrations of unknown intent without reading them first.
 
 ## 2. Audit
 
-Thu thập bằng chứng theo thứ tự:
+Gather evidence in the following order:
 
-1. Cấu trúc repository, manifest, language/framework, entry point.
-2. README, ADR, SRS, issue notes, CI/CD, container/infra config.
-3. Module, route/API, data model/migration, integration và auth boundary.
-4. Build/lint/test commands và trạng thái gần nhất.
-5. TODO/FIXME, disabled/skipped tests, feature flags, mock/stub, secret/config gaps.
-6. Git history/recent changes khi có ích và được phép đọc.
-7. Runtime/log evidence an toàn nếu có.
+1. Repository structure, manifests, language/framework, and entry points.
+2. README, ADRs, SRS, issue notes, CI/CD, and container/infra configs.
+3. Modules, routes/APIs, data models/migrations, integrations, and authentication boundaries.
+4. Build/lint/test commands and recent status.
+5. TODO/FIXME, disabled/skipped tests, feature flags, mocks/stubs, and secret/config gaps.
+6. Git history/recent changes when useful and authorized.
+7. Safe runtime/log evidence if available.
 
-Khi graph codebase khả dụng, index nếu cần rồi dùng graph để tìm symbol, caller, dependency và architecture. Dùng text search cho literal/config/non-code.
+When codebase graphs are available, index if necessary and use the graph to discover symbols, callers, dependencies, and architecture. Use text search for literals, config files, and non-code documentation.
 
-Có thể chạy `scripts/audit_project.ps1 -ProjectRoot <path>` để lấy inventory ban đầu; xem output như gợi ý, không phải kết luận.
+You can run `scripts/audit_project.ps1 -ProjectRoot <path>` to obtain the initial inventory; treat the output as recommendations, not final conclusions.
 
-## 3. Tái dựng hành vi
+## 3. Reconstruct Existing Behavior
 
-- Mô tả “as-is” từ code/test, tách khỏi “to-be” trong tài liệu.
-- Lập bản đồ module → capability → route/UI → data → integration → test.
-- Đánh dấu hành vi có test, chỉ được suy luận, hoặc chưa biết.
-- Tạo characterization test cho hành vi quan trọng thiếu bảo vệ trước khi refactor.
-- Không đổi hành vi chỉ để khớp tài liệu cũ; đưa mâu thuẫn ra quyết định.
+- Describe the "as-is" state from code/tests, keeping it separate from the "to-be" specifications in documentation.
+- Map modules → capabilities → routes/UIs → data → integrations → tests.
+- Identify behaviors as tested, inferred, or unknown.
+- Create characterization tests for critical behaviors lacking protection before refactoring.
+- Do not modify behavior simply to match old documentation; raise contradictions for decisions.
 
 ## 4. Gap analysis
 
-Ghi vào `01-Planning/BROWNFIELD_AUDIT.md`:
+Record in `01-Planning/BROWNFIELD_AUDIT.md`:
 
-| Gap | Expected | Evidence hiện tại | Risk | Hành động | Phase |
+| Gap | Expected | Current Evidence | Risk | Action | Phase |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 
-Phân loại: missing, partial, contradictory, obsolete, unverified, unsafe. Xác định gate đầu tiên chưa đạt và critical path. Chỉ hỏi stakeholder các phần không thể chứng minh: mục tiêu hiện tại, ưu tiên, hành vi mong muốn, constraint, acceptance và quyết định lịch sử còn tác động.
+Classification: missing, partial, contradictory, obsolete, unverified, unsafe. Determine the first unmet gate and the critical path. Only query stakeholders for aspects that cannot be proven: current objectives, priorities, desired behaviors, constraints, acceptance criteria, and historical decisions that still impact the project.
 
-## 5. Tiếp tục delivery
+## 5. Continue Delivery
 
-1. Chốt baseline “as-is + target delta”.
-2. Giữ trace ID cũ nếu ổn định; tạo mapping khi phải đổi.
-3. Sửa rủi ro Critical/High cản trở delivery trước hoặc xin chấp nhận.
-4. Tiếp tục từ gate đầu tiên chưa đạt, nhưng cập nhật artifact phase trước khi code nếu chúng thiếu.
-5. Verify regression, migration, rollback và compatibility.
-6. Bàn giao cả phần đã có, phần mới làm, phần chưa xác minh và tech debt còn lại.
+1. Establish the baseline for "as-is + target delta".
+2. Retain old traceability IDs if stable; create a mapping if they must change.
+3. Address Critical/High risks blocking delivery first or obtain approved risk acceptance.
+4. Continue from the first unmet gate, but update missing phase artifacts before implementing code.
+5. Verify regressions, migrations, rollbacks, and compatibility.
+6. Hand over existing parts, newly implemented features, unverified components, and remaining technical debt.

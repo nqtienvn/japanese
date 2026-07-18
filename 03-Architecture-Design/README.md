@@ -11,36 +11,36 @@ last_verified: "{{DATE}}"
 ---
 # Phase 03 — Architecture & Design
 
-## Mục tiêu
+## Objective
 
-Chuyển requirements thành thiết kế đủ để code và verify: system context, container/component, domain/data, API/event, state/sequence, UX, security/privacy, observability, capacity và failure handling. Quyết định trade-off phải có ADR.
+Translate requirements into detailed designs sufficient for coding and verification: system context, container/component architecture, domain/data models, API/events, state/sequence flows, UX, security/privacy, observability, capacity, and failure handling. Trade-off decisions must have a corresponding ADR.
 
-## Artifact
+## Artifacts
 
-- `SOFTWARE_ARCHITECTURE.md`: kiến trúc tổng thể và các quality attribute.
-- `DATA_MODEL_ERD.md`: ERD, data dictionary, relationship/integrity, classification và migration.
-- `API_SPECIFICATION.md`: API/event/communications contracts, errors, auth, idempotency và compatibility.
-- `ADR_TEMPLATE.md`: quyết định kiến trúc có context/options/consequences.
-- `ENGINEERING_DESIGN_SPEC.md`: thiết kế cho module/vertical slice.
-- `DESIGN_REVIEW.md`: checklist, finding và sign-off.
-- `THREAT_MODEL.md`: asset, trust boundary, threat và mitigation.
-- `DOMAIN_MODEL.md`: bounded context, aggregate, invariant, state và domain event.
-- `PERMISSION_MATRIX.md`: role/resource/action/scope, deny-by-default và privileged controls.
-- `ASVS_MAPPING.md`: map security controls tới versioned ASVS verification items.
-- `SECURITY_ADOPTION_RECORD.md`: quyết định adopt/adapt/reject/N/A cho từng snapshot component hoặc cross-language equivalent.
-- `UI_UX_SPECIFICATION.md`: screen inventory, navigation, wireframe và accessibility evidence khi UI applicable.
+- `SOFTWARE_ARCHITECTURE.md`: overall architecture and quality attributes.
+- `DATA_MODEL_ERD.md`: ERD, data dictionary, relationship/integrity, classification, and migration.
+- `API_SPECIFICATION.md`: API/event/communications contracts, errors, auth, idempotency, and compatibility.
+- `ADR_TEMPLATE.md`: architecture decisions with context, options, and consequences.
+- `ENGINEERING_DESIGN_SPEC.md`: design for modules/vertical slices.
+- `DESIGN_REVIEW.md`: checklist, findings, and sign-off.
+- `THREAT_MODEL.md`: assets, trust boundaries, threats, and mitigations.
+- `DOMAIN_MODEL.md`: bounded context, aggregate, invariant, state, and domain events.
+- `PERMISSION_MATRIX.md`: role/resource/action/scope, deny-by-default, and privileged controls.
+- `ASVS_MAPPING.md`: map security controls to versioned ASVS verification items.
+- `SECURITY_ADOPTION_RECORD.md`: decisions to adopt/adapt/reject/N/A for each snapshot component or cross-language equivalent.
+- `UI_UX_SPECIFICATION.md`: screen inventory, navigation, wireframe, and accessibility evidence when UI is applicable.
 - `PHYSICAL_DATABASE_DESIGN.md`: physical table/index/partition/security design.
 - `contracts/openapi.yaml`, `contracts/asyncapi.yaml`, `CONTRACT_VALIDATION.md`: machine-readable interface contracts.
 
 ## Gate 03
 
-- [ ] Requirement Critical/Must có design link.
-- [ ] Boundary, contract, data/state/failure/security/observability đủ rõ.
-- [ ] Security Profile/control mapping, threat/regulatory applicability và security verification plan đã review.
-- [ ] Security Adoption Record đủ component; stack ngoài Java có native responsibility mapping và contract test plan.
-- [ ] Domain Model, Permission Matrix và ASVS Mapping đã được trace tới requirement/test.
-- [ ] OpenAPI/AsyncAPI contract validation đạt hoặc có N/A rationale.
-- [ ] UI applicable có design system, responsive/accessibility và prototype evidence cho journey High/Critical; tool decision có rationale.
-- [ ] ERD/cardinality/data dictionary và API request/response/error/permission traceable tới requirement/test.
-- [ ] ADR cho quyết định khó đảo ngược hoặc ảnh hưởng cost/NFR/lock-in.
-- [ ] Critical security risk đã được xử lý; High có mitigation/owner/expiry hoặc gate Fail/Conditional đúng policy.
+- [ ] Critical/Must requirements have design links.
+- [ ] Boundaries, contracts, data/state/failure/security/observability are sufficiently clear.
+- [ ] Security Profile/control mapping, threat/regulatory applicability, and security verification plan are reviewed.
+- [ ] Security Adoption Record includes all components; non-Java stacks have native responsibility mapping and contract test plans.
+- [ ] Domain Model, Permission Matrix, and ASVS Mapping are traced to requirements/tests.
+- [ ] OpenAPI/AsyncAPI contract validation passed or has a documented N/A rationale.
+- [ ] When UI is applicable, design system, responsive/accessibility, and prototype evidence for High/Critical user journeys are defined; tool decisions have rationales.
+- [ ] ERD/cardinality/data dictionary and API request/response/error/permissions are traceable to requirements/tests.
+- [ ] ADRs are created for decisions that are hard to reverse or impact cost/NFRs/lock-in.
+- [ ] Critical security risks are resolved; High risks have mitigations/owners/expiry or the gate is marked Fail/Conditional per policy.

@@ -1,153 +1,153 @@
-# Product and workflow question bank — 120 câu có điều kiện
+# Product and Workflow Question Bank — 120 Conditional Questions
 
-Chỉ hỏi nhóm áp dụng cho sản phẩm. Dùng câu trả lời để tạo FR/UC/US, data rules, UX spec, integration contract và acceptance criteria.
+Only ask the group applicable to the product. Use responses to create FR/UC/US, data rules, UX spec, integration contracts, and acceptance criteria.
 
-## A. Hành trình và capability (Q-P001–Q-P012)
+## A. Journey and Capabilities (Q-P001–Q-P012)
 
-1. `Q-P001` Điểm bắt đầu tự nhiên của hành trình người dùng là gì?
-2. `Q-P002` Người dùng cần biết gì trước khi bắt đầu?
-3. `Q-P003` Hành động đầu tiên tạo ra giá trị là gì?
-4. `Q-P004` Time-to-first-value chấp nhận được là bao lâu?
-5. `Q-P005` Người dùng mới khác người dùng quay lại thế nào?
-6. `Q-P006` Bước nào bắt buộc, bước nào có thể bỏ qua hoặc làm sau?
-7. `Q-P007` Người dùng có thể lưu nháp và tiếp tục trên thiết bị khác không?
-8. `Q-P008` Ai có thể hành động thay mặt người khác và theo quyền nào?
-9. `Q-P009` Hành trình nào cần self-service, hành trình nào cần nhân viên hỗ trợ?
-10. `Q-P010` Thời điểm nào cần xác nhận kép hoặc cảnh báo hậu quả?
-11. `Q-P011` Hành trình thành công kết thúc bằng kết quả/bằng chứng gì?
-12. `Q-P012` Sau khi hoàn tất, next best action là gì?
+1. `Q-P001` What is the natural starting point of the user journey?
+2. `Q-P002` What does the user need to know before starting?
+3. `Q-P003` What is the first action that delivers value to the user?
+4. `Q-P004` What is the maximum acceptable time-to-first-value?
+5. `Q-P005` How do new users differ from returning users?
+6. `Q-P006` Which steps are mandatory, and which can be skipped or deferred?
+7. `Q-P007` Can users save progress draft and resume on a different device?
+8. `Q-P008` Who is authorized to act on behalf of another user, and under what permissions?
+9. `Q-P009` Which journeys require self-service, and which require staff assistance?
+10. `Q-P010` When is double-confirmation or critical warning required?
+11. `Q-P011` What output or evidence marks a successful journey end?
+12. `Q-P012` After completion, what is the next best action?
 
-## B. Workflow, trạng thái và đồng thời (Q-P013–Q-P024)
+## B. Workflows, States, and Concurrency (Q-P013–Q-P024)
 
-13. `Q-P013` Entity nghiệp vụ chính có những trạng thái nào?
-14. `Q-P014` Transition hợp lệ và không hợp lệ là gì?
-15. `Q-P015` Ai hoặc sự kiện nào được phép kích hoạt từng transition?
-16. `Q-P016` Transition nào cần lý do, comment hoặc attachment?
-17. `Q-P017` Có trạng thái tạm, timeout, expired, archived hoặc deleted không?
-18. `Q-P018` Nếu hai người sửa cùng lúc, hệ thống ưu tiên hay phát hiện xung đột thế nào?
-19. `Q-P019` Hành động nào phải idempotent khi người dùng bấm/gửi lại?
-20. `Q-P020` Có cần scheduled job, queue hoặc xử lý nền không?
-21. `Q-P021` Job thất bại được retry bao nhiêu lần và ai được báo?
-22. `Q-P022` Có thao tác hàng loạt không, và giới hạn an toàn là gì?
-23. `Q-P023` Undo/reversal nào cần hỗ trợ và trong thời hạn bao lâu?
-24. `Q-P024` Lịch sử trạng thái phải giữ chi tiết đến mức nào?
+13. `Q-P013` What are the lifecycle states of the primary business entity?
+14. `Q-P014` What are the valid and invalid state transitions?
+15. `Q-P015` Who or what event is authorized to trigger each transition?
+16. `Q-P016` Which transitions require reasons, comments, or attachments?
+17. `Q-P017` Are there temporary, timeout, expired, archived, or deleted states?
+18. `Q-P018` If two users edit simultaneously, how does the system resolve or detect conflicts?
+19. `Q-P019` Which actions must be idempotent if the user double-clicks or resubmits?
+20. `Q-P020` Are scheduled jobs, queues, or background processing required?
+21. `Q-P021` How many times is a failed job retried, and who is notified?
+22. `Q-P022` Are bulk actions supported, and what is the safety limit?
+23. `Q-P023` What undo/reversal operations are supported, and within what timeframe?
+24. `Q-P024` How detailed must the state history audit log be?
 
-## C. UX, nội dung và accessibility (Q-P025–Q-P036)
+## C. UX, Content, and Accessibility (Q-P025–Q-P036)
 
-25. `Q-P025` Giao diện chính là web, mobile, desktop, chat, API hay kết hợp?
-26. `Q-P026` Ba màn hình/tác vụ được dùng thường xuyên nhất là gì?
-27. `Q-P027` Người dùng ưu tiên tốc độ, hướng dẫn chi tiết hay mật độ thông tin?
-28. `Q-P028` Có design system, brand guideline hoặc component library sẵn không?
-29. `Q-P029` Tone of voice và thuật ngữ bắt buộc/cấm là gì?
-30. `Q-P030` Cần hỗ trợ bàn phím, screen reader, contrast hoặc cỡ chữ ở mức nào?
-31. `Q-P031` Validation nên xảy ra tức thì, khi rời field hay khi submit?
-32. `Q-P032` Error message cần hướng dẫn phục hồi đến mức nào?
-33. `Q-P033` Empty/loading/offline/permission-denied states hiển thị ra sao?
-34. `Q-P034` Dữ liệu nhạy cảm cần mask/reveal/copy theo quy tắc nào?
-35. `Q-P035` Có cần print/export/share/deep-link không?
-36. `Q-P036` Usability success sẽ được đo bằng task completion, time, error rate hay SUS?
+25. `Q-P025` Is the primary interface web, mobile, desktop, chat, API, or a hybrid?
+26. `Q-P026` What are the three most frequently used screens or tasks?
+27. `Q-P027` Do users prioritize speed, detailed instructions, or high information density?
+28. `Q-P028` Is there an existing design system, brand guidelines, or component library?
+29. `Q-P029` What is the mandatory or forbidden tone of voice and terminology?
+30. `Q-P030` What level of keyboard navigation, screen readers, contrast, or font sizing support is required?
+31. `Q-P031` Should validation occur instantly, when leaving a field, or upon submission?
+32. `Q-P032` To what extent must error messages provide instructions for recovery?
+33. `Q-P033` How are empty, loading, offline, and permission-denied states displayed?
+34. `Q-P034` What rules govern the masking, revealing, or copying of sensitive data?
+35. `Q-P035` Are printing, exporting, sharing, or deep-linking required?
+36. `Q-P036` Will usability success be measured by task completion, time-on-task, error rate, or SUS score?
 
-## D. Dữ liệu nghiệp vụ (Q-P037–Q-P048)
+## D. Business Data (Q-P037–Q-P048)
 
-37. `Q-P037` Những entity cốt lõi và quan hệ của chúng là gì?
-38. `Q-P038` Trường nào bắt buộc, optional, derived hoặc immutable?
-39. `Q-P039` Identifier nào phải duy nhất và ở phạm vi nào?
-40. `Q-P040` Nguồn sự thật cho từng dữ liệu là hệ thống nào?
-41. `Q-P041` Ai được tạo, đọc, sửa, xóa và xuất từng loại dữ liệu?
-42. `Q-P042` Dữ liệu thay đổi cần version/audit đến mức nào?
-43. `Q-P043` Có dữ liệu hiệu lực theo thời gian hoặc cần lịch sử không?
-44. `Q-P044` Quy tắc validation, normalization và duplicate detection là gì?
-45. `Q-P045` Attachment hỗ trợ loại, kích thước, số lượng và scan malware thế nào?
-46. `Q-P046` Import/export cần định dạng, mapping và xử lý lỗi ra sao?
-47. `Q-P047` Dữ liệu seed/reference do ai quản lý và cập nhật thế nào?
-48. `Q-P048` Khi dữ liệu mâu thuẫn giữa các nguồn, quy tắc reconcile là gì?
+37. `Q-P037` What are the core entities and their relationships?
+38. `Q-P038` Which fields are mandatory, optional, derived, or immutable?
+39. `Q-P039` Which identifiers must be unique, and within what scope?
+40. `Q-P040` Which system is the source of truth for each data element?
+41. `Q-P041` Who is authorized to create, read, update, delete, and export each type of data?
+42. `Q-P042` To what extent do data changes require versioning or auditing?
+43. `Q-P043` Is there time-bound or historical data required?
+44. `Q-P044` What are the validation, normalization, and duplicate detection rules?
+45. `Q-P045` What file types, sizes, quantities, and malware scanning rules govern attachments?
+46. `Q-P046` What formats, mappings, and error handling rules govern data import/export?
+47. `Q-P047` Who manages and updates seed or reference data, and how?
+48. `Q-P048` When data conflicts between sources, what is the reconciliation rule?
 
-## E. Tích hợp và API sản phẩm (Q-P049–Q-P060)
+## E. Integrations and Product APIs (Q-P049–Q-P060)
 
-49. `Q-P049` Hệ thống bên ngoài nào gửi dữ liệu vào hoặc nhận dữ liệu ra?
-50. `Q-P050` Integration là synchronous API, webhook, file, event, email hay thao tác tay?
-51. `Q-P051` Ai sở hữu contract và sandbox của từng integration?
-52. `Q-P052` Authentication/authorization với đối tác dùng cơ chế gì?
-53. `Q-P053` Quota/rate limit và chi phí theo lượt gọi là bao nhiêu?
-54. `Q-P054` Timeout, retry, backoff và circuit-breaker mong muốn là gì?
-55. `Q-P055` Làm sao phát hiện/khử request hoặc event trùng?
-56. `Q-P056` Ordering và eventual consistency có chấp nhận được không?
-57. `Q-P057` Schema/version compatibility được quản lý thế nào?
-58. `Q-P058` Khi đối tác downtime, người dùng thấy gì và fallback ra sao?
-59. `Q-P059` Cần reconcile/audit integration bằng báo cáo nào?
-60. `Q-P060` Dữ liệu nào tuyệt đối không được gửi sang bên thứ ba?
+49. `Q-P049` Which external systems send data in or receive data out?
+50. `Q-P050` Are integrations synchronous APIs, webhooks, files, events, emails, or manual tasks?
+51. `Q-P051` Who owns the contract and sandbox for each integration?
+52. `Q-P052` What authentication/authorization mechanisms are used with partners?
+53. `Q-P053` What is the quota, rate limit, and cost per API call?
+54. `Q-P054` What are the desired timeout, retry, backoff, and circuit-breaker behaviors?
+55. `Q-P055` How are duplicate requests or events detected and deduplicated?
+56. `Q-P056` Are ordering guarantees and eventual consistency acceptable?
+57. `Q-P057` How is schema/version compatibility managed?
+58. `Q-P058` When a partner suffers downtime, what do users see and what is the fallback?
+59. `Q-P059` What reports are needed to reconcile or audit integrations?
+60. `Q-P060` What data must absolutely never be sent to third parties?
 
-## F. Tìm kiếm, báo cáo và thông báo (Q-P061–Q-P072)
+## F. Search, Reporting, and Notifications (Q-P061–Q-P072)
 
-61. `Q-P061` Người dùng tìm theo trường nào và kỳ vọng fuzzy/full-text ra sao?
-62. `Q-P062` Filter, sort, saved view và pagination nào cần có?
-63. `Q-P063` Search result cần phân quyền/ẩn dữ liệu thế nào?
-64. `Q-P064` Báo cáo nào phục vụ quyết định nào và cho ai?
-65. `Q-P065` Báo cáo cần realtime, near-real-time hay batch theo lịch?
-66. `Q-P066` Metric có định nghĩa/denominator/timezone chính xác thế nào?
-67. `Q-P067` Export CSV/Excel/PDF có giới hạn và masking gì?
-68. `Q-P068` Sự kiện nào cần notification?
-69. `Q-P069` Kênh notification là in-app, email, SMS, push hay webhook?
-70. `Q-P070` Người dùng được opt-in/out, mute hoặc chọn tần suất ra sao?
-71. `Q-P071` Notification thất bại/rebound được retry và theo dõi thế nào?
-72. `Q-P072` Nội dung notification có template, localization và approval không?
+61. `Q-P061` Which fields can users search by, and what fuzzy or full-text expectations exist?
+62. `Q-P062` What filters, sorting, saved views, and pagination are required?
+63. `Q-P063` How must search results be filtered or masked based on permissions?
+64. `Q-P064` What reports serve which decisions, and for whom?
+65. `Q-P065` Do reports need to be real-time, near-real-time, or batch-scheduled?
+66. `Q-P066` What are the exact definitions, denominators, and time zones of metrics?
+67. `Q-P067` What limits and masking apply to CSV/Excel/PDF exports?
+68. `Q-P068` What events trigger a notification?
+69. `Q-P069` What are the notification channels (in-app, email, SMS, push, webhook)?
+70. `Q-P070` How can users opt-in/out, mute, or choose notification frequency?
+71. `Q-P071` How are failed/rebounded notifications retried and monitored?
+72. `Q-P072` Do notification contents use templates, localization, and approval workflows?
 
-## G. Admin, support và kiểm soát (Q-P073–Q-P084)
+## G. Administration, Support, and Controls (Q-P073–Q-P084)
 
-73. `Q-P073` Admin cần quản lý user, role, config, content hay reference data nào?
-74. `Q-P074` Admin action nào cần maker-checker hoặc re-authentication?
-75. `Q-P075` Support được phép impersonate người dùng không và phải audit thế nào?
-76. `Q-P076` Support cần xem timeline/log nào để chẩn đoán?
-77. `Q-P077` Có cần feature flag hoặc cấu hình theo tenant/market không?
-78. `Q-P078` Ai được thay đổi config và thay đổi có cần version/rollback không?
-79. `Q-P079` Account lifecycle gồm invite, activate, suspend, merge, close ra sao?
-80. `Q-P080` Có tổ chức/team/tenant và phân cấp quyền như thế nào?
-81. `Q-P081` Dữ liệu giữa tenant phải cách ly ở mức nào?
-82. `Q-P082` Audit log nào admin xem được và audit log nào chỉ security xem?
-83. `Q-P083` Có cần legal hold, freeze hoặc e-discovery không?
-84. `Q-P084` Khi support sửa dữ liệu, cần approval và thông báo cho ai?
+73. `Q-P073` What users, roles, configs, content, or reference data must admins manage?
+74. `Q-P074` Which admin actions require maker-checker (dual control) or re-authentication?
+75. `Q-P075` Is support permitted to impersonate users, and how is this audited?
+76. `Q-P076` What timelines or logs must support see to diagnose issues?
+77. `Q-P077` Are feature flags or tenant/market-specific configurations required?
+78. `Q-P078` Who can modify configs, and do changes require versioning or rollback?
+79. `Q-P079` What is the account lifecycle (invite, activate, suspend, merge, close)?
+80. `Q-P080` What is the organization, team, or tenant hierarchy and permissions structure?
+81. `Q-P081` What level of data isolation is required between tenants?
+82. `Q-P082` Which audit logs can admins view, and which are restricted to security officers?
+83. `Q-P083` Is legal hold, data freezing, or e-discovery required?
+84. `Q-P084` When support manually edits data, who must approve and who is notified?
 
-## H. Edge case và hành vi lỗi (Q-P085–Q-P096)
+## H. Edge Cases and Failure Behaviors (Q-P085–Q-P096)
 
-85. `Q-P085` Điều gì xảy ra khi input thiếu, sai định dạng hoặc vượt giới hạn?
-86. `Q-P086` Điều gì xảy ra khi session hết hạn giữa một quy trình dài?
-87. `Q-P087` Điều gì xảy ra khi payment/request thành công nhưng callback thất bại?
-88. `Q-P088` Điều gì xảy ra khi user refresh/back/đóng tab giữa thao tác?
-89. `Q-P089` Điều gì xảy ra khi client offline rồi kết nối lại?
-90. `Q-P090` Điều gì xảy ra khi clock/timezone/daylight-saving khác nhau?
-91. `Q-P091` Điều gì xảy ra khi entity liên quan bị xóa/suspend?
-92. `Q-P092` Điều gì xảy ra khi file độc hại hoặc dữ liệu cực lớn được gửi lên?
-93. `Q-P093` Điều gì xảy ra khi dependency trả kết quả chậm, sai hoặc một phần?
-94. `Q-P094` Điều gì xảy ra khi một batch chỉ thành công một phần?
-95. `Q-P095` Người dùng phục hồi từ lỗi mà không tạo dữ liệu trùng thế nào?
-96. `Q-P096` Error nào cần báo user, support, operator hoặc security ngay?
+85. `Q-P085` What happens when inputs are missing, malformed, or exceed limits?
+86. `Q-P086` What happens when a session expires in the middle of a long multi-step process?
+87. `Q-P087` What happens when a payment/request succeeds but the callback fails?
+88. `Q-P088` What happens when a user refreshes, clicks back, or closes the tab during an operation?
+89. `Q-P089` What happens when a client goes offline and then reconnects?
+90. `Q-P090` What happens when clocks, time zones, or daylight-saving times differ?
+91. `Q-P091` What happens when a related entity is deleted or suspended?
+92. `Q-P092` What happens when a malicious file or extremely large payload is uploaded?
+93. `Q-P093` What happens when a dependency returns results slowly, incorrectly, or partially?
+94. `Q-P094` What happens when a batch operation only partially succeeds?
+95. `Q-P095` How do users recover from errors without creating duplicate data?
+96. `Q-P096` Which errors require immediate alerts to users, support, operations, or security?
 
-## I. Mobile, offline và đa thị trường (Q-P097–Q-P108)
+## I. Mobile, Offline, and Multi-Market (Q-P097–Q-P108)
 
-97. `Q-P097` Có cần responsive web hay native mobile capability nào?
-98. `Q-P098` Push notification, camera, GPS, biometric hoặc deep link có cần không?
-99. `Q-P099` Chức năng nào phải chạy offline?
-100. `Q-P100` Dữ liệu offline sync và conflict resolution thế nào?
-101. `Q-P101` Hỗ trợ phiên bản OS/device tối thiểu nào?
-102. `Q-P102` Có hạn chế bandwidth, storage hoặc battery không?
-103. `Q-P103` Ngôn ngữ, locale, timezone, calendar và number format nào cần hỗ trợ?
-104. `Q-P104` Nội dung dịch do ai cung cấp/review và fallback ra sao?
-105. `Q-P105` Quy tắc nghiệp vụ khác nhau theo quốc gia/thị trường nào?
-106. `Q-P106` Currency, tax, address, phone và identity format khác nhau ra sao?
-107. `Q-P107` Có feature rollout khác nhau theo vùng/tenant không?
-108. `Q-P108` Store review/distribution constraint nào ảnh hưởng release?
+97. `Q-P097` Are responsive web pages or native mobile capabilities required?
+98. `Q-P098` Are push notifications, camera, GPS, biometrics, or deep links needed?
+99. `Q-P099` Which functionalities must work offline?
+100. `Q-P100` How are offline data synced and conflicts resolved?
+101. `Q-P101` What minimum OS versions or device models are supported?
+102. `Q-P102` Are there bandwidth, storage, or battery constraints?
+103. `Q-P103` What languages, locales, time zones, calendars, and number formats must be supported?
+104. `Q-P104` Who provides and reviews translated content, and what is the fallback?
+105. `Q-P105` How do business rules differ by country or market?
+106. `Q-P106` How do currencies, taxes, addresses, phones, and identity formats differ?
+107. `Q-P107` Are there feature rollouts limited to specific regions or tenants?
+108. `Q-P108` What app store review or distribution constraints affect the release?
 
-## J. AI, tự động hóa và quyết định máy (Q-P109–Q-P120)
+## J. AI, Automation, and Automated Decisions (Q-P109–Q-P120)
 
-109. `Q-P109` AI/automation đang hỗ trợ quyết định nào, cho ai và tạo giá trị gì?
-110. `Q-P110` AI chỉ gợi ý hay được phép tự hành động?
-111. `Q-P111` Human-in-the-loop bắt buộc ở điểm nào?
-112. `Q-P112` Dữ liệu đầu vào, quyền sử dụng và chất lượng được xác nhận thế nào?
-113. `Q-P113` Output sai gây hậu quả gì và mức sai chấp nhận được là bao nhiêu?
-114. `Q-P114` Ground truth/evaluation set và metric chất lượng là gì?
-115. `Q-P115` Cần giải thích, citation, confidence hoặc audit prompt/output đến mức nào?
-116. `Q-P116` Nội dung nhạy cảm, độc hại hoặc prompt injection được xử lý ra sao?
-117. `Q-P117` Model/vendor nào được phép, dữ liệu có được dùng để train không?
-118. `Q-P118` Cost/latency/token quota và fallback model là gì?
-119. `Q-P119` Ai review drift, bias, failure và cập nhật evaluation?
-120. `Q-P120` Người dùng có thể contest, sửa hoặc opt-out quyết định AI thế nào?
+109. `Q-P109` What decisions is the AI/automation supporting, for whom, and what is the value?
+110. `Q-P110` Does the AI only suggest options or is it authorized to take action?
+111. `Q-P111` Where is a human-in-the-loop mandatory?
+112. `Q-P112` How are input data, usage rights, and quality validated?
+113. `Q-P113` What are the consequences of incorrect outputs, and what is the acceptable error rate?
+114. `Q-P114` What are the ground truth datasets, evaluation sets, and quality metrics?
+115. `Q-P115` What level of explanation, citations, confidence scores, or prompt/output auditing is required?
+116. `Q-P116` How are sensitive, toxic, or prompt-injection inputs handled?
+117. `Q-P117` Which models/vendors are permitted, and can data be used for training?
+118. `Q-P118` What are the cost, latency, token quota limits, and fallback models?
+119. `Q-P119` Who reviews model drift, bias, failures, and updates evaluations?
+120. `Q-P120` How can users contest, correct, or opt-out of AI-driven decisions?

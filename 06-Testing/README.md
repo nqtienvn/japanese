@@ -11,37 +11,37 @@ last_verified: "{{DATE}}"
 ---
 # Phase 06 — Verification, Validation & UAT
 
-## Mục tiêu
+## Objective
 
-Chứng minh sản phẩm đáp ứng requirements và đủ an toàn để Client nghiệm thu. Dùng risk-based testing: unit, integration, contract, E2E, security, performance, migration, recovery và UAT theo phạm vi.
+Prove that the product meets requirements and is sufficiently secure for Client acceptance. Apply risk-based testing: unit, integration, contract, E2E, security, performance, migration, recovery, and UAT matching the project scope.
 
-## Artifact
+## Artifacts
 
 - `TEST_STRATEGY_AND_PLAN.md`: scope, level, environment, data, criteria.
-- `TEST_POLICY.md`: governance, principles, role/independence, defect/evidence và tailoring.
-- `TEST_SPECIFICATION.md`: test basis, conditions, techniques, test data và case inventory.
-- `TEST_CASE_TEMPLATE.md`: test chi tiết có trace/evidence.
-- `TEST_STATUS_REPORT.md`: Total/Executed/Passed/Failed/Blocked/Skipped theo chu kỳ.
+- `TEST_POLICY.md`: governance, principles, role/independence, defect/evidence, and tailoring.
+- `TEST_SPECIFICATION.md`: test basis, conditions, techniques, test data, and case inventory.
+- `TEST_CASE_TEMPLATE.md`: detailed test cases with trace/evidence.
+- `TEST_STATUS_REPORT.md`: Total/Executed/Passed/Failed/Blocked/Skipped metrics by cycle.
 - `TEST_TRACEABILITY_MATRIX.md`: SRS ID → Test Case ID → result → Defect ID → retest/release.
-- `SECURITY_VERIFICATION_MATRIX.md`: negative/security/equivalence cases cho Bank Security Reference Baseline.
-- `DOCUMENT_QUALITY_AUDIT.md`: audit 2–3 feature phức tạp và 4 nhóm tài liệu cốt lõi.
-- `FIELD_VALIDATION_REPORT.md`: Developer newcomer, Tester derivation và peer review evidence.
-- `TDD_SPECIFICATION.md`: red-green-refactor cho logic quan trọng.
+- `SECURITY_VERIFICATION_MATRIX.md`: negative/security/equivalence cases for the Bank Security Reference Baseline.
+- `DOCUMENT_QUALITY_AUDIT.md`: audit of 2-3 complex features and 4 core document groups.
+- `FIELD_VALIDATION_REPORT.md`: Developer newcomer, Tester derivation, and peer review evidence.
+- `TDD_SPECIFICATION.md`: red-green-refactor for critical logic.
 - `DEFECT_REGISTER.md`: defect lifecycle/severity.
-- `TEST_REPORT.md`: execution, coverage, residual risk và recommendation.
-- `UAT_AND_ACCEPTANCE.md`: Client scenarios và sign-off.
-- `DR_RESTORE_FAILOVER_EXERCISE.md`: restore, failover, rollback và crisis communication exercise evidence.
+- `TEST_REPORT.md`: execution, coverage, residual risks, and recommendations.
+- `UAT_AND_ACCEPTANCE.md`: Client scenarios and sign-off.
+- `DR_RESTORE_FAILOVER_EXERCISE.md`: restore, failover, rollback, and crisis communication exercise evidence.
 
 ## Gate 06
 
-- [ ] Risk/requirement coverage đạt; Must/Critical có passing evidence.
-- [ ] Policy/Plan → Specification/Case → Status/Completion/RTM đủ ba tầng tài liệu test.
-- [ ] Input Data tách khỏi steps; Expected Result mô tả chính xác UI/API/state/data/audit.
-- [ ] Audit feature sample và Tester Derivation Test đạt, không có blocking clarification.
-- [ ] Blocking defect không còn mở hoặc có acceptance đúng quyền.
-- [ ] Security/performance/migration/rollback test phù hợp đạt.
-- [ ] Security verification đúng Profile; không còn Critical security risk mở, High acceptance có owner/expiry/retest.
-- [ ] Mọi `SEC-BNK` applicable có passing evidence; cross-language refactor có behavioral equivalence evidence.
-- [ ] Code coverage đã tailoring theo risk/layer/tool/exclusion và không thay thế requirement/risk coverage.
-- [ ] Client UAT/acceptance hoàn tất; giới hạn và residual risk rõ.
-- [ ] DR/restore/failover evidence đạt RTO/RPO hoặc có exception đúng quyền.
+- [ ] Risk/requirement coverage targets met; Must/Critical items have passing evidence.
+- [ ] Policy/Plan → Specification/Case → Status/Completion/RTM covers all three tiers of test documentation.
+- [ ] Input Data is separated from steps; Expected Result accurately describes UI/API/state/data/audit outcomes.
+- [ ] Feature sample audit and Tester Derivation Tests passed, with no blocking clarifications.
+- [ ] Blocking defects are closed, or accepted by authorized roles.
+- [ ] Relevant security, performance, migration, and rollback tests passed.
+- [ ] Security verification aligns with the Profile; no open Critical security risks, and High risks accepted with owner/expiry/re-test plans.
+- [ ] All applicable SEC-BNK requirements have passing evidence; cross-language refactors have behavioral equivalence evidence.
+- [ ] Code coverage is tailored by risk/layer/tool/exclusion and does not substitute for requirement/risk coverage.
+- [ ] Client UAT/acceptance is complete; boundaries and residual risks are clear.
+- [ ] DR/restore/failover evidence meets RTO/RPO targets or has an approved exception.

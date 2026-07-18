@@ -13,7 +13,7 @@ last_verified: "{{DATE}}"
 
 ## 1. Role directory
 
-| Role | Người/AI role | Quyền chính | Backup |
+| Role | Person/AI role | Key Responsibilities | Backup |
 | :--- | :--- | :--- | :--- |
 | Client Sponsor | {{PROJECT_OWNER}} | Budget/outcome/escalation | {{BACKUP}} |
 | Client Product Owner | {{PRODUCT_OWNER}} | Scope/priority/acceptance | {{BACKUP}} |
@@ -28,7 +28,7 @@ last_verified: "{{DATE}}"
 
 `R` Responsible, `A` Accountable, `C` Consulted, `I` Informed.
 
-| Hoạt động | Client PO | Vendor Lead | BA | Tech | QA | Sec/Privacy | Ops |
+| Activity | Client PO | Vendor Lead | BA | Tech | QA | Sec/Privacy | Ops |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | Discovery baseline | A | R | R | C | C | C | I |
 | Scope/change | A | R | C | C | C | C | I |
@@ -37,45 +37,45 @@ last_verified: "{{DATE}}"
 | Test/UAT | A | C | C | C | R | C | I |
 | Security risk treatment/recommendation | C | A | I | R | C | R | I |
 | High residual security risk acceptance | C | C | I | C | C | A | I |
-| Release production | A | R | I | C | C | C | R |
+| Production release | A | R | I | C | C | C | R |
 | Handover | A | R | C | C | C | C | R |
 
-RACI control: mỗi hoạt động chỉ có một `A`. Với High residual security risk, `Security/Privacy Owner` là accountable cho risk decision; Client PO là consulted và ghi nhận business acceptance trong decision record. Không dùng hai `A` trong cùng một row.
+RACI control: Each activity must have exactly one 'A' (Accountable). For High residual security risk, the Security/Privacy Owner is accountable for the risk decision; the Client PO is consulted and records business acceptance in the decision record. Do not assign two 'A's to the same row.
 
 ## 3. Cadence
 
-| Nghi thức | Tần suất | Thành phần | Output |
+| Ceremony | Frequency | Participants | Output |
 | :--- | :--- | :--- | :--- |
-| Discovery interview | Theo đợt | Client + BA | Answer/decision log |
+| Discovery interview | As needed | Client + BA | Answer/decision log |
 | Delivery update | {{CADENCE}} | Client + Vendor | Status/risk/decision |
-| Demo/review | {{CADENCE}} | Stakeholder | Feedback/acceptance |
-| Gate review | Cuối phase | Approvers | Pass/conditional/fail |
-| Human-assistance review | Khi có trigger | Request owner + AI/Vendor | Decision/access/manual evidence và resume action |
-| Incident review | Khi có | Owner liên quan | PIR/actions |
+| Demo/review | {{CADENCE}} | Stakeholders | Feedback/acceptance |
+| Gate review | End of phase | Approvers | Pass/conditional/fail |
+| Human-assistance review | Upon trigger | Request owner + AI/Vendor | Decision/access/manual evidence and resume action |
+| Incident review | Upon occurrence | Related owners | PIR/actions |
 
 ## 4. Definition of Ready
 
-- [ ] Có requirement ID, source, business value và owner.
-- [ ] Acceptance criteria testable; dependency/data/access đã biết.
-- [ ] UX/design/API/data impact đủ rõ theo rủi ro.
-- [ ] Security/privacy/NFR đã được xem xét.
-- [ ] Không có quyết định blocking chưa có owner.
+- [ ] Requirement ID, source, business value, and owner are defined.
+- [ ] Acceptance criteria are testable; dependencies, data, and access are identified.
+- [ ] UX/design/API/data impact is sufficiently clear based on risk.
+- [ ] Security, privacy, and NFRs have been considered.
+- [ ] No blocking decisions are left without an owner.
 
 ## 5. Definition of Done
 
-- [ ] Code/config review xong, build/lint/static checks đạt.
-- [ ] Test phù hợp rủi ro đạt và có evidence.
-- [ ] RTM, changelog, docs/runbook liên quan được cập nhật.
-- [ ] Không có secret/data thật trong artifact không phù hợp.
-- [ ] Acceptance đạt hoặc exception có approver và hạn xử lý.
+- [ ] Code/config reviews completed; build, lint, and static checks passed.
+- [ ] Risk-appropriate testing has passed with evidence.
+- [ ] RTM, changelog, and related documentation/runbooks updated.
+- [ ] No secrets or real data in inappropriate artifacts.
+- [ ] Acceptance criteria met, or an approved exception is documented with a target date.
 
 ## 6. Escalation
 
-AI không escalation chỉ vì công việc khó/lâu. Assistance request phải có trigger, evidence, các phương án đã thử, thao tác nhỏ nhất cần con người và phần AI vẫn tiếp tục được theo `HUMAN_AI_COLLABORATION_PROTOCOL.md`.
+The AI will not escalate solely because a task is difficult or time-consuming. Assistance requests must include a trigger, decision class, evidence, alternatives attempted, recommendation, confirmation deadline, timeout fallback, the minimal manual action required, and the safe services/work the AI can continue according to the `HUMAN_AI_COLLABORATION_PROTOCOL.md`.
 
-| Severity | Ví dụ | Phản hồi | Escalate tới |
+| Severity | Example | Response SLA | Escalate to |
 | :--- | :--- | :--- | :--- |
-| Critical | Data loss/security breach/block production | {{TIME}} | Sponsor + Security + Vendor Lead |
-| High | Milestone/SLA có nguy cơ trượt | {{TIME}} | Client PO + Vendor Lead |
-| Medium | Scope/quality issue có workaround | {{TIME}} | Workstream owner |
-| Low | Cải tiến/tech debt | {{TIME}} | Backlog owner |
+| Critical | Data loss/security breach/production blocker | {{TIME}} | Sponsor + Security + Vendor Lead |
+| High | Milestone/SLA at risk of slipping | {{TIME}} | Client PO + Vendor Lead |
+| Medium | Scope/quality issue with a workaround | {{TIME}} | Workstream owner |
+| Low | Improvements/technical debt | {{TIME}} | Backlog owner |

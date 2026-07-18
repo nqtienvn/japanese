@@ -11,18 +11,18 @@ last_verified: "{{DATE}}"
 ---
 # Statement of Work (SOW) — {{PROJECT_NAME}}
 
-> Mẫu quản trị delivery; cần legal review nếu dùng làm hợp đồng có giá trị pháp lý.
+> Delivery governance template; requires legal review if used as a legally binding contract.
 
-## 1. Parties và mục đích
+## 1. Parties and purpose
 
 - Client: {{CLIENT_LEGAL_NAME}}
 - Delivery Vendor: {{VENDOR_NAME}}
-- Mục đích: {{SOW_PURPOSE}}
-- Thời hạn hiệu lực: {{START_DATE}} đến {{TARGET_DATE}}
+- Purpose: {{SOW_PURPOSE}}
+- Effective period: {{START_DATE}} to {{TARGET_DATE}}
 
 ## 2. Deliverables
 
-| Deliverable ID | Mô tả | Acceptance evidence | Milestone | Owner |
+| Deliverable ID | Description | Acceptance evidence | Milestone | Owner |
 | :--- | :--- | :--- | :--- | :--- |
 | DEL-001 | {{DELIVERABLE}} | {{EVIDENCE}} | {{MILESTONE}} | {{OWNER}} |
 
@@ -32,64 +32,64 @@ last_verified: "{{DATE}}"
 | :--- | :--- |
 | {{IN_SCOPE}} | {{OUT_OF_SCOPE}} |
 
-## 4. Milestone và nghiệm thu
+## 4. Milestones and acceptance
 
-| Milestone | Target | Client review window | Acceptance criteria | Payment/approval trigger nếu có |
+| Milestone | Target | Client review window | Acceptance criteria | Payment/approval trigger if any |
 | :--- | :--- | :--- | :--- | :--- |
-| M1 | {{DATE}} | {{REVIEW_DAYS}} ngày | {{CRITERIA}} | {{TRIGGER}} |
+| M1 | {{DATE}} | {{REVIEW_DAYS}} days | {{CRITERIA}} | {{TRIGGER}} |
 
-## 5. Trách nhiệm Client
+## 5. Client responsibilities
 
-- Cử người có quyền quyết định và phản hồi trong thời gian thống nhất.
-- Cung cấp dữ liệu mẫu hợp pháp, domain knowledge, access và dependency cần thiết.
-- Review baseline, prototype, UAT và release/handover theo lịch.
-- Không gửi secret/dữ liệu thật qua kênh không an toàn.
-- Thực hiện decision/access/manual/approval/sign-off nhỏ nhất khi có assistance request hợp lệ; không mặc định nhận lại toàn bộ work item từ AI Vendor.
+- Appoint decision-makers and respond within the agreed timeframe.
+- Provide legal sample data, domain knowledge, access, and necessary dependencies.
+- Review baselines, prototypes, UAT, and release/handover according to schedule.
+- Do not send secrets/real data through insecure channels.
+- Perform minimal decisions/access provisioning/manual actions/approvals/sign-offs upon receiving a valid assistance request; do not assume all work items are handed back from the AI Vendor.
 
-## 6. Trách nhiệm Vendor
+## 6. Vendor responsibilities
 
-- Chủ động làm rõ yêu cầu, nêu giả định/rủi ro và giữ traceability.
-- Xây dựng theo policy, kiểm thử và cung cấp evidence.
-- Không mở rộng scope hoặc thực hiện action approval-only âm thầm.
-- Bàn giao code, tài liệu, runbook, known issues và hướng tiếp tục.
+- Proactively clarify requirements, state assumptions/risks, and maintain traceability.
+- Build in accordance with policy, test, and provide evidence.
+- Do not expand scope or execute approval-only actions silently.
+- Hand over code, documentation, runbooks, known issues, and next steps.
 
-## 7. Assumption, dependency và exclusion
+## 7. Assumptions, dependencies, and exclusions
 
-| ID | Nội dung | Ảnh hưởng nếu sai/chậm | Owner | Ngày xác nhận |
+| ID | Content | Impact if wrong/delayed | Owner | Confirmation date |
 | :--- | :--- | :--- | :--- | :--- |
 | ASM-001 | {{ASSUMPTION}} | {{IMPACT}} | {{OWNER}} | {{DATE}} |
 
 ## 8. Change control
 
-Mọi thay đổi tác động deliverable, deadline, cost, SLA, security hoặc acceptance phải dùng `CHANGE_REQUEST_TEMPLATE.md`. Không coi trao đổi miệng là baseline mới nếu chưa ghi quyết định.
+Any change impacting deliverables, deadlines, costs, SLAs, security, or acceptance must use `CHANGE_REQUEST_TEMPLATE.md`. Verbal exchanges are not considered a new baseline until a formal decision is recorded.
 
-## 9. Bảo hành và hỗ trợ
+## 9. Warranty and support
 
 - Warranty period: {{WARRANTY_PERIOD}}
 - Support hours/channel: {{SUPPORT_MODEL}}
 - Defect response target: {{DEFECT_SLA}}
-- Không bao gồm: {{WARRANTY_EXCLUSIONS}}
+- Exclusions: {{WARRANTY_EXCLUSIONS}}
 
-## 10. IP, license và dữ liệu
+## 10. IP, licensing, and data
 
-- Quyền sở hữu source code/deliverable sau thanh toán/nghiệm thu: {{IP_OWNERSHIP_MODEL}}
-- Thành phần third-party/open-source và nghĩa vụ license: {{THIRD_PARTY_POLICY}}
-- Dữ liệu của Client luôn thuộc: {{DATA_OWNER}}
-- Vendor được xử lý dữ liệu chỉ cho mục đích/phạm vi/thời hạn: {{PROCESSING_BOUNDARY}}
-- Nghĩa vụ hoàn trả/xóa dữ liệu và xác nhận sau kết thúc: {{RETURN_DELETE_PROCESS}}
+- Ownership of source code/deliverables post payment/acceptance: {{IP_OWNERSHIP_MODEL}}
+- Third-party/open-source components and licensing obligations: {{THIRD_PARTY_POLICY}}
+- Client data always belongs to: {{DATA_OWNER}}
+- Vendor is permitted to process data only for the purpose/scope/duration: {{PROCESSING_BOUNDARY}}
+- Data return/deletion obligations and confirmation post termination: {{RETURN_DELETE_PROCESS}}
 
-## 11. Bảo mật và tính bí mật
+## 11. Security and confidentiality
 
-- Kênh trao đổi tài liệu/secret được phép: {{APPROVED_CHANNELS}}
-- Human-assistance trigger/timebox tailoring: {{ASSISTANCE_POLICY}}
+- Approved channels for document/secret exchanges: {{APPROVED_CHANNELS}}
+- Human-assistance trigger/timebox tailoring: {{ASSISTANCE_POLICY}}. Tailoring may change the ordinary-decision window but SHALL NOT create a timeout fallback for explicit-approval actions.
 - Security Profile/risk appetite: {{SECURITY_PROFILE_RISK}}
-- Quyền truy cập theo least privilege, có expiry/revocation: {{ACCESS_POLICY}}
+- Access rights based on least privilege, with expiry/revocation: {{ACCESS_POLICY}}
 - Incident/breach notification: {{NOTIFICATION_PROCESS_SLA}}
-- Các điều khoản pháp lý chi tiết phải nằm trong hợp đồng/DPA/NDA đã được người có thẩm quyền review.
+- Detailed legal terms must reside in the contract/DPA/NDA reviewed by authorized personnel.
 
 ## 12. Sign-off
 
-| Bên | Người ký/duyệt | Trạng thái | Ngày |
+| Party | Signer/Approver | Status | Date |
 | :--- | :--- | :--- | :--- |
 | Client | {{CLIENT_APPROVER}} | Pending | {{DATE}} |
 | Vendor | {{VENDOR_APPROVER}} | Pending | {{DATE}} |

@@ -45,8 +45,8 @@ last_verified: "{{DATE}}"
 - Verification summary: {{SUMMARY}}
 - Defects/tech debt: {{SUMMARY_IDS}}
 - Security/privacy/compliance: {{SUMMARY}}
-- Security Profile, verification scope/exclusions và Critical/High disposition: {{SECURITY_GATE_SUMMARY}}
-- Human-assistance requests và phần AI đã resume/verify: {{ASSISTANCE_SUMMARY}}
+- Security Profile, verification scope/exclusions, and Critical/High disposition: {{SECURITY_GATE_SUMMARY}}
+- Human-assistance requests and tasks that the AI resumed/verified: {{ASSISTANCE_SUMMARY}}
 - Residual risks accepted by: {{APPROVER}}
 
 ## Operational readiness
@@ -63,4 +63,4 @@ last_verified: "{{DATE}}"
 
 ## Final statement
 
-Nêu thẳng phần đã chứng minh, phần chỉ được suy luận/chưa đo và điều Client cần quyết định tiếp theo: {{STATEMENT}}
+State clearly what has been proven, what is only inferred/unmeasured, and the next decisions the Client needs to make: {{STATEMENT}}

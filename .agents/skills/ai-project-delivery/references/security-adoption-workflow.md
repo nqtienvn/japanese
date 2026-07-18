@@ -1,85 +1,83 @@
 # Security Reference Adoption Workflow
 
-## 1. Khi nào phải dùng
+## 1. When to use
 
-Đọc reference này trong mọi engagement. Thực thi đầy đủ khi project có authentication, authorization, session/token, secret, PII, public API, third-party identity hoặc Security Profile `HIGH/CRITICAL`.
+Read this reference in every engagement. Fully execute it when the project involves authentication, authorization, sessions/tokens, secrets, PII, public APIs, third-party identity providers, or a `HIGH/CRITICAL` Security Profile.
 
-Nguồn code nội bộ nằm tại `assets/security-reference/`. Code đó là input bắt buộc cho phân tích, không phải kết luận security.
+The internal source code is located in `assets/security-reference/`. This code serves as a mandatory input for analysis, not a final security conclusion.
 
-## 2. Quy tắc chọn reference
+## 2. Reference selection rules
 
-| Project context | Hành động bắt buộc |
+| Project context | Mandatory Action |
 | :--- | :--- |
-| Java 21 / Spring Boot 3+ chưa có security module | Dùng `mb-security-starter` làm starting inventory; import theo vertical slice rồi harden theo baseline |
-| Spring legacy hoặc cần giữ behavior/cache contract cũ | So sánh cả hai snapshot; dùng legacy để hiểu compatibility, không giữ anti-pattern |
-| Project đã có security module | Không overwrite; tạo component-by-component delta với hai snapshot và giữ convention tốt hơn có evidence |
-| Stack khác Java/Spring | Đọc [security-portability-matrix.md](security-portability-matrix.md); refactor control/behavior sang native framework; ghi `N/A — stack mismatch` cho Java code copy nhưng không được ghi N/A cho security outcome |
-| Managed IdP/API gateway chịu trách nhiệm security | Xác minh contract, issuer, audience, authorization boundary, token lifecycle và fallback; không tạo IdP riêng nếu không có requirement |
-| Social OAuth không thuộc scope | Không import provider Google/Facebook; ghi N/A rationale |
+| Java 21 / Spring Boot 3+ hasn't had a security module | Use `mb-security-starter` as the starting inventory; import along vertical slices and then harden according to the baseline |
+| Spring legacy or needs to preserve old behavior/cache contracts | Compare both snapshots; use legacy to understand compatibility, but do not retain anti-patterns |
+| Project already has a security module | Do not overwrite; create a component-by-component delta with both snapshots and preserve better conventions that have evidence |
+| Stack other than Java/Spring | Read [security-portability-matrix.md](security-portability-matrix.md); refactor controls/behaviors to the native framework; record `N/A — stack mismatch` for Java code copies, but do not record N/A for security outcomes |
+| Managed IdP/API gateway holds security responsibility | Verify contracts, issuers, audiences, authorization boundaries, token lifecycles, and fallbacks; do not build a custom IdP unless explicitly required |
+| Social OAuth outside scope | Do not import Google/Facebook providers; record a N/A rationale |
 
-Nếu applicability chưa rõ, AI phải tự đọc manifests, framework, routes, filters, identity integration và deployment topology trước. Chỉ hỏi stakeholder khi lựa chọn thay đổi product identity model, risk appetite hoặc contractual/regulatory boundary.
+If applicability is unclear, the AI must first inspect manifests, frameworks, routes, filters, identity integrations, and deployment topologies. Only query stakeholders when changes impact the product identity model, risk appetite, or contractual/regulatory boundaries.
 
-## 3. Adoption loop tự động
+## 3. Automated adoption loop
 
-1. **Inventory** — index codebase; tìm auth entry point, filter chain, token/session store, permission model, secret source, public route, IdP, gateway và tests.
-2. **Profile** — chọn `STANDARD/HIGH/CRITICAL`; financial/payment/privileged production mặc định `CRITICAL` cho đến khi owner quyết định khác.
-3. **Compare** — điền `03-Architecture-Design/SECURITY_ADOPTION_RECORD.md` cho từng component trong snapshot.
-4. **Threat model** — map asset, attacker, trust boundary, abuse case và control trước Gate 03.
-5. **Import/translate** — copy applicable code vào working branch hoặc chuyển dịch sang stack đích; không copy secret hoặc unsafe config.
-6. **Harden** — xử lý toàn bộ finding liên quan trong `assets/security-reference/SECURITY_REVIEW.md`.
-7. **Verify** — chạy build, unit/integration/security tests, secret scan, SCA/SBOM và config validation phù hợp profile.
-8. **Trace** — cập nhật requirement → design/ADR → work item → code/config → test result → residual risk.
-9. **Gate** — chỉ chuyển component sang `Verified` khi exact expected result đạt; không dùng “source từng chạy ở ngân hàng” làm test evidence.
+1. **Inventory** — index codebase; locate authentication entry points, filter chains, token/session stores, permission models, secret sources, public routes, IdPs, gateways, and tests.
+2. **Profile** — select `STANDARD/HIGH/CRITICAL`; financial/payment/privileged production defaults to `CRITICAL` unless the owner decides otherwise.
+3. **Compare** — populate `03-Architecture-Design/SECURITY_ADOPTION_RECORD.md` for each component in the snapshot.
+4. **Threat model** — map assets, attackers, trust boundaries, abuse cases, and controls prior to Gate 03.
+5. **Import/translate** — copy applicable code into the working branch or translate it to the target stack; do not copy secrets or unsafe configurations.
+6. **Harden** — address all related findings documented in `assets/security-reference/SECURITY_REVIEW.md`.
+7. **Verify** — run builds, unit/integration/security tests, secret scans, SCA/SBOM, and config validation corresponding to the profile.
+8. **Trace** — update requirement → design/ADR → work item → code/config → test result → residual risk mappings.
+9. **Gate** — only mark a component as `Verified` when the exact expected result is achieved; do not use "source previously ran at a bank" as test evidence.
 
-AI tự thực hiện loop này trong phạm vi local, reversible sau baseline. Không hỏi Client chọn library, package layout, test framework hoặc cách sửa compile nếu repository/evidence đủ để quyết định.
+The AI executes this loop autonomously within the local, reversible scope after the baseline is established. Do not ask the Client to select libraries, package layouts, test frameworks, or how to resolve compilation errors if repository evidence is sufficient to decide.
 
-Với ngôn ngữ khác Java, “translate” nghĩa là refactor theo responsibility và security contract. AI phải tạo code native của stack đích, không dịch từng dòng Java và không đưa JVM vào kiến trúc chỉ để dùng snapshot.
+For non-Java languages, "translate" means refactoring according to responsibility and security contracts. The AI must create native code for the target stack; do not perform a line-by-line translation of Java and do not introduce a JVM into the architecture simply to run the snapshot.
 
-## 4. Mandatory hardening delta
+## 4. Every adoption must resolve at least the following points:
 
-Mọi adoption phải xử lý tối thiểu các điểm sau:
-
-- Secret fail-fast từ secret manager/injection; không fallback bằng literal.
-- Default deny cho route và method; public endpoint là allowlist có owner.
-- CORS origin/method/header explicit theo environment; credentials không đi cùng wildcard.
-- Với credential trong cookie, CSRF protection phải bật hoặc có equivalent control đã threat-model/test.
-- Cookie có `Secure`, `HttpOnly`, `SameSite`, path/domain tối thiểu và bounded lifetime.
-- JWT parser pin algorithm/key; enforce `iss`, `aud`, `exp`, `nbf`, `iat`, token type và replay policy theo use case.
-- Access token ngắn hạn; refresh token có rotation, reuse detection, expiry, revocation và security-event invalidation.
-- Authorization dùng exact permission/resource/action mapping; cấm substring/prefix ambiguity nếu chưa có delimiter-safe formal grammar.
-- Không log token, secret, credential, authorization header hoặc sensitive claim.
-- OAuth/OIDC dùng exact redirect URI, `state`, PKCE/nonce theo client type và RFC 9700.
-- Password mới ưu tiên Argon2id; BCrypt chỉ giữ cho compatibility với work factor được benchmark và migration plan.
-- Dependency/framework version phải còn support phù hợp; SCA/advisory result quyết định upgrade, không dựa vào nhãn “latest” trong tài liệu cũ.
-- Build/test phải pass; snapshot không có test không được xem là acceptable coverage.
+- Secret fail-fast using a secret manager/injection; do not fallback to literals.
+- Default deny for routes and methods; public endpoints must reside on an allowlist with a designated owner.
+- CORS origin/method/headers must be explicit by environment; credentials must not be sent with wildcards.
+- For credentials in cookies, CSRF protection must be enabled or have an equivalent control that has been threat-modeled/tested.
+- Cookies must have `Secure`, `HttpOnly`, `SameSite`, minimal path/domain scope, and bounded lifetime.
+- JWT parser pins algorithm/keys; enforce `iss`, `aud`, `exp`, `nbf`, `iat`, token type, and replay policies per use case.
+- Access tokens must be short-lived; refresh tokens require rotation, reuse detection, expiry, revocation, and security-event invalidation.
+- Authorization uses exact permission/resource/action mapping; prohibit substring/prefix ambiguity unless a delimiter-safe formal grammar is in place.
+- Do not log tokens, secrets, credentials, authorization headers, or sensitive claims.
+- OAuth/OIDC uses exact redirect URIs, `state`, PKCE/nonce based on client type and RFC 9700.
+- New passwords prefer Argon2id; BCrypt is only retained for compatibility with a benchmarked work factor and a migration plan.
+- Dependency/framework versions must be actively supported; SCA/advisory results dictate upgrades, do not rely on "latest" labels in old documentation.
+- Build/testing must pass; snapshots lacking tests are not considered acceptable coverage.
 
 ## 5. Human-exclusive decisions
 
-AI chỉ yêu cầu con người khi còn thiếu một trong các quyết định sau sau khi đã tự khai thác evidence:
+The AI only requests human assistance when one of the following decisions is missing after attempting to extract evidence:
 
-- Product identity model hoặc user journey không thể suy ra.
-- Risk appetite, residual High risk acceptance hoặc regulatory/legal applicability.
-- Quyền dùng/publish proprietary reference code.
-- Production IdP/secret reference/credential phải do owner cấp qua kênh an toàn.
-- Production change, destructive migration, external penetration-test authorization hoặc formal sign-off.
+- Product identity model or user journeys cannot be inferred.
+- Risk appetite, residual High risk acceptance, or regulatory/legal applicability.
+- Rights to use/publish proprietary reference code.
+- Production IdP/secret references/credentials must be provisioned by the owner via secure channels.
+- Production changes, destructive migrations, external penetration test authorizations, or formal sign-offs.
 
-Human không phải viết code, chọn implementation chi tiết, chạy local test hoặc đọc log thay AI chỉ vì công việc khó/lâu. Câu hỏi stakeholder phải theo đợt 5–12 câu, tập trung vào intent/authority/acceptance và cập nhật Discovery Log.
+Humans are not required to write code, select implementation details, run local tests, or read logs for the AI simply because a task is difficult or slow. Stakeholder questions must be batched (5-12 questions), focusing on intent, authority, or acceptance, and update the Discovery Log.
 
-## 6. Evidence bắt buộc
+## 6. Mandatory evidence
 
 - `03-Architecture-Design/THREAT_MODEL.md`
 - `03-Architecture-Design/SECURITY_ADOPTION_RECORD.md`
 - `06-Testing/SECURITY_VERIFICATION_MATRIX.md`
-- Secret scan, dependency/SCA, SBOM/provenance và build result
-- Negative authorization/CSRF/CORS/JWT/refresh/OAuth tests theo attack surface
-- Release report ghi Security Profile, exclusions, findings, residual risk và owner
+- Secret scans, dependency/SCA, SBOM/provenance, and build results
+- Negative authorization/CSRF/CORS/JWT/refresh/OAuth tests by attack surface
+- Release report documenting the Security Profile, exclusions, findings, residual risk, and owners
 
-## 7. External baseline được kiểm tra ngày 2026-07-17
+## 7. External baseline verified on 2026-07-17
 
-- [OWASP ASVS 5.0.0](https://github.com/OWASP/ASVS) — application security requirements; pin ID theo dạng `v5.0.0-x.y.z` khi map control.
-- [RFC 9700 — OAuth 2.0 Security Best Current Practice](https://www.rfc-editor.org/info/rfc9700/) — redirect, PKCE, token replay và refresh-token protection.
-- [OWASP Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) — Argon2id ưu tiên; BCrypt cho legacy khi Argon2/scrypt không khả dụng.
-- [Spring Security CSRF reference](https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html) — CSRF control và test cho unsafe methods.
-- [Spring Boot project](https://spring.io/projects/spring-boot/) — kiểm tra support/current version tại thời điểm adoption; không tự động nâng major mà thiếu compatibility evidence.
+- [OWASP ASVS 5.0.0](https://github.com/OWASP/ASVS) — application security requirements; pin IDs in `v5.0.0-x.y.z` format when mapping controls.
+- [RFC 9700 — OAuth 2.0 Security Best Current Practice](https://www.rfc-editor.org/info/rfc9700/) — redirects, PKCE, token replay, and refresh token protection.
+- [OWASP Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) — Argon2id preferred; BCrypt for legacy systems when Argon2/scrypt is unavailable.
+- [Spring Security CSRF reference](https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html) — CSRF controls and testing for unsafe methods.
+- [Spring Boot project](https://spring.io/projects/spring-boot/) — verify active/current versions at the time of adoption; do not automatically upgrade major versions without compatibility evidence.
 
-Các reference trên là baseline kỹ thuật, không tạo chứng nhận hoặc legal opinion.
+The above references are technical baselines, not certifications or legal opinions.

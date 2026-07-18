@@ -11,22 +11,22 @@ last_verified: "{{DATE}}"
 ---
 # Phase 07 — Delivery & Release Reports
 
-## Mục tiêu
+## Objectives
 
-Cho Client một bức tranh trung thực về planned vs delivered, tiến độ, scope change, quality, release, incident, chi phí/nguồn lực giả định và giá trị đạt được. Báo cáo phải dựa trên evidence, không chỉ mô tả hoạt động.
+Provide the Client with an honest overview of planned vs. delivered progress, scope changes, quality metrics, releases, incidents, hypothetical costs/resource consumption, and achieved value. Reports must be backed by evidence, not just activity descriptions.
 
-## Artifact
+## Artifacts
 
-- `STATUS_AND_SPRINT_REPORT.md`: báo cáo định kỳ/milestone.
-- `RELEASE_REPORT.md`: release scope, evidence, deployment/rollback và known issues.
-- `FINAL_REPORT.md`: kết quả toàn dự án và recommendation.
-- `INCIDENT_AND_PIR.md`: incident timeline, impact, root cause và action.
-- `LESSONS_LEARNED.md`: điều nên giữ/thay đổi cho giai đoạn tiếp.
-- `READINESS_DASHBOARD.md`: readiness và coverage theo gate từ machine-readable evidence.
+- `STATUS_AND_SPRINT_REPORT.md`: periodic status and milestone reports.
+- `RELEASE_REPORT.md`: release scope, evidence, deployment/rollback, and known issues.
+- `FINAL_REPORT.md`: project-level final results and recommendations.
+- `INCIDENT_AND_PIR.md`: incident timelines, impacts, root causes, and action items.
+- `LESSONS_LEARNED.md`: what to keep or change in subsequent phases.
+- `READINESS_DASHBOARD.md`: readiness and gate coverage calculated from machine-readable evidence.
 
 ## Gate 07
 
-- [ ] Client thấy rõ delivered/deferred/out-of-scope và lý do.
-- [ ] Release/version/evidence/known issues/rollback/owner rõ.
-- [ ] KPI/outcome và deviation được báo cáo trung thực.
-- [ ] Incident/action/risk tồn dư không bị che giấu.
+- [ ] Client clearly sees delivered/deferred/out-of-scope items and their rationale.
+- [ ] Release version, evidence, known issues, rollback strategy, and owner are explicit.
+- [ ] KPIs/outcomes and deviations are reported honestly.
+- [ ] Incidents, action items, and residual risks are not hidden.

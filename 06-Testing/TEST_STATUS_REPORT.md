@@ -31,7 +31,7 @@ last_verified: "{{DATE}}"
 | Skipped | {{COUNT}} | {{PERCENT}} | {{REASON_APPROVER}} |
 | Not Run | {{COUNT}} | {{PERCENT}} | {{NOTE}} |
 
-Pass rate phải định nghĩa denominator rõ, ví dụ `Passed / Executed excluding Blocked and Skipped`; không báo phần trăm khi không ghi công thức.
+The Pass rate must define the denominator clearly, for example: 'Passed / Executed excluding Blocked and Skipped'; do not report percentages without specifying the formula used.
 
 ## Coverage and defects
 

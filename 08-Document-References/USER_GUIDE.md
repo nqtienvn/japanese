@@ -43,8 +43,8 @@ last_verified: "{{DATE}}"
 
 ## Data and privacy
 
-- Dữ liệu được thu thập/sử dụng: {{SUMMARY}}
-- Không nhập/chia sẻ: {{PROHIBITED}}
+- Data collected/used: {{SUMMARY}}
+- Do not enter/share: {{PROHIBITED}}
 - Export/correction/deletion/support: {{PROCESS}}
 
 ## FAQ

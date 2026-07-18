@@ -1,8 +1,8 @@
 # Security Portability and Refactoring Matrix
 
-## 1. Nguyên tắc
+## 1. Principles
 
-Hai snapshot Java là bằng chứng về responsibility và behavior đã từng được triển khai. Chúng không khóa ngôn ngữ. Khi project dùng stack khác, AI phải refactor thành implementation native nhưng giữ security invariant, contract cần tương thích và test outcome.
+The two Java snapshots serve as evidence of the responsibilities and behaviors implemented in the past. They do not restrict the project's programming language. When the project uses a different tech stack, the AI must refactor them into a native implementation while preserving security invariants, required contract compatibilities, and test outcomes.
 
 ```text
 Java reference class
@@ -12,15 +12,15 @@ Java reference class
 → negative/compatibility test evidence
 ```
 
-Không dịch line-by-line. Không mô phỏng annotation, servlet filter hoặc Spring bean nếu stack đích có primitive phù hợp hơn.
+Do not perform a line-by-line translation. Do not simulate Java annotations, servlet filters, or Spring beans if the target stack has more suitable native primitives.
 
 ## 2. Responsibility mapping
 
-| Java reference | Security responsibility | .NET | Node.js/TypeScript | Go | Python | Invariant bắt buộc |
+| Java reference | Security responsibility | .NET | Node.js/TypeScript | Go | Python | Mandatory invariant |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| `MbSecurityAutoConfiguration` / `JWTConfigurer` | Security pipeline, route policy, default deny | ASP.NET Core authentication/authorization middleware + policy | Framework middleware/guard + centralized policy | `net/http`/router middleware + policy layer | ASGI middleware/dependency + policy layer | Authn trước authz; public route allowlist; deny by default |
-| `JwtTokenProvider` | Issue/verify token and claims policy | Native JWT bearer/token handler hoặc maintained JOSE library | Maintained JOSE/JWT library | Maintained JOSE/JWT package | Maintained JOSE/JWT package | Pin algorithm/key; validate issuer/audience/time/type; key rotation |
-| `JWTCookieFilter` / `JwtAuthenticationFilter` | Extract credential, bind CSRF/session, set principal | Cookie/header handler + antiforgery middleware | Cookie/header middleware + CSRF middleware | Explicit cookie/header middleware | Cookie/header dependency + CSRF middleware | Không log credential; invalid token không tạo principal |
+| `MbSecurityAutoConfiguration` / `JWTConfigurer` | Security pipeline, route policy, default deny | ASP.NET Core authentication/authorization middleware + policy | Framework middleware/guard + centralized policy | `net/http`/router middleware + policy layer | ASGI middleware/dependency + policy layer | Authn before authz; public route allowlist; deny by default |
+| `JwtTokenProvider` | Issue/verify token and claims policy | Native JWT bearer/token handler or maintained JOSE library | Maintained JOSE/JWT library | Maintained JOSE/JWT package | Maintained JOSE/JWT package | Pin algorithm/key; validate issuer/audience/time/type; key rotation |
+| `JWTCookieFilter` / `JwtAuthenticationFilter` | Extract credential, bind CSRF/session, set principal | Cookie/header handler + antiforgery middleware | Cookie/header middleware + CSRF middleware | Explicit cookie/header middleware | Cookie/header dependency + CSRF middleware | Do not log credentials; invalid tokens do not create a principal |
 | `TokenService` | Token family state, invalidation, replay protection | Distributed cache/database repository | Cache/database repository | Cache/database repository | Cache/database repository | Atomic rotation; bounded TTL; logout/security-event invalidation |
 | `PermissionEvaluatorImpl` | Resource/action authorization | Requirement/handler policy | Guard/policy engine | Explicit policy function/engine | Dependency/policy engine | Exact match; tenant/resource scope; no prefix/substring confusion |
 | `PasswordEncoderConfig` | Password hashing/verification/migration | Platform password hasher/Argon2id provider | Argon2id provider | Argon2id provider | Argon2id provider | Per-user salt; tuned cost; rehash/migration path; no plaintext |
@@ -29,40 +29,40 @@ Không dịch line-by-line. Không mô phỏng annotation, servlet filter hoặc
 | `SecurityUtils` / auditor | Principal access and audit attribution | Request/user context | Request context | `context.Context` | Request/dependency context | Principal immutable per request; audit identity server-derived |
 | YAML properties | Typed config and secret references | Options/config providers | Schema-validated config | Typed config validation | Settings/schema validation | Required secret fail-fast; environment separation; redacted errors |
 
-Tên package/library cụ thể phải được AI chọn từ ecosystem hiện tại của repository, tình trạng maintenance, license, compatibility và security advisory. Bảng này không pin library bên thứ ba.
+Specific package/library names must be chosen by the AI based on the repository's active ecosystem, maintenance status, licenses, compatibility, and security advisories. This matrix does not pin specific third-party libraries.
 
-## 3. Refactor workflow cho stack khác
+## 3. Refactor workflow for other stacks
 
-1. Lập inventory public routes, credential channels, auth claims, permission vocabulary, token lifecycle và downstream compatibility.
-2. Tạo component mapping trong `SECURITY_ADOPTION_RECORD.md`; Java source row ghi `Adapt — cross-language`.
-3. Tách contract bắt buộc giữ khỏi implementation detail được phép đổi.
-4. Chọn native primitive/library có maintenance evidence; pin resolved version và license.
-5. Viết characterization test cho contract hiện có nếu migration/brownfield.
-6. Implement vertical slice nhỏ: authenticate → authorize → audit → revoke.
-7. Chạy toàn bộ case applicable trong `SECURITY_VERIFICATION_MATRIX.md`.
-8. Chỉ xóa compatibility adapter sau khi consumer migration và rollback evidence đạt.
+1. Inventory public routes, credential channels, auth claims, permission vocabulary, token lifecycle, and downstream compatibility.
+2. Create component mapping in `SECURITY_ADOPTION_RECORD.md`; record the Java source row as `Adapt — cross-language`.
+3. Separate mandatory contracts to preserve from implementation details allowed to change.
+4. Select native primitives/libraries with maintenance evidence; pin the resolved version and license.
+5. Write characterization tests for the existing contract if executing a migration or brownfield project.
+6. Implement a small vertical slice: authenticate → authorize → audit → revoke.
+7. Run all applicable cases in the `SECURITY_VERIFICATION_MATRIX.md`.
+8. Only remove compatibility adapters after consumer migration and rollback evidence targets are achieved.
 
-## 4. Contract có thể giữ hoặc thay
+## 4. Contracts to preserve or modify
 
-| Contract | Mặc định | Khi được thay |
+| Contract | Default | When Allowed to Change |
 | :--- | :--- | :--- |
-| Cookie/header names | Giữ nếu có client đang dùng | Có versioning, migration và rollback plan |
-| JWT issuer/audience/claim vocabulary | Giữ khi service federation phụ thuộc | Có coordinated consumer rollout và token invalidation plan |
-| Permission/resource/action vocabulary | Giữ semantic, sửa matching unsafe | Có authorization migration matrix và negative tests |
-| Token format | Không bắt buộc giữ JWT nếu architecture tốt hơn | ADR chứng minh impact, client compatibility và operations |
-| OAuth provider | Chỉ giữ provider thuộc scope | Product/identity owner xác nhận removal/change |
-| Package/class layout | Không giữ | AI tự refactor theo convention native |
-| Legacy cryptographic algorithm | Không giữ chỉ vì compatibility | Chỉ giữ tạm với risk owner, expiry và migration control |
+| Cookie/header names | Preserve if active clients exist | Requires versioning, migration, and a rollback plan |
+| JWT issuer/audience/claim vocabulary | Preserve if service federation depends on it | Requires coordinated consumer rollout and token invalidation plans |
+| Permission/resource/action vocabulary | Preserve semantics, fix unsafe matching | Requires authorization migration matrix and negative tests |
+| Token format | JWT format not required if architecture is better | Requires an ADR demonstrating impact, client compatibility, and operational support |
+| OAuth provider | Preserve only providers within scope | Requires confirmation from the Product/Identity Owner for removal/change |
+| Package/class layout | Do not preserve | AI refactors according to native conventions |
+| Legacy cryptographic algorithm | Do not preserve solely for compatibility | Keep temporarily with a designated risk owner, expiry date, and migration controls |
 
 ## 5. Equivalence gate
 
-Cross-language refactor chỉ đạt khi:
+Cross-language refactoring is only achieved when:
 
-- Mọi `SEC-BNK` applicable requirement có code/config evidence trong ngôn ngữ đích.
-- Contract test chứng minh behavior cần tương thích.
-- Negative security tests chứng minh deny behavior.
-- Secret/SCA/SBOM/build evidence dùng tool của ecosystem đích.
-- Threat model và operations runbook phản ánh implementation mới.
-- Không còn Critical finding; High finding tuân theo acceptance boundary.
+- All applicable `SEC-BNK` requirements have code/config evidence in the target language.
+- Contract tests verify behaviors required for compatibility.
+- Negative security tests verify deny behaviors.
+- Secret/SCA/SBOM/build evidence uses tools native to the target ecosystem.
+- The threat model and operations runbook reflect the new implementation.
+- No remaining Critical findings; High findings follow approved risk acceptance boundaries.
 
-Số dòng code, tên class giống Java hoặc cùng thư viện không phải tiêu chí tương đương.
+Lines of code, class names matching Java, or using identical library logic are not equivalence criteria.

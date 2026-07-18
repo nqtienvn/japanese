@@ -11,13 +11,13 @@ last_verified: "{{DATE}}"
 ---
 # Technical Debt Register — {{PROJECT_NAME}}
 
-| Debt ID | Area | Mô tả/root cause | Impact/risk | Evidence | Remediation | Trigger/due | Owner | Status |
+| Debt ID | Area | Description/root cause | Impact/risk | Evidence | Remediation | Trigger/due | Owner | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | TD-001 | {{AREA}} | {{DEBT}} | {{IMPACT}} | {{EVIDENCE}} | {{ACTION}} | {{TRIGGER_DATE}} | {{OWNER}} | Open |
 
-## Quy tắc
+## Rules
 
-- Không dùng “tech debt” để che defect hoặc security risk; phân loại đúng.
-- High/Critical cần remediation/accepted risk trước gate liên quan.
-- Ghi cost of delay, dependency và điều kiện debt trở thành blocking.
-- Khi đóng, giữ evidence và link work item/release.
+- Do not use "technical debt" to mask defects or security risks; classify them correctly.
+- High/Critical items require remediation or accepted risk sign-off prior to the related phase gate.
+- Document the cost of delay, dependencies, and conditions under which the debt becomes blocking.
+- When closing, preserve resolution evidence and link to the relevant work item/release.

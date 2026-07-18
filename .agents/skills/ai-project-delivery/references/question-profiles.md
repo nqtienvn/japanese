@@ -1,16 +1,16 @@
 # Discovery question profiles
 
-Chọn một hoặc nhiều profile trước khi bắt đầu discovery. AI dùng profile để mở đúng câu hỏi, kiểm tra rủi ro và chọn artifact; không dùng profile để suy đoán quyết định kinh doanh.
+Select one or more profiles before beginning discovery. The AI uses these profiles to activate the correct question sets, evaluate risks, and select phase artifacts; do not use profiles to speculate on business decisions.
 
-| Profile | Khi chọn | Câu hỏi bắt buộc thêm | Artifact/controls tăng cường |
+| Profile | When to Select | Mandatory Additional Questions | Enhanced Artifacts/Controls |
 | :--- | :--- | :--- | :--- |
-| Web CRUD | Form, workflow, danh sách và báo cáo nội bộ | ownership dữ liệu, validation, bulk action, audit | CRUD-functional matrix, UI/UX, API contract |
-| SaaS multi-tenant | Nhiều tổ chức dùng chung nền tảng | tenant isolation, plan/entitlement, noisy-neighbor, data export | tenant threat model, permission matrix, capacity model |
-| Mobile | iOS/Android hoặc hybrid client | offline, push, device loss, app-store release | mobile security profile, API contract, release runbook |
-| Regulated | Ngân hàng, y tế, bảo hiểm, dữ liệu pháp lý | jurisdiction, retention, audit, segregation of duties | control mapping, evidence register, DR/BCP, sign-off |
-| AI/LLM | Prompt, model, RAG, agent hoặc generated content | model boundary, data leakage, evaluation, human escalation | AI risk register, eval set, prompt/version registry |
-| Integration-heavy | Nhiều hệ thống, queue, webhook hoặc partner | contract ownership, retry/idempotency, versioning, reconciliation | OpenAPI/AsyncAPI, integration test, DLQ/runbook |
+| Web CRUD | Forms, workflows, lists, and internal reports | data ownership, validation, bulk actions, auditing | CRUD-functional matrix, UI/UX, API contracts |
+| SaaS multi-tenant | Multiple organizations sharing a platform | tenant isolation, plan/entitlement, noisy-neighbor, data export | tenant threat model, permission matrix, capacity model |
+| Mobile | iOS/Android or hybrid clients | offline, push notifications, device loss, app store release | mobile security profile, API contracts, release runbooks |
+| Regulated | Banking, healthcare, insurance, or legal data | jurisdiction, retention, audit, segregation of duties | control mapping, evidence register, DR/BCP, sign-off |
+| AI/LLM | Prompts, models, RAG, agents, or generated content | model boundaries, data leakage, evaluation, human escalation | AI risk register, evaluation set, prompt/version registry |
+| Integration-heavy | Multiple systems, queues, webhooks, or partners | contract ownership, retry/idempotency, versioning, reconciliation | OpenAPI/AsyncAPI, integration tests, DLQ/runbook |
 
 ## Profile selection record
 
-Ghi profile đã chọn trong `01-Planning/DISCOVERY_LOG.md`, cùng owner và lý do. Nếu profile chưa rõ, ghi `chưa biết`, deadline quyết định và tác động; không tự chọn profile chỉ vì framework quen thuộc.
+Record the selected profiles in `01-Planning/DISCOVERY_LOG.md` along with the owner and rationale. If the profile is unclear, record it as `unknown`, with a decision deadline and impact assessment; do not guess profiles based solely on framework familiarity.

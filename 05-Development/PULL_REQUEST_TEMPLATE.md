@@ -43,7 +43,7 @@ last_verified: "{{DATE}}"
 
 ## Checklist
 
-- [ ] Scope nhỏ, reviewable; thay đổi người dùng khác được giữ nguyên.
-- [ ] Acceptance/test/RTM/changelog/docs đã cập nhật.
-- [ ] Không có secret/PII/debug artifact.
-- [ ] Reviewer/owner phù hợp đã được chỉ định.
+- [ ] Scope is small and reviewable; unrelated user changes are preserved.
+- [ ] Acceptance, tests, RTM, changelog, and documentation are updated.
+- [ ] No secrets, PII, or debug artifacts included.
+- [ ] Appropriate reviewers/owners have been assigned.

@@ -60,4 +60,4 @@ last_verified: "{{DATE}}"
 
 ## 7. Baseline changes
 
-Sau approval, thay đổi ảnh hưởng scope/time/cost/NFR/acceptance phải có CR và impact analysis. Cập nhật plan, SRS, design, test và RTM đồng thời.
+Post-approval, any changes impacting scope, timeline, cost, NFRs, or acceptance criteria require a Change Request (CR) and impact analysis. Simultaneously update the plan, SRS, design, tests, and RTM.

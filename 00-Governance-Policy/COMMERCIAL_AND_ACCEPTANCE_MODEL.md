@@ -11,11 +11,11 @@ last_verified: "{{DATE}}"
 ---
 # Commercial Assumptions & Acceptance Model
 
-> Mẫu quản trị delivery, không thay thế hợp đồng/tư vấn pháp lý.
+> Delivery governance template, does not replace legal contract/counsel.
 
 ## Estimation model
 
-| Nội dung | Lựa chọn/giả định |
+| Topic | Options/Assumptions |
 | :--- | :--- |
 | Commercial model | Fixed scope / Time & materials / Milestone / Internal |
 | Currency/tax | {{CURRENCY_TAX}} |
@@ -26,24 +26,24 @@ last_verified: "{{DATE}}"
 
 ## Acceptance window
 
-- Vendor thông báo deliverable ready và cung cấp evidence.
-- Client review trong {{REVIEW_DAYS}} ngày làm việc.
-- Client ghi rõ pass/fail theo acceptance criteria; feedback mới ngoài baseline đi qua change control.
-- Im lặng không tự động được coi là chấp nhận trừ khi hợp đồng thật quy định và đã legal-review.
+- Vendor notifies that the deliverable is ready and provides evidence.
+- Client reviews within {{REVIEW_DAYS}} business days.
+- Client clearly records pass/fail according to acceptance criteria; new feedback outside the baseline must go through change control.
+- Silence does not automatically constitute acceptance unless specified in the actual contract and legally reviewed.
 
 ## Defect severity during acceptance
 
-| Severity | Định nghĩa | Ảnh hưởng nghiệm thu | Target xử lý |
+| Severity | Definition | Acceptance Impact | Resolution Target |
 | :--- | :--- | :--- | :--- |
-| Critical | Mất dữ liệu, breach, không dùng được chức năng lõi | Block | {{SLA}} |
-| High | Chức năng lõi sai, không có workaround hợp lý | Block/conditional | {{SLA}} |
-| Medium | Ảnh hưởng một phần, có workaround | Conditional/backlog | {{SLA}} |
-| Low | Cosmetic/cải tiến | Không block | {{SLA}} |
+| Critical | Data loss, security breach, core function unusable | Block | {{SLA}} |
+| High | Core function incorrect, no reasonable workaround | Block/conditional | {{SLA}} |
+| Medium | Partial impact, workaround available | Conditional/backlog | {{SLA}} |
+| Low | Cosmetic/improvement | Non-blocking | {{SLA}} |
 
 ## Warranty/support boundary
 
-| Trong warranty | Ngoài warranty/change request |
+| In warranty | Out of warranty/change request |
 | :--- | :--- |
-| Sai khác so với baseline/acceptance đã duyệt | Requirement mới hoặc đổi hành vi |
-| Regression do deliverable của Vendor | Thay đổi từ bên thứ ba ngoài kiểm soát |
-| Security defect thuộc phạm vi thiết kế | Misconfiguration/operation ngoài hướng dẫn |
+| Deviation from approved baseline/acceptance criteria | New requirement or behavior change |
+| Regression caused by Vendor deliverables | Third-party changes outside control |
+| Security defects within design scope | Misconfiguration/operation outside guidelines |

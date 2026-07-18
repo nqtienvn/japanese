@@ -201,6 +201,13 @@ The AI must trace from the impacted requirement to design, code, tests, and rele
 - Reductions in scope, outcomes, SLAs, or security controls.
 - High or Critical risk acceptance.
 
+### Confirmation-Wait Behavior
+
+- For an ordinary, non-blocking, reversible decision, the AI states one clearly labeled recommendation, its rationale, the dependent action being paused, and an exact five-minute confirmation deadline.
+- While waiting, the AI keeps healthy local services and independent safe work running. Parallel work must not execute, constrain, or prejudge the pending decision.
+- If the Client does not respond after at least five minutes, the AI may proceed only with the previously stated recommendation and must record the decision and rollback path.
+- Silence never authorizes external state changes, account permissions/access, sensitive-data transmission, destructive or hard-to-reverse actions, deployment/publishing, billing/cost, security/compliance changes, legal/professional sign-off, or risk acceptance. These actions remain pending until explicit approval.
+
 ### When the AI Can Request Human Assistance
 
 The AI may only ask for help when a material decision, credentials/access, manual action, or sign-off is required, or when blocked after trying at least three different solutions without finding new evidence. The request must present the evidence, attempts, impact, smallest human action, required output/references, and parts the AI can continue working on. Do not send raw secrets in chat.

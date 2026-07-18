@@ -20,13 +20,13 @@ last_verified: "{{DATE}}"
 | Automation/evidence | {{PATH_JOB_REPORT}} |
 | Status | Not Run / Pass / Fail / Blocked / Skipped |
 
-Test Case ID phải unique trong toàn dự án và không được tái sử dụng cho scenario khác. Khi thay thế, giữ ID cũ ở trạng thái `Deprecated` và liên kết ID mới.
+The Test Case ID must be unique across the entire project and must not be reused for another scenario. When replaced, keep the old ID in a 'Deprecated' status and link it to the new ID.
 
 ## Goal
 
 {{WHAT_RISK_OR_BEHAVIOR_THIS_PROVES}}
 
-## Preconditions và test data
+## Preconditions and test data
 
 - Preconditions: {{PRECONDITIONS}}
 - Synthetic/anonymized data IDs: {{DATA_IDS}}

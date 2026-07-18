@@ -2,48 +2,32 @@
 artifact_id: DOC-04-IMPLEMENTATION-CHANGELOG-MD
 phase: "04-Implementation"
 artifact_type: implementation
-owner: "{{OWNER}}"
-version: "0.1"
-status: Template
+owner: "AI Solution Architect"
+version: "1.0"
+status: Complete
 ids: []
 dependencies: []
-last_verified: "{{DATE}}"
+last_verified: "2026-07-18"
 ---
-# Changelog — {{PROJECT_NAME}}
+# Changelog — UniGPA
 
-Ghi thay đổi đáng kể theo release. Liên kết requirement, ADR, work item và migration; không đưa secret/PII.
+All notable changes to the UniGPA project will be documented in this file.
 
 ## [Unreleased]
 
 ### Added
 
-- `FR-XXX` / `WI-XXX`: {{CHANGE}}
-- `NFR-SEC-REF-001` / `WI-SEC-REF-001`: 41 Java security reference files, POM/template/metadata và sanitized configuration assets.
-- `NFR-SEC-PORT-001` / `WI-SEC-PORT-001`: cross-language security portability/refactor matrix.
-- `NFR-SEC-GATE-001` / `WI-SEC-GATE-001`: Bank Security Baseline, Adoption Record và Security Verification Matrix.
+- `FR-GPA-001` to `FR-GPA-008`: Core functional requirements, use cases, and feature catalogs for GPA calculation, scraper, simulation, and major leaderboards.
+- `DES-GPA-001` to `DES-GPA-004`: Software architecture context, container diagrams, and component models.
+- `DATA-GPA-ERD-01`: Data model entity relationship diagram and data dictionary catalog.
+- `API-GPA-AUTH-01` to `API-GPA-RANK-01`: Spring Boot backend API controllers contract specifications.
+- `THR-GPA-SPOOF` to `THR-GPA-DOS`: STRIDE threat model register and privacy review guidelines.
+- `MIG-GPA-001`: Flyway schema migration DDL setup scripts.
 
 ### Changed
-
-- `ADR-XXX`: {{CHANGE_AND_REASON}}
-- `DEC-AUTO-001`: default autonomy sau baseline chuyển sang `FULL-LOCAL` với evidence-first human-assistance boundary.
-- `DES-VAL-001`: validator kiểm đầy đủ phase artifacts, security snapshot count và unsafe sanitized config.
-
-### Fixed
-
-- `DEF-XXX`: {{FIX}}
+- Aligned project security profile to **HIGH** for Decree 13/2023/ND-CP compliance.
+- Configured **FULL-LOCAL** autonomy model.
 
 ### Security
-
-- {{SECURITY_CHANGE}}
-- Raw Jasypt password, weak PBE default, JWT/DB fallback secret, schema auto-update và debug/error defaults không được copy vào sanitized assets.
-- Source anti-pattern được ghi trong `assets/security-reference/SECURITY_REVIEW.md` và bị chặn bởi project-specific adoption gate.
-
-### Migration / breaking changes
-
-- {{MIGRATION_BREAKING_CHANGE}}
-
-## [{{VERSION}}] — {{DATE}}
-
-- Release report: `07-Reports/RELEASE_REPORT.md`
-- Verification: `06-Testing/TEST_REPORT.md`
-- Rollback: `MIGRATION_RELEASE_ROLLBACK.md`
+- Locked database column-level encryption (AES-256) for PII fields.
+- JWT stateless security validation for private endpoints.

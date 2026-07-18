@@ -11,29 +11,29 @@ last_verified: "{{DATE}}"
 ---
 # Phase 08 — Documentation, Handover & Continuity
 
-## Mục tiêu
+## Objectives
 
-Bàn giao sao cho Client hoặc một vendor/team khác có thể hiểu, cài đặt, vận hành, hỗ trợ, thay đổi và tiếp tục dự án mà không phụ thuộc vào lịch sử chat hay một cá nhân.
+Ensure the handover enables the Client or another vendor/team to understand, install, operate, support, modify, and continue the project without depending on chat history or any single individual.
 
-## Artifact
+## Artifacts
 
-- `DOCUMENT_INDEX.md`: bản đồ tài liệu, owner, version và audience.
-- `USER_GUIDE.md`: hướng dẫn theo persona/journey.
+- `DOCUMENT_INDEX.md`: document map, owner, version, and audience.
+- `USER_GUIDE.md`: user guide tailored by persona/journey.
 - `DEPLOYMENT_GUIDE.md`: environment, config/secret references, build/deploy/migrate/smoke/rollback.
 - `OPERATIONS_RUNBOOK.md`: deploy, monitor, backup/restore, troubleshoot, incident.
 - `HANDOVER_CHECKLIST.md`: ownership, access, knowledge transfer, acceptance.
-- `MEETING_MINUTES.md`: decision/action từ họp.
-- `GLOSSARY_AND_REFERENCES.md`: thuật ngữ và nguồn chuẩn.
-- `SECURITY_REFERENCE_INDEX.md`: thứ tự đọc, code snapshot, portability và adoption evidence.
-- `DR_BCP_AND_CRISIS_PLAN.md`: continuity, recovery, failover, crisis communication và exercise evidence.
-- `TERM_STANDARDIZATION.md`: glossary canonical Việt–Anh và forbidden variants.
-- `DOCUMENT_INDEX.generated.md`: index sinh tự động từ front matter bằng `generate_document_index.ps1`.
-- `../09-Example-Project/`: dự án mẫu hoàn chỉnh từ idea đến sandbox và handover.
+- `MEETING_MINUTES.md`: decisions/action items from meetings.
+- `GLOSSARY_AND_REFERENCES.md`: terms and standard references.
+- `SECURITY_REFERENCE_INDEX.md`: reading order, code snapshots, portability, and adoption evidence.
+- `DR_BCP_AND_CRISIS_PLAN.md`: continuity, recovery, failover, crisis communication, and exercise evidence.
+- `TERM_STANDARDIZATION.md`: canonical Vietnamese-English glossary and forbidden variants.
+- `DOCUMENT_INDEX.generated.md`: auto-generated index from front matter using `generate_document_index.ps1`.
+- `../09-Example-Project/`: complete reference project from idea through sandbox to handover.
 
 ## Gate 08
 
-- [ ] Document index không có artifact bắt buộc thiếu/obsolete vô chủ.
-- [ ] Người nhận có thể setup/run/test/release/rollback/troubleshoot theo tài liệu.
-- [ ] New Developer/Ops Readiness Test từ clean baseline đạt, không cần hỏi tác giả ở bước blocking.
-- [ ] Ownership, support/warranty, access/secret transfer needs và residual risk rõ.
-- [ ] Final handover/acceptance được Client ghi nhận.
+- [ ] Document index contains no missing mandatory or obsolete/unowned artifacts.
+- [ ] Recipient can perform setup, run, test, release, rollback, and troubleshooting based solely on the documentation.
+- [ ] New Developer/Ops Readiness Test from a clean baseline passes without blocking questions to the author.
+- [ ] Ownership, support/warranty, access/secret transfer needs, and residual risks are clear.
+- [ ] Final handover/acceptance is signed off by the Client.

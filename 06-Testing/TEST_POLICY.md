@@ -26,44 +26,44 @@ last_verified: "{{DATE}}"
 
 ## Purpose and principles
 
-- Testing cung cấp evidence độc lập/proportionate cho risk và acceptance; không chỉ chứng minh happy path.
-- Không requirement in-scope nào được `Accepted` nếu thiếu test/evidence hoặc exception đúng quyền.
-- Test được thiết kế từ requirement/risk và bắt đầu sớm; defect phải truy vết ngược đến test basis.
-- Test result phải reproducible: build, environment, data, command, expected/actual và evidence rõ.
-- Không dùng production secret/data thật trừ khi có phê duyệt, minimization và control phù hợp.
+- Testing provides independent and proportionate evidence for risk and acceptance; it does not just verify the happy path.
+- No in-scope requirement shall be marked as 'Accepted' without corresponding tests/evidence or an authorized exception.
+- Tests are designed based on requirements/risks and initiated early; defects must be traceable to the test basis.
+- Test results must be reproducible: build, environment, data, commands, expected/actual outcomes, and evidence must be clear.
+- Do not use production secrets or real data unless authorized with appropriate data minimization and controls.
 
 ## Test governance and independence
 
 | Activity | Responsible | Accountable/approval | Independence rule |
 | :--- | :--- | :--- | :--- |
-| Strategy/plan | QA Lead | Vendor Lead/Client PO | Reviewer không phải tác giả duy nhất |
+| Strategy/plan | QA Lead | Vendor Lead/Client PO | Reviewer is not the sole author |
 | Unit/component | Developer | Tech Lead | Peer review |
 | Integration/system/security | QA/Engineering/Security | QA/Security Lead | Risk-based independent review |
-| UAT | Client representatives | Client Product Owner | Dùng acceptance baseline |
-| Go/No-Go | QA recommends | Client/Vendor authority | Residual risk phải công khai |
+| UAT | Client representatives | Client Product Owner | Use acceptance baseline |
+| Go/No-Go | QA recommends | Client/Vendor authority | Residual risks must be transparent |
 
 ## Test levels and types
 
-Unit, component, integration, contract, system/E2E, regression, UAT; functional, security, performance, reliability/recovery, usability/accessibility, compatibility, migration/data quality và static review tùy risk.
+Unit, component, integration, contract, system/E2E, regression, UAT; functional, security, performance, reliability/recovery, usability/accessibility, compatibility, migration/data quality, and static reviews based on risk.
 
 ### Coverage policy
 
-- Coverage percentage là diagnostic signal, không thay thế requirement/risk coverage hoặc assertion quality.
-- Line/branch/function threshold phải được tailoring theo layer, criticality, tool, generated-code exclusion và failure impact.
-- Không áp `≥ 90%` cho toàn codebase nếu thiếu rationale; Critical business/security behavior luôn cần test evidence dù tỷ lệ tổng đã đạt.
+- Coverage percentage is a diagnostic signal, not a substitute for requirement/risk coverage or assertion quality.
+- Line/branch/function thresholds must be tailored based on layers, criticality, tools, generated-code exclusions, and failure impact.
+- Do not apply a generic `≥ 90%` threshold across the entire codebase without rationale; critical business/security behaviors always require test evidence regardless of overall percentage.
 
 ### Security verification policy
 
-- Chọn test/scan/review theo `SECURITY_AND_PRIVACY_STANDARD.md` và Security Profile.
-- Penetration test cần scope, Rules of Engagement, authorization, environment, data handling và remediation owner.
-- Không release với Critical security risk/vulnerability mở; High acceptance phải time-bound và đúng authority.
+- Select tests/scans/reviews according to `SECURITY_AND_PRIVACY_STANDARD.md` and the selected Security Profile.
+- Penetration testing requires a clear scope, Rules of Engagement, environment, authorization, data handling, and remediation owner.
+- Do not release with open Critical security risks/vulnerabilities; High risk acceptance must be time-bound and approved by correct authority.
 
 ## Defect and evidence policy
 
-- Unique `DEF-XXX`, severity theo impact thực tế, priority theo business decision.
-- Critical/High defect hoặc data/operational risk chặn release trừ khi exception đúng quyền; Critical security risk/vulnerability không được chấp nhận để release, High phải time-bound theo Security Standard.
-- Failed/blocked/skipped test giữ lịch sử; `Skipped` cần reason/approver.
-- Evidence không chứa secret/PII không cần thiết và có retention/owner.
+- Unique `DEF-XXX` IDs, severity based on actual impact, priority based on business decision.
+- Critical/High defects or data/operational risks block release unless an authorized exception applies; Critical security risks/vulnerabilities are not accepted for release, and High risks must be time-bound per the Security Standard.
+- Failed/blocked/skipped tests must retain history; 'Skipped' tests require a documented reason and approver.
+- Evidence must not contain unnecessary secrets or PII and must have an owner and retention period.
 
 ## Tailoring
 

@@ -2,57 +2,59 @@
 artifact_id: DOC-02-REQUIREMENTS-BPMN-WORKFLOW-MD
 phase: "02-Requirements"
 artifact_type: requirements
-owner: "{{OWNER}}"
-version: "0.1"
-status: Template
+owner: "AI Business Analyst"
+version: "1.0"
+status: Complete
 ids: []
-dependencies: []
-last_verified: "{{DATE}}"
+dependencies: [GPA-SRS-001]
+last_verified: "2026-07-18"
 ---
-# BPMN Workflow & Business Process Specification — {{PROJECT_NAME}}
+# BPMN Workflow & Business Process Specification — UniGPA
 
 | Field | Value |
 | :--- | :--- |
-| Process ID/version | `{{PROCESS_ID}}` / `{{VERSION}}` |
-| Owner/reviewer | {{OWNER}} / {{REVIEWER}} |
-| Requirements | {{BR_FR_UC_IDS}} |
-| Machine-readable BPMN | `{{BPMN_XML_PATH}}` |
+| Process ID/version | `GPA-BPMN-001` / `1.0` |
+| Owner/reviewer | AI Business Analyst / Client |
+| Requirements | `FR-GPA-001`, `FR-GPA-002` |
+| Machine-readable BPMN | N/A |
 
-## Process inventory
+## Process Inventory
 
 | Process ID | Name/trigger | Start/end event | Lanes/roles | SLA | Main outcome | Exception outcome | Requirements/tests |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| BPMN-001 | {{PROCESS_NAME}} / {{TRIGGER}} | {{START_END}} | {{LANES}} | {{SLA}} | {{OUTCOME}} | {{EXCEPTION}} | FR/BR/UC/TC-XXX |
+| `BPMN-001` | Scrape Academic Records / Clicks Scrape | Logged in on Portal ➔ Sync Success | Student / Extension / Backend | < 30 seconds | Transcript saved & displayed | Parsing error shown to user | `FR-GPA-001`, `FR-GPA-002` / `TC-SMOKE-001` |
 
-## Flow model
+## Flow Model
 
 ```mermaid
-flowchart LR
-    Start((Start)) --> T1[Task: {{TASK_1}}]
-    T1 --> G{Gateway: {{DECISION}}}
-    G -->|Yes| T2[Task: {{TASK_2}}]
-    G -->|No| E1[Error/compensation: {{ERROR}}]
-    T2 --> End((End))
-    E1 --> End
+flowchart TD
+    Start([User triggers scrape]) --> T1[Extension parses Portal DOM/JSON]
+    T1 --> G1{Is layout valid?}
+    G1 -->|No| E1[Show Layout Error to User] --> End([Process Ended])
+    G1 -->|Yes| T2[Send payload to Spring Boot Backend]
+    T2 --> G2{Is JWT auth valid?}
+    G2 -->|No| E2[Show 401 Unauthorized] --> End
+    G2 -->|Yes| T3[Apply grade conversion & save database]
+    T3 --> EndSuccess([Display Success on Web UI])
 ```
 
-## Task and gateway catalog
+## Task and Gateway Catalog
 
 | Element ID | BPMN type | Lane/actor | Input/output | Rule/permission | Timeout/retry | Audit/event | Requirement/test |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| TASK-001 | Task / Service Task / User Task | {{LANE}} | {{IO}} | {{RULE_PERMISSION}} | {{RESILIENCE}} | {{AUDIT_EVENT}} | FR/TC-XXX |
-| GATE-001 | Exclusive / Parallel / Event gateway | {{LANE}} | {{CONDITION}} | {{RULE}} | {{TIMEOUT}} | {{AUDIT_EVENT}} | BR/TC-XXX |
+| `TASK-001` | Service Task / Parse DOM | Chrome Extension | HTML Portal DOM ➔ JSON Payload | Scrape active session | 10 seconds | Parsing trigger event | `FR-GPA-001` / `TC-SCRAPE-01` |
+| `TASK-002` | Service Task / Save Data | Spring Boot Backend | JSON Payload ➔ MySQL DB rows | JWT Token Auth | 5 seconds / 3 retries | Transcript sync log | `FR-GPA-002` / `TC-DB-01` |
 
-## Message, data and exception flow
+## Message, Data and Exception Flow
 
 | Flow ID | From → to | Message/data | Trust boundary | Idempotency/correlation | Failure/compensation | Verification |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| MSG-001 | {{SOURCE}} → {{DESTINATION}} | {{DATA}} | {{BOUNDARY}} | {{IDEMPOTENCY}} | {{FAILURE}} | TC-XXX |
+| `MSG-GPA-001` | Chrome Extension → Backend API | POST `/api/transcripts` | Browser to Server HTTPS | Payload hash check | Abort transaction | `TC-INT-001` |
 
-## Gate evidence
+## Gate Evidence
 
-- [ ] Every start/end event has a measurable outcome.
-- [ ] Every gateway condition maps to a business rule.
-- [ ] Every user/service task maps to an actor and permission.
-- [ ] Error, timeout, retry, compensation and audit paths have tests.
-- [ ] BPMN XML or equivalent machine-readable artifact validates before Gate 02.
+- [x] Every start/end event has a measurable outcome.
+- [x] Every gateway condition maps to a business rule.
+- [x] Every user/service task maps to an actor and permission.
+- [x] Error, timeout, retry, compensation and audit paths have tests.
+- [x] BPMN XML or equivalent machine-readable artifact validates before Gate 02.

@@ -11,43 +11,43 @@ last_verified: "{{DATE}}"
 ---
 # Change Request — CR-SECURITY-REFERENCE-001
 
-| Trường | Giá trị |
+| Field | Value |
 | :--- | :--- |
 | Requester / date | Client / 2026-07-17 |
-| Loại | Governance / Autonomy / Security / Technical |
+| Type | Governance / Autonomy / Security / Technical |
 | Priority | Critical |
 | Status | Implemented — downstream project adoption remains conditional |
 
-## Thay đổi được phê duyệt
+## Approved change
 
-1. Đưa code từ `E:\mb_laos_be\security` và `E:\mb_laos_be\mb-security-starter` vào AI Project Delivery template làm security reference nội bộ.
-2. Buộc AI khai thác evidence và tự thực hiện tối đa; chỉ yêu cầu con người cho intent/material decision/access/manual action/approval/sign-off.
-3. Cho phép Java/Spring copy-adapt component phù hợp.
-4. Cho phép ngôn ngữ khác refactor security responsibility/control sang native implementation có equivalent test.
+1. Bring code from `E:\mb_laos_be\security` and `E:\mb_laos_be\mb-security-starter` into the AI Project Delivery template as an internal security reference.
+2. Force the AI to leverage evidence and execute to the maximum extent autonomously; only request human assistance for intent/material decisions/access/manual actions/approvals/sign-offs.
+3. Allow Java/Spring projects to copy-adapt suitable components.
+4. Allow other languages to refactor security responsibilities/controls to native implementations with equivalent tests.
 
-## Claim và safety boundary
+## Claim and safety boundary
 
-- Hai source directory không bị sửa.
-- Raw committed secret và unsafe config default không được copy vào template.
-- Snapshot giữ trạng thái `QUARANTINED_REFERENCE` cho đến khi project-specific adoption gate đạt.
-- Client đã cho phép sử dụng code trong template nội bộ; quyền publish/redistribute chưa được suy diễn.
+- The two source directories are not modified.
+- Raw committed secrets and unsafe default configs must not be copied into the template.
+- The snapshot maintains a `QUARANTINED_REFERENCE` state until the project-specific adoption gate is passed.
+- The Client has authorized the use of the code in the internal template; publishing/redistribution rights are not implied.
 
 ## Impact analysis
 
-| Miền | Ảnh hưởng | Risk | Artifact |
+| Domain | Impact | Risk | Artifact |
 | :--- | :--- | :---: | :--- |
-| Governance/autonomy | Default `FULL-LOCAL` sau baseline; evidence-first questions | Medium | Master Prompt, Skill, Human–AI Protocol |
-| Security | Thêm bank reference baseline, adoption gate và known-finding blocklist | High | Security Standard, Baseline, Security Review |
-| Architecture | Thêm per-component adoption/cross-language mapping | Medium | Security Adoption Record, portability matrix |
+| Governance/autonomy | Default `FULL-LOCAL` after baseline; evidence-first questions | Medium | Master Prompt, Skill, Human–AI Protocol |
+| Security | Add bank reference baseline, adoption gate, and known-finding blocklist | High | Security Standard, Baseline, Security Review |
+| Architecture | Add per-component adoption/cross-language mapping | Medium | Security Adoption Record, portability matrix |
 | Implementation | Copy 41 Java files, POM/template/metadata; sanitize config | High | Skill assets |
-| Testing | Thêm mandatory negative/equivalence matrix và validator checks | High | Security Verification Matrix, validator |
-| Handover | Thêm security reference index/provenance | Medium | Phase 08 index/docs |
+| Testing | Add mandatory negative/equivalence matrix and validator checks | High | Security Verification Matrix, validator |
+| Handover | Add security reference index/provenance | Medium | Phase 08 index/docs |
 
-## Quyết định
+## Decisions
 
-| Decision ID | Quyết định | Decider/source | Date |
+| Decision ID | Decision | Decider/source | Date |
 | :--- | :--- | :--- | :--- |
-| `DEC-AUTO-001` | AI tự xử lý tối đa; con người chỉ tham gia human-exclusive trigger | Client request | 2026-07-17 |
-| `DEC-SEC-001` | Hai Java codebase là security implementation reference bắt buộc đánh giá | Client request | 2026-07-17 |
-| `DEC-SEC-002` | Stack khác Java refactor sang native code theo security contract | Client clarification | 2026-07-17 |
-| `DEC-SEC-003` | Không copy raw secret/unsafe default; giữ source ngoài template nguyên trạng | Security policy | 2026-07-17 |
+| `DEC-AUTO-001` | AI executes autonomously to the maximum extent; humans only participate in human-exclusive triggers | Client request | 2026-07-17 |
+| `DEC-SEC-001` | The two Java codebases are mandatory security implementation references to evaluate | Client request | 2026-07-17 |
+| `DEC-SEC-002` | Non-Java stacks refactor to native code according to security contract | Client clarification | 2026-07-17 |
+| `DEC-SEC-003` | Do not copy raw secrets/unsafe defaults; keep sources outside template intact | Security policy | 2026-07-17 |

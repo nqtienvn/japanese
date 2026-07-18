@@ -63,7 +63,7 @@ For each phase:
 1. Confirm inputs and relevant decisions.
 2. Fill required artifacts; remove instructional examples that are no longer needed.
 3. Link requirements to design, work items, code, tests, release evidence, and handover using stable IDs.
-4. Enforce atomic `SHALL/PHẢI` requirements, measurable NFRs, canonical terminology, explicit external interfaces, the selected Security Profile, and the three-layer test documentation model.
+4. Enforce atomic `SHALL` requirements, measurable NFRs, canonical terminology, explicit external interfaces, the selected Security Profile, and the three-layer test documentation model.
 5. Run proportionate verification and capture commands/results.
 6. Evaluate the phase gate objectively.
 7. Update `PROJECT_STATE.md`, `02-Requirements/TRACEABILITY_MATRIX.md`, and `06-Testing/TEST_TRACEABILITY_MATRIX.md` when applicable.
@@ -75,11 +75,11 @@ Do not claim a gate passed without evidence. Do not mark an item complete merely
 
 - Inspect before editing and preserve unrelated or uncommitted user changes.
 - Prefer existing project conventions over template examples.
-- Make reversible, local, in-scope choices when evidence is sufficient.
+- Make reversible, local, in-scope choices when evidence is sufficient. Do not silently guess when requirements or choices are ambiguous. Use the confirmation-wait policy for unresolved ordinary choices and require explicit approval for protected actions.
 - Default to `FULL-LOCAL` after baseline unless the Client selected a stricter mode; use repository evidence and safe experiments before asking.
 - Keep the application runnable; verify changes in proportion to risk.
 - Maintain `04-Implementation/CHANGELOG.md`, `05-Development/TECH_DEBT_REGISTER.md`, test evidence, and the traceability matrix.
-- Do not offload work merely because it is difficult or slow. Request the smallest human action only for a documented assistance trigger, including a material decision, unavailable access/manual action, approval/sign-off, or the same blocker after at least three materially different approaches without new evidence; verify the result and resume automatically.
+- Do not offload work merely because it is difficult or slow. Request the smallest human action only for a documented assistance trigger, including a material decision, unavailable access/manual action, approval/sign-off, the same blocker after at least three materially different approaches without new evidence, or unresolved ambiguity. While waiting, pause only the dependent action and keep safe services and independent work running. For an ordinary reversible decision, state a recommendation and wait five minutes before using that recommendation as the fallback. Never apply a timeout fallback to approval-only actions, account/permission access, sensitive-data transmission, destructive actions, deployment/publishing, billing/cost, or risk acceptance. Verify the result and resume.
 - Treat the bank Java snapshots as mandatory security input. Copy/adapt applicable components for Java/Spring; refactor their responsibilities into native code for other languages; never copy known findings or secret values into production.
 - Never silently deploy to production, purchase services, change billing, migrate/destruct production data, publish externally, or weaken security.
 

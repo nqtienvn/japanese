@@ -29,13 +29,14 @@ last_verified: "{{DATE}}"
 | :--- | :--- | :--- | :--- | :--- |
 | REF-TECH-001 | {{REFERENCE}} | {{VERSION}} | {{AREA}} | {{NOTE}} |
 
-Không đưa credential, secret URL có token hoặc dữ liệu thật vào references.
+Do not put credentials, secret URLs with tokens, or real data into references.
 
-Thuật ngữ governance bắt buộc:
+Mandatory governance terminology:
 
-- `Security Profile`: mức `STANDARD`, `HIGH` hoặc `CRITICAL` quyết định verification/security gate theo risk; không đồng nghĩa chứng nhận.
-- `Human-assistance trigger`: điều kiện evidence-based cho phép AI yêu cầu decision/access/manual/approval/sign-off nhỏ nhất; “làm lâu quá” không phải trigger độc lập.
-- `Critical security risk`: risk/vulnerability chặn release cho đến khi được xử lý theo Security Standard.
-# Canonical terminology
+- `Security Profile`: STANDARD, HIGH, or CRITICAL level deciding the verification/security gate based on risk; not equivalent to certification.
+- `Human-assistance trigger`: evidence-based condition permitting the AI to request the smallest decision/access/manual/approval/sign-off action; "taking too long" is not an independent trigger.
+- `Critical security risk`: risk/vulnerability blocking release until resolved according to the Security Standard.
+
+# Canonical Terminology
 
 Use [TERM_STANDARDIZATION.md](TERM_STANDARDIZATION.md) as the canonical Vietnamese-English vocabulary. A new recurring synonym requires an explicit glossary decision before it is used across artifacts.

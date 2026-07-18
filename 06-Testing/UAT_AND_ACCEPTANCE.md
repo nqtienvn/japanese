@@ -25,16 +25,16 @@ last_verified: "{{DATE}}"
 
 ## Acceptance checklist
 
-- [ ] Deliverables đúng SOW/release scope.
-- [ ] Must/Critical acceptance criteria đạt.
-- [ ] Blocking defect threshold không bị vượt.
-- [ ] Data/security/privacy/NFR evidence phù hợp đã review.
-- [ ] User guide/runbook/release/rollback/handover sẵn sàng.
-- [ ] Open items và warranty/support boundary rõ.
+- [ ] Deliverables comply with SOW/release scope.
+- [ ] Must/Critical acceptance criteria are met.
+- [ ] Blocking defect threshold is not exceeded.
+- [ ] Relevant data/security/privacy/NFR evidence has been reviewed.
+- [ ] User guide/runbook/release/rollback/handover are ready.
+- [ ] Open items and warranty/support boundaries are clear.
 
 ## Client decision
 
-| Decision | Chọn | Conditions / deadline |
+| Decision | Select | Conditions / deadline |
 | :--- | :---: | :--- |
 | Accepted | [ ] | {{CONDITIONS}} |
 | Conditionally accepted | [ ] | {{CONDITIONS}} |

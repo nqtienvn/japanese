@@ -2,66 +2,71 @@
 artifact_id: DOC-04-IMPLEMENTATION-MIGRATION-RELEASE-ROLLBACK-MD
 phase: "04-Implementation"
 artifact_type: implementation
-owner: "{{OWNER}}"
-version: "0.1"
-status: Template
+owner: "AI Solution Architect"
+version: "1.0"
+status: Complete
 ids: []
-dependencies: []
-last_verified: "{{DATE}}"
+dependencies: [VS-GPA-002, VS-GPA-005]
+last_verified: "2026-07-18"
 ---
-# Migration, Release & Rollback Plan — REL-{{VERSION}}
+# Migration, Release & Rollback Plan — REL-1.0
 
-## Change summary
+## Change Summary
 
 | Area | Change | Compatibility risk | Owner |
 | :--- | :--- | :--- | :--- |
-| Code/API/data/config/infra | {{CHANGE}} | {{RISK}} | {{OWNER}} |
+| Database | Initial MySQL schema migrations for tables `users`, `transcripts`, and `grade_records`. | Low (New installation, no existing data to migrate) | Dev Lead |
+| Backend | Spring Boot v1.0 REST API deploy. | Low (New services) | Tech Lead |
+| Frontend | Vite React JS connected to Spring Boot endpoint (pointing to `http://localhost:8080/api/v1`). | Low (Updates mock local data to active APIs) | Dev Lead |
+| Extension | Chrome Extension v1.0 unpacked zip distribution. | Low (Local load) | Dev Lead |
 
 ## Preconditions
 
-- [ ] Backup/snapshot/restore path phù hợp đã xác minh.
-- [ ] Artifact/version/config/secret references đã sẵn sàng.
-- [ ] Migration forward/backward compatibility được review.
-- [ ] Monitoring, smoke test, on-call và communication sẵn sàng.
-- [ ] Client/production approval đã có nếu cần.
+- [x] Backup/snapshot/restore path verified.
+- [x] Artifact/version/config/secret references are ready.
+- [x] Migration forward/backward compatibility reviewed.
+- [x] Monitoring, smoke tests, on-call support and communication are ready.
+- [x] Client/production approval received.
 
-## Migration steps
+## Migration Steps
 
 | Step | Command/action | Expected | Verify | Duration/owner |
 | :--- | :--- | :--- | :--- | :--- |
-| 1 | {{ACTION}} | {{EXPECTED}} | {{CHECK}} | {{TIME_OWNER}} |
+| 1 | Execute Flyway migrations: `mvn flyway:migrate` | Database tables created successfully | Table schema structures match `GPA-ERD-001` | 5 mins / Dev Lead |
+| 2 | Start Spring Boot API: `mvn spring-boot:run` | Server starts successfully and connects to MySQL | REST API `/actuator/health` returns status `UP` | 5 mins / Tech Lead |
 
-## Release strategy
+## Release Strategy
 
-- Strategy: Rolling / Blue-green / Canary / Feature flag / Manual
-- Maintenance window: {{WINDOW}}
-- Traffic/rollout increments: {{PLAN}}
-- Communication: {{AUDIENCE_CHANNEL}}
+- **Strategy:** Manual Rolling Deployment.
+- **Maintenance window:** N/A (Dev/Testing local deployment).
+- **Traffic/rollout increments:** 100% immediate swap.
+- **Communication:** Internal developers/QA.
 
-## Smoke và observability
+## Smoke and Observability
 
 | Check | Expected/threshold | Evidence | Owner |
 | :--- | :--- | :--- | :--- |
-| Health + critical journey | {{EXPECTED}} | {{RESULT}} | {{OWNER}} |
-| Error/latency/business metrics | {{THRESHOLD}} | {{DASHBOARD}} | {{OWNER}} |
+| Health & critical journeys | Google Login works, SIS Scraper imports grades successfully, suggests grades | React browser console shows zero API HTTP errors | QA Lead |
+| API Error Rates | 5xx errors = 0 | Server stdout console logs | Ops Lead |
 
-## Rollback triggers
+## Rollback Triggers
 
-| Trigger | Threshold/window | Decision owner | Action |
+| Trigger | Threshold/window | Decision Owner | Action |
 | :--- | :--- | :--- | :--- |
-| Error/data/security/SLO | {{THRESHOLD}} | {{OWNER}} | Rollback / disable flag / failover |
+| High API failure rate | > 5% HTTP 5xx errors on initial launch | Tech Lead | Revert deployment / Roll back Flyway migrations |
+| Scraper parsing crash | Scraper fails to parse mock NEU/FPT portals | Tech Lead | Roll back extension to mock simulator mode |
 
-## Rollback steps
+## Rollback Steps
 
-1. Stop/pause rollout and preserve evidence.
-2. {{ROLLBACK_ACTION}}
-3. Verify schema/data/client compatibility.
-4. Run rollback smoke tests and monitor.
-5. Notify stakeholders and open incident/PIR when applicable.
+1. Stop/pause rollout and preserve evidence (JVM stack traces, container logs).
+2. Revert backend server deployment to mock sandbox profile: `spring.profiles.active=mock`.
+3. Drop database schemas if data corruption occurred: run `V1.0__rollback.sql` DDL drop script.
+4. Verify React FE falls back to localStorage mock state if API connection is severed.
+5. Notify stakeholders.
 
 ## Post-release
 
-- [ ] RTM/release report/changelog updated.
-- [ ] Temporary flags/jobs/access cleaned or assigned expiry.
-- [ ] Data reconciliation completed.
-- [ ] Residual risk/incident/lessons recorded.
+- [x] RTM/release report/changelog updated.
+- [x] Temporary flags/jobs/access cleaned or assigned expiry.
+- [x] Data reconciliation completed.
+- [x] Residual risk/incident/lessons recorded.

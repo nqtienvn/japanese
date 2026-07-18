@@ -20,7 +20,7 @@ last_verified: "{{DATE}}"
 
 ## Context
 
-Vấn đề, forces, constraint, quality attributes và thời điểm cần quyết định: {{CONTEXT}}
+Problem, forces, constraints, quality attributes, and decision timeline: {{CONTEXT}}
 
 ## Decision criteria
 
@@ -30,13 +30,13 @@ Vấn đề, forces, constraint, quality attributes và thời điểm cần quy
 
 ## Options
 
-| Option | Mô tả | Ưu | Nhược/risk | Cost/operability | Score |
+| Option | Description | Pros | Cons/Risks | Cost/Operability | Score |
 | :--- | :--- | :--- | :--- | :--- | :---: |
 | A | {{OPTION}} | {{PROS}} | {{CONS}} | {{COST_OPS}} | {{SCORE}} |
 
 ## Decision
 
-Chọn {{OPTION}} vì {{RATIONALE}}.
+Selected {{OPTION}} because {{RATIONALE}}.
 
 ## Consequences
 
@@ -48,6 +48,6 @@ Chọn {{OPTION}} vì {{RATIONALE}}.
 
 ## Validation
 
-| Evidence cần có | Owner | Due | Result |
+| Required Evidence | Owner | Due | Result |
 | :--- | :--- | :--- | :--- |
 | {{SPIKE_TEST_METRIC}} | {{OWNER}} | {{DATE}} | Pending |

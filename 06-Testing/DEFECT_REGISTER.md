@@ -29,4 +29,4 @@ last_verified: "{{DATE}}"
 
 ## Triage rule
 
-Critical/High phải có owner và quyết định release. `Won't Fix` hoặc accepted defect phải có Client/QA/Security approver phù hợp, risk và review/expiry date.
+Critical/High defects must have a designated owner and a release decision. `Won't Fix` or accepted defects must have appropriate Client/QA/Security approver sign-offs, documented risks, and review/expiry dates.

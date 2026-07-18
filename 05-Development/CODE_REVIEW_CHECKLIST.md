@@ -20,37 +20,37 @@ last_verified: "{{DATE}}"
 | Reviewer | {{REVIEWER}} |
 | Risk level | Low / Medium / High / Critical |
 
-## Correctness và maintainability
+## Correctness and maintainability
 
-- [ ] Code thực hiện đúng acceptance, không mở rộng scope âm thầm.
-- [ ] Edge/error/concurrency/idempotency/transaction path đúng.
-- [ ] Naming, boundary, dependency và convention phù hợp codebase.
-- [ ] Module contract/blast radius/compatibility rõ; không dựa vào giả định “không ảnh hưởng module khác”.
-- [ ] Không có dead/debug/generated noise hoặc duplication đáng kể.
-- [ ] Error message/actionable handling không che lỗi hoặc lộ nội bộ.
+- [ ] Code implements correct acceptance criteria, without silent scope expansion.
+- [ ] Edge, error, concurrency, idempotency, and transaction paths are correct.
+- [ ] Naming, boundaries, dependencies, and conventions align with the codebase.
+- [ ] Module contracts, blast radius, and compatibility are clear; does not rely on "no impact on other modules" assumptions.
+- [ ] No dead code, debug statements, generated noise, or significant duplication.
+- [ ] Error messages and actionable handling do not mask errors or leak internal details.
 
-## Security và privacy
+## Security and privacy
 
-- [ ] Authentication/authorization ở trust boundary, default deny.
-- [ ] Input/output/file/query được validate/encode/parameterize phù hợp.
-- [ ] Security Profile controls và linked threat/security requirements có code/test evidence.
-- [ ] Secret/PII không hard-code, log hoặc gửi ngoài policy.
-- [ ] Dependency, crypto, random, token/session và rate limit phù hợp.
-- [ ] Threat/abuse case và audit requirement được test.
+- [ ] Authentication/authorization are enforced at trust boundaries, default deny.
+- [ ] Input/output/files/queries are properly validated, encoded, and parameterized.
+- [ ] Security Profile controls and linked threat/security requirements have code/test evidence.
+- [ ] Secrets and PII are not hard-coded, logged, or transmitted outside policy.
+- [ ] Dependencies, cryptography, random generation, token/session lifecycle, and rate limits are appropriate.
+- [ ] Threat/abuse cases and audit requirements are tested.
 
-## Data, compatibility và operations
+## Data, compatibility, and operations
 
-- [ ] Schema/migration/backfill có compatibility và rollback.
-- [ ] API/event/config/feature flag version/default/expiry rõ.
-- [ ] Log/metric/trace/health/alert đủ để vận hành.
-- [ ] Timeout/retry/fallback/cost/capacity impact được xem xét.
+- [ ] Schema, migrations, and data backfills have compatibility and rollback plans.
+- [ ] API/event/config/feature flag versioning, defaults, and expiry are clear.
+- [ ] Logs, metrics, traces, health checks, and alerts are sufficient for operations.
+- [ ] Timeout, retry, fallback, cost, and capacity impacts are considered.
 
-## Tests và docs
+## Tests and documentation
 
-- [ ] Test mới chứng minh failure trước/fix sau khi phù hợp.
-- [ ] Assertions kiểm tra hành vi, gồm negative/regression path.
-- [ ] Không tạo flaky/shared-state/test-data thật.
-- [ ] RTM/changelog/design/runbook/user docs cập nhật.
+- [ ] New tests demonstrate failure first and pass post-fix when applicable.
+- [ ] Assertions verify behavior, including negative and regression paths.
+- [ ] No flaky tests, shared state issues, or real test data usage.
+- [ ] RTM, changelog, design, runbook, and user docs are updated.
 
 ## Review outcome
 
