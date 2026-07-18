@@ -27,7 +27,7 @@ last_verified: "2026-07-18"
 | Start date | 2026-07-18 |
 | Target date | TBD |
 | Delivery mode | GREENFIELD |
-| Autonomy mode | FULL-LOCAL |
+| Autonomy mode | STANDARD |
 | Data classification | PII / Academic Records |
 | Security profile | HIGH |
 | Regulatory scope | Decree 13/2023/ND-CP on Personal Data Protection (Vietnam) |

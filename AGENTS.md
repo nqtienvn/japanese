@@ -50,3 +50,5 @@ These instructions apply to the entire repository.
 
 A requirement is only considered `Done` when it is traced from Requirement ➔ Design ➔ Work Item ➔ Code/Configuration ➔ Test/Evidence ➔ Release/Handover, or has an approved and documented exception.
 18. Every project must run `lint_delivery.ps1`, `validate_contracts.ps1 -Strict`, and generate the Document Index from front matter metadata before gate review. Gates 02, 03, 06, and 08 cannot pass simply by updating `PROJECT_STATE.md`.
+19. AI SHALL NOT start writing code (Phase 05 - Development) for any vertical slice until the implementation plan, work items, and test specifications for that specific slice (Phase 04) have been explicitly reviewed and approved by the Client. Silence or confirmation-wait timeouts SHALL NOT apply to vertical slice approvals.
+
