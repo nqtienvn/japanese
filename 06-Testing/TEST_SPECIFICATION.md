@@ -2,74 +2,22 @@
 artifact_id: DOC-06-TESTING-TEST-SPECIFICATION-MD
 phase: "06-Testing"
 artifact_type: testing
-owner: "{{OWNER}}"
-version: "0.1"
-status: Template
-ids: []
-dependencies: []
-last_verified: "{{DATE}}"
+owner: "AI QA Lead"
+version: "1.0"
+status: Approved
+ids: [TC-JNOTE-001, TC-JNOTE-002, TC-JNOTE-003, TC-JNOTE-004, TC-JNOTE-005, TC-JNOTE-006, TC-JNOTE-007, TC-JNOTE-008]
+dependencies: [02-Requirements/SRS.md, 04-Implementation/IMPLEMENTATION_PLAN.md]
+last_verified: "2026-08-06"
 ---
-# Test Design & Specification — {{PROJECT_NAME}} / REL-{{VERSION}}
+# Test Specification — JNOTE
 
-| Field | Value |
-| :--- | :--- |
-| Document ID | `{{PROJECT_CODE}}-TST-SPEC-001` |
-| Version / status | {{VERSION}} / {{STATUS}} |
-| Test basis | {{BRD_SRS_DESIGN_RISK_VERSIONS}} |
-| Owner/reviewer | {{OWNER}} / {{REVIEWER}} |
-
-## Version history
-
-| Version | Date | Author | Reason/change | Conditions/cases affected |
-| :--- | :--- | :--- | :--- | :--- |
-| 0.1 | {{DATE}} | {{AUTHOR}} | Initial specification | All |
-
-## Test conditions and coverage items
-
-| Condition ID | Requirement/risk | Condition/behavior to verify | Priority | Technique | Test cases |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| TCOND-XXX-001 | FR/NFR/THR-XXX | {{TEST_CONDITION}} | Critical / High / Medium / Low | EP / BVA / Decision Table / State Transition / Pairwise / Use-case / Exploratory | TC-XXX |
-
-## Technique selection
-
-| Risk/behavior | Selected technique | Rationale | Coverage target/evidence |
+| Test ID | Basis | Condition/input | Expected observable result |
 | :--- | :--- | :--- | :--- |
-| Input domains/boundaries | Equivalence Partitioning + Boundary Value Analysis | {{RATIONALE}} | {{TARGET}} |
-| Business rule combinations | Decision Table | {{RATIONALE}} | {{TARGET}} |
-| Entity lifecycle | State Transition | {{RATIONALE}} | {{TARGET}} |
-| User/business journeys | Use-case/Scenario | {{RATIONALE}} | {{TARGET}} |
-| Unknown/emergent risk | Exploratory/Checklist | {{RATIONALE}} | Charter/session evidence |
-
-## Test data registry
-
-| Data ID | Purpose/used by | Input value/setup | Expected classification | Source/generation | Reset/cleanup |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| TD-001 | TC-XXX valid input | {{EXACT_INPUT}} | Synthetic / anonymized | {{SOURCE}} | {{RESET}} |
-| TD-002 | Invalid/boundary | {{EXACT_INPUT}} | Synthetic | {{SOURCE}} | {{RESET}} |
-
-## Test case inventory
-
-| Test Case ID | Condition/requirement | Type | Exact input data IDs | Expected result summary | Environment | Automation/evidence | Status |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| TC-XXX-001 | TCOND/FR-XXX | Positive / Negative / Security / NFR | TD-001 | {{EXACT_OBSERVABLE_RESULT}} | {{ENV}} | {{PATH_JOB}} | Draft |
-
-## Required edge-case coverage
-
-- [ ] Valid/happy path.
-- [ ] Invalid format and boundary values.
-- [ ] Empty/null/missing input.
-- [ ] Unauthorized/forbidden/role change.
-- [ ] Duplicate/double-submit/idempotency.
-- [ ] Network/dependency timeout, retry and fallback.
-- [ ] Concurrency/version conflict/partial failure.
-- [ ] Data/audit/notification side effects.
-- [ ] State transition, cancel/reversal/recovery.
-- [ ] Applicable NFR/security/migration/compatibility.
-
-## Review and approval
-
-| Reviewer | Focus | Decision | Findings/conditions |
-| :--- | :--- | :--- | :--- |
-| QA Lead | Coverage/technique/testability | Pending | {{FINDINGS}} |
-| BA/Product | Business expected results | Pending | {{FINDINGS}} |
-| Tech/Security | Technical/risk coverage | Pending | {{FINDINGS}} |
+| `TC-JNOTE-001` | `FR-NOTE-001..002` | Create pair then create exact normalised pair. | First succeeds; second creates no record and gives recovery message. |
+| `TC-JNOTE-002` | `FR-NOTE-005..006` | Archive then restore owned Term. | Default list/source excludes then includes it. |
+| `TC-JNOTE-003` | `FR-STUDY-002..004` | Eligible/ineligible distractors; accent-removed Vietnamese answer. | Four unique options or written fallback; accent-removed answer is wrong. |
+| `TC-JNOTE-004` | `FR-QUIZ-002..005` | Create two attempts; submit answer after deadline. | One active attempt; late answer rejected. |
+| `TC-JNOTE-005` | `FR-QUIZ-004..006` | Persist then reload active answer; submit attempt. | Saved answer returns; review appears only after submit. |
+| `TC-JNOTE-006` | `SEC-JNOTE-001` | Second authenticated test owner reads/writes/export first owner data. | Every request is denied or returns no protected row. |
+| `TC-JNOTE-007` | `FR-PROG-003..005`, `SEC-JNOTE-004` | Export/delete with owner and stale session. | Export is owner-scoped; stale deletion is denied; restore/purge contract works. |
+| `TC-JNOTE-008` | `NFR-UX-001`, `NFR-A11Y-001`, `NFR-REL-001` | Primary journeys at three viewports, keyboard-only, and failed request. | Controls remain usable; keyboard completes journey; retryable Vietnamese error appears. |

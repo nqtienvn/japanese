@@ -2,73 +2,53 @@
 artifact_id: DOC-00-GOVERNANCE-POLICY-PROJECT-CHARTER-MD
 phase: "00-Governance-Policy"
 artifact_type: governance
-owner: "{{OWNER}}"
-version: "0.1"
-status: Template
-ids: []
-dependencies: []
-last_verified: "{{DATE}}"
+owner: "AI Delivery Vendor"
+version: "1.0"
+status: Approved
+ids: [OBJ-JNOTE-001, OBJ-JNOTE-002, OBJ-JNOTE-003, OBJ-JNOTE-004, DEC-JNOTE-011]
+dependencies: [PROJECT_PROFILE.md, 01-Planning/DISCOVERY_LOG.md]
+last_verified: "2026-08-06"
 ---
-# Project Charter — {{PROJECT_NAME}}
+# Project Charter — Sổ tay học tiếng Nhật (`JNOTE`)
 
 | Field | Value |
 | :--- | :--- |
-| Document ID | `{{PROJECT_CODE}}-CHR-001` |
-| Version / status | {{VERSION}} / {{STATUS}} |
-| Client sponsor | {{PROJECT_OWNER}} |
-| Client product owner | {{PRODUCT_OWNER}} |
-| Vendor delivery lead | {{PROJECT_MANAGER}} |
-| Target start / finish | {{START_DATE}} / {{TARGET_DATE}} |
+| Document ID | `JNOTE-CHR-001` |
+| Sponsor / Product Owner | Client |
+| Delivery Vendor | AI Delivery Vendor |
+| Engagement | GREENFIELD, `FULL-LOCAL` |
+| Baseline authority | Client delegated ordinary Discovery/baseline decisions through `DEC-JNOTE-011` on 2026-08-06 |
+| Time and cost | No fixed deadline; no paid service, deployment, or publishing without a separate explicit Client approval |
 
-## 1. Business case
+## Purpose and objectives
 
-- Context: {{BUSINESS_CONTEXT}}
-- Problem/Opportunity: {{PROBLEM_STATEMENT}}
-- Why now: {{WHY_NOW}}
-- Cost of inaction: {{COST_OF_INACTION}}
+The project creates a private Japanese-vocabulary learning web application. It removes the break between taking notes, using flashcards, practising answers, and taking a timed test.
 
-## 2. Outcomes
+| Objective | Measurable outcome |
+| :--- | :--- |
+| `OBJ-JNOTE-001` Capture vocabulary | A verified learner adds ten unique Japanese/Vietnamese pairs in one notebook session without assistance. |
+| `OBJ-JNOTE-002` Practise vocabulary | The learner completes bidirectional Flashcard and Study sessions with saved per-term outcomes. |
+| `OBJ-JNOTE-003` Assess learning | The learner completes a server-timed Quiz and reviews its detailed, saved result. |
+| `OBJ-JNOTE-004` Protect learning data | Every protected record is accessible only to its owner; account export/delete/restore paths have negative and positive verification evidence. |
 
-| Objective ID | Outcome | Baseline | Target | Deadline | Owner |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| OBJ-001 | {{OUTCOME}} | {{BASELINE}} | {{TARGET}} | {{DATE}} | {{OWNER}} |
+## Release-one scope
 
-## 3. High-level scope
+In scope: verified email/password account, user-isolated vocabulary, two-column inline notebook, independent Flashcard/Study/Quiz labels, dashboard, Flashcard, Study, Quiz, progress/history, search/filter/sort, archive/restore, CSV export, 30-day account-deletion restoration, responsive accessibility, and recoverable online errors.
 
-| In scope | Out of scope | Future consideration |
-| :--- | :--- | :--- |
-| {{IN_SCOPE}} | {{OUT_OF_SCOPE}} | {{FUTURE_SCOPE}} |
+Out of scope: grammar, listening, speaking, AI, sharing, social/ranking, multi-tenant administration, bulk import, offline sync, notifications, public APIs, native mobile apps, paid services, and application deployment/publishing.
 
-## 4. Stakeholders
+## Constraints and success boundaries
 
-| ID | Person/Group | Role | Interest | Decision Right | Engagement Method |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| STK-001 | {{STAKEHOLDER}} | {{ROLE}} | {{INTEREST}} | {{DECISION_RIGHT}} | {{CADENCE}} |
+- React and Supabase are mandatory technology constraints.
+- The UI SHALL be Vietnamese and responsive from 360 px upward.
+- Core screens, save, and next-question actions SHALL meet p95 ≤ 2 seconds at 1,000 terms/account in the defined test environment.
+- The Security Profile is `HIGH`; no legal/compliance certification or claim is in scope.
+- Secrets SHALL be environment references only. A real Supabase URL and publishable anon key remain a Client-provisioned integration dependency.
 
-## 5. Constraints and assumptions
+## Authority and exclusions
 
-| ID | Type | Content | Verification Method | Owner | Due Date |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| CON-001 | Constraint / Assumption | {{ITEM}} | {{VALIDATION}} | {{OWNER}} | {{DATE}} |
+The AI Delivery Vendor may decide ordinary local/reversible delivery matters and record them. The Client alone approves deployment/publishing, billing, shared/production changes, access credentials, destructive real-data actions, lowered security/privacy controls, and risk acceptance. This charter does not authorize any of those actions.
 
-## 6. Initial risks
+## Charter acceptance
 
-| Risk ID | Risk | Probability | Impact | Response | Owner |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| RISK-001 | {{RISK}} | L/M/H | L/M/H | {{RESPONSE}} | {{OWNER}} |
-
-## 7. Authorities
-
-- Client Product Owner decides: objectives, priorities, scope, acceptance, and changes with commercial impact.
-- Vendor Delivery Lead decides: delivery organization and local/reversible choices within approved constraints.
-- Tech Lead decides: architecture/technical decisions, but must create an ADR when trade-offs impact NFR/cost/lock-in.
-- QA Lead has the authority to block release when exit criteria are not met.
-- Security/Privacy Owner has the authority to block release when there is an unacceptable risk.
-- Security Profile/risk appetite and Human–AI assistance boundary can only be changed through appropriate governance decision/change control.
-
-## 8. Charter approval
-
-| Party | Approver | Decision | Date | Notes |
-| :--- | :--- | :--- | :--- | :--- |
-| Client | {{PRODUCT_OWNER}} | Pending / Approved / Rejected | {{DATE}} | {{NOTE}} |
-| Vendor | {{PROJECT_MANAGER}} | Pending / Approved / Rejected | {{DATE}} | {{NOTE}} |
+This charter is approved under the Client's explicit delegated authority recorded in `DEC-JNOTE-011`. It is a project baseline, not a legal contract or a compliance certification.

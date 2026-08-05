@@ -2,94 +2,41 @@
 artifact_id: DOC-00-GOVERNANCE-POLICY-STATEMENT-OF-WORK-MD
 phase: "00-Governance-Policy"
 artifact_type: governance
-owner: "{{OWNER}}"
-version: "0.1"
-status: Template
-ids: []
-dependencies: []
-last_verified: "{{DATE}}"
+owner: "AI Delivery Vendor"
+version: "1.0"
+status: Approved
+ids: [OBJ-JNOTE-001, OBJ-JNOTE-002, OBJ-JNOTE-003, OBJ-JNOTE-004]
+dependencies: [PROJECT_PROFILE.md, 00-Governance-Policy/PROJECT_CHARTER.md]
+last_verified: "2026-08-06"
 ---
-# Statement of Work (SOW) — {{PROJECT_NAME}}
+# Statement of Work — `JNOTE`
 
-> Delivery governance template; requires legal review if used as a legally binding contract.
+> This delivery statement governs the local software work. It is not a legally binding contract and does not replace legal review.
 
-## 1. Parties and purpose
+## Purpose, parties, and period
 
-- Client: {{CLIENT_LEGAL_NAME}}
-- Delivery Vendor: {{VENDOR_NAME}}
-- Purpose: {{SOW_PURPOSE}}
-- Effective period: {{START_DATE}} to {{TARGET_DATE}}
+- **Client:** the Product Owner and sole learner/data owner.
+- **Delivery Vendor:** AI Delivery Vendor.
+- **Period:** starts 2026-08-06; there is no fixed end date.
+- **Purpose:** deliver the scope in the Project Charter using traceable requirements, tests, operating documentation, and a Git handover.
 
-## 2. Deliverables
+## Deliverables
 
-| Deliverable ID | Description | Acceptance evidence | Milestone | Owner |
-| :--- | :--- | :--- | :--- | :--- |
-| DEL-001 | {{DELIVERABLE}} | {{EVIDENCE}} | {{MILESTONE}} | {{OWNER}} |
-
-## 3. In scope / out of scope
-
-| In scope | Out of scope |
-| :--- | :--- |
-| {{IN_SCOPE}} | {{OUT_OF_SCOPE}} |
-
-## 4. Milestones and acceptance
-
-| Milestone | Target | Client review window | Acceptance criteria | Payment/approval trigger if any |
-| :--- | :--- | :--- | :--- | :--- |
-| M1 | {{DATE}} | {{REVIEW_DAYS}} days | {{CRITERIA}} | {{TRIGGER}} |
-
-## 5. Client responsibilities
-
-- Appoint decision-makers and respond within the agreed timeframe.
-- Provide legal sample data, domain knowledge, access, and necessary dependencies.
-- Review baselines, prototypes, UAT, and release/handover according to schedule.
-- Do not send secrets/real data through insecure channels.
-- Perform minimal decisions/access provisioning/manual actions/approvals/sign-offs upon receiving a valid assistance request; do not assume all work items are handed back from the AI Vendor.
-
-## 6. Vendor responsibilities
-
-- Proactively clarify requirements, state assumptions/risks, and maintain traceability.
-- Build in accordance with policy, test, and provide evidence.
-- Do not expand scope or execute approval-only actions silently.
-- Hand over code, documentation, runbooks, known issues, and next steps.
-
-## 7. Assumptions, dependencies, and exclusions
-
-| ID | Content | Impact if wrong/delayed | Owner | Confirmation date |
-| :--- | :--- | :--- | :--- | :--- |
-| ASM-001 | {{ASSUMPTION}} | {{IMPACT}} | {{OWNER}} | {{DATE}} |
-
-## 8. Change control
-
-Any change impacting deliverables, deadlines, costs, SLAs, security, or acceptance must use `CHANGE_REQUEST_TEMPLATE.md`. Verbal exchanges are not considered a new baseline until a formal decision is recorded.
-
-## 9. Warranty and support
-
-- Warranty period: {{WARRANTY_PERIOD}}
-- Support hours/channel: {{SUPPORT_MODEL}}
-- Defect response target: {{DEFECT_SLA}}
-- Exclusions: {{WARRANTY_EXCLUSIONS}}
-
-## 10. IP, licensing, and data
-
-- Ownership of source code/deliverables post payment/acceptance: {{IP_OWNERSHIP_MODEL}}
-- Third-party/open-source components and licensing obligations: {{THIRD_PARTY_POLICY}}
-- Client data always belongs to: {{DATA_OWNER}}
-- Vendor is permitted to process data only for the purpose/scope/duration: {{PROCESSING_BOUNDARY}}
-- Data return/deletion obligations and confirmation post termination: {{RETURN_DELETE_PROCESS}}
-
-## 11. Security and confidentiality
-
-- Approved channels for document/secret exchanges: {{APPROVED_CHANNELS}}
-- Human-assistance trigger/timebox tailoring: {{ASSISTANCE_POLICY}}. Tailoring may change the ordinary-decision window but SHALL NOT create a timeout fallback for explicit-approval actions.
-- Security Profile/risk appetite: {{SECURITY_PROFILE_RISK}}
-- Access rights based on least privilege, with expiry/revocation: {{ACCESS_POLICY}}
-- Incident/breach notification: {{NOTIFICATION_PROCESS_SLA}}
-- Detailed legal terms must reside in the contract/DPA/NDA reviewed by authorized personnel.
-
-## 12. Sign-off
-
-| Party | Signer/Approver | Status | Date |
+| ID | Deliverable | Acceptance evidence | Owner |
 | :--- | :--- | :--- | :--- |
-| Client | {{CLIENT_APPROVER}} | Pending | {{DATE}} |
-| Vendor | {{VENDOR_APPROVER}} | Pending | {{DATE}} |
+| `DEL-JNOTE-001` | Governance, Discovery, plan, risks, BRD/SRS, and RTM | Gate 00–02 evidence and atomic requirement review | AI Delivery Vendor |
+| `DEL-JNOTE-002` | Architecture, data/RLS, UX, threat, API/contract, and implementation plan | Gate 03–04 design review and trace links | AI Delivery Vendor |
+| `DEL-JNOTE-003` | React + Supabase-compatible source and local configuration templates | Build/type/lint/test evidence and committed source | AI Delivery Vendor |
+| `DEL-JNOTE-004` | Test/report/runbook/user/handover documents | Test RTM, validation reports, and local newcomer instructions | AI Delivery Vendor |
+
+## Delivery boundaries
+
+The scope and exclusions in the Project Charter are binding for release one. A request that changes the outcome, core learning behaviour, security/privacy posture, cost, deadline, or acceptance criteria SHALL be recorded as a change request with impact analysis before implementation.
+
+## Client inputs and protected actions
+
+The Client provides only secure configuration references required for a real Supabase integration, if and when requested. The Client does not send secrets in chat. The Client has authorized Git commits and push to the specified GitHub repository, but deployment/public publishing, paid service activation, production/shared-environment mutation, and residual-risk acceptance require a separate approval.
+
+## Acceptance and handover
+
+Acceptance requires the Client to complete `DQ-JNOTE-R5-010`, the build/test/security evidence to meet exit criteria, and every in-scope requirement to have a trace or documented exception. The handover contains source, environment references, test evidence, deployment-not-authorized note, rollback/local recovery guidance, known limitations, and residual risks.

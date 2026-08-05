@@ -156,7 +156,7 @@ Deadline hoặc ngân sách:
 [Điền nếu biết; nếu chưa biết ghi TBD.]
 
 Hãy bắt đầu bằng giai đoạn Discovery. Chưa được viết production code cho đến khi tôi phê duyệt baseline problem/scope/requirements.
-Mỗi vòng chỉ hỏi 5–12 câu liên quan. Không hỏi lại dữ kiện có thể kiểm tra từ repository hoặc tài liệu.
+Mỗi vòng cần hỏi các câu mà bạn cảm thấy mơ hồ, phải lựa chọn phương án. Không hỏi lại dữ kiện có thể kiểm tra từ repository hoặc tài liệu.
 Cập nhật `PROJECT_STATE.md`, `01-Planning/DISCOVERY_LOG.md` và `02-Requirements/TRACEABILITY_MATRIX.md` trong quá trình thực hiện.
 ```
 
