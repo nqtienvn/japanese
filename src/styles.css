@@ -63,6 +63,10 @@ button.active, .primary { background: #2f2441; color: #fff; border-color: #2f244
 .auth-card { max-width: 460px; margin: 48px auto; }
 .auth-card form { display: grid; gap: 14px; margin: 20px 0; }
 .auth-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.account-panel { margin-bottom: 22px; }
+.danger-zone { margin-top: 22px; padding: 18px; border: 1px solid #e3a29a; background: #fff6f4; border-radius: 14px; display: grid; gap: 10px; }
+.danger-zone h3, .danger-zone p { margin: 0; }
+.danger { background: #a6322d; color: #fff; border-color: #a6322d; justify-self: start; }
 
 @media (max-width: 700px) {
   main { padding: 20px 14px; }

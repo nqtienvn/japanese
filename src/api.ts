@@ -1,5 +1,5 @@
 import { supabase } from './supabase';
-import type { Direction, LearningStats, Mode, QuestionMode, QuizAnswer, QuizAttempt, QuizResult, Term } from './types';
+import type { DeletionStatus, Direction, LearningStats, Mode, QuestionMode, QuizAnswer, QuizAttempt, QuizResult, Term } from './types';
 
 type DbTerm = {
   id: string; japanese: string; vietnamese: string; modes: Mode[]; archived_at: string | null; created_at: string;
@@ -97,7 +97,7 @@ export async function loadQuizAnswers(attemptId: string): Promise<QuizAnswer[]> 
 }
 
 export async function saveQuizAnswer(answer: QuizAnswer, value: string) {
-  const { error } = await client().from('quiz_answers').update({ answer: value, answered_at: new Date().toISOString() }).eq('id', answer.id);
+  const { error } = await client().rpc('save_jnote_quiz_answer', { p_answer_id: answer.id, p_answer: value });
   if (error) throw error;
 }
 
@@ -106,4 +106,28 @@ export async function submitQuiz(attemptId: string): Promise<QuizResult> {
   if (error) throw error;
   const row = (Array.isArray(data) ? data[0] : data) as { status: QuizResult['status']; correct_count: number; question_count: number; submitted_at: string };
   return { status: row.status, correctCount: row.correct_count, questionCount: row.question_count, submittedAt: row.submitted_at };
+}
+
+export async function getDeletionStatus(): Promise<DeletionStatus | null> {
+  const { data, error } = await client().rpc('get_jnote_deletion_status');
+  if (error) throw error;
+  const row = (Array.isArray(data) ? data[0] : data) as { deletion_requested_at: string | null; restore_until: string | null; purged_at: string | null } | null;
+  return row ? { deletionRequestedAt: row.deletion_requested_at, restoreUntil: row.restore_until, purgedAt: row.purged_at } : null;
+}
+
+export async function requestDeletion(): Promise<string> {
+  const { data, error } = await client().rpc('request_jnote_account_deletion');
+  if (error) throw error;
+  return data as string;
+}
+
+export async function restoreAccount() {
+  const { error } = await client().rpc('restore_jnote_account');
+  if (error) throw error;
+}
+
+export async function fetchExportRows() {
+  const { data, error } = await client().from('learning_outcomes').select('term_id, mode, correct, rating, created_at').order('created_at', { ascending: true });
+  if (error) throw error;
+  return data as Array<{ term_id: string; mode: Mode; correct: boolean | null; rating: string | null; created_at: string }>;
 }

@@ -44,3 +44,9 @@ export type QuizResult = {
   questionCount: number;
   submittedAt: string;
 };
+
+export type DeletionStatus = {
+  deletionRequestedAt: string | null;
+  restoreUntil: string | null;
+  purgedAt: string | null;
+};

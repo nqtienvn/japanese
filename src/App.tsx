@@ -3,7 +3,7 @@ import type { Session } from '@supabase/supabase-js';
 import * as api from './api';
 import { configured, supabase } from './supabase';
 import { isAnswerCorrect } from './learning';
-import type { Direction, LearningStats, Mode, QuestionMode, QuizAnswer, QuizAttempt, QuizResult, Term, View } from './types';
+import type { DeletionStatus, Direction, LearningStats, Mode, QuestionMode, QuizAnswer, QuizAttempt, QuizResult, Term, View } from './types';
 
 const viewNames: Record<View, string> = { dashboard: 'Tổng quan', notebook: 'Sổ tay', flashcard: 'Flashcard', study: 'Học tập', quiz: 'Làm bài' };
 const modeNames: Record<Mode, string> = { flashcard: 'Flashcard', study: 'Học tập', quiz: 'Làm bài' };
@@ -46,6 +46,8 @@ export default function App() {
   const [view, setView] = useState<View>('dashboard');
   const [loading, setLoading] = useState(true);
   const [recoveringPassword, setRecoveringPassword] = useState(false);
+  const [deletion, setDeletion] = useState<DeletionStatus | null>(null);
+  const [showAccount, setShowAccount] = useState(false);
   const [notice, setNotice] = useState<{ kind: 'error' | 'success'; text: string } | null>(null);
 
   useEffect(() => {
@@ -70,7 +72,11 @@ export default function App() {
     } catch (error) { setNotice({ kind: 'error', text: messageOf(error) }); }
   };
 
-  useEffect(() => { if (session) void reload(); }, [session?.user.id]);
+  useEffect(() => {
+    if (!session) return;
+    void reload();
+    void api.getDeletionStatus().then(setDeletion).catch((error) => setNotice({ kind: 'error', text: messageOf(error) }));
+  }, [session?.user.id]);
 
   const updateTerm = async (id: string, patch: Pick<Term, 'modes'> | Pick<Term, 'archivedAt'>) => {
     try {
@@ -112,15 +118,17 @@ export default function App() {
   if (loading) return <main><section className="empty">Đang mở sổ tay…</section></main>;
   if (!session) return <AuthGate />;
   if (recoveringPassword) return <PasswordRecovery onDone={() => setRecoveringPassword(false)} />;
+  if (deletion?.deletionRequestedAt || deletion?.purgedAt) return <DeletionRecovery status={deletion} onRestored={async () => { await api.restoreAccount(); setDeletion(null); await reload(); }} />;
 
   const activeTerms = terms.filter((term) => !term.archivedAt);
   return <main>
     <header>
       <div><p className="eyebrow">SỔ TAY CÁ NHÂN</p><h1>JNOTE <span>日本語</span></h1></div>
-      <div className="account"><p className="online">● Đã đồng bộ Supabase</p><small>{session.user.email}</small><button onClick={() => void supabase?.auth.signOut()}>Đăng xuất</button></div>
+      <div className="account"><p className="online">● Đã đồng bộ Supabase</p><small>{session.user.email}</small><div><button onClick={() => setShowAccount(!showAccount)}>Tài khoản</button><button onClick={() => void supabase?.auth.signOut()}>Đăng xuất</button></div></div>
     </header>
     <nav>{(Object.keys(viewNames) as View[]).map((item) => <button type="button" className={view === item ? 'active' : ''} onClick={() => setView(item)} key={item}>{viewNames[item]}</button>)}</nav>
     {notice && <p className={`notice ${notice.kind}`} role="status">{notice.text}<button type="button" onClick={() => setNotice(null)}>Đóng</button></p>}
+    {showAccount && <AccountPanel session={session} terms={terms} onClose={() => setShowAccount(false)} onDeleted={(deadline) => { setDeletion({ deletionRequestedAt: new Date().toISOString(), restoreUntil: deadline, purgedAt: null }); void supabase?.auth.signOut(); }} />}
     {view === 'dashboard' && <Dashboard terms={activeTerms} stats={stats} go={setView} />}
     {view === 'notebook' && <Notebook terms={terms} onCreate={createTerm} onUpdate={updateTerm} />}
     {view === 'flashcard' && <Flashcards terms={activeTerms} onRate={recordOutcome} />}
@@ -171,6 +179,45 @@ function AuthGate() {
     <form onSubmit={submit}><label>Email<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} required autoComplete="email" /></label><label>Mật khẩu<input type="password" value={password} onChange={(event) => setPassword(event.target.value)} required minLength={6} autoComplete={kind === 'signin' ? 'current-password' : 'new-password'} /></label><button className="primary" disabled={busy}>{busy ? 'Đang xử lý…' : kind === 'signin' ? 'Đăng nhập' : 'Tạo tài khoản'}</button></form>
     {status && <p className="notice success">{status}</p>}<div className="auth-actions"><button type="button" onClick={() => setKind(kind === 'signin' ? 'signup' : 'signin')}>{kind === 'signin' ? 'Tạo tài khoản mới' : 'Đã có tài khoản'}</button><button type="button" onClick={() => void resetPassword()} disabled={busy}>Quên mật khẩu</button></div>
   </section></main>;
+}
+
+function csvCell(value: string | number | boolean | null) {
+  const text = value === null ? '' : String(value);
+  return `"${text.replaceAll('"', '""')}"`;
+}
+
+function AccountPanel({ session, terms, onClose, onDeleted }: { session: Session; terms: Term[]; onClose: () => void; onDeleted: (deadline: string) => void }) {
+  const [password, setPassword] = useState(''); const [status, setStatus] = useState(''); const [busy, setBusy] = useState(false);
+  const exportCsv = async () => {
+    setBusy(true); setStatus('');
+    try {
+      const outcomes = await api.fetchExportRows();
+      const rows: Array<Array<string | number | boolean | null>> = [
+        ['record_type', 'term_id', 'japanese', 'vietnamese', 'modes', 'archived_at', 'learning_mode', 'correct', 'rating', 'recorded_at'],
+        ...terms.map((term) => ['term', term.id, term.japanese, term.vietnamese, term.modes.join('|'), term.archivedAt, null, null, null, term.createdAt]),
+        ...outcomes.map((outcome) => ['outcome', outcome.term_id, null, null, null, null, outcome.mode, outcome.correct, outcome.rating, outcome.created_at]),
+      ];
+      const blob = new Blob([`\uFEFF${rows.map((row) => row.map(csvCell).join(',')).join('\n')}`], { type: 'text/csv;charset=utf-8' });
+      const href = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = href; link.download = `jnote-export-${new Date().toISOString().slice(0, 10)}.csv`; link.click(); URL.revokeObjectURL(href);
+      setStatus('Đã tải tệp CSV chỉ chứa dữ liệu của tài khoản này.');
+    } catch (error) { setStatus(messageOf(error)); } finally { setBusy(false); }
+  };
+  const deleteAccount = async (event: FormEvent) => {
+    event.preventDefault();
+    if (!supabase || !session.user.email) return;
+    setBusy(true); setStatus('');
+    const signedIn = await supabase.auth.signInWithPassword({ email: session.user.email, password });
+    if (signedIn.error) { setBusy(false); setStatus('Không thể xác nhận mật khẩu: ' + signedIn.error.message); return; }
+    try { const deadline = await api.requestDeletion(); setStatus(`Đã ẩn dữ liệu. Bạn có thể khôi phục đến ${new Date(deadline).toLocaleString('vi-VN')}.`); onDeleted(deadline); } catch (error) { setStatus(messageOf(error)); } finally { setBusy(false); }
+  };
+  return <section className="paper account-panel"><div className="toolbar"><h2>Dữ liệu & tài khoản</h2><button type="button" onClick={onClose}>Đóng</button></div><p>Xuất CSV trước khi xóa nếu bạn muốn giữ bản sao. Dữ liệu trong sổ tay sẽ bị ẩn ngay và tự xóa sau 30 ngày nếu không khôi phục.</p><div className="actions"><button type="button" onClick={() => void exportCsv()} disabled={busy}>Xuất CSV</button></div><form className="danger-zone" onSubmit={deleteAccount}><h3>Yêu cầu xóa dữ liệu</h3><p>Nhập mật khẩu để xác nhận lại danh tính. Bạn sẽ được đăng xuất sau khi gửi yêu cầu.</p><input type="password" value={password} onChange={(event) => setPassword(event.target.value)} minLength={6} required autoComplete="current-password" placeholder="Mật khẩu hiện tại" /><button className="danger" disabled={busy}>{busy ? 'Đang xử lý…' : 'Xóa dữ liệu và đăng xuất'}</button></form>{status && <p className="notice success">{status}</p>}</section>;
+}
+
+function DeletionRecovery({ status, onRestored }: { status: DeletionStatus; onRestored: () => Promise<void> }) {
+  const [message, setMessage] = useState(''); const [busy, setBusy] = useState(false);
+  if (status.purgedAt) return <main><section className="auth-card"><p className="eyebrow">DỮ LIỆU ĐÃ XÓA</p><h2>Thời hạn khôi phục đã kết thúc</h2><p>Dữ liệu học đã được xóa khỏi JNOTE. Hãy liên hệ chủ dự án nếu bạn cần xóa luôn tài khoản xác thực.</p><button onClick={() => void supabase?.auth.signOut()}>Đăng xuất</button></section></main>;
+  const restore = async () => { setBusy(true); try { await onRestored(); } catch (error) { setMessage(messageOf(error)); } finally { setBusy(false); } };
+  return <main><section className="auth-card"><p className="eyebrow">TÀI KHOẢN ĐANG CHỜ XÓA</p><h2>Dữ liệu đã được ẩn</h2><p>Bạn có thể khôi phục trước {status.restoreUntil ? new Date(status.restoreUntil).toLocaleString('vi-VN') : 'khi hết hạn'}.</p><button className="primary" disabled={busy} onClick={() => void restore()}>{busy ? 'Đang khôi phục…' : 'Khôi phục dữ liệu'}</button><button onClick={() => void supabase?.auth.signOut()}>Đăng xuất</button>{message && <p className="notice error">{message}</p>}</section></main>;
 }
 
 function Dashboard({ terms, stats, go }: { terms: Term[]; stats: LearningStats; go: (view: View) => void }) {
