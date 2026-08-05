@@ -1,9 +1,10 @@
 import { supabase } from './supabase';
-import type { DeletionStatus, Direction, LearningStats, Mode, QuestionMode, QuizAnswer, QuizAttempt, QuizResult, Term } from './types';
+import type { DeletionStatus, Direction, LearningStats, Lesson, Mode, QuestionMode, QuizAnswer, QuizAttempt, QuizResult, Term } from './types';
 
 type DbTerm = {
-  id: string; japanese: string; vietnamese: string; modes: Mode[]; archived_at: string | null; created_at: string;
+  id: string; japanese: string; vietnamese: string; modes: Mode[]; lesson_id: string | null; archived_at: string | null; created_at: string;
 };
+type DbLesson = { id: string; title: string; created_at: string };
 type DbAttempt = {
   id: string; source_mode: 'all' | 'quiz'; question_mode: QuestionMode; direction: Direction; question_count: number;
   duration_seconds: number; started_at: string; deadline_at: string; status: QuizAttempt['status']; submitted_at: string | null;
@@ -19,8 +20,10 @@ function client() {
 }
 
 function mapTerm(row: DbTerm): Term {
-  return { id: row.id, japanese: row.japanese, vietnamese: row.vietnamese, modes: row.modes ?? [], archivedAt: row.archived_at, createdAt: row.created_at };
+  return { id: row.id, japanese: row.japanese, vietnamese: row.vietnamese, modes: row.modes ?? [], lessonId: row.lesson_id, archivedAt: row.archived_at, createdAt: row.created_at };
 }
+
+function mapLesson(row: DbLesson): Lesson { return { id: row.id, title: row.title, createdAt: row.created_at }; }
 
 function mapAttempt(row: DbAttempt): QuizAttempt {
   return {
@@ -43,8 +46,20 @@ export async function fetchTerms(): Promise<Term[]> {
   return (data as DbTerm[]).map(mapTerm);
 }
 
-export async function createTerm(userId: string, japanese: string, vietnamese: string): Promise<Term> {
-  const { data, error } = await client().from('vocabulary_terms').insert({ user_id: userId, japanese, vietnamese }).select().single();
+export async function fetchLessons(): Promise<Lesson[]> {
+  const { data, error } = await client().from('lessons').select('*').order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data as DbLesson[]).map(mapLesson);
+}
+
+export async function createLesson(userId: string, title: string): Promise<Lesson> {
+  const { data, error } = await client().from('lessons').insert({ user_id: userId, title }).select().single();
+  if (error) throw error;
+  return mapLesson(data as DbLesson);
+}
+
+export async function createTerm(userId: string, japanese: string, vietnamese: string, lessonId: string): Promise<Term> {
+  const { data, error } = await client().from('vocabulary_terms').insert({ user_id: userId, japanese, vietnamese, lesson_id: lessonId }).select().single();
   if (error) throw error;
   return mapTerm(data as DbTerm);
 }

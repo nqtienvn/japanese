@@ -3,9 +3,9 @@ import type { Session } from '@supabase/supabase-js';
 import * as api from './api';
 import { configured, supabase } from './supabase';
 import { isAnswerCorrect } from './learning';
-import type { DeletionStatus, Direction, LearningStats, Mode, QuestionMode, QuizAnswer, QuizAttempt, QuizResult, Term, View } from './types';
+import type { DeletionStatus, Direction, LearningStats, Lesson, Mode, QuestionMode, QuizAnswer, QuizAttempt, QuizResult, Term, View } from './types';
 
-const viewNames: Record<View, string> = { dashboard: 'Tổng quan', notebook: 'Sổ tay', flashcard: 'Flashcard', study: 'Học tập', quiz: 'Làm bài' };
+const viewNames: Record<View, string> = { dashboard: 'Tổng quan', lessons: 'Bài học', notebook: 'Sổ tay', flashcard: 'Flashcard', study: 'Học tập', quiz: 'Làm bài' };
 const modeNames: Record<Mode, string> = { flashcard: 'Flashcard', study: 'Học tập', quiz: 'Làm bài' };
 const directionNames: Record<Direction, string> = { jp_to_vi: 'Nhật → Việt', vi_to_jp: 'Việt → Nhật' };
 const questionModeNames: Record<QuestionMode, string> = { multiple_choice: 'Trắc nghiệm', written: 'Tự luận', mixed: 'Hỗn hợp' };
@@ -42,6 +42,8 @@ function countFor(value: string, available: number) {
 export default function App() {
   const [session, setSession] = useState<Session | null>(null);
   const [terms, setTerms] = useState<Term[]>([]);
+  const [lessons, setLessons] = useState<Lesson[]>([]);
+  const [selectedLessonId, setSelectedLessonId] = useState<string | null>(null);
   const [stats, setStats] = useState<LearningStats>({ correct: 0, wrong: 0 });
   const [view, setView] = useState<View>('dashboard');
   const [loading, setLoading] = useState(true);
@@ -60,15 +62,15 @@ export default function App() {
       if (!alive) return;
       if (event === 'PASSWORD_RECOVERY') setRecoveringPassword(true);
       setSession(nextSession);
-      if (!nextSession) { setTerms([]); setStats({ correct: 0, wrong: 0 }); }
+      if (!nextSession) { setTerms([]); setLessons([]); setSelectedLessonId(null); setStats({ correct: 0, wrong: 0 }); }
     });
     return () => { alive = false; listener.subscription.unsubscribe(); };
   }, []);
 
   const reload = async () => {
     try {
-      const [nextTerms, nextStats] = await Promise.all([api.fetchTerms(), api.fetchStats()]);
-      setTerms(nextTerms); setStats(nextStats);
+      const [nextTerms, nextStats, nextLessons] = await Promise.all([api.fetchTerms(), api.fetchStats(), api.fetchLessons()]);
+      setTerms(nextTerms); setStats(nextStats); setLessons(nextLessons);
     } catch (error) { setNotice({ kind: 'error', text: messageOf(error) }); }
   };
 
@@ -85,15 +87,28 @@ export default function App() {
     } catch (error) { setNotice({ kind: 'error', text: messageOf(error) }); throw error; }
   };
 
-  const createTerm = async (japanese: string, vietnamese: string) => {
+  const createTerm = async (japanese: string, vietnamese: string, lessonId: string) => {
     if (!session) return;
     try {
-      const next = await api.createTerm(session.user.id, japanese, vietnamese);
+      const next = await api.createTerm(session.user.id, japanese, vietnamese, lessonId);
       setTerms((current) => [next, ...current]);
       setNotice({ kind: 'success', text: 'Đã thêm từ mới vào sổ tay.' });
     } catch (error) {
       const known = error as { code?: string };
       setNotice({ kind: 'error', text: known.code === '23505' ? 'Cặp từ này đã có trong sổ tay.' : messageOf(error) });
+      throw error;
+    }
+  };
+
+  const createLesson = async (title: string) => {
+    if (!session) return;
+    try {
+      const next = await api.createLesson(session.user.id, title);
+      setLessons((current) => [next, ...current]); setSelectedLessonId(next.id); setView('notebook');
+      setNotice({ kind: 'success', text: `Đã tạo bài học “${next.title}”. Hãy thêm từ mới cho bài này.` });
+    } catch (error) {
+      const known = error as { code?: string };
+      setNotice({ kind: 'error', text: known.code === '23505' ? 'Bạn đã có bài học cùng tên.' : messageOf(error) });
       throw error;
     }
   };
@@ -121,6 +136,7 @@ export default function App() {
   if (deletion?.deletionRequestedAt || deletion?.purgedAt) return <DeletionRecovery status={deletion} onRestored={async () => { await api.restoreAccount(); setDeletion(null); await reload(); }} />;
 
   const activeTerms = terms.filter((term) => !term.archivedAt);
+  const practiceTerms = selectedLessonId ? activeTerms.filter((term) => term.lessonId === selectedLessonId) : activeTerms;
   return <main>
     <header>
       <div><p className="eyebrow">SỔ TAY CÁ NHÂN</p><h1>JNOTE <span>日本語</span></h1></div>
@@ -130,10 +146,11 @@ export default function App() {
     {notice && <p className={`notice ${notice.kind}`} role="status">{notice.text}<button type="button" onClick={() => setNotice(null)}>Đóng</button></p>}
     {showAccount && <AccountPanel session={session} terms={terms} onClose={() => setShowAccount(false)} onDeleted={(deadline) => { setDeletion({ deletionRequestedAt: new Date().toISOString(), restoreUntil: deadline, purgedAt: null }); void supabase?.auth.signOut(); }} />}
     {view === 'dashboard' && <Dashboard terms={activeTerms} stats={stats} go={setView} />}
-    {view === 'notebook' && <Notebook terms={terms} onCreate={createTerm} onUpdate={updateTerm} />}
-    {view === 'flashcard' && <Flashcards terms={activeTerms} onRate={recordOutcome} />}
-    {view === 'study' && <Study terms={activeTerms} onOutcome={recordOutcome} />}
-    {view === 'quiz' && <Quiz terms={activeTerms} onQuizComplete={recordQuizOutcomes} />}
+    {view === 'lessons' && <Lessons lessons={lessons} terms={terms} onCreate={createLesson} onOpen={(lessonId) => { setSelectedLessonId(lessonId); setView('notebook'); }} />}
+    {view === 'notebook' && <Notebook terms={terms} lessons={lessons} selectedLessonId={selectedLessonId} onSelectLesson={setSelectedLessonId} onCreate={createTerm} onUpdate={updateTerm} />}
+    {view === 'flashcard' && <Flashcards terms={practiceTerms} onRate={recordOutcome} />}
+    {view === 'study' && <Study terms={practiceTerms} onOutcome={recordOutcome} />}
+    {view === 'quiz' && <Quiz terms={practiceTerms} onQuizComplete={recordQuizOutcomes} />}
   </main>;
 }
 
@@ -226,21 +243,38 @@ function Dashboard({ terms, stats, go }: { terms: Term[]; stats: LearningStats; 
   return <section className="hero"><div><p className="eyebrow">HÔM NAY</p><h2>Học từng từ, nhớ thật lâu.</h2><p>Ghi từ mới như trên giấy, đánh dấu cách học và luyện tập ngay khi sẵn sàng.</p><div className="actions"><button className="primary" onClick={() => go('notebook')}>Thêm từ mới</button><button onClick={() => go('study')}>Bắt đầu học</button><button onClick={() => go('quiz')}>Tiếp tục Quiz</button></div></div><aside><b>{terms.length}</b><span>Từ đang dùng</span><b>{rate}%</b><span>Độ chính xác</span><b>{stats.correct}</b><span>Lần đúng</span><b>{stats.wrong}</b><span>Cần ôn lại</span></aside></section>;
 }
 
-function Notebook({ terms, onCreate, onUpdate }: { terms: Term[]; onCreate: (japanese: string, vietnamese: string) => Promise<void>; onUpdate: (id: string, patch: Pick<Term, 'modes'> | Pick<Term, 'archivedAt'>) => Promise<void> }) {
+function Lessons({ lessons, terms, onCreate, onOpen }: { lessons: Lesson[]; terms: Term[]; onCreate: (title: string) => Promise<void>; onOpen: (lessonId: string) => void }) {
+  const [title, setTitle] = useState(''); const [busy, setBusy] = useState(false); const [error, setError] = useState('');
+  const add = async (event: FormEvent) => {
+    event.preventDefault(); const nextTitle = title.trim();
+    if (!nextTitle) return;
+    setBusy(true); setError('');
+    try { await onCreate(nextTitle); setTitle(''); } catch { setError('Không thể tạo bài học. Hãy thử lại.'); } finally { setBusy(false); }
+  };
+  return <section className="paper lessons-page"><div className="toolbar"><h2>Bài học</h2><span className="table-note">{lessons.length} bài học</span></div>
+    <form className="lesson-entry" onSubmit={add}><input aria-label="Tên bài học" value={title} maxLength={160} onChange={(event) => setTitle(event.target.value)} placeholder="Ví dụ: Minna no Nihongo - Bài 1" required /><button className="primary" disabled={busy}>{busy ? 'Đang tạo…' : 'Tạo bài học'}</button></form>{error && <p className="error">{error}</p>}
+    {lessons.length ? <div className="lesson-grid">{lessons.map((lesson) => { const count = terms.filter((term) => term.lessonId === lesson.id && !term.archivedAt).length; return <article className="lesson-card" key={lesson.id}><p className="eyebrow">BÀI HỌC</p><h3>{lesson.title}</h3><p>{count} từ đang dùng</p><button type="button" onClick={() => onOpen(lesson.id)}>Mở bài học</button></article>; })}</div> : <p className="empty">Tạo bài học đầu tiên, rồi thêm các từ mới thuộc bài đó.</p>}
+  </section>;
+}
+
+function Notebook({ terms, lessons, selectedLessonId, onSelectLesson, onCreate, onUpdate }: { terms: Term[]; lessons: Lesson[]; selectedLessonId: string | null; onSelectLesson: (lessonId: string | null) => void; onCreate: (japanese: string, vietnamese: string, lessonId: string) => Promise<void>; onUpdate: (id: string, patch: Pick<Term, 'modes'> | Pick<Term, 'archivedAt'>) => Promise<void> }) {
   const [japanese, setJapanese] = useState(''); const [vietnamese, setVietnamese] = useState('');
-  const [query, setQuery] = useState(''); const [filter, setFilter] = useState<'all' | Mode>('all'); const [showArchived, setShowArchived] = useState(false); const [sort, setSort] = useState<'newest' | 'oldest'>('newest'); const [page, setPage] = useState(0); const [saving, setSaving] = useState(false);
-  const visible = terms.filter((term) => Boolean(term.archivedAt) === showArchived && (filter === 'all' || term.modes.includes(filter)) && `${term.japanese} ${term.vietnamese}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
+  const [query, setQuery] = useState(''); const [filter, setFilter] = useState<'all' | Mode>('all'); const [showArchived, setShowArchived] = useState(false); const [sort, setSort] = useState<'newest' | 'oldest'>('newest'); const [page, setPage] = useState(0); const [saving, setSaving] = useState(false); const [entryError, setEntryError] = useState('');
+  const visible = terms.filter((term) => Boolean(term.archivedAt) === showArchived && (!selectedLessonId || term.lessonId === selectedLessonId) && (filter === 'all' || term.modes.includes(filter)) && `${term.japanese} ${term.vietnamese}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
   const ordered = [...visible].sort((left, right) => sort === 'newest' ? right.createdAt.localeCompare(left.createdAt) : left.createdAt.localeCompare(right.createdAt));
   const pageCount = Math.max(1, Math.ceil(ordered.length / 50)); const pageTerms = ordered.slice(page * 50, page * 50 + 50);
-  useEffect(() => setPage(0), [query, filter, showArchived, sort]);
+  useEffect(() => setPage(0), [query, filter, showArchived, sort, selectedLessonId]);
   const add = async (event: FormEvent) => {
     event.preventDefault(); const jp = japanese.trim(); const vi = vietnamese.trim();
     if (!jp || !vi) return;
-    setSaving(true); try { await onCreate(jp, vi); setJapanese(''); setVietnamese(''); } catch { /* displayed by the app */ } finally { setSaving(false); }
+    if (!selectedLessonId) { setEntryError('Hãy chọn một bài học trước khi thêm từ mới.'); return; }
+    setSaving(true); setEntryError(''); try { await onCreate(jp, vi, selectedLessonId); setJapanese(''); setVietnamese(''); } catch { /* displayed by the app */ } finally { setSaving(false); }
   };
   const toggle = async (term: Term, mode: Mode) => { const modes = term.modes.includes(mode) ? term.modes.filter((item) => item !== mode) : [...term.modes, mode]; await onUpdate(term.id, { modes }); };
-  return <section className="paper"><div className="toolbar"><h2>Sổ tay từ vựng</h2><input aria-label="Tìm từ" placeholder="Tìm Nhật hoặc Việt…" value={query} onChange={(event) => setQuery(event.target.value)} /><select aria-label="Lọc nhãn" value={filter} onChange={(event) => setFilter(event.target.value as 'all' | Mode)}><option value="all">Mọi nhãn</option>{(Object.keys(modeNames) as Mode[]).map((mode) => <option key={mode} value={mode}>{modeNames[mode]}</option>)}</select><select aria-label="Thứ tự" value={sort} onChange={(event) => setSort(event.target.value as 'newest' | 'oldest')}><option value="newest">Mới nhất</option><option value="oldest">Cũ nhất</option></select><button type="button" onClick={() => setShowArchived(!showArchived)}>{showArchived ? 'Xem từ đang dùng' : 'Xem lưu trữ'}</button></div>
-    {!showArchived && <form className="entry" onSubmit={add}><input value={japanese} maxLength={200} onChange={(event) => setJapanese(event.target.value)} placeholder="Tiếng Nhật" aria-label="Tiếng Nhật" required /><input value={vietnamese} maxLength={500} onChange={(event) => setVietnamese(event.target.value)} placeholder="Nghĩa tiếng Việt" aria-label="Nghĩa tiếng Việt" required /><button className="primary" disabled={saving}>{saving ? 'Đang thêm…' : 'Thêm từ'}</button></form>}
+  const selectedLesson = lessons.find((lesson) => lesson.id === selectedLessonId);
+  return <section className="paper"><div className="toolbar"><h2>Sổ tay từ vựng</h2><select aria-label="Bài học" value={selectedLessonId ?? ''} onChange={(event) => { onSelectLesson(event.target.value || null); setEntryError(''); }}><option value="">Tất cả bài học</option>{lessons.map((lesson) => <option key={lesson.id} value={lesson.id}>{lesson.title}</option>)}</select><input aria-label="Tìm từ" placeholder="Tìm Nhật hoặc Việt…" value={query} onChange={(event) => setQuery(event.target.value)} /><select aria-label="Lọc nhãn" value={filter} onChange={(event) => setFilter(event.target.value as 'all' | Mode)}><option value="all">Mọi nhãn</option>{(Object.keys(modeNames) as Mode[]).map((mode) => <option key={mode} value={mode}>{modeNames[mode]}</option>)}</select><select aria-label="Thứ tự" value={sort} onChange={(event) => setSort(event.target.value as 'newest' | 'oldest')}><option value="newest">Mới nhất</option><option value="oldest">Cũ nhất</option></select><button type="button" onClick={() => setShowArchived(!showArchived)}>{showArchived ? 'Xem từ đang dùng' : 'Xem lưu trữ'}</button></div>
+    <p className="lesson-context">{selectedLesson ? <>Đang mở: <b>{selectedLesson.title}</b>. Từ mới sẽ được thêm vào bài này và các lượt học sẽ chỉ dùng từ của bài.</> : 'Chọn một bài học để thêm từ mới; khi chưa chọn, sổ tay hiển thị tất cả các bài.'}</p>
+    {!showArchived && <><form className="entry" onSubmit={add}><input value={japanese} maxLength={200} onChange={(event) => setJapanese(event.target.value)} placeholder="Tiếng Nhật" aria-label="Tiếng Nhật" required /><input value={vietnamese} maxLength={500} onChange={(event) => setVietnamese(event.target.value)} placeholder="Nghĩa tiếng Việt" aria-label="Nghĩa tiếng Việt" required /><button className="primary" disabled={saving}>{saving ? 'Đang thêm…' : 'Thêm từ'}</button></form>{entryError && <p className="error">{entryError}</p>}</>}
     <div className="table"><div className="row head"><span>TIẾNG NHẬT</span><span>NGHĨA TIẾNG VIỆT</span><span>CHẾ ĐỘ HỌC</span><span /></div>{pageTerms.map((term) => <div className="row" key={term.id}><b>{term.japanese}</b><span>{term.vietnamese}</span><div className="tags">{!showArchived && (Object.keys(modeNames) as Mode[]).map((mode) => <button type="button" aria-pressed={term.modes.includes(mode)} className={term.modes.includes(mode) ? 'tag on' : 'tag'} onClick={() => void toggle(term, mode)} key={mode}>{modeNames[mode]}</button>)}</div><button type="button" className="archive" onClick={() => void onUpdate(term.id, { archivedAt: term.archivedAt ? null : new Date().toISOString() })}>{term.archivedAt ? 'Khôi phục' : 'Lưu trữ'}</button></div>)}</div>{!visible.length && <p className="empty">Chưa có từ phù hợp.</p>}<div className="pagination"><button type="button" disabled={page === 0} onClick={() => setPage(page - 1)}>Trang trước</button><span>Trang {page + 1}/{pageCount} · {ordered.length} từ</span><button type="button" disabled={page + 1 >= pageCount} onClick={() => setPage(page + 1)}>Trang sau</button></div>
   </section>;
 }

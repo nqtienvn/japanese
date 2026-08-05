@@ -1,5 +1,5 @@
 export type Mode = 'flashcard' | 'study' | 'quiz';
-export type View = 'dashboard' | 'notebook' | 'flashcard' | 'study' | 'quiz';
+export type View = 'dashboard' | 'lessons' | 'notebook' | 'flashcard' | 'study' | 'quiz';
 export type Direction = 'jp_to_vi' | 'vi_to_jp';
 export type QuestionMode = 'multiple_choice' | 'written' | 'mixed';
 
@@ -8,9 +8,12 @@ export type Term = {
   japanese: string;
   vietnamese: string;
   modes: Mode[];
+  lessonId: string | null;
   archivedAt: string | null;
   createdAt: string;
 };
+
+export type Lesson = { id: string; title: string; createdAt: string };
 
 export type LearningStats = { correct: number; wrong: number };
 
