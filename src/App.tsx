@@ -45,6 +45,7 @@ export default function App() {
   const [stats, setStats] = useState<LearningStats>({ correct: 0, wrong: 0 });
   const [view, setView] = useState<View>('dashboard');
   const [loading, setLoading] = useState(true);
+  const [recoveringPassword, setRecoveringPassword] = useState(false);
   const [notice, setNotice] = useState<{ kind: 'error' | 'success'; text: string } | null>(null);
 
   useEffect(() => {
@@ -53,8 +54,9 @@ export default function App() {
     void supabase.auth.getSession().then(({ data }) => {
       if (alive) { setSession(data.session); setLoading(false); }
     });
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+    const { data: listener } = supabase.auth.onAuthStateChange((event, nextSession) => {
       if (!alive) return;
+      if (event === 'PASSWORD_RECOVERY') setRecoveringPassword(true);
       setSession(nextSession);
       if (!nextSession) { setTerms([]); setStats({ correct: 0, wrong: 0 }); }
     });
@@ -109,6 +111,7 @@ export default function App() {
   if (!configured) return <ConfigurationRequired />;
   if (loading) return <main><section className="empty">Đang mở sổ tay…</section></main>;
   if (!session) return <AuthGate />;
+  if (recoveringPassword) return <PasswordRecovery onDone={() => setRecoveringPassword(false)} />;
 
   const activeTerms = terms.filter((term) => !term.archivedAt);
   return <main>
@@ -124,6 +127,19 @@ export default function App() {
     {view === 'study' && <Study terms={activeTerms} onOutcome={recordOutcome} />}
     {view === 'quiz' && <Quiz terms={activeTerms} onQuizComplete={recordQuizOutcomes} />}
   </main>;
+}
+
+function PasswordRecovery({ onDone }: { onDone: () => void }) {
+  const [password, setPassword] = useState(''); const [confirm, setConfirm] = useState(''); const [status, setStatus] = useState(''); const [busy, setBusy] = useState(false);
+  const submit = async (event: FormEvent) => {
+    event.preventDefault();
+    if (!supabase) return;
+    if (password !== confirm) { setStatus('Hai mật khẩu chưa khớp.'); return; }
+    setBusy(true); const { error } = await supabase.auth.updateUser({ password }); setBusy(false);
+    if (error) { setStatus(error.message); return; }
+    setStatus('Đã cập nhật mật khẩu. Bạn có thể vào sổ tay.');
+  };
+  return <main><section className="auth-card"><p className="eyebrow">ĐẶT LẠI MẬT KHẨU</p><h2>Chọn mật khẩu mới</h2><form onSubmit={submit}><label>Mật khẩu mới<input type="password" value={password} onChange={(event) => setPassword(event.target.value)} minLength={6} required autoComplete="new-password" /></label><label>Nhập lại mật khẩu<input type="password" value={confirm} onChange={(event) => setConfirm(event.target.value)} minLength={6} required autoComplete="new-password" /></label><button className="primary" disabled={busy}>{busy ? 'Đang lưu…' : 'Lưu mật khẩu mới'}</button></form>{status && <p className="notice success">{status}</p>}<button type="button" onClick={onDone}>Vào sổ tay</button></section></main>;
 }
 
 function ConfigurationRequired() {
