@@ -1,11 +1,11 @@
 ---
 artifact_id: DOC-PROJECT-STATE-MD
-phase: "ROOT"
-artifact_type: orchestration
+phase: Cross-phase
+artifact_type: state
 owner: "AI Delivery Vendor"
-version: "0.4"
-status: Draft
-ids: [OBJ-JNOTE-001, OBJ-JNOTE-002, OBJ-JNOTE-003, RISK-JNOTE-001]
+version: "1.0"
+status: In Progress
+ids: [OBJ-JNOTE-001, OBJ-JNOTE-002, OBJ-JNOTE-003, OBJ-JNOTE-004, RISK-JNOTE-014]
 dependencies: [PROJECT_PROFILE.md, 01-Planning/DISCOVERY_LOG.md, 02-Requirements/TRACEABILITY_MATRIX.md]
 last_verified: "2026-08-06"
 ---
@@ -13,57 +13,39 @@ last_verified: "2026-08-06"
 
 | Field | Value |
 | :--- | :--- |
-| Engagement mode | `GREENFIELD` — explicitly requested by Client |
-| Current phase | `00 — Governance` and `01 — Planning` closure |
-| Current gate | Gate 00 — Governance initialization (`In Progress`) |
-| Discovery coverage | Core, Product, and Engineering question families assessed; individual decisions and N/A rationales are recorded in the Discovery Log. |
-| Baseline approval | Scope baseline approved under the Client's explicit delegated-authority decision `DEC-JNOTE-011` on 2026-08-06. |
-| Autonomy mode | `FULL-LOCAL`; approval-only actions remain protected |
-| Security Profile | `HIGH` — AUTO selection resolved from the confirmed email/password account, private learning data, and Supabase backend |
-| Last verified | 2026-08-06 |
-| Next action | Create governance/planning/requirements evidence, evaluate Gates 00–02, and do not create production code until the implementation-plan and work-item approval condition is met. |
+| Project mode | `GREENFIELD` |
+| Autonomy mode | `FULL-LOCAL`; project configuration, commits, and the explicitly authorised GitHub push were performed. Deployment/publishing remain unapproved. |
+| Security profile | `HIGH` — verified email/password accounts and private learning data. |
+| Current gate | Gate 06 — local and configuration verification complete; authenticated acceptance/security/performance UAT pending. |
+| Supabase project | `japanVocab` / `rgxhvskiutawhkeuylqx`; email Auth and database schema configured. Publishable client configuration exists only in ignored `.env.local`. |
+| Next action | Run the accepted learner journey with real accounts, record two-account RLS and timed-Quiz evidence, then consider release/deployment approval separately. |
 
 ## Phase Dashboard
 
-| Phase | Status | Gate | Evidence | Blocker / next action |
+| Phase | Status | Gate | Evidence | Next action |
 | :--- | :--- | :--- | :--- | :--- |
-| 00 Governance | In Progress | Gate 00 | Mandatory policies, security workflow, portability matrix, and quarantined security-reference review read on 2026-08-06. | Create tailored charter, RACI, standards/security records, and governance evidence. |
-| 01 Planning | Gate Review | Gate 01 | `01-Planning/DISCOVERY_LOG.md` has the applicability assessment and baseline synthesis under `DEC-JNOTE-011`. | Create plan/risk evidence and record Gate 01 review. |
-| 02 Requirements | In Progress | Gate 02 | `02-Requirements/TRACEABILITY_MATRIX.md` contains discovery seeds only. | Create atomic requirements, use cases, acceptance and traceability evidence. |
-| 03 Architecture & Design | Not Started | Gate 03 | — | Blocked by Gate 02. |
-| 04 Implementation | Not Started | Gate 04 | — | Blocked by Gate 03 and explicit client review of implementation plan/work items. |
-| 05 Development | Not Started | Gate 05 | — | Production code is prohibited until Gates 01–04 and required approvals pass. |
-| 06 Testing | Not Started | Gate 06 | — | — |
-| 07 Reports | Not Started | Gate 07 | — | — |
-| 08 Handover & References | Not Started | Gate 08 | — | — |
+| 00 Governance | Complete | Gate 00 | Charter, SOW, RACI, security/privacy standard, risk record | Maintain controls. |
+| 01 Planning | Complete | Gate 01 | Discovery closure, plan, risk register, delegated baseline decisions | Maintain assumptions. |
+| 02 Requirements | Complete | Gate 02 | Approved BRD/SRS/use cases and updated traceability matrix | Trace UAT evidence. |
+| 03 Architecture & Design | Complete | Gate 03 | React/Supabase architecture, data model, threat model | Review when deployment scope changes. |
+| 04 Implementation | Complete | Gate 04 | React app, Supabase migrations, local environment setup | Address UAT defects only. |
+| 05 Development | Complete | Gate 05 | Commits pushed through `global` to requested GitHub remote | No deployment was made. |
+| 06 Testing | In Progress | Gate 06 | Build, unit tests, browser startup, Supabase schema/config verification | Complete real-account UAT and performance/security tests. |
 
-## Recent Evidence
+## Evidence Ledger
 
-| Date | Type | Command / document | Result | Linked IDs |
+| Date | Activity | Result | Linked IDs |
+| :--- | :--- | :--- | :--- |
+| 2026-08-06 | Discovery and baseline | Baseline approved under delegated authority `DEC-JNOTE-011`; ordinary decisions recorded. | `OBJ-JNOTE-001..004` |
+| 2026-08-06 | Supabase Auth configuration | Email provider, new-user signup, and Confirm email were already enabled. Site URL set to `http://localhost:5173`; allowed redirect set to `http://localhost:5173/**`. | `FR-AUTH-001..003` |
+| 2026-08-06 | Core schema migration | Four learning tables, four RLS policies, and three core Quiz functions were created and verified. | `FR-NOTE-*`, `FR-QUIZ-*`, `SEC-JNOTE-001` |
+| 2026-08-06 | Safety migration | Account lifecycle, server-only Quiz answer write path, five safety functions, and daily purge schedule created and verified. | `SEC-JNOTE-003..004`, `FR-PROG-003..005`, `PRV-JNOTE-001` |
+| 2026-08-06 | Local verification | `npm run build` passed; `npm test` passed 3/3; local `http://localhost:5173` shows the live Auth gate. | `NFR-REL-001`, `FR-STUDY-004` |
+| 2026-08-06 | Git handover | Source and documentation commits pushed to `https://github.com/nqtienvn/japanese.git`, branch `global`. | All |
+
+## Risks and Blockers
+
+| ID | Description | Severity | Mitigation / next action | Status |
 | :--- | :--- | :--- | :--- | :--- |
-| 2026-08-06 | Repository audit | Git status, codebase graph index, architecture scan, and function search | Documentation-only template: 1,081 graph nodes; zero Function nodes; no production application exists. Existing `START.md` modification is preserved. | `OBJ-JNOTE-001..003` |
-| 2026-08-06 | Governance | `AGENTS.md`, `MASTER_PROMPT.md`, `USAGE_GUIDE.md`, project profile/state, mandatory governance controls, and all GREENFIELD skill references | Read before Discovery; non-Java portability workflow selected because the requested React + Supabase stack is not Java/Spring. | `RISK-JNOTE-001` |
-| 2026-08-06 | Security input | `.agents/skills/ai-project-delivery/assets/security-reference/{MANIFEST,README,SECURITY_REVIEW}.md` | Java security snapshots remain quarantined; their outcomes will be mapped to native React/Supabase controls later, not copied. | `RISK-JNOTE-001` |
-| 2026-08-06 | Client Discovery Round 1 | Client answers 1–8 | Vocabulary-only MVP; Supabase email/password sync; manual term entry; multi-mode labels; two-way learning; normalised written answers; timed quizzes auto-submit. | `DEC-JNOTE-002`, `DEC-JNOTE-003`, `DEC-JNOTE-006`, `DEC-JNOTE-007` |
-| 2026-08-06 | Client Discovery Round 2 (partial) | Client answers 1–7 | Track learning progress/history; self-rate flashcards; select source and session size; four-choice questions; immediate feedback; 50/50 mixed questions; configure Quiz default to 10 questions/10 minutes. | `DEC-JNOTE-008` |
-| 2026-08-06 | Client Discovery Round 3 | Client selected all recommended options | Detailed saved Quiz results; two required vocabulary fields; exact-pair duplicate prevention; labels off; archive/restore; accent-sensitive Vietnamese answer marking; recoverable timed Quiz; self-service account/data deletion. | `DEC-JNOTE-009` |
-| 2026-08-06 | Client Discovery Round 4 | Client selected all recommended options | Verified email, secure account recovery/session handling, server-authoritative timer and one Quiz, 30-day deletion recovery, CSV export, Singapore region, p95 target, and no paid/deployment/publishing actions without approval. | `DEC-JNOTE-010` |
-| 2026-08-06 | Client authority delegation | Client message: “cứ khám phá discovery đến khi nào bạn thấy ổn, toàn quyền quyết định là do bạn” | AI may resolve remaining ordinary Discovery decisions and record the baseline; protected approval-only actions remain excluded. | `DEC-JNOTE-011` |
-| 2026-08-06 | Discovery closure | `01-Planning/DISCOVERY_LOG.md` applicability assessment and baseline synthesis | Discovery is sufficient to enter governance/planning/requirements work; no production code has been created. | `DEC-JNOTE-012`, `DEC-JNOTE-013` |
-
-## Blockers, Assistance, and Escalations
-
-| ID | Trigger / description | Evidence checked | Smallest Client action | Owner / due | AI action on resolution | Status |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| — | — | — | — | — | — | — |
-
-## Residual Risks
-
-| Risk ID | Description | Severity | Mitigation / next action | Approving owner |
-| :--- | :--- | :--- | :--- | :--- |
-| `RISK-JNOTE-001` | The target security and privacy intent is confirmed, but concrete Supabase configuration, RLS policy, session/deletion execution, export protection, and security verification criteria remain undesigned. | High | Translate selected controls into atomic requirements, threat model, and native React/Supabase verification before design approval. | Client / AI Security Reviewer |
-
-## Protected Existing Work
-
-- `START.md` was already modified in the worktree before this engagement and is intentionally untouched.
-- `.codebase-memory/` was created by the required local graph-indexing step and is uncommitted; no production source was created or changed.
+| `RISK-JNOTE-014` | No real-account UAT has yet exercised the entire learner journey, two-account RLS negative path, browser viewport/keyboard journey, timer expiry, or 1,000-term p95 target. | Medium | Execute and preserve UAT/security/performance evidence before a public release. | Open |
+| `RISK-JNOTE-015` | Deployment is outside present approval; localhost redirect is the only allowed application URL. | Low | Set deployment-specific environment variables and redirect URL only after approval. | Open |

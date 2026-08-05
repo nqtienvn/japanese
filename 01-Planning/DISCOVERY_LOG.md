@@ -13,6 +13,25 @@ last_verified: "2026-08-06"
 
 > This log supersedes the previous GPA-template engagement for the Client's new GREENFIELD initiative. The superseded content remains recoverable through Git history. No baseline, requirement, architecture, or production-code approval is implied by this intake record.
 
+## Superseding Baseline and Delivery Record — 2026-08-06
+
+This record supersedes the earlier pending-language elsewhere in this discovery record. The Client delegated ordinary Discovery/baseline decisions under `DEC-JNOTE-011`, then explicitly authorised full local delivery, Supabase configuration, Git commits, and push to the requested remote.
+
+| Item | Resolved state | Evidence |
+| :--- | :--- | :--- |
+| Problem, scope, and requirements baseline | Approved/delegated for the vocabulary-only JNOTE release. | `DEC-JNOTE-006..011`, `02-Requirements/BRD.md`, `02-Requirements/SRS.md` |
+| Supabase Auth | Email/password signup and Confirm email verified enabled; password reset UI uses Supabase recovery. | Supabase dashboard inspection, `src/App.tsx` |
+| Private data and Quiz authority | Owner RLS, unique active Quiz, server-created deadline, server-only answer save, and server scoring are implemented. | `supabase/migrations/20260806_jnote.sql`, `20260806_02_jnote_lifecycle_and_quiz_guard.sql` |
+| Export/deletion lifecycle | Owner CSV export; password reauthentication before request; immediate RLS hide; restore for 30 days; scheduled permanent Auth-user/data purge after expiry. | `src/App.tsx`, `20260806_02_jnote_lifecycle_and_quiz_guard.sql`, `20260806_03_purge_auth_accounts.sql` |
+| Delivery boundary | Local app integration, database configuration, commits and push are complete. No deployment, paid service purchase, or public release was performed. | `PROJECT_STATE.md`, Git branch `global` |
+
+### Delivery verification
+
+- Supabase Site URL is `http://localhost:5173`; allowed redirect is `http://localhost:5173/**`.
+- Database verification found five JNOTE tables, the core and safety functions, and one daily purge schedule.
+- `npm run build` passed and `npm test` passed 3/3. The local browser displays the live JNOTE Auth gate.
+- Remaining release evidence is authenticated learner UAT, two-account RLS negative testing, timer-expiry testing, responsive/keyboard checks, and the 1,000-term performance measurement. These are UAT/release-gate tasks, not blockers for the completed local implementation.
+
 ## Interview Status
 
 | Field | Value |
