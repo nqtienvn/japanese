@@ -5,7 +5,7 @@ artifact_type: state
 owner: "AI Delivery Vendor"
 version: "1.0"
 status: In Progress
-ids: [OBJ-JNOTE-001, OBJ-JNOTE-002, OBJ-JNOTE-003, OBJ-JNOTE-004, RISK-JNOTE-014]
+ids: [OBJ-JNOTE-001, OBJ-JNOTE-002, OBJ-JNOTE-003, OBJ-JNOTE-004, FR-LESSON-001, FR-LESSON-002, RISK-JNOTE-014]
 dependencies: [PROJECT_PROFILE.md, 01-Planning/DISCOVERY_LOG.md, 02-Requirements/TRACEABILITY_MATRIX.md]
 last_verified: "2026-08-06"
 ---
@@ -42,6 +42,12 @@ last_verified: "2026-08-06"
 | 2026-08-06 | Safety migration | Account lifecycle, server-only Quiz answer write path, five safety functions, and daily purge schedule created and verified. | `SEC-JNOTE-003..004`, `FR-PROG-003..005`, `PRV-JNOTE-001` |
 | 2026-08-06 | Local verification | `npm run build` passed; `npm test` passed 3/3; local `http://localhost:5173` shows the live Auth gate. | `NFR-REL-001`, `FR-STUDY-004` |
 | 2026-08-06 | Git handover | Source and documentation commits pushed to `https://github.com/nqtienvn/japanese.git`, branch `global`. | All |
+
+## Lesson Extension Evidence
+
+| Date | Activity | Result | Linked IDs |
+| :--- | :--- | :--- | :--- |
+| 2026-08-06 | Lesson organisation | Named Lessons, term-to-Lesson association, owner RLS, and current-Lesson practice scope were implemented and committed as `e0f14b0`. The migration completed successfully on `japanVocab`; build and unit tests passed. | `FR-LESSON-001..002`, `OBJ-JNOTE-001..003` |
 
 ## Risks and Blockers
 

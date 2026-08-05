@@ -5,7 +5,7 @@ artifact_type: traceability
 owner: "AI Delivery Vendor"
 version: "1.0"
 status: In Progress
-ids: [OBJ-JNOTE-001, OBJ-JNOTE-002, OBJ-JNOTE-003, OBJ-JNOTE-004]
+ids: [OBJ-JNOTE-001, OBJ-JNOTE-002, OBJ-JNOTE-003, OBJ-JNOTE-004, FR-LESSON-001, FR-LESSON-002]
 dependencies: [02-Requirements/SRS.md, 03-Architecture-Design/SOFTWARE_ARCHITECTURE.md, 06-Testing/TEST_SPECIFICATION.md]
 last_verified: "2026-08-06"
 ---
@@ -18,15 +18,22 @@ last_verified: "2026-08-06"
 | `OBJ-JNOTE-003` — Assess learning | `FR-QUIZ-001..006`, `SEC-JNOTE-003`, `NFR-REL-001` | One-active-attempt index; server deadline; RPC-only save/submit; persisted answers | `src/App.tsx`, `src/api.ts`, `supabase/migrations/20260806_jnote.sql`, `20260806_02_jnote_lifecycle_and_quiz_guard.sql` | Supabase query confirms quiz functions; local TypeScript build passed; timed cross-device UAT pending | Implemented; UAT pending |
 | `OBJ-JNOTE-004` — Protect private learning data | `FR-AUTH-001..003`, `FR-PROG-003..005`, `SEC-JNOTE-001..004`, `PRV-JNOTE-001` | Confirm-email Auth; owner RLS; account lifecycle, 30-day scheduler, export and auth-user purge | `src/App.tsx`, `src/api.ts`, `supabase/migrations/20260806_02_jnote_lifecycle_and_quiz_guard.sql`, `20260806_03_purge_auth_accounts.sql` | Dashboard confirms Email enabled/Confirm email; SQL confirms five tables, five safety functions and one purge schedule; two-account negative test pending | Implemented; security UAT pending |
 
+## Lesson Extension Trace
+
+| Objective | Approved requirements | Design / data control | Implementation evidence | Test / configuration evidence | Handover state |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `OBJ-JNOTE-001` — Capture vocabulary | `FR-LESSON-001..002` | Owner-scoped `lessons`; `vocabulary_terms.lesson_id`; RLS confirms the referenced Lesson is owned by the current learner. | `src/App.tsx`, `src/api.ts`, `supabase/migrations/20260806_04_jnote_lessons.sql` | Migration completed successfully on `japanVocab`; `npm run build` and `npm test` passed. | Implemented; authenticated UAT pending |
+| `OBJ-JNOTE-002..003` — Practise and assess | `FR-LESSON-002` | Current Lesson filters active Terms before Flashcard, Study, or Quiz session selection. | `src/App.tsx` | Local learner UI is build-verified; lesson-scoped session UAT pending. | Implemented; UAT pending |
+
 ## Coverage Summary
 
 | Measure | Result | Evidence / next action |
 | :--- | :--- | :--- |
-| Approved atomic requirements | 37 | `02-Requirements/SRS.md` |
+| Approved atomic requirements | 39 | `02-Requirements/SRS.md` |
 | Objectives with implementation evidence | 4 / 4 | Rows above |
 | Local verification | Passed | `npm run build`; `npm test` (3 tests) |
 | Supabase configuration verification | Passed | Email Auth enabled, Confirm email enabled, `http://localhost:5173` site URL, allowed `http://localhost:5173/**` redirect |
-| Database verification | Passed | 5 JNOTE tables; server Quiz guard/lifecycle functions; one daily purge schedule |
+| Database verification | Passed | 6 JNOTE tables including `lessons`; owner Lesson RLS; server Quiz guard/lifecycle functions; one daily purge schedule |
 | Acceptance / security UAT | Pending | Create two real test accounts, execute the accepted learner journey, and record p95/viewport/keyboard evidence before public release |
 
 ## Traceability Risks

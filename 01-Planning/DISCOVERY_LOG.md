@@ -225,6 +225,14 @@ Discovery is sufficient for Gate 01 because all question families have been asse
 | `DEC-JNOTE-010` | Adopt the Round 4 security, privacy, performance, regional, and cost/release boundaries. | Security / privacy / NFR | Client | Confirmed 2026-08-06 | High |
 | `DEC-JNOTE-011` | Delegate Discovery completion and ordinary baseline decisions to AI. | Governance | Client | Confirmed 2026-08-06 | High |
 
+## Scope Extension Record — 2026-08-06
+
+| Item | Resolution | Source / rationale |
+| :--- | :--- | :--- |
+| `DEC-JNOTE-012` | Add a named Lesson layer to the personal notebook. A learner creates a Lesson, opens it, then adds new Japanese/Vietnamese Terms to that Lesson. | Direct Client request after the vocabulary MVP delivery. |
+| Practice scope | The currently opened Lesson filters Flashcard, Study, and Quiz to that Lesson's active Terms. Selecting all Lessons returns to the original account-wide scope. | Keeps capture and learning organised by the lesson title without changing the existing mode-label choices. |
+| Data protection | Lessons and term associations remain owner-scoped; a Term may only reference a Lesson owned by the current authenticated user. Existing Terms stay readable while unassigned. | `HIGH` security posture and safe, non-destructive schema evolution. |
+
 ## Baseline Approval
 
 | Content | Client decision | Date | Note |

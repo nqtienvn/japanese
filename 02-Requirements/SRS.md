@@ -3,9 +3,9 @@ artifact_id: DOC-02-REQUIREMENTS-SRS-MD
 phase: "02-Requirements"
 artifact_type: requirements
 owner: "AI Business Analyst"
-version: "1.0"
+version: "1.1"
 status: Approved
-ids: [FR-AUTH-001, FR-AUTH-002, FR-AUTH-003, FR-NOTE-001, FR-NOTE-002, FR-NOTE-003, FR-NOTE-004, FR-NOTE-005, FR-FLASH-001, FR-FLASH-002, FR-STUDY-001, FR-STUDY-002, FR-STUDY-003, FR-QUIZ-001, FR-QUIZ-002, FR-QUIZ-003, FR-QUIZ-004, FR-QUIZ-005, FR-PROG-001, FR-PROG-002, FR-PROG-003, FR-PROG-004, NFR-PERF-001, NFR-UX-001, NFR-A11Y-001, NFR-REL-001, SEC-JNOTE-001, SEC-JNOTE-002, SEC-JNOTE-003, PRV-JNOTE-001]
+ids: [FR-AUTH-001, FR-AUTH-002, FR-AUTH-003, FR-LESSON-001, FR-LESSON-002, FR-NOTE-001, FR-NOTE-002, FR-NOTE-003, FR-NOTE-004, FR-NOTE-005, FR-FLASH-001, FR-FLASH-002, FR-STUDY-001, FR-STUDY-002, FR-STUDY-003, FR-QUIZ-001, FR-QUIZ-002, FR-QUIZ-003, FR-QUIZ-004, FR-QUIZ-005, FR-PROG-001, FR-PROG-002, FR-PROG-003, FR-PROG-004, NFR-PERF-001, NFR-UX-001, NFR-A11Y-001, NFR-REL-001, SEC-JNOTE-001, SEC-JNOTE-002, SEC-JNOTE-003, PRV-JNOTE-001]
 dependencies: [02-Requirements/BRD.md, 01-Planning/DISCOVERY_LOG.md]
 last_verified: "2026-08-06"
 ---
@@ -18,6 +18,8 @@ Each row is one testable obligation. `REL-JNOTE-1.0` is source/local only.
 | `FR-AUTH-001` | The system SHALL create an account after a valid email/password registration request. | Must | One pending-verification account is created. |
 | `FR-AUTH-002` | The system SHALL deny private-notebook access to an unverified account. | Must | Unverified session cannot read a protected Term. |
 | `FR-AUTH-003` | The system SHALL start a password-reset flow through an account email request. | Must | Valid request returns a neutral recovery message. |
+| `FR-LESSON-001` | The system SHALL let a Learner create and open a named Lesson. | Must | The owner sees the new Lesson in the Lesson list and can open it. |
+| `FR-LESSON-002` | The system SHALL associate every newly created Term with the selected owner-scoped Lesson and use that Lesson as the current practice scope. | Must | A Term created from Lesson A is returned only when Lesson A is selected; Flashcard, Study, and Quiz use only active Terms from Lesson A. |
 | `FR-NOTE-001` | The system SHALL create an active Term from required Japanese and Vietnamese text. | Must | Owner sees one saved pair. |
 | `FR-NOTE-002` | The system SHALL reject an exact normalised owner-scoped Japanese/Vietnamese pair. | Must | Duplicate creates no second Term. |
 | `FR-NOTE-003` | The system SHALL return only active Terms owned by the authenticated Learner by default. | Must | Cross-owner and archived rows are absent. |
