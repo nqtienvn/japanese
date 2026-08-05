@@ -9,12 +9,14 @@
 
 # Local AI/tool state and generated evidence that may contain machine paths
 .ai-local/
+.codebase-memory/
 *.local.json
 
 # Common generated output (adapt to the selected stack)
 node_modules/
 dist/
 build/
+*.tsbuildinfo
 target/
 coverage/
 bin/
